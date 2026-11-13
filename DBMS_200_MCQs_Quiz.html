@@ -1,0 +1,817 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>DBMS 200 MCQs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<style>
+/* Study Console: Topic ledger + summary on the home screen, continuous vertical question list on the quiz stage,
+   universal Back/Forward history navigation, and instant explanations. */
+:root{
+  --bg:#F2F5F6; --surface:#FFFFFF; --sunken:#E7EDEF; --ink:#13232B; --muted:#56676F; --line:#D2DCE0;
+  --accent:#1B5E86; --accent-ink:#FFFFFF; --accent-soft:#DCEAF3;
+  --ok:#1C7A4A; --ok-soft:#DCF1E4; --bad:#B23A2E; --bad-soft:#F7E0DC; --todo:#C3CED3;
+  --code-bg:#11202A; --code-ink:#D9E5EA; --code-kw:#86C8EC; --code-str:#E8C47A; --code-com:#7E949D; --code-num:#B9A6F0;
+  --font-ui:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --font-display:"IBM Plex Sans Condensed","IBM Plex Sans","Arial Narrow",system-ui,sans-serif;
+  --font-mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --radius:10px; --shadow:0 1px 2px rgba(19,35,43,.06),0 4px 14px rgba(19,35,43,.05);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0D161B; --surface:#142128; --sunken:#1A2A32; --ink:#E2EBEE; --muted:#93A5AD; --line:#293B44;
+    --accent:#72B6E0; --accent-ink:#06141C; --accent-soft:#17324A;
+    --ok:#5CC98F; --ok-soft:#163626; --bad:#F08C80; --bad-soft:#3D1F1C; --todo:#33464F;
+    --code-bg:#09131A; --code-ink:#D9E5EA; --code-kw:#86C8EC; --code-str:#E8C47A; --code-com:#7E949D; --code-num:#B9A6F0;
+    --shadow:0 1px 2px rgba(0,0,0,.3); color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0D161B; --surface:#142128; --sunken:#1A2A32; --ink:#E2EBEE; --muted:#93A5AD; --line:#293B44;
+  --accent:#72B6E0; --accent-ink:#06141C; --accent-soft:#17324A;
+  --ok:#5CC98F; --ok-soft:#163626; --bad:#F08C80; --bad-soft:#3D1F1C; --todo:#33464F;
+  --code-bg:#09131A; --code-ink:#D9E5EA; --code-kw:#86C8EC; --code-str:#E8C47A; --code-com:#7E949D; --code-num:#B9A6F0;
+  --shadow:0 1px 2px rgba(0,0,0,.3); color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-ui);font-size:15px;line-height:1.55;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 48px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+button,select{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.wrap{max-width:1080px;margin:0 auto}
+h1,h2,h3{font-family:var(--font-display);text-wrap:balance;margin:0;line-height:1.2}
+.mono{font-family:var(--font-mono)}
+.muted{color:var(--muted)}
+.eyebrow{font-family:var(--font-mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+
+/* Top bar */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:15;background:var(--bg);border-bottom:1px solid var(--line);margin-inline:calc(-1 * max(16px,env(safe-area-inset-left,0px))) calc(-1 * max(16px,env(safe-area-inset-right,0px)));
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.top-in{max-width:1080px;margin:0 auto;display:flex;align-items:center;gap:10px;padding-block:10px;flex-wrap:wrap}
+.nav-arrows{display:inline-flex;gap:4px;align-items:center}
+.brand{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;min-width:0;background:none;border:0;padding:0;cursor:pointer;text-align:left}
+.brand b{font-family:var(--font-display);font-size:21px;font-weight:700;letter-spacing:-.01em}
+.brand span{font-size:13px;color:var(--muted)}
+.sync{margin-left:auto;display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted);font-family:var(--font-mono)}
+.sync i{width:7px;height:7px;border-radius:50%;background:var(--todo);display:inline-block}
+.sync[data-s="account"] i{background:var(--ok)}
+.sync[data-s="connecting"] i{background:var(--accent)}
+.toplinks{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid var(--line);background:var(--surface);border-radius:8px;
+  padding:8px 14px;font-weight:500;cursor:pointer;min-height:40px;text-align:center;text-decoration:none;color:inherit}
+.btn:hover:not([disabled]){border-color:var(--accent)}
+.btn.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.btn.primary:hover:not([disabled]){filter:brightness(1.07)}
+.btn.ghost{background:transparent}
+.btn.small{padding:5px 10px;min-height:32px;font-size:13px}
+.btn[disabled]{opacity:.42;cursor:not-allowed}
+.btn .count{font-family:var(--font-mono);font-size:12px;opacity:.85}
+
+/* Session Switcher Bar (Forward / Backward between sessions) */
+.sessbar{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:8px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:8px 10px;box-shadow:var(--shadow)}
+.sessbar select{width:100%;border:1px solid var(--line);background:var(--sunken);border-radius:7px;padding:6px 10px;font-weight:600;font-size:13.5px;cursor:pointer;text-overflow:ellipsis}
+@media (max-width:600px){.sessbar{grid-template-columns:1fr 1fr}.sessbar select{grid-column:1 / -1;order:-1}}
+
+/* Sticky Quiz Controls & Question Strip */
+.qsticky{position:sticky;top:calc(env(safe-area-inset-top,0px) + 53px);z-index:10;background:var(--bg);padding-block:8px;border-bottom:1px solid var(--line);display:flex;flex-direction:column;gap:8px}
+.qfeed{display:flex;flex-direction:column;gap:16px}
+.qcard{scroll-margin-top:calc(env(safe-area-inset-top,0px) + 165px)}
+
+/* Home */
+.home{display:grid;grid-template-columns:330px minmax(0,1fr);gap:24px;margin-top:22px;align-items:start}
+@media (max-width:900px){.home{grid-template-columns:minmax(0,1fr)}}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
+.summary{display:flex;flex-direction:column;gap:18px}
+@media (min-width:901px){.summary{position:sticky;top:calc(env(safe-area-inset-top,0px) + 76px)}}
+.bigrow{display:flex;align-items:flex-end;gap:14px;flex-wrap:wrap}
+.big{font-family:var(--font-display);font-size:46px;font-weight:700;line-height:1;font-variant-numeric:tabular-nums}
+.big small{font-size:20px;color:var(--muted);font-weight:600}
+.stack{display:flex;height:10px;border-radius:5px;overflow:hidden;background:var(--sunken)}
+.stack span{display:block;height:100%}
+.stack .s-ok{background:var(--ok)} .stack .s-bad{background:var(--bad)}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.legend b{color:var(--ink);font-weight:600}
+.dot{width:9px;height:9px;border-radius:2px;display:inline-block;margin-right:5px;vertical-align:baseline}
+.dot.ok{background:var(--ok)} .dot.bad{background:var(--bad)} .dot.todo{background:var(--todo)}
+.lvrows{display:grid;gap:8px}
+.lvrow{display:grid;grid-template-columns:78px minmax(0,1fr) 78px;gap:10px;align-items:center;font-size:13px}
+.lvrow .stack{height:7px}
+.lvrow .num{text-align:right;font-family:var(--font-mono);font-variant-numeric:tabular-nums;color:var(--muted)}
+.actions{display:grid;gap:8px}
+.weak h3{font-size:16px;margin-bottom:8px}
+.weaklist{display:grid;gap:6px;margin:0;padding:0;list-style:none}
+.weaklist button{width:100%;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center;text-align:left;background:var(--sunken);border:1px solid transparent;border-radius:8px;padding:8px 10px;cursor:pointer}
+.weaklist button:hover{border-color:var(--accent)}
+.weaklist .wname{font-size:13px;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.weaklist .wstat{font-family:var(--font-mono);font-size:12px;color:var(--bad);white-space:nowrap}
+.empty-note{font-size:13px;color:var(--muted)}
+.reset{border-top:1px solid var(--line);padding-top:14px;display:flex;flex-direction:column;gap:8px}
+.reset .confirm{display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:13px}
+
+.topics-head{display:flex;align-items:flex-end;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.topics-head h2{font-size:24px}
+.seg{display:inline-flex;background:var(--sunken);border-radius:8px;padding:3px;gap:2px;flex-wrap:wrap}
+.seg button{border:0;background:transparent;padding:5px 10px;border-radius:6px;font-size:13px;cursor:pointer;color:var(--muted)}
+.seg button[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:var(--shadow);font-weight:500}
+.topics-head .seg{margin-left:auto}
+.topiclist{display:grid;gap:8px;list-style:none;margin:0;padding:0}
+.topic{width:100%;display:grid;grid-template-columns:44px minmax(0,1fr) 84px;gap:14px;align-items:center;text-align:left;background:var(--surface);
+  border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;cursor:pointer;box-shadow:var(--shadow)}
+.topic:hover{border-color:var(--accent)}
+.tnum{font-family:var(--font-mono);font-size:13px;color:var(--muted);line-height:1.1}
+.tnum b{display:block;font-family:var(--font-display);font-size:24px;color:var(--ink);font-weight:600}
+.tbody{display:flex;flex-direction:column;gap:6px;min-width:0}
+.tname{font-weight:600;font-size:15px;line-height:1.35}
+.tsub{font-size:12.5px;color:var(--muted);line-height:1.4}
+.tmeta{font-family:var(--font-mono);font-size:12px;color:var(--muted);display:flex;gap:10px;flex-wrap:wrap}
+.tbar{height:6px}
+.tscore{text-align:right;font-family:var(--font-display);font-size:22px;font-weight:600;font-variant-numeric:tabular-nums}
+.tscore small{display:block;font-family:var(--font-mono);font-size:11px;color:var(--muted);font-weight:400;white-space:nowrap}
+.tscore.na{color:var(--todo)}
+@media (max-width:520px){.topic{grid-template-columns:32px minmax(0,1fr) 66px;gap:10px;padding:12px}.tnum b{font-size:20px}.tscore{font-size:18px}}
+.intro{font-size:13.5px;color:var(--muted);max-width:62ch}
+
+/* Quiz */
+.quiz{max-width:820px;margin:18px auto 0;display:flex;flex-direction:column;gap:14px}
+.qhead{display:flex;align-items:flex-start;gap:12px;flex-wrap:wrap}
+.qhead .titles{min-width:0;flex:1 1 300px}
+.qhead h2{font-size:22px}
+.filters{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.strip-wrap{overflow-x:auto;padding-bottom:4px;-webkit-overflow-scrolling:touch}
+.strip{display:flex;gap:5px;width:max-content}
+.sq{width:38px;height:30px;border-radius:6px;border:1px solid var(--line);background:var(--surface);font-family:var(--font-mono);font-size:11.5px;cursor:pointer;color:var(--muted);flex:none}
+.sq.ok{background:var(--ok-soft);border-color:var(--ok);color:var(--ok)}
+.sq.bad{background:var(--bad-soft);border-color:var(--bad);color:var(--bad)}
+.sq.cur{outline:2px solid var(--accent);outline-offset:1px;color:var(--ink);font-weight:600}
+.progressline{display:flex;gap:14px;flex-wrap:wrap;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.progressline b{color:var(--ink)}
+.qcard{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:14px;min-width:0}
+@media (max-width:520px){.qcard{padding:16px}}
+.qmeta{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.qno{font-family:var(--font-mono);font-weight:600;font-size:14px;background:var(--sunken);padding:2px 8px;border-radius:5px}
+.lvl{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;color:var(--muted)}
+.bars{display:inline-flex;gap:2px;align-items:flex-end;height:12px}
+.bars i{width:4px;background:var(--todo);border-radius:1px}
+.bars i:nth-child(1){height:5px}.bars i:nth-child(2){height:8px}.bars i:nth-child(3){height:12px}
+.bars.on1 i:nth-child(-n+1),.bars.on2 i:nth-child(-n+2),.bars.on3 i:nth-child(-n+3){background:var(--accent)}
+.missed{font-family:var(--font-mono);font-size:11.5px;color:var(--bad);border:1px solid var(--bad);border-radius:20px;padding:1px 8px}
+.qmeta .refbtn{margin-left:auto}
+.stem{font-size:17px;line-height:1.5;margin:0;white-space:pre-wrap;font-weight:500}
+.code{background:var(--code-bg);color:var(--code-ink);border-radius:8px;padding:14px 16px;margin:0;overflow-x:auto;font-family:var(--font-mono);font-size:13.5px;line-height:1.55;tab-size:2}
+.code .kw{color:var(--code-kw)} .code .st{color:var(--code-str)} .code .cm{color:var(--code-com);font-style:italic} .code .nu{color:var(--code-num)}
+.refs{display:grid;gap:10px;background:var(--sunken);border-radius:8px;padding:12px}
+.refs .grid-wrap{overflow-x:auto}
+.refs pre{margin:0;font-family:var(--font-mono);font-size:12.5px;line-height:1.35}
+.refs .cap{font-size:12px;color:var(--muted)}
+.opts{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.opt{width:100%;display:grid;grid-template-columns:30px minmax(0,1fr) auto;gap:12px;align-items:start;text-align:left;background:var(--surface);border:1.5px solid var(--line);border-radius:9px;padding:11px 12px;cursor:pointer;min-height:48px}
+.opt:hover:not([disabled]){border-color:var(--accent);background:var(--accent-soft)}
+.opt[disabled]{cursor:default}
+.key{width:28px;height:28px;border-radius:6px;background:var(--sunken);display:grid;place-items:center;font-family:var(--font-mono);font-weight:600;font-size:13px}
+.otext{padding-top:3px;min-width:0;overflow-wrap:anywhere}
+.otext.codey{font-family:var(--font-mono);font-size:13.5px}
+.mark{padding-top:3px;font-family:var(--font-mono);font-size:12px;font-weight:600;white-space:nowrap}
+.opt.right{border-color:var(--ok);background:var(--ok-soft)}
+.opt.right .key{background:var(--ok);color:var(--surface)}
+.opt.right .mark{color:var(--ok)}
+.opt.wrong{border-color:var(--bad);background:var(--bad-soft)}
+.opt.wrong .key{background:var(--bad);color:var(--surface)}
+.opt.wrong .mark{color:var(--bad)}
+.opt.dim{opacity:.6}
+.feedback{border-radius:9px;padding:14px;display:flex;flex-direction:column;gap:6px;border-left:4px solid var(--ok);background:var(--ok-soft)}
+.feedback.no{border-left-color:var(--bad);background:var(--bad-soft)}
+.feedback .verdict{font-weight:600;font-size:15px}
+.feedback.yes .verdict{color:var(--ok)} .feedback.no .verdict{color:var(--bad)}
+.feedback p{margin:0}
+.feedback .fbrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
+.qfoot{display:flex;gap:10px;align-items:center;flex-wrap:wrap;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:14px 18px;box-shadow:var(--shadow)}
+.qfoot .spacer{flex:1}
+@media (max-width:620px){.qhead h2{font-size:19px}}
+.nolist{padding:28px;text-align:center;color:var(--muted)}
+
+/* Results + mistakes */
+.result{max-width:820px;margin:18px auto 0;display:flex;flex-direction:column;gap:16px}
+.scorecard{display:grid;grid-template-columns:auto minmax(0,1fr);gap:22px;align-items:center}
+@media (max-width:560px){.scorecard{grid-template-columns:minmax(0,1fr)}}
+.ring{width:132px;height:132px;position:relative;flex:none}
+.ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ring .lbl{position:absolute;inset:0;display:grid;place-items:center;text-align:center}
+.ring .lbl b{font-family:var(--font-display);font-size:32px;line-height:1}
+.ring .lbl small{display:block;font-size:12px;color:var(--muted);font-family:var(--font-mono)}
+.mistake{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.mistake .stem{font-size:15px}
+.answers{display:grid;gap:6px}
+.ans{display:grid;grid-template-columns:116px minmax(0,1fr);gap:10px;font-size:14px;align-items:start;padding:8px 10px;border-radius:7px}
+@media (max-width:520px){.ans{grid-template-columns:minmax(0,1fr);gap:2px}}
+.ans .who{font-family:var(--font-mono);font-size:12px;padding-top:2px}
+.ans.yours{background:var(--bad-soft)} .ans.yours .who{color:var(--bad)}
+.ans.correct{background:var(--ok-soft)} .ans.correct .who{color:var(--ok)}
+.explain{font-size:14px;margin:0;color:var(--ink)}
+.explain b{font-weight:600}
+.grouphead{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-top:6px}
+.grouphead h3{font-size:18px}
+.rowbtns{display:flex;gap:8px;flex-wrap:wrap}
+.toast{position:fixed;left:50%;bottom:calc(18px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:9px 16px;border-radius:8px;font-size:14px;z-index:20;max-width:calc(100% - 32px)}
+@media (prefers-reduced-motion:no-preference){.opt,.btn,.topic,.sq{transition:border-color .15s,background-color .15s}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="top-in">
+    <a href="index.html" class="btn small ghost">← All Tests</a>
+    <div class="nav-arrows" role="group" aria-label="View navigation">
+      <button class="btn small" id="navBackBtn" type="button" title="Go Back (Alt+Left)" disabled>← Back</button>
+      <button class="btn small" id="navFwdBtn" type="button" title="Go Forward (Alt+Right)" disabled>Forward →</button>
+    </div>
+    <button class="brand" id="homeBtn" type="button" aria-label="Back to topics"><b>DBMS 200</b><span>CDAC CME · MySQL &amp; MongoDB</span></button>
+    <div class="toplinks">
+      <button class="btn small ghost" id="mistakesBtn" type="button">My mistakes <span class="count" id="mistakesCount">0</span></button>
+      <button class="btn small ghost" id="themeBtn" type="button" onclick="togglePortalTheme()">🌙 Dark</button>
+    </div>
+    <div class="sync" id="sync" data-s="local"><i></i><span id="syncText">Saved in this browser</span></div>
+  </div>
+</header>
+<script>
+  (function() {
+    const saved = localStorage.getItem('portal_theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', saved);
+    const btn = document.getElementById('themeBtn');
+    if (btn) btn.textContent = saved === 'dark' ? '🌙 Dark' : '☀️ Light';
+  })();
+  function togglePortalTheme() {
+    const cur = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', cur);
+    localStorage.setItem('portal_theme', cur);
+    const btn = document.getElementById('themeBtn');
+    if (btn) btn.textContent = cur === 'dark' ? '🌙 Dark' : '☀️ Light';
+  }
+</script>
+
+<main class="wrap">
+  <section id="vHome"></section>
+  <section id="vQuiz" hidden></section>
+  <section id="vResult" hidden></section>
+  <section id="vMistakes" hidden></section>
+</main>
+<div class="toast" id="toast" hidden></div>
+
+<script type="application/json" id="qdata">{"sessions": [{"n": 1, "title": "Introduction to DBMS: terminology, data models, ER diagrams, MySQL clients", "refs": false}, {"n": 2, "title": "SQL Command Categories and DDL: CREATE, ALTER, DROP, TRUNCATE, RENAME", "refs": false}, {"n": 3, "title": "Normalization: redundancy, anomalies, functional dependency, normal forms", "refs": false}, {"n": 4, "title": "DML: INSERT, UPDATE, DELETE, DELETE vs TRUNCATE, data integrity", "refs": false}, {"n": 5, "title": "Data Types, Constraints, Aggregate Functions, GROUP BY/HAVING, LIKE, DISTINCT, ORDER BY, NULL", "refs": true}, {"n": 6, "title": "Relational Algebra, Joins, Copying Tables, AUTO_INCREMENT", "refs": true}, {"n": 7, "title": "Window Functions and CTEs", "refs": true}, {"n": 8, "title": "Subqueries, TCL, DCL and Views", "refs": true}, {"n": 9, "title": "Indexes, ACID, Storage Engines, Temporary Tables", "refs": false}, {"n": 10, "title": "Stored Procedures and Parameters", "refs": false}, {"n": 11, "title": "Flow Control and Conditional Statements", "refs": false}, {"n": 12, "title": "Stored Functions and Built-in Functions", "refs": false}, {"n": 13, "title": "Cursors", "refs": true}, {"n": 14, "title": "Triggers", "refs": false}, {"n": 15, "title": "Error Handling and Exception Management", "refs": false}, {"n": 16, "title": "Introduction to NoSQL: CAP, BASE, categories, MongoDB basics", "refs": false}, {"n": 17, "title": "MongoDB: CRUD, operators, projection, sorting, indexes, aggregation", "refs": false}], "tables": {"EMP": [["empno", "ename", "deptno", "sal", "mgr"], ["1", "Amit", "10", "3000", "NULL"], ["2", "Bina", "20", "5000", "1"], ["3", "Chetan", "20", "4000", "2"], ["4", "Divya", "30", "4000", "1"], ["5", "Esha", "NULL", "2500", "4"], ["6", "Farhan", "20", "5000", "2"]], "DEPT": [["deptno", "dname"], ["10", "HR"], ["20", "IT"], ["30", "SALES"], ["40", "OPS"]]}, "questions": [{"n": 1, "s": 1, "lv": "E", "q": "In the relational model, a row of a table is called a ______.", "code": "", "o": ["schema", "attribute", "domain", "tuple"], "oc": [false, false, false, false], "a": 3, "e": "A row is a tuple (record). A column is an attribute (field)."}, {"n": 2, "s": 1, "lv": "E", "q": "In the relational model, a column of a table is called a(n) ______.", "code": "", "o": ["tuple", "attribute", "instance", "relation"], "oc": [false, false, false, false], "a": 1, "e": "Columns are attributes; the set of allowed values of an attribute is its domain."}, {"n": 3, "s": 1, "lv": "E", "q": "Which of the following is a relational DBMS?", "code": "", "o": ["Redis", "Cassandra", "MySQL", "MongoDB"], "oc": [false, false, false, false], "a": 2, "e": "MySQL stores data in related tables and is queried with SQL. The other three are NoSQL databases."}, {"n": 4, "s": 1, "lv": "E", "q": "In an Entity-Relationship diagram, an entity set is represented by a ______.", "code": "", "o": ["double line", "diamond", "ellipse", "rectangle"], "oc": [false, false, false, false], "a": 3, "e": "Rectangle = entity, diamond = relationship, ellipse = attribute."}, {"n": 5, "s": 1, "lv": "M", "q": "Which data model describes how the data is actually stored: storage structures, file organisation and indexes?", "code": "", "o": ["Logical data model", "Conceptual data model", "External data model", "Physical data model"], "oc": [false, false, false, false], "a": 3, "e": "Conceptual = entities and relationships for the business; logical = tables, columns and keys independent of a product; physical = actual storage details in a specific DBMS."}, {"n": 6, "s": 1, "lv": "M", "q": "Which of the following is a wrong statement about MySQL clients?", "code": "", "o": ["MySQL Workbench is the storage engine that stores the table data on disk", "MySQL Shell can work in SQL, JavaScript and Python modes", "The mysql monitor is a command-line client", "MySQL Workbench is a graphical client used to design, develop and administer databases"], "oc": [false, false, false, false], "a": 0, "e": "Workbench is only a client tool. Table data is stored by a storage engine such as InnoDB inside the MySQL server."}, {"n": 7, "s": 1, "lv": "M", "q": "The number of attributes (columns) in a relation is called its ______.", "code": "", "o": ["tuple count", "degree", "domain", "cardinality"], "oc": [false, false, false, false], "a": 1, "e": "Degree = number of columns. Cardinality = number of rows."}, {"n": 8, "s": 1, "lv": "T", "q": "In an ER model, a many-to-many relationship between two entities is implemented in a relational database by ______.", "code": "", "o": ["adding the primary key of one table as a foreign key in the other table", "creating a third (junction) table that holds the primary keys of both tables as foreign keys", "declaring a UNIQUE constraint on both primary keys", "merging both entities into a single table"], "oc": [false, false, false, false], "a": 1, "e": "A many-to-many relationship cannot be stored with a single foreign key; it needs a separate linking table."}, {"n": 9, "s": 1, "lv": "T", "q": "In a table EMP(emp_id, email, name, city), both emp_id and email are different for every row. Which of the following is a wrong statement?", "code": "", "o": ["{emp_id, name} is a candidate key", "{emp_id, name} is a super key", "emp_id and email are both candidate keys", "If emp_id is chosen as the primary key, email is an alternate key"], "oc": [false, false, false, false], "a": 0, "e": "A candidate key is a minimal super key. {emp_id, name} identifies rows uniquely but is not minimal, because emp_id alone is enough."}, {"n": 10, "s": 1, "lv": "T", "q": "Which of the following is a wrong statement about ER diagrams?", "code": "", "o": ["A weak entity cannot be identified by its own attributes alone", "A derived attribute is drawn as a dashed ellipse", "A relationship set is drawn as a rectangle", "A multivalued attribute is drawn as a double ellipse"], "oc": [false, false, false, false], "a": 2, "e": "A relationship is drawn as a diamond. Rectangles are used for entities (a double rectangle for a weak entity)."}, {"n": 11, "s": 2, "lv": "E", "q": "Which of the following is a DDL command?", "code": "", "o": ["CREATE", "GRANT", "COMMIT", "INSERT"], "oc": [true, false, false, true], "a": 0, "e": "DDL defines structure: CREATE, ALTER, DROP, TRUNCATE, RENAME. INSERT is DML, GRANT is DCL and COMMIT is TCL."}, {"n": 12, "s": 2, "lv": "E", "q": "Which of the following is NOT a DML command?", "code": "", "o": ["DELETE", "INSERT", "UPDATE", "ALTER"], "oc": [true, true, true, true], "a": 3, "e": "ALTER changes the structure of a table, so it is DDL."}, {"n": 13, "s": 2, "lv": "E", "q": "GRANT and REVOKE belong to which category of SQL commands?", "code": "", "o": ["DDL", "DCL", "TCL", "DML"], "oc": [false, false, false, false], "a": 1, "e": "Data Control Language manages privileges. TCL (COMMIT, ROLLBACK, SAVEPOINT) manages transactions."}, {"n": 14, "s": 2, "lv": "E", "q": "Which command removes a table completely, including its structure and data?", "code": "", "o": ["TRUNCATE TABLE", "REMOVE TABLE", "DROP TABLE", "DELETE"], "oc": [false, false, true, true], "a": 2, "e": "DROP TABLE removes the definition and the data. TRUNCATE and DELETE remove only rows."}, {"n": 15, "s": 2, "lv": "E", "q": "Which command is used to add a new column to an existing table?", "code": "", "o": ["INSERT INTO", "MODIFY TABLE", "ALTER TABLE", "UPDATE TABLE"], "oc": [true, false, true, true], "a": 2, "e": "ALTER TABLE ... ADD COLUMN changes the table structure."}, {"n": 16, "s": 2, "lv": "M", "q": "Which statement adds a column email of type VARCHAR(50) to the table student?", "code": "", "o": ["UPDATE TABLE student ADD email VARCHAR(50);", "ALTER TABLE student INSERT COLUMN email VARCHAR(50);", "ALTER student ADD COLUMN email VARCHAR(50);", "ALTER TABLE student ADD COLUMN email VARCHAR(50);"], "oc": [true, true, true, true], "a": 3, "e": "The syntax is ALTER TABLE table_name ADD [COLUMN] column_definition."}, {"n": 17, "s": 2, "lv": "M", "q": "Which statement renames the table emp to staff in MySQL?", "code": "", "o": ["ALTER emp RENAME staff;", "RENAME emp staff;", "CHANGE TABLE emp TO staff;", "RENAME TABLE emp TO staff;"], "oc": [true, true, true, true], "a": 3, "e": "RENAME TABLE old_name TO new_name; (ALTER TABLE emp RENAME TO staff; also works)."}, {"n": 18, "s": 2, "lv": "M", "q": "Which of the following is a wrong statement?", "code": "", "o": ["DROP TABLE removes both the data and the structure of the table", "In MySQL, DDL statements such as CREATE TABLE can be undone with ROLLBACK", "ALTER TABLE can be used to add or drop constraints", "TRUNCATE TABLE is a DDL command"], "oc": [true, false, true, false], "a": 1, "e": "DDL statements in MySQL cause an implicit commit, so they cannot be rolled back."}, {"n": 19, "s": 2, "lv": "M", "q": "Which statement changes the data type of the existing column name to VARCHAR(100) in MySQL without renaming it?", "code": "", "o": ["ALTER TABLE t ALTER COLUMN name TYPE VARCHAR(100);", "ALTER TABLE t MODIFY name VARCHAR(100);", "UPDATE TABLE t SET name VARCHAR(100);", "ALTER TABLE t CHANGE name VARCHAR(100);"], "oc": [true, true, true, true], "a": 1, "e": "MODIFY changes the definition and keeps the name. CHANGE needs both the old and the new column name: CHANGE name name VARCHAR(100)."}, {"n": 20, "s": 2, "lv": "T", "q": "What will be the output of the last statement?", "code": "CREATE TABLE t (id INT);\nSTART TRANSACTION;\nINSERT INTO t VALUES (1);\nCREATE TABLE u (id INT);\nROLLBACK;\nSELECT COUNT(*) FROM t;", "o": ["1", "Error", "NULL", "0"], "oc": [false, false, false, false], "a": 0, "e": "CREATE TABLE is DDL and causes an implicit COMMIT, which makes the earlier INSERT permanent. The ROLLBACK that follows has nothing to undo."}, {"n": 21, "s": 2, "lv": "T", "q": "After the following statements, what does the table t contain?", "code": "CREATE TABLE t (a INT, c INT);\nALTER TABLE t CHANGE a b BIGINT;\nALTER TABLE t DROP COLUMN c;\nSELECT COLUMN_NAME, DATA_TYPE FROM information_schema.columns\nWHERE table_schema = DATABASE() AND table_name = 't';", "o": ["One column named b of type BIGINT", "One column named a of type BIGINT", "Two columns named a and b", "Two columns named b and c"], "oc": [false, false, false, false], "a": 0, "e": "CHANGE old_name new_definition renames column a to b and changes its type. DROP COLUMN then removes c."}, {"n": 22, "s": 2, "lv": "T", "q": "Which of the following CREATE TABLE statements gives an error in MySQL? (Assume a table named emp already exists.)", "code": "", "o": ["CREATE TABLE a4 LIKE emp;", "CREATE TABLE a3 (id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(20));", "CREATE TABLE a2 (id INT PRIMARY KEY, code INT PRIMARY KEY);", "CREATE TABLE a1 (id INT, code INT, PRIMARY KEY (id, code));"], "oc": [true, true, true, true], "a": 2, "e": "A table can have only one primary key. A key made of two columns must be written as one composite key: PRIMARY KEY (id, code)."}, {"n": 23, "s": 3, "lv": "E", "q": "Storing the same data in more than one place is called ______.", "code": "", "o": ["data redundancy", "data abstraction", "data independence", "data integrity"], "oc": [false, false, false, false], "a": 0, "e": "Redundancy wastes space and leads to inconsistency; normalization reduces it."}, {"n": 24, "s": 3, "lv": "E", "q": "The process of organising data into tables so as to reduce redundancy and avoid anomalies is called ______.", "code": "", "o": ["normalization", "indexing", "partitioning", "aggregation"], "oc": [false, false, false, false], "a": 0, "e": "Normalization decomposes tables step by step into normal forms."}, {"n": 25, "s": 3, "lv": "E", "q": "A table is in First Normal Form (1NF) if ______.", "code": "", "o": ["it has no partial dependency", "it has no transitive dependency", "every column holds only atomic (single) values and there are no repeating groups", "every determinant is a candidate key"], "oc": [false, false, false, false], "a": 2, "e": "1NF requires atomic values. The other options describe 2NF, 3NF and BCNF."}, {"n": 26, "s": 3, "lv": "E", "q": "In the functional dependency X -> Y, X is called the ______.", "code": "", "o": ["dependent", "descriptor", "determinant", "candidate"], "oc": [false, false, false, false], "a": 2, "e": "X determines Y: for each value of X there is exactly one value of Y."}, {"n": 27, "s": 3, "lv": "M", "q": "A relation is in 2NF if it is in 1NF and ______.", "code": "", "o": ["it has no multivalued dependency", "all its attributes are part of the primary key", "no non-key attribute depends on only a part of a composite primary key", "it has no transitive dependency"], "oc": [false, false, false, false], "a": 2, "e": "2NF removes partial dependencies. It matters only when the primary key is composite."}, {"n": 28, "s": 3, "lv": "M", "q": "A relation is in 3NF if it is in 2NF and ______.", "code": "", "o": ["no non-key attribute is transitively dependent on the primary key", "every attribute is a candidate key", "it has no composite key", "it has no NULL values"], "oc": [false, false, false, false], "a": 0, "e": "3NF removes transitive dependencies (key -> A -> B, where A is a non-key attribute)."}, {"n": 29, "s": 3, "lv": "M", "q": "A single table stores student details together with course enrolments. When the only enrolment of a student is deleted, the student's name and address are also lost. This is called a(n) ______.", "code": "", "o": ["insertion anomaly", "deletion anomaly", "update anomaly", "redundancy anomaly"], "oc": [false, false, false, false], "a": 1, "e": "A deletion anomaly is the unintended loss of other facts when a row is deleted."}, {"n": 30, "s": 3, "lv": "T", "q": "Relation R(StudentID, CourseID, StudentName, Grade) has the primary key (StudentID, CourseID) and the dependency StudentID -> StudentName. All values are atomic. What is the highest normal form of R?", "code": "", "o": ["2NF", "3NF", "BCNF", "1NF"], "oc": [false, false, false, false], "a": 3, "e": "StudentName depends on only a part of the composite key (a partial dependency), so R violates 2NF and is only in 1NF."}, {"n": 31, "s": 3, "lv": "T", "q": "Relation EMP(EmpID, EmpName, DeptID, DeptName) has the primary key EmpID and the dependencies EmpID -> DeptID and DeptID -> DeptName. Which statement is correct?", "code": "", "o": ["EMP is in BCNF", "EMP is in 3NF", "EMP is in 2NF but not in 3NF", "EMP is in 1NF but not in 2NF"], "oc": [false, false, false, false], "a": 2, "e": "The key is a single column, so there is no partial dependency (2NF holds). DeptName depends on the key through DeptID, a transitive dependency, so 3NF fails."}, {"n": 32, "s": 3, "lv": "T", "q": "Which of the following is a wrong statement?", "code": "", "o": ["4NF removes multivalued dependencies", "A relation that is in BCNF is also in 3NF", "Every relation that is in 3NF is also in BCNF", "5NF is based on join dependencies"], "oc": [false, false, false, false], "a": 2, "e": "BCNF is stricter than 3NF: it requires every determinant to be a super key. A 3NF relation with overlapping candidate keys may still violate BCNF."}, {"n": 33, "s": 4, "lv": "E", "q": "Which command adds new rows to a table?", "code": "", "o": ["ADD", "INSERT", "UPDATE", "CREATE"], "oc": [false, true, true, true], "a": 1, "e": "INSERT INTO table VALUES (...) adds rows."}, {"n": 34, "s": 4, "lv": "E", "q": "Which command modifies the values in existing rows?", "code": "", "o": ["UPDATE", "MODIFY", "ALTER", "CHANGE"], "oc": [true, false, true, true], "a": 0, "e": "UPDATE table SET column = value WHERE condition. ALTER changes structure, not data."}, {"n": 35, "s": 4, "lv": "E", "q": "What happens when DELETE FROM emp; is executed without a WHERE clause?", "code": "", "o": ["The table is dropped", "Only the first row is removed", "It gives a syntax error", "All rows are removed but the table structure remains"], "oc": [false, false, false, false], "a": 3, "e": "Without WHERE, DELETE removes every row. The table itself still exists."}, {"n": 36, "s": 4, "lv": "E", "q": "Which of the following commands can use a WHERE clause to remove only selected rows?", "code": "", "o": ["TRUNCATE", "RENAME", "DROP", "DELETE"], "oc": [false, true, true, true], "a": 3, "e": "TRUNCATE always removes all rows and DROP removes the whole table."}, {"n": 37, "s": 4, "lv": "M", "q": "Which of the following is a correct statement about DELETE and TRUNCATE?", "code": "", "o": ["A DELETE can be rolled back inside a transaction, but a TRUNCATE cannot", "TRUNCATE can remove selected rows using a WHERE clause", "DELETE cannot remove all rows of a table, whereas TRUNCATE can", "DELETE is faster than TRUNCATE for removing all rows"], "oc": [false, false, true, true], "a": 0, "e": "DELETE is DML, works row by row and can be rolled back. TRUNCATE is DDL, is faster, takes no WHERE clause and commits implicitly."}, {"n": 38, "s": 4, "lv": "M", "q": "Which statement correctly inserts two rows with a single INSERT statement in MySQL?", "code": "", "o": ["INSERT INTO t (a, b) VALUES (1, 'x') AND (2, 'y');", "INSERT INTO t (a, b) VALUES (1, 'x'), (2, 'y');", "INSERT INTO t (a, b) VALUES (1, 'x'; 2, 'y');", "INSERT MULTIPLE INTO t VALUES (1, 'x'), (2, 'y');"], "oc": [true, true, true, true], "a": 1, "e": "Several rows are given as a comma-separated list of value lists."}, {"n": 39, "s": 4, "lv": "M", "q": "What will be the output of the last statement?", "code": "CREATE TABLE t (id INT, v INT);\nINSERT INTO t VALUES (1, 10), (2, 20), (3, 30);\nUPDATE t SET v = v + 5 WHERE id > 1;\nSELECT SUM(v) FROM t;", "o": ["70", "60", "75", "65"], "oc": [false, false, false, false], "a": 0, "e": "Only rows 2 and 3 are updated, to 25 and 35. The sum is 10 + 25 + 35 = 70."}, {"n": 40, "s": 4, "lv": "T", "q": "What are the outputs of the two SELECT statements?", "code": "CREATE TABLE t (id INT AUTO_INCREMENT PRIMARY KEY, v CHAR(1));\nINSERT INTO t (v) VALUES ('a'), ('b'), ('c');\nDELETE FROM t;\nINSERT INTO t (v) VALUES ('d');\nSELECT id FROM t;\nTRUNCATE TABLE t;\nINSERT INTO t (v) VALUES ('e');\nSELECT id FROM t;", "o": ["1 and 1", "1 and 2", "4 and 1", "4 and 5"], "oc": [false, false, false, false], "a": 2, "e": "DELETE does not reset the AUTO_INCREMENT counter, so the next id is 4. TRUNCATE resets the counter, so the next id is 1."}, {"n": 41, "s": 4, "lv": "T", "q": "What happens when the last statement is executed?", "code": "CREATE TABLE d (id INT PRIMARY KEY);\nCREATE TABLE e (id INT PRIMARY KEY, did INT,\n                FOREIGN KEY (did) REFERENCES d(id));\nINSERT INTO d VALUES (1), (2);\nINSERT INTO e VALUES (10, 1);\nDELETE FROM d WHERE id = 1;", "o": ["The row is deleted from d and the matching row in e is also deleted", "The DELETE is rejected with a foreign key constraint error", "The row is deleted from d and table e is unchanged", "The row is deleted from d and e.did becomes NULL"], "oc": [false, false, false, false], "a": 1, "e": "The default referential action is RESTRICT: a parent row that is still referenced by a child row cannot be deleted. The other behaviours need ON DELETE SET NULL or ON DELETE CASCADE."}, {"n": 42, "s": 4, "lv": "T", "q": "What will be the output of the last statement?", "code": "CREATE TABLE t (id INT PRIMARY KEY);\nINSERT INTO t VALUES (1), (2);\nINSERT INTO t VALUES (3), (2), (4);\nSELECT COUNT(*) FROM t;", "o": ["2", "3", "4", "5"], "oc": [false, false, false, false], "a": 0, "e": "The second INSERT fails on the duplicate key 2. In InnoDB a failed statement is rolled back completely, so the row 3 is not kept either."}, {"n": 43, "s": 5, "lv": "E", "q": "Which constraint uniquely identifies each row of a table and does not allow NULL values?", "code": "", "o": ["CHECK", "FOREIGN KEY", "UNIQUE", "PRIMARY KEY"], "oc": [false, false, false, false], "a": 3, "e": "PRIMARY KEY = unique + not null. UNIQUE allows NULL."}, {"n": 44, "s": 5, "lv": "E", "q": "How many primary keys can a table have?", "code": "", "o": ["Any number", "Two", "Only one", "One for each column"], "oc": [false, false, false, false], "a": 2, "e": "A table has one primary key, although that key may consist of several columns (a composite key)."}, {"n": 45, "s": 5, "lv": "E", "q": "An attribute or combination of attributes in one table whose values must either match the primary key of another table or be NULL is called a ______.", "code": "", "o": ["candidate key", "foreign key", "super key", "secondary key"], "oc": [false, false, false, false], "a": 1, "e": "A foreign key refers to the primary (or unique) key of the parent table and enforces referential integrity."}, {"n": 46, "s": 5, "lv": "E", "q": "The primary key is selected from the set of ______.", "code": "", "o": ["composite keys", "determinants", "foreign keys", "candidate keys"], "oc": [false, false, false, false], "a": 3, "e": "Every candidate key can identify rows uniquely; one of them is chosen as the primary key and the rest are alternate keys."}, {"n": 47, "s": 5, "lv": "E", "q": "Which operator tests whether a value lies within a range, including both end values?", "code": "", "o": ["IN", "EXISTS", "BETWEEN", "LIKE"], "oc": [false, false, false, false], "a": 2, "e": "x BETWEEN a AND b is the same as x >= a AND x <= b."}, {"n": 48, "s": 5, "lv": "E", "q": "Which of the following is NOT an aggregate function?", "code": "", "o": ["SUM()", "ROUND()", "MAX()", "AVG()"], "oc": [false, false, false, false], "a": 1, "e": "ROUND works on one value per row. The aggregate functions are COUNT, SUM, AVG, MIN and MAX."}, {"n": 49, "s": 5, "lv": "E", "q": "Which data type stores fixed-length character strings in MySQL?", "code": "", "o": ["BLOB", "TEXT", "VARCHAR", "CHAR"], "oc": [false, false, false, false], "a": 3, "e": "CHAR(n) always uses n characters (padded with spaces). VARCHAR(n) stores only the characters actually entered."}, {"n": 50, "s": 5, "lv": "E", "q": "In the LIKE operator, which wildcard matches exactly one character?", "code": "", "o": ["%", "?", "_", "*"], "oc": [false, false, false, false], "a": 2, "e": "The underscore matches exactly one character; % matches zero or more characters."}, {"n": 51, "s": 5, "lv": "E", "q": "What is the purpose of the DISTINCT keyword?", "code": "", "o": ["It removes duplicate rows from the result set", "It filters rows on a condition", "It groups rows that have the same value", "It sorts the result set"], "oc": [false, false, false, false], "a": 0, "e": "SELECT DISTINCT returns only the different rows."}, {"n": 52, "s": 5, "lv": "E", "q": "Which condition correctly finds the rows in which the column mgr has no value?", "code": "", "o": ["WHERE mgr IS NULL", "WHERE mgr = NULL", "WHERE mgr == NULL", "WHERE mgr IN (NULL)"], "oc": [true, true, true, true], "a": 0, "e": "NULL cannot be compared with = ; a comparison with NULL gives UNKNOWN. Use IS NULL or IS NOT NULL."}, {"n": 53, "s": 5, "lv": "M", "q": "A rule states that the marks of a student must not be greater than 100. Which constraint enforces this rule in the table definition?", "code": "", "o": ["DEFAULT", "FOREIGN KEY", "CHECK", "UNIQUE"], "oc": [false, false, false, false], "a": 2, "e": "CHECK (marks <= 100) rejects rows that break the condition. It is a data integrity (domain) constraint."}, {"n": 54, "s": 5, "lv": "M", "q": "The relationship between a master table and its detail table is established with a ______.", "code": "", "o": ["unique constraint", "check constraint", "not null constraint", "referential integrity (foreign key) constraint"], "oc": [false, false, false, false], "a": 3, "e": "The foreign key in the detail (child) table refers to the primary key of the master (parent) table."}, {"n": 55, "s": 5, "lv": "M", "q": "Refer to the EMP table. What will be the output of the following query?", "code": "SELECT COUNT(*), COUNT(deptno), COUNT(DISTINCT deptno) FROM emp;", "o": ["6, 5, 3", "5, 5, 3", "6, 5, 4", "6, 6, 4"], "oc": [false, false, false, false], "a": 0, "e": "COUNT(*) counts all 6 rows. COUNT(deptno) ignores the NULL (5). COUNT(DISTINCT deptno) counts the different non-NULL values 10, 20 and 30 (3)."}, {"n": 56, "s": 5, "lv": "M", "q": "Refer to the EMP table. What will be the output of the following query?", "code": "SELECT deptno, COUNT(*) FROM emp\nGROUP BY deptno\nHAVING COUNT(*) > 1;", "o": ["Two rows: 20, 3 and 10, 1", "One row: 20, 3", "Error, because HAVING cannot use COUNT(*)", "Four rows, one for each deptno value"], "oc": [false, false, false, false], "a": 1, "e": "HAVING filters the groups after aggregation. Only department 20 has more than one employee."}, {"n": 57, "s": 5, "lv": "M", "q": "Given a table sales with columns sale_id, sale_date, product_id and quantity, which query returns the total quantity of each product, only for products whose total quantity is more than 100?", "code": "", "o": ["SELECT product_id, SUM(quantity) FROM sales WHERE SUM(quantity) > 100 GROUP BY product_id;", "SELECT product_id, SUM(quantity) FROM sales HAVING SUM(quantity) > 100 GROUP BY product_id;", "SELECT product_id, SUM(quantity) FROM sales GROUP BY product_id HAVING SUM(quantity) > 100;", "SELECT product_id, SUM(quantity) FROM sales WHERE quantity > 100 GROUP BY product_id;"], "oc": [true, true, true, true], "a": 2, "e": "A condition on an aggregate belongs in HAVING, which must come after GROUP BY. WHERE cannot contain SUM(), and WHERE quantity > 100 filters individual rows, not totals."}, {"n": 58, "s": 5, "lv": "M", "q": "Which of the following is a wrong statement?", "code": "", "o": ["A primary key column cannot hold NULL values", "A table can have only one UNIQUE constraint", "A unique key column can hold NULL values", "The primary key of one table can be referred to as a foreign key in another table"], "oc": [false, false, false, false], "a": 1, "e": "A table can have many UNIQUE constraints but only one PRIMARY KEY."}, {"n": 59, "s": 5, "lv": "M", "q": "A column is declared as price DECIMAL(5,2). What is the largest value it can store?", "code": "", "o": ["999.99", "99.999", "99999.99", "5.2"], "oc": [false, false, false, false], "a": 0, "e": "DECIMAL(5,2) has 5 digits in total, of which 2 are after the decimal point, so 3 digits remain before it."}, {"n": 60, "s": 5, "lv": "T", "q": "Refer to the EMP table. What will be the output of the following query?", "code": "SELECT COUNT(*) FROM emp WHERE deptno NOT IN (10, NULL);", "o": ["5", "0", "4", "1"], "oc": [false, false, false, false], "a": 1, "e": "deptno NOT IN (10, NULL) means deptno <> 10 AND deptno <> NULL. The comparison with NULL is never TRUE, so no row qualifies."}, {"n": 61, "s": 5, "lv": "T", "q": "Refer to the EMP table. What will be the output of the following query?", "code": "SELECT AVG(mgr) FROM emp;", "o": ["2.0000", "1.6667", "NULL", "10"], "oc": [false, false, false, false], "a": 0, "e": "Aggregate functions ignore NULL. The five non-NULL mgr values 1, 2, 1, 4, 2 add up to 10, and 10 / 5 = 2. The row with NULL is not counted in the division."}, {"n": 62, "s": 5, "lv": "T", "q": "Refer to the EMP table. What is the result of the following query in MySQL 8 with its default settings?", "code": "SELECT deptno, ename, MAX(sal) FROM emp GROUP BY deptno;", "o": ["One row per department, showing a random employee name", "Six rows, one for each employee", "Error, because ename is neither in GROUP BY nor inside an aggregate function", "One row per department, showing the name of the highest-paid employee"], "oc": [false, false, false, false], "a": 2, "e": "With ONLY_FULL_GROUP_BY (the default), every selected column must be in the GROUP BY clause or inside an aggregate function."}, {"n": 63, "s": 5, "lv": "T", "q": "Refer to the EMP table. Which names are returned by the following query?", "code": "SELECT ename FROM emp WHERE ename LIKE '_i%a' ORDER BY ename;", "o": ["Bina and Divya", "Bina, Divya and Esha", "Amit, Bina and Divya", "Divya only"], "oc": [false, false, false, false], "a": 0, "e": "The pattern needs any single first character, then 'i' as the second character, then anything, ending in 'a'. Only Bina and Divya match."}, {"n": 64, "s": 5, "lv": "T", "q": "Refer to the EMP table. Which names are returned, in order, by the following query?", "code": "SELECT ename FROM emp ORDER BY deptno, sal DESC LIMIT 2;", "o": ["Amit, Bina", "Amit, Farhan", "Esha, Amit", "Bina, Farhan"], "oc": [false, false, false, false], "a": 2, "e": "In MySQL, NULL sorts first in ascending order, so Esha (deptno NULL) comes first, followed by Amit in department 10."}, {"n": 65, "s": 5, "lv": "T", "q": "What will be the output of the last statement in MySQL 8?", "code": "CREATE TABLE s (\n  id INT PRIMARY KEY,\n  marks INT DEFAULT 50 CHECK (marks <= 100),\n  city VARCHAR(10) NOT NULL DEFAULT 'Pune');\nINSERT INTO s (id) VALUES (1);\nINSERT INTO s (id, marks) VALUES (2, 120);\nINSERT INTO s (id, marks) VALUES (3, NULL);\nSELECT COUNT(*), SUM(marks) FROM s;", "o": ["1, 50", "3, 170", "2, 100", "2, 50"], "oc": [false, false, false, false], "a": 3, "e": "Row 1 takes the default 50. Row 2 fails the CHECK. Row 3 is accepted, because a CHECK is violated only when its condition is FALSE and NULL <= 100 is UNKNOWN. SUM ignores the NULL."}, {"n": 66, "s": 5, "lv": "T", "q": "Refer to the EMP table. What will be the output of the following query?", "code": "SELECT deptno, SUM(sal) AS total FROM emp\nWHERE sal > 3000\nGROUP BY deptno\nHAVING total > 5000;", "o": ["Error, because an alias cannot be used in HAVING", "One row: 20, 14000", "Two rows: 20, 14000 and 10, 3000", "Two rows: 20, 14000 and 30, 4000"], "oc": [false, false, false, false], "a": 1, "e": "WHERE first removes salaries of 3000 or less. Department 20 then totals 14000 and department 30 totals 4000; HAVING keeps only department 20. MySQL allows a column alias in HAVING."}, {"n": 67, "s": 6, "lv": "E", "q": "In relational algebra, which operation selects the rows that satisfy a given condition?", "code": "", "o": ["Union", "Projection", "Selection", "Cartesian product"], "oc": [false, false, false, false], "a": 2, "e": "Selection (sigma) picks rows. Projection (pi) picks columns."}, {"n": 68, "s": 6, "lv": "E", "q": "In relational algebra, which operation returns only the specified columns of a relation?", "code": "", "o": ["Projection", "Intersection", "Join", "Selection"], "oc": [false, false, false, false], "a": 0, "e": "Projection keeps the listed attributes and discards the others."}, {"n": 69, "s": 6, "lv": "E", "q": "To get only the rows that have matching values in both tables, use ______.", "code": "", "o": ["LEFT OUTER JOIN", "INNER JOIN", "CROSS JOIN", "FULL OUTER JOIN"], "oc": [false, false, false, false], "a": 1, "e": "An inner join returns only the rows that satisfy the join condition in both tables."}, {"n": 70, "s": 6, "lv": "E", "q": "The Cartesian product (cross join) of a table with m rows and a table with n rows contains ______ rows.", "code": "", "o": ["m + n", "m - n", "the larger of m and n", "m x n"], "oc": [false, false, false, false], "a": 3, "e": "Every row of the first table is combined with every row of the second table."}, {"n": 71, "s": 6, "lv": "E", "q": "Which column attribute generates sequential numbers automatically for new rows?", "code": "", "o": ["SEQUENCE", "IDENTIFY", "AUTO_INCREMENT", "UNSIGNED"], "oc": [false, false, false, false], "a": 2, "e": "An AUTO_INCREMENT column gets the next number when no value is supplied for it."}, {"n": 72, "s": 6, "lv": "E", "q": "What is the difference between UNION and UNION ALL?", "code": "", "o": ["UNION works on columns, UNION ALL works on rows", "UNION removes duplicate rows, UNION ALL keeps them", "There is no difference", "UNION ALL removes duplicate rows, UNION keeps them"], "oc": [false, false, false, false], "a": 1, "e": "UNION returns distinct rows of the combined result; UNION ALL returns every row, including duplicates."}, {"n": 73, "s": 6, "lv": "M", "q": "To produce a meaningful result without any Cartesian product, what is the minimum number of join conditions needed to join five tables?", "code": "", "o": ["5", "3", "6", "4"], "oc": [false, false, false, false], "a": 3, "e": "Joining n tables needs at least n - 1 join conditions."}, {"n": 74, "s": 6, "lv": "M", "q": "Refer to the EMP and DEPT tables. What will be the output of the following query?", "code": "SELECT COUNT(*) FROM emp e INNER JOIN dept d ON e.deptno = d.deptno;", "o": ["24", "6", "5", "4"], "oc": [false, false, false, false], "a": 2, "e": "Esha has a NULL deptno and matches no department, so only 5 of the 6 employees are returned. Department 40 has no employee and is not returned either."}, {"n": 75, "s": 6, "lv": "M", "q": "Refer to the EMP and DEPT tables. Which query lists every department name with the names of its employees, and also includes the departments that have no employees?", "code": "", "o": ["SELECT d.dname, e.ename FROM dept d INNER JOIN emp e ON d.deptno = e.deptno;", "SELECT d.dname, e.ename FROM dept d LEFT JOIN emp e ON d.deptno = e.deptno;", "SELECT d.dname, e.ename FROM dept d RIGHT JOIN emp e ON d.deptno = e.deptno;", "SELECT d.dname, e.ename FROM dept d, emp e WHERE d.deptno = e.deptno;"], "oc": [true, true, true, true], "a": 1, "e": "A LEFT JOIN keeps every row of the left table (dept) and fills ename with NULL where there is no match. The RIGHT JOIN would keep every employee instead."}, {"n": 76, "s": 6, "lv": "M", "q": "Which statement creates a new empty table emp_copy that has the same structure as emp, including its indexes, but none of its data?", "code": "", "o": ["COPY TABLE emp TO emp_copy;", "CREATE TABLE emp_copy AS SELECT * FROM emp;", "INSERT INTO emp_copy SELECT * FROM emp;", "CREATE TABLE emp_copy LIKE emp;"], "oc": [true, true, true, true], "a": 3, "e": "CREATE TABLE ... LIKE copies the column definitions and indexes only. CREATE TABLE ... AS SELECT copies the data too, but not the keys."}, {"n": 77, "s": 6, "lv": "M", "q": "Which of the following is a wrong statement?", "code": "", "o": ["MySQL provides a FULL OUTER JOIN keyword", "A NATURAL JOIN joins the tables on the columns that have the same name in both", "The queries combined by UNION must return the same number of columns", "A CROSS JOIN does not need a join condition"], "oc": [false, false, false, false], "a": 0, "e": "MySQL has no FULL OUTER JOIN. It is simulated by a UNION of a LEFT JOIN and a RIGHT JOIN."}, {"n": 78, "s": 6, "lv": "T", "q": "Refer to the EMP and DEPT tables. What will be the output of the following query?", "code": "SELECT d.dname FROM dept d\nLEFT JOIN emp e ON d.deptno = e.deptno\nWHERE e.empno IS NULL;", "o": ["No rows", "HR, IT, SALES, OPS", "HR, IT, SALES", "OPS"], "oc": [false, false, false, false], "a": 3, "e": "The LEFT JOIN keeps department 40 (OPS) with NULLs in the emp columns. Filtering on e.empno IS NULL returns exactly the departments that have no employee."}, {"n": 79, "s": 6, "lv": "T", "q": "Refer to the EMP table. Which names are returned by the following query?", "code": "SELECT e.ename FROM emp e\nJOIN emp m ON e.mgr = m.empno\nWHERE m.ename = 'Bina'\nORDER BY e.ename;", "o": ["Chetan and Farhan", "Amit", "Chetan, Divya and Farhan", "Bina and Divya"], "oc": [false, false, false, false], "a": 0, "e": "This is a self join: each employee row e is joined to the row m of his or her manager. Bina is empno 2, and the employees whose mgr is 2 are Chetan and Farhan."}, {"n": 80, "s": 6, "lv": "T", "q": "Refer to the EMP and DEPT tables. What will be the output of the following query?", "code": "SELECT COUNT(*) FROM dept d\nLEFT JOIN emp e ON d.deptno = e.deptno AND e.sal > 4000;", "o": ["5", "6", "2", "4"], "oc": [false, false, false, false], "a": 0, "e": "A condition in the ON clause only limits which rows match; the LEFT JOIN still keeps every department. IT matches two employees (Bina and Farhan), and HR, SALES and OPS each give one row with NULLs: 2 + 3 = 5. If sal > 4000 were in WHERE, the answer would be 2."}, {"n": 81, "s": 6, "lv": "T", "q": "Refer to the EMP and DEPT tables. What will be the output of the following query?", "code": "SELECT COUNT(*) FROM\n  (SELECT deptno FROM emp\n   UNION\n   SELECT deptno FROM dept) x;", "o": ["5", "10", "4", "9"], "oc": [false, false, false, false], "a": 0, "e": "UNION removes duplicates, and for this purpose NULL counts as one value. The distinct values are 10, 20, 30, 40 and NULL. UNION ALL would give 10 rows."}, {"n": 82, "s": 6, "lv": "T", "q": "What will be the output of the last statement?", "code": "CREATE TABLE t (id INT AUTO_INCREMENT PRIMARY KEY, v CHAR(1));\nINSERT INTO t (v) VALUES ('a');\nINSERT INTO t (id, v) VALUES (10, 'b');\nINSERT INTO t (v) VALUES ('c');\nSELECT id FROM t WHERE v = 'c';", "o": ["3", "2", "1", "11"], "oc": [false, false, false, false], "a": 3, "e": "When a larger value is inserted explicitly, the AUTO_INCREMENT counter continues from that value, so the next generated id is 11."}, {"n": 83, "s": 7, "lv": "E", "q": "Which clause turns an aggregate or ranking function into a window function?", "code": "", "o": ["HAVING", "OVER", "GROUP BY", "WINDOW BY"], "oc": [false, false, false, false], "a": 1, "e": "A window function is written as function() OVER (PARTITION BY ... ORDER BY ...)."}, {"n": 84, "s": 7, "lv": "E", "q": "Which keyword starts a Common Table Expression (CTE)?", "code": "", "o": ["CTE", "DEFINE", "WITH", "TEMP"], "oc": [false, false, false, false], "a": 2, "e": "WITH name AS (SELECT ...) SELECT ... FROM name;"}, {"n": 85, "s": 7, "lv": "E", "q": "Inside the OVER clause, which keyword divides the rows into groups on which the window function works separately?", "code": "", "o": ["GROUP BY", "PARTITION BY", "ORDER BY", "DIVIDE BY"], "oc": [false, false, false, false], "a": 1, "e": "PARTITION BY restarts the window calculation for each group of rows."}, {"n": 86, "s": 7, "lv": "E", "q": "Which window function distributes the rows into a given number of roughly equal buckets?", "code": "", "o": ["RANK()", "DENSE_RANK()", "NTILE()", "ROW_NUMBER()"], "oc": [false, false, false, false], "a": 2, "e": "NTILE(4) assigns each row a bucket number from 1 to 4."}, {"n": 87, "s": 7, "lv": "M", "q": "Three employees have salaries 500, 500 and 400. What values does RANK() OVER (ORDER BY sal DESC) give them?", "code": "", "o": ["1, 2, 3", "1, 1, 3", "1, 1, 2", "1, 2, 2"], "oc": [false, false, false, false], "a": 1, "e": "RANK gives tied rows the same rank and then skips the next rank. DENSE_RANK would give 1, 1, 2 and ROW_NUMBER would give 1, 2, 3."}, {"n": 88, "s": 7, "lv": "M", "q": "Which of the following is a correct statement about window functions?", "code": "", "o": ["ROW_NUMBER() gives the same number to rows that have equal values", "A window function can be used only together with a GROUP BY clause", "A window function returns a value for every row and does not collapse the rows into one row per group", "Window functions can be written in the WHERE clause to filter rows"], "oc": [false, false, false, false], "a": 2, "e": "Unlike GROUP BY, a window function keeps all the detail rows. ROW_NUMBER is always unique, and window functions are allowed only in SELECT and ORDER BY."}, {"n": 89, "s": 7, "lv": "M", "q": "Which of the following is true about a recursive CTE in MySQL?", "code": "", "o": ["It is written with WITH RECURSIVE and combines an anchor query and a recursive query using UNION ALL", "It must contain a GROUP BY clause", "It can refer to itself only in the anchor query", "It is written with the keywords WITH LOOP"], "oc": [false, false, false, false], "a": 0, "e": "The anchor member gives the first rows; the recursive member refers to the CTE itself and runs repeatedly until it returns no new rows."}, {"n": 90, "s": 7, "lv": "T", "q": "Refer to the EMP table. Which names are returned by the following query?", "code": "SELECT ename FROM\n  (SELECT ename, RANK() OVER (ORDER BY sal DESC) AS r FROM emp) x\nWHERE r = 3\nORDER BY ename;", "o": ["Chetan and Divya", "Bina and Farhan", "Amit", "No rows"], "oc": [false, false, false, false], "a": 0, "e": "The two salaries of 5000 share rank 1, so rank 2 is skipped and the two salaries of 4000 both get rank 3. With DENSE_RANK the answer would be Amit."}, {"n": 91, "s": 7, "lv": "T", "q": "Refer to the EMP table. What will be the output of the following query?", "code": "SELECT empno, SUM(sal) OVER (ORDER BY empno) AS rt\nFROM emp WHERE deptno = 20;", "o": ["(2, 5000), (3, 4000), (6, 5000)", "(2, 5000), (3, 9000), (6, 14000)", "One row: 14000", "(2, 14000), (3, 14000), (6, 14000)"], "oc": [false, false, false, false], "a": 1, "e": "With ORDER BY inside OVER, SUM becomes a running total: each row shows the sum of all rows up to and including itself. Without ORDER BY every row would show 14000."}, {"n": 92, "s": 7, "lv": "T", "q": "What will be the output of the following query?", "code": "WITH RECURSIVE n AS (\n  SELECT 1 AS x\n  UNION ALL\n  SELECT x + 2 FROM n WHERE x < 7\n)\nSELECT SUM(x) FROM n;", "o": ["28", "25", "9", "16"], "oc": [false, false, false, false], "a": 3, "e": "The CTE produces 1, 3, 5 and 7. The row 7 is produced from 5 (because 5 < 7), and then recursion stops because 7 < 7 is false. 1 + 3 + 5 + 7 = 16."}, {"n": 93, "s": 8, "lv": "E", "q": "A query that is written inside another query is called a ______.", "code": "", "o": ["trigger", "join query", "subquery", "view"], "oc": [false, false, false, false], "a": 2, "e": "The inner query (subquery) runs to supply a value or a set of rows to the outer query."}, {"n": 94, "s": 8, "lv": "E", "q": "Which command makes the changes of the current transaction permanent?", "code": "", "o": ["SAVEPOINT", "COMMIT", "ROLLBACK", "GRANT"], "oc": [false, false, false, false], "a": 1, "e": "COMMIT ends the transaction and saves its changes."}, {"n": 95, "s": 8, "lv": "E", "q": "Which command undoes the changes made in the current transaction?", "code": "", "o": ["COMMIT", "REVOKE", "ROLLBACK", "DELETE"], "oc": [false, false, false, true], "a": 2, "e": "ROLLBACK cancels all uncommitted changes of the transaction."}, {"n": 96, "s": 8, "lv": "E", "q": "Which of the following is a TCL command?", "code": "", "o": ["TRUNCATE", "SAVEPOINT", "REVOKE", "GRANT"], "oc": [false, false, false, false], "a": 1, "e": "TCL commands are COMMIT, ROLLBACK and SAVEPOINT. GRANT and REVOKE are DCL; TRUNCATE is DDL."}, {"n": 97, "s": 8, "lv": "E", "q": "Which command gives a user privileges on database objects?", "code": "", "o": ["ALLOW", "COMMIT", "PERMIT", "GRANT"], "oc": [false, false, false, false], "a": 3, "e": "GRANT SELECT ON db.table TO 'user'@'host';"}, {"n": 98, "s": 8, "lv": "E", "q": "What cannot be done on a view?", "code": "", "o": ["Filter its rows with WHERE", "Join it with a table", "Display its rows", "Create an index on it"], "oc": [false, false, false, false], "a": 3, "e": "A view is a virtual table that stores no data of its own, so it cannot be indexed."}, {"n": 99, "s": 8, "lv": "E", "q": "The EXISTS operator returns TRUE when its subquery ______.", "code": "", "o": ["returns exactly one row", "returns at least one row", "returns a NULL value", "returns no rows"], "oc": [false, false, false, false], "a": 1, "e": "EXISTS only checks whether any row is returned; the values in the row do not matter."}, {"n": 100, "s": 8, "lv": "E", "q": "Which command takes back privileges that were given earlier to a user?", "code": "", "o": ["REVOKE", "ROLLBACK", "DROP", "DENY"], "oc": [false, false, true, false], "a": 0, "e": "REVOKE privilege ON object FROM user;"}, {"n": 101, "s": 8, "lv": "M", "q": "In a correlated subquery, ______.", "code": "", "o": ["the outer query performs the grouping and the inner query performs the sorting", "the outer query and the inner query must read different tables", "the inner query refers to a column of the outer query and is evaluated once for each row of the outer query", "the inner query is executed only once, before the outer query"], "oc": [false, false, false, false], "a": 2, "e": "A correlated subquery depends on the current row of the outer query. A non-correlated subquery runs once on its own."}, {"n": 102, "s": 8, "lv": "M", "q": "What is a complex view?", "code": "", "o": ["A view created from more than one table, or one that contains functions or groups of data", "A view that stores its own copy of the data", "A view that cannot be queried", "A view created from only one table, without functions or grouping"], "oc": [false, false, false, false], "a": 0, "e": "Views are classified by the number of base tables: a simple view uses one table, a complex view uses joins, functions or GROUP BY."}, {"n": 103, "s": 8, "lv": "M", "q": "Refer to the EMP table. How many names are returned by the following query?", "code": "SELECT ename FROM emp\nWHERE sal > (SELECT AVG(sal) FROM emp)\nORDER BY ename;", "o": ["4", "6", "2", "3"], "oc": [false, false, false, false], "a": 0, "e": "The average salary is 23500 / 6 = 3916.67. Bina, Chetan, Divya and Farhan earn more than that."}, {"n": 104, "s": 8, "lv": "M", "q": "What does the WITH GRANT OPTION clause of a GRANT statement do?", "code": "", "o": ["It makes the privileges temporary", "It gives all privileges on every database to the user", "It allows the user to grant the same privileges to other users", "It requires the user to commit after every statement"], "oc": [false, false, false, false], "a": 2, "e": "With GRANT OPTION the grantee may pass the privileges he or she holds on to others."}, {"n": 105, "s": 8, "lv": "M", "q": "In a view definition (Oracle syntax, as used in the CDAC practice test), ______ specifies that the view can only be used to read rows from the base tables.", "code": "", "o": ["WITH CHECK OPTION", "READ ONLY", "WITH READ ONLY", "WITH READ"], "oc": [false, false, false, false], "a": 2, "e": "WITH READ ONLY prevents INSERT, UPDATE and DELETE through the view. It is an Oracle clause; MySQL has no such clause, but CDAC's question bank asks it in this form."}, {"n": 106, "s": 8, "lv": "M", "q": "Refer to the EMP table. Which query returns the names of the other employees who earn the same salary as 'Bina'?", "code": "", "o": ["SELECT ename FROM emp WHERE sal IN (SELECT ename FROM emp WHERE ename = 'Bina');", "SELECT ename FROM emp WHERE sal = SELECT sal FROM emp WHERE ename = 'Bina' AND ename <> 'Bina';", "SELECT ename FROM emp WHERE sal = (SELECT sal, ename FROM emp WHERE ename = 'Bina');", "SELECT ename FROM emp WHERE sal = (SELECT sal FROM emp WHERE ename = 'Bina') AND ename <> 'Bina';"], "oc": [true, true, true, true], "a": 3, "e": "A subquery must be enclosed in parentheses and, when compared with =, must return a single column. The last option compares a salary with a name."}, {"n": 107, "s": 8, "lv": "T", "q": "What will be the output of the last statement?", "code": "CREATE TABLE t (id INT);\nSTART TRANSACTION;\nINSERT INTO t VALUES (1);\nSAVEPOINT s1;\nINSERT INTO t VALUES (2);\nSAVEPOINT s2;\nINSERT INTO t VALUES (3);\nROLLBACK TO s1;\nINSERT INTO t VALUES (4);\nCOMMIT;\nSELECT GROUP_CONCAT(id ORDER BY id) FROM t;", "o": ["4", "1,2,3,4", "1,2,4", "1,4"], "oc": [false, false, false, false], "a": 3, "e": "ROLLBACK TO s1 undoes everything done after savepoint s1 (rows 2 and 3) but keeps row 1 and keeps the transaction open. Row 4 is then added and committed."}, {"n": 108, "s": 8, "lv": "T", "q": "Refer to the EMP table. Which names are returned by the following query?", "code": "SELECT ename FROM emp e\nWHERE sal = (SELECT MAX(sal) FROM emp WHERE deptno = e.deptno)\nORDER BY ename;", "o": ["Amit, Bina, Divya, Farhan", "Bina only", "Amit, Bina, Divya, Esha, Farhan", "Bina, Farhan"], "oc": [false, false, false, false], "a": 0, "e": "The correlated subquery finds the highest salary of each employee's own department. Bina and Farhan tie in department 20. Esha is not returned because deptno = NULL is never true, so her subquery returns NULL."}, {"n": 109, "s": 8, "lv": "T", "q": "Refer to the EMP and DEPT tables. What will be the output of the following query?", "code": "SELECT dname FROM dept d\nWHERE NOT EXISTS (SELECT 1 FROM emp e WHERE e.deptno = d.deptno);", "o": ["All four department names", "HR, IT, SALES", "No rows", "OPS"], "oc": [false, false, false, false], "a": 3, "e": "NOT EXISTS is true for a department when the subquery finds no employee in it. Only department 40 (OPS) has none."}, {"n": 110, "s": 8, "lv": "T", "q": "What will be the output of the last statement?", "code": "CREATE TABLE p (id INT, price INT);\nCREATE VIEW cheap AS\n  SELECT * FROM p WHERE price < 100 WITH CHECK OPTION;\nINSERT INTO cheap VALUES (1, 50);\nINSERT INTO cheap VALUES (2, 500);\nSELECT COUNT(*) FROM p;", "o": ["1", "Error, because rows cannot be inserted through a view", "2", "0"], "oc": [false, false, false, false], "a": 0, "e": "WITH CHECK OPTION rejects any insert or update through the view that would produce a row the view cannot show. The row with price 500 is rejected; the row with price 50 is stored in the base table."}, {"n": 111, "s": 8, "lv": "T", "q": "Refer to the EMP table. What is the result of the following query?", "code": "SELECT ename FROM emp\nWHERE sal = (SELECT sal FROM emp WHERE deptno = 20);", "o": ["No rows", "Bina, Chetan, Farhan", "Bina, Chetan, Divya, Farhan", "Error, because the subquery returns more than one row"], "oc": [false, false, false, false], "a": 3, "e": "A subquery used with = must return at most one row. Here it returns three salaries. Using IN instead of = would make the query valid."}, {"n": 112, "s": 8, "lv": "T", "q": "Assume the following four views are created on the EMP table. Which one is NOT updatable, that is, cannot be used in an UPDATE statement?", "code": "", "o": ["CREATE VIEW v1 AS SELECT empno, ename, sal FROM emp;", "CREATE VIEW v4 AS SELECT empno, sal FROM emp WHERE sal > 3000;", "CREATE VIEW v2 AS SELECT empno, ename FROM emp WHERE deptno = 20;", "CREATE VIEW v3 AS SELECT deptno, SUM(sal) AS total FROM emp GROUP BY deptno;"], "oc": [true, true, true, true], "a": 3, "e": "A view is not updatable if it contains aggregate functions, GROUP BY, HAVING, DISTINCT or UNION, because its rows no longer correspond one-to-one to rows of the base table."}, {"n": 113, "s": 9, "lv": "E", "q": "What is the main purpose of creating an index on a table?", "code": "", "o": ["To save disk space", "To enforce referential integrity", "To speed up the retrieval of rows", "To encrypt the data"], "oc": [false, false, false, false], "a": 2, "e": "An index lets the server find rows without scanning the whole table."}, {"n": 114, "s": 9, "lv": "E", "q": "In the ACID properties of a transaction, the letter A stands for ______.", "code": "", "o": ["Atomicity", "Authorization", "Availability", "Accuracy"], "oc": [false, false, false, false], "a": 0, "e": "ACID = Atomicity, Consistency, Isolation, Durability."}, {"n": 115, "s": 9, "lv": "E", "q": "Which is the default storage engine in MySQL 8?", "code": "", "o": ["MEMORY", "MyISAM", "InnoDB", "CSV"], "oc": [false, false, false, false], "a": 2, "e": "InnoDB has been the default engine since MySQL 5.5."}, {"n": 116, "s": 9, "lv": "E", "q": "A temporary table in MySQL is removed automatically when ______.", "code": "", "o": ["the session (connection) that created it ends", "another session creates a table with the same name", "the server restarts, and not before", "the transaction is committed"], "oc": [false, false, false, false], "a": 0, "e": "A TEMPORARY table exists only for the session that created it."}, {"n": 117, "s": 9, "lv": "M", "q": "______ means that the data used during the execution of a transaction cannot be used by a second transaction until the first one is completed.", "code": "", "o": ["Durability", "Isolation", "Atomicity", "Consistency"], "oc": [false, false, false, false], "a": 1, "e": "Isolation keeps concurrent transactions from seeing each other's uncommitted work."}, {"n": 118, "s": 9, "lv": "M", "q": "Which of the following is a wrong statement about MySQL storage engines?", "code": "", "o": ["The MEMORY engine keeps table data in RAM, so the data is lost when the server restarts", "InnoDB supports transactions and foreign keys", "The CSV engine stores data in comma-separated text files", "MyISAM supports transactions and row-level locking"], "oc": [false, false, false, false], "a": 3, "e": "MyISAM has no transactions, no foreign keys and uses table-level locking. InnoDB provides transactions, foreign keys and row-level locking."}, {"n": 119, "s": 9, "lv": "M", "q": "In an InnoDB table, the rows are physically organised in the order of the ______, which is therefore called the clustered index.", "code": "", "o": ["first VARCHAR column", "primary key", "most recently created index", "first foreign key"], "oc": [false, false, false, false], "a": 1, "e": "InnoDB stores the table data inside the primary key index. All other indexes are secondary indexes."}, {"n": 120, "s": 9, "lv": "T", "q": "Which of the following is a wrong statement about temporary tables in MySQL?", "code": "", "o": ["A temporary table can be seen by all sessions that are connected to the server", "A temporary table is created with CREATE TEMPORARY TABLE", "Two different sessions can each create a temporary table with the same name", "A temporary table can have the same name as a normal table; the normal table is then hidden for that session"], "oc": [false, false, false, false], "a": 0, "e": "A temporary table is visible only to the session that created it."}, {"n": 121, "s": 9, "lv": "T", "q": "A table has a composite index on (city, age). Which of the following conditions cannot use this index efficiently?", "code": "", "o": ["WHERE city = 'Pune' AND age > 25", "WHERE age = 30", "WHERE city = 'Pune'", "WHERE city = 'Pune' AND age = 30"], "oc": [true, true, true, true], "a": 1, "e": "A composite index can be used only when the condition includes its leftmost column(s). A condition on age alone skips the leading column city."}, {"n": 122, "s": 9, "lv": "T", "q": "Which of the following statements correctly distinguishes a database schema from a database instance?", "code": "", "o": ["The schema is the data stored at a particular moment; an instance is the structure of the database", "The schema changes with every INSERT; an instance never changes", "The schema is the structure (definition) of the database; an instance is the data stored in it at a particular moment", "Schema and instance are two names for the same thing"], "oc": [false, false, false, false], "a": 2, "e": "The schema is defined at design time and changes rarely. The instance (database state) changes whenever data is inserted, updated or deleted."}, {"n": 123, "s": 10, "lv": "E", "q": "Which statement is used to execute a stored procedure?", "code": "", "o": ["EXECUTE", "SELECT", "RUN", "CALL"], "oc": [false, true, false, false], "a": 3, "e": "CALL procedure_name(arguments);"}, {"n": 124, "s": 10, "lv": "E", "q": "Which of the following are the parameter modes of a MySQL stored procedure?", "code": "", "o": ["BYVAL and BYREF", "INPUT, OUTPUT and BOTH", "IN, OUT and INOUT", "READ, WRITE and READWRITE"], "oc": [false, false, false, false], "a": 2, "e": "IN passes a value in, OUT passes a value back, INOUT does both. IN is the default mode."}, {"n": 125, "s": 10, "lv": "E", "q": "Which of the following is a benefit of stored procedures?", "code": "", "o": ["They remove the need for tables", "They make every query run without using indexes", "They can be created without any privileges", "They are stored on the server and can be reused by many applications, which reduces network traffic"], "oc": [false, false, false, false], "a": 3, "e": "A procedure runs on the server, so an application sends one CALL instead of many separate statements."}, {"n": 126, "s": 10, "lv": "M", "q": "Why is the DELIMITER command used before CREATE PROCEDURE in the mysql client?", "code": "", "o": ["To declare the parameters of the procedure", "To start a transaction", "To make the procedure run faster", "To change the statement terminator, so that the semicolons inside the procedure body do not end the CREATE PROCEDURE statement"], "oc": [false, false, false, false], "a": 3, "e": "Without it the client would send the statement to the server at the first ; inside the body. After the procedure, the delimiter is set back to ; ."}, {"n": 127, "s": 10, "lv": "M", "q": "Which of the following is true about an OUT parameter of a MySQL stored procedure?", "code": "", "o": ["It must be passed as a constant", "Its value is NULL when the procedure starts, and the value assigned inside the procedure is returned to the caller", "It can only be of type INT", "The value supplied by the caller can be read inside the procedure"], "oc": [false, false, false, false], "a": 1, "e": "An OUT parameter does not bring any value in. The caller passes a user variable (such as @total) to receive the result."}, {"n": 128, "s": 10, "lv": "M", "q": "MySQL follows the ______ syntax for stored routines.", "code": "", "o": ["SQL:2011", "SQL:2008", "SQL:2003", "SQL:1999"], "oc": [false, false, false, false], "a": 2, "e": "The MySQL manual states that it follows the SQL:2003 syntax for stored procedures and functions."}, {"n": 129, "s": 10, "lv": "T", "q": "What will be the output of the last statement?", "code": "DELIMITER //\nCREATE PROCEDURE p(IN a INT, OUT b INT, INOUT c INT)\nBEGIN\n  SET a = a + 1;\n  SET b = a * 2;\n  SET c = c + b;\nEND //\nDELIMITER ;\nSET @x = 5, @y = 100, @z = 10;\nCALL p(@x, @y, @z);\nSELECT @x, @y, @z;", "o": ["6, 12, 22", "5, 12, 22", "6, 112, 22", "5, 100, 10"], "oc": [false, false, false, false], "a": 1, "e": "a is an IN parameter, so the change to it is not sent back and @x stays 5. b becomes 6 * 2 = 12 and is returned in @y. c comes in as 10 and goes back as 10 + 12 = 22."}, {"n": 130, "s": 10, "lv": "T", "q": "What will be the output of the last statement?", "code": "DELIMITER //\nCREATE PROCEDURE q(OUT n INT)\nBEGIN\n  SET n = n + 1;\nEND //\nDELIMITER ;\nSET @v = 10;\nCALL q(@v);\nSELECT @v;", "o": ["NULL", "11", "10", "Error"], "oc": [false, false, false, false], "a": 0, "e": "An OUT parameter starts as NULL inside the procedure, whatever the caller passed. NULL + 1 is NULL, and that is returned to @v. With INOUT the result would be 11."}, {"n": 131, "s": 11, "lv": "E", "q": "Which statement is used to exit from a loop in a MySQL stored program?", "code": "", "o": ["LEAVE", "STOP", "BREAK", "EXIT"], "oc": [false, false, false, false], "a": 0, "e": "LEAVE label; exits the labelled loop or block."}, {"n": 132, "s": 11, "lv": "E", "q": "Which statement skips the rest of the current pass and starts the next iteration of a loop?", "code": "", "o": ["ITERATE", "NEXT", "LEAVE", "CONTINUE"], "oc": [false, false, false, false], "a": 0, "e": "ITERATE label; means \"start the loop again\". It can be used inside LOOP, REPEAT and WHILE."}, {"n": 133, "s": 11, "lv": "E", "q": "Which loop construct checks its condition at the end and therefore executes its body at least once?", "code": "", "o": ["REPEAT ... UNTIL ... END REPEAT", "FOR ... END FOR", "LOOP ... END LOOP", "WHILE ... DO ... END WHILE"], "oc": [false, false, false, false], "a": 0, "e": "REPEAT runs the body and then tests the UNTIL condition. WHILE tests before the body."}, {"n": 134, "s": 11, "lv": "M", "q": "Which of the following is the correct IF statement syntax in a MySQL stored program?", "code": "", "o": ["IF (condition) { statements; } ELSE { statements; }", "IF condition BEGIN statements; END", "IF condition THEN statements; ELSEIF condition THEN statements; ELSE statements; END IF;", "IF condition THEN statements; ELSE IF condition THEN statements; ENDIF;"], "oc": [true, true, true, true], "a": 2, "e": "MySQL uses IF ... THEN ... ELSEIF ... ELSE ... END IF; ELSEIF is one word and END IF is two words."}, {"n": 135, "s": 11, "lv": "M", "q": "How does a CASE statement in a stored program end?", "code": "", "o": ["ENDCASE", "END SWITCH", "END", "END CASE"], "oc": [false, false, false, false], "a": 3, "e": "The CASE statement of stored programs ends with END CASE. The CASE expression used inside a query ends with END only."}, {"n": 136, "s": 11, "lv": "T", "q": "What will be the output of the following code?", "code": "DELIMITER //\nCREATE PROCEDURE w()\nBEGIN\n  DECLARE i INT DEFAULT 1;\n  DECLARE s INT DEFAULT 0;\n  WHILE i <= 5 DO\n    SET s = s + i;\n    SET i = i + 2;\n  END WHILE;\n  SELECT s, i;\nEND //\nDELIMITER ;\nCALL w();", "o": ["9, 5", "9, 7", "4, 5", "15, 6"], "oc": [false, false, false, false], "a": 1, "e": "i takes the values 1, 3 and 5, so s = 1 + 3 + 5 = 9. After the last pass i becomes 7 and the condition 7 <= 5 fails."}, {"n": 137, "s": 11, "lv": "T", "q": "What will be the output of the following code?", "code": "DELIMITER //\nCREATE PROCEDURE r()\nBEGIN\n  DECLARE i INT DEFAULT 10;\n  REPEAT\n    SET i = i + 1;\n  UNTIL i > 5 END REPEAT;\n  SELECT i;\nEND //\nDELIMITER ;\nCALL r();", "o": ["The loop never ends", "10", "6", "11"], "oc": [false, false, false, false], "a": 3, "e": "REPEAT executes its body once before testing the condition. i becomes 11, and 11 > 5 is true, so the loop ends after one pass."}, {"n": 138, "s": 11, "lv": "T", "q": "What will be the output of the following code?", "code": "DELIMITER //\nCREATE PROCEDURE l()\nBEGIN\n  DECLARE i INT DEFAULT 0;\n  DECLARE s INT DEFAULT 0;\n  lp: LOOP\n    SET i = i + 1;\n    IF i = 3 THEN ITERATE lp; END IF;\n    IF i > 5 THEN LEAVE lp; END IF;\n    SET s = s + i;\n  END LOOP;\n  SELECT s;\nEND //\nDELIMITER ;\nCALL l();", "o": ["15", "12", "10", "9"], "oc": [false, false, false, false], "a": 1, "e": "ITERATE skips the addition when i is 3, and LEAVE ends the loop when i reaches 6. s = 1 + 2 + 4 + 5 = 12."}, {"n": 139, "s": 12, "lv": "E", "q": "The keyword used to transfer control, together with a value, from a stored function back to its caller is ______.", "code": "", "o": ["LEAVE", "GOTO", "EXIT", "RETURN"], "oc": [false, false, false, false], "a": 3, "e": "A stored function declares its result type with RETURNS and sends the value back with RETURN."}, {"n": 140, "s": 12, "lv": "E", "q": "Which of the following functions returns the current date and time?", "code": "", "o": ["CURTIME()", "NOW()", "TIMESTAMP()", "CURDATE()"], "oc": [false, false, false, false], "a": 1, "e": "NOW() and CURRENT_TIMESTAMP return the date and time. CURDATE() returns only the date and CURTIME() only the time."}, {"n": 141, "s": 12, "lv": "E", "q": "Which function joins two or more strings into one?", "code": "", "o": ["MERGE()", "CONCAT()", "APPEND()", "JOIN()"], "oc": [false, false, false, false], "a": 1, "e": "CONCAT('My', 'SQL') returns 'MySQL'."}, {"n": 142, "s": 12, "lv": "E", "q": "Which function returns the remainder of a division?", "code": "", "o": ["DIV()", "ROUND()", "REM()", "MOD()"], "oc": [false, false, false, false], "a": 3, "e": "MOD(17, 5) returns 2. The % operator does the same."}, {"n": 143, "s": 12, "lv": "M", "q": "What will be the output of the following query?", "code": "SELECT CONCAT(UPPER(SUBSTR('cdac', 1, 1)), LOWER(SUBSTR('CDAC', 2)));", "o": ["Cd", "Cdac", "CDAC", "cDAC"], "oc": [false, false, false, false], "a": 1, "e": "Nested functions are evaluated from the innermost outwards: SUBSTR first, then UPPER and LOWER, and CONCAT last. SUBSTR('cdac', 1, 1) is 'c' and SUBSTR('CDAC', 2) is 'DAC'."}, {"n": 144, "s": 12, "lv": "M", "q": "Which of the following is a wrong statement about stored functions and stored procedures in MySQL?", "code": "", "o": ["A stored function must return exactly one value", "A stored procedure can have IN, OUT and INOUT parameters", "A stored function can be used inside a SELECT statement", "A stored function is executed with the CALL statement"], "oc": [false, false, false, false], "a": 3, "e": "A function is used in an expression, for example SELECT fn(5). CALL is used only for procedures. Function parameters are always IN."}, {"n": 145, "s": 12, "lv": "M", "q": "What will be the output of the following query?", "code": "SELECT DATEDIFF('2026-03-01', '2026-02-01'), YEAR('2026-11-10'), MONTHNAME('2026-11-10');", "o": ["1, 2026, Nov", "28, 2026, November", "30, 2026, November", "28, 2026, 11"], "oc": [false, false, false, false], "a": 1, "e": "DATEDIFF returns the number of days between the two dates (February 2026 has 28 days). YEAR extracts the year and MONTHNAME gives the full month name."}, {"n": 146, "s": 12, "lv": "T", "q": "What will be the output of the following query?", "code": "SELECT CONCAT('A', NULL, 'B'), IFNULL(NULL, 'X'),\n       SUBSTRING('DATABASE', 5, 3), INSTR('DATABASE', 'A');", "o": ["NULL, X, ABA, 1", "NULL, X, BAS, 2", "AB, X, BAS, 2", "AB, NULL, BAS, 2"], "oc": [false, false, false, false], "a": 1, "e": "CONCAT returns NULL if any argument is NULL. IFNULL returns its second argument when the first is NULL. String positions start at 1, so SUBSTRING from position 5 for 3 characters is 'BAS', and the first 'A' is at position 2."}, {"n": 147, "s": 12, "lv": "T", "q": "What will be the output of the following query?", "code": "SELECT ROUND(15.567, 1), TRUNCATE(15.567, 1), ROUND(-2.5), CEIL(2.1), FLOOR(-2.1);", "o": ["15.5, 15.5, -3, 2, -3", "15.6, 15.5, -2, 3, -2", "15.6, 15.5, -3, 3, -3", "15.6, 15.6, -2, 3, -2"], "oc": [false, false, false, false], "a": 2, "e": "ROUND rounds to the nearest value (half away from zero for exact numbers, so -2.5 gives -3). TRUNCATE just cuts off digits. CEIL goes up to 3 and FLOOR goes down to -3."}, {"n": 148, "s": 12, "lv": "T", "q": "What will be the output of the last statement?", "code": "DELIMITER //\nCREATE FUNCTION grade(m INT) RETURNS CHAR(1) DETERMINISTIC\nBEGIN\n  RETURN CASE WHEN m >= 75 THEN 'A'\n              WHEN m >= 50 THEN 'B'\n              ELSE 'C' END;\nEND //\nDELIMITER ;\nSELECT grade(80), grade(75), grade(49);", "o": ["A, B, C", "A, B, B", "Error, because a function cannot contain CASE", "A, A, C"], "oc": [false, false, false, false], "a": 3, "e": "CASE returns the result of the first condition that is true. 80 and 75 both satisfy m >= 75, and 49 satisfies neither condition."}, {"n": 149, "s": 13, "lv": "E", "q": "What is the correct order of the steps in the life cycle of a cursor?", "code": "", "o": ["OPEN, DECLARE, FETCH, CLOSE", "DECLARE, FETCH, OPEN, CLOSE", "OPEN, FETCH, DECLARE, CLOSE", "DECLARE, OPEN, FETCH, CLOSE"], "oc": [false, false, false, false], "a": 3, "e": "A cursor is declared, opened, fetched from row by row, and finally closed."}, {"n": 150, "s": 13, "lv": "E", "q": "What does the statement OPEN cursor_name do?", "code": "", "o": ["It closes the cursor", "It fetches the next row of the cursor", "It declares the cursor", "It opens a previously declared cursor and executes its SELECT statement"], "oc": [false, false, false, false], "a": 3, "e": "OPEN runs the query of the cursor and positions it before the first row."}, {"n": 151, "s": 13, "lv": "E", "q": "What happens when a FETCH statement finds a row?", "code": "", "o": ["It loads the values of the current row into the variables and moves to the next row", "It displays the row on the screen", "It opens the cursor", "It closes the cursor"], "oc": [false, false, false, false], "a": 0, "e": "FETCH cursor_name INTO variables; reads one row at a time."}, {"n": 152, "s": 13, "lv": "E", "q": "A cursor is used to ______.", "code": "", "o": ["speed up SELECT statements", "define a constraint", "process the rows returned by a query one row at a time inside a stored program", "create a backup of a table"], "oc": [false, false, false, false], "a": 2, "e": "SQL normally works on whole sets of rows; a cursor allows row-by-row processing."}, {"n": 153, "s": 13, "lv": "M", "q": "Which of the following is a wrong statement about cursors in MySQL?", "code": "", "o": ["A MySQL cursor is non-scrollable", "A MySQL cursor is asensitive", "A MySQL cursor can move backwards to fetch the previous row", "A MySQL cursor is read-only"], "oc": [false, false, false, false], "a": 2, "e": "MySQL cursors are read-only, non-scrollable (rows are fetched only in forward order, without skipping) and asensitive."}, {"n": 154, "s": 13, "lv": "M", "q": "Why is a NOT FOUND handler declared when working with a cursor?", "code": "", "o": ["Because an error is raised if the table does not exist in the database", "Because it handles the situation in which the cursor does not find any more rows", "Because an error is raised if the WHERE condition fails", "Because an error is raised if the SELECT list contains an unknown column"], "oc": [false, false, false, false], "a": 1, "e": "When FETCH goes past the last row, a NOT FOUND condition is raised. The handler usually sets a flag that is used to leave the loop."}, {"n": 155, "s": 13, "lv": "M", "q": "In a BEGIN ... END block, in which order must the declarations be written?", "code": "", "o": ["Any order is allowed", "Cursors, then variables, then handlers", "Handlers, then cursors, then variables", "Variables and conditions, then cursors, then handlers"], "oc": [false, false, false, false], "a": 3, "e": "MySQL requires variable and condition declarations first, cursor declarations next and handler declarations last."}, {"n": 156, "s": 13, "lv": "T", "q": "Refer to the EMP table. What will be the output of the following code?", "code": "DELIMITER //\nCREATE PROCEDURE c1()\nBEGIN\n  DECLARE done INT DEFAULT 0;\n  DECLARE v INT;\n  DECLARE total INT DEFAULT 0;\n  DECLARE cur CURSOR FOR SELECT sal FROM emp WHERE deptno = 20 ORDER BY empno;\n  DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = 1;\n  OPEN cur;\n  rd: LOOP\n    FETCH cur INTO v;\n    IF done = 1 THEN LEAVE rd; END IF;\n    SET total = total + v;\n  END LOOP;\n  CLOSE cur;\n  SELECT total;\nEND //\nDELIMITER ;\nCALL c1();", "o": ["5000", "19000", "14000", "9000"], "oc": [false, false, false, false], "a": 2, "e": "The cursor returns 5000, 4000 and 5000. The done flag is tested immediately after each FETCH, so the loop is left as soon as no row is found. 5000 + 4000 + 5000 = 14000."}, {"n": 157, "s": 13, "lv": "T", "q": "Refer to the EMP table. The loop below tests the done flag after the addition. What will be the output?", "code": "DELIMITER //\nCREATE PROCEDURE c2()\nBEGIN\n  DECLARE done INT DEFAULT 0;\n  DECLARE v INT;\n  DECLARE total INT DEFAULT 0;\n  DECLARE cur CURSOR FOR SELECT sal FROM emp WHERE deptno = 20 ORDER BY empno;\n  DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = 1;\n  OPEN cur;\n  rd: LOOP\n    FETCH cur INTO v;\n    SET total = total + v;\n    IF done = 1 THEN LEAVE rd; END IF;\n  END LOOP;\n  CLOSE cur;\n  SELECT total;\nEND //\nDELIMITER ;\nCALL c2();", "o": ["NULL", "9000", "14000", "19000"], "oc": [false, false, false, false], "a": 3, "e": "When the fourth FETCH finds no row, v keeps its previous value (5000) and the CONTINUE handler lets execution go on, so the last salary is added a second time: 14000 + 5000 = 19000. The flag must be tested immediately after FETCH."}, {"n": 158, "s": 13, "lv": "T", "q": "Which of the following is true about an asensitive cursor?", "code": "", "o": ["The server may or may not make a copy of the result set, so changes made to the data while the cursor is open may or may not be seen", "It can be used to update the rows of the underlying table", "It always works on a temporary copy of the data, so it never sees later changes", "It can be scrolled both forwards and backwards"], "oc": [false, false, false, false], "a": 0, "e": "Asensitive means the cursor may work directly on the actual data. Because no copy has to be made, it is faster than an insensitive cursor, which always works on a temporary copy."}, {"n": 159, "s": 14, "lv": "E", "q": "A trigger is a stored program that ______.", "code": "", "o": ["must be called explicitly using CALL", "runs only when a SELECT statement is executed", "is executed automatically when an INSERT, UPDATE or DELETE occurs on its table", "runs once every time the server starts"], "oc": [false, false, false, false], "a": 2, "e": "A trigger is associated with a table and fires on a DML event."}, {"n": 160, "s": 14, "lv": "E", "q": "Triggers are not supported for ______.", "code": "", "o": ["views", "insert", "update", "delete"], "oc": [false, false, false, false], "a": 0, "e": "In MySQL a trigger can be created only on a permanent table, not on a view or a temporary table."}, {"n": 161, "s": 14, "lv": "E", "q": "Which statement is used to create a trigger?", "code": "", "o": ["ADD TRIGGER", "CREATE EVENT", "MAKE TRIGGER", "CREATE TRIGGER"], "oc": [false, true, false, true], "a": 3, "e": "CREATE TRIGGER name {BEFORE | AFTER} {INSERT | UPDATE | DELETE} ON table FOR EACH ROW body;"}, {"n": 162, "s": 14, "lv": "E", "q": "Which statement removes a trigger?", "code": "", "o": ["DROP TRIGGER", "DELETE TRIGGER", "REMOVE TRIGGER", "CLEAR TRIGGER"], "oc": [true, true, false, false], "a": 0, "e": "Database objects are removed with DROP: DROP TRIGGER trigger_name;"}, {"n": 163, "s": 14, "lv": "M", "q": "In the trigger definition below, abc, def, ghi and jkl are respectively ______.", "code": "CREATE TRIGGER abc BEFORE def ON ghi FOR EACH ROW jkl;", "o": ["trigger name, table name, DML operation, trigger body", "trigger body, DML operation, table name, trigger name", "table name, DML operation, trigger name, trigger body", "trigger name, DML operation, table name, trigger body"], "oc": [false, false, false, false], "a": 3, "e": "The order is: trigger name, timing (BEFORE or AFTER), event (INSERT, UPDATE or DELETE), ON table name, FOR EACH ROW, trigger body."}, {"n": 164, "s": 14, "lv": "M", "q": "Inside a trigger, which of the following is correct about the OLD and NEW row aliases?", "code": "", "o": ["OLD and NEW can be used only in AFTER triggers", "An INSERT trigger has only NEW, a DELETE trigger has only OLD, and an UPDATE trigger has both", "Every trigger has both OLD and NEW", "An INSERT trigger has only OLD and a DELETE trigger has only NEW"], "oc": [false, false, false, false], "a": 1, "e": "An inserted row has no old version and a deleted row has no new version. An update has both."}, {"n": 165, "s": 14, "lv": "M", "q": "Which of the following is a wrong statement about triggers in MySQL?", "code": "", "o": ["A trigger can be defined to fire BEFORE or AFTER the triggering event", "MySQL supports statement-level triggers written with FOR EACH STATEMENT", "A trigger is always associated with one table", "MySQL triggers are row-level triggers, written with FOR EACH ROW"], "oc": [false, false, false, false], "a": 1, "e": "MySQL supports only row-level triggers: the body runs once for each affected row."}, {"n": 166, "s": 14, "lv": "T", "q": "What will be the output of the last statement?", "code": "CREATE TABLE s (id INT, marks INT);\nCREATE TRIGGER t1 BEFORE INSERT ON s FOR EACH ROW\n  SET NEW.marks = IF(NEW.marks > 100, 100, NEW.marks);\nINSERT INTO s VALUES (1, 150), (2, 80);\nSELECT SUM(marks) FROM s;", "o": ["100", "Error", "180", "230"], "oc": [false, false, false, false], "a": 2, "e": "A BEFORE INSERT trigger can change the values of the NEW row before it is stored. 150 is reduced to 100 and 80 is unchanged: 100 + 80 = 180."}, {"n": 167, "s": 14, "lv": "T", "q": "What will be the output of the last statement?", "code": "CREATE TABLE a (id INT);\nCREATE TABLE log (n INT);\nCREATE TRIGGER t2 AFTER DELETE ON a FOR EACH ROW\n  INSERT INTO log VALUES (OLD.id);\nINSERT INTO a VALUES (1), (2), (3);\nDELETE FROM a WHERE id >= 2;\nTRUNCATE TABLE a;\nSELECT COUNT(*) FROM log;", "o": ["2", "3", "1", "0"], "oc": [false, false, false, false], "a": 0, "e": "The DELETE removes two rows, and the row-level trigger fires once for each. TRUNCATE removes the last row but does not fire DELETE triggers."}, {"n": 168, "s": 14, "lv": "T", "q": "What happens when the following statements are executed?", "code": "CREATE TABLE s (id INT, marks INT);\nCREATE TRIGGER t3 AFTER INSERT ON s FOR EACH ROW\n  SET NEW.marks = 0;", "o": ["The trigger is created and fails only when a row is inserted", "The trigger is created but the SET statement is ignored", "The CREATE TRIGGER statement fails, because the NEW row cannot be modified in an AFTER trigger", "The trigger is created and every inserted row gets marks = 0"], "oc": [false, false, false, false], "a": 2, "e": "By the time an AFTER trigger runs, the row has already been stored. NEW values can be changed only in a BEFORE trigger."}, {"n": 169, "s": 15, "lv": "E", "q": "Which statement is used to define an error handler in a stored program?", "code": "", "o": ["SET HANDLER", "DECLARE ... HANDLER", "CREATE HANDLER", "ON ERROR"], "oc": [false, false, true, false], "a": 1, "e": "DECLARE action HANDLER FOR condition statement;"}, {"n": 170, "s": 15, "lv": "E", "q": "Which are the two handler actions supported by MySQL?", "code": "", "o": ["TRY and CATCH", "RESUME and ABORT", "CONTINUE and EXIT", "COMMIT and ROLLBACK"], "oc": [false, false, false, false], "a": 2, "e": "CONTINUE carries on with the next statement after the handler runs; EXIT leaves the BEGIN ... END block in which the handler is declared."}, {"n": 171, "s": 15, "lv": "E", "q": "To raise your own error in a MySQL stored program by setting an SQLSTATE, the ______ keyword is used.", "code": "", "o": ["DECLARE", "SIGNAL", "THROW", "SQLEXCEPTION"], "oc": [false, false, false, false], "a": 1, "e": "SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'message'; raises a user-defined error."}, {"n": 172, "s": 15, "lv": "M", "q": "In the statement below, abc, def and ghi are respectively ______.", "code": "DECLARE abc HANDLER FOR def ghi;", "o": ["statement, condition value, handler action", "handler action, condition value, statement", "handler name, table name, statement", "condition value, handler action, statement"], "oc": [false, false, false, false], "a": 1, "e": "The syntax is DECLARE handler_action HANDLER FOR condition_value statement; for example DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = 1;"}, {"n": 173, "s": 15, "lv": "M", "q": "The condition NOT FOUND in a handler declaration is shorthand for the class of SQLSTATE values that begin with ______.", "code": "", "o": ["'00'", "'02'", "'45'", "'01'"], "oc": [false, false, false, false], "a": 1, "e": "'00' means success, '01' is SQLWARNING and '02' is NOT FOUND. SQLEXCEPTION covers all other classes."}, {"n": 174, "s": 15, "lv": "T", "q": "What will be the output of the last statement?", "code": "CREATE TABLE t (id INT PRIMARY KEY);\nSET @e = 0;\nDELIMITER //\nCREATE PROCEDURE h1()\nBEGIN\n  DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET @e = @e + 1;\n  INSERT INTO t VALUES (1);\n  INSERT INTO t VALUES (1);\n  INSERT INTO t VALUES (2);\nEND //\nDELIMITER ;\nCALL h1();\nSELECT COUNT(*), @e FROM t;", "o": ["1, 0", "2, 1", "1, 1", "3, 0"], "oc": [false, false, false, false], "a": 1, "e": "The second INSERT fails with a duplicate key error. The CONTINUE handler counts the error and execution carries on with the third INSERT, so the rows 1 and 2 are stored."}, {"n": 175, "s": 15, "lv": "T", "q": "What will be the output of the last statement?", "code": "CREATE TABLE t (id INT PRIMARY KEY);\nSET @e = 0;\nDELIMITER //\nCREATE PROCEDURE h2()\nBEGIN\n  DECLARE EXIT HANDLER FOR SQLEXCEPTION SET @e = @e + 1;\n  INSERT INTO t VALUES (1);\n  INSERT INTO t VALUES (1);\n  INSERT INTO t VALUES (2);\nEND //\nDELIMITER ;\nCALL h2();\nSELECT COUNT(*), @e FROM t;", "o": ["0, 1", "2, 1", "3, 0", "1, 1"], "oc": [false, false, false, false], "a": 3, "e": "With an EXIT handler, the handler statement runs and then the BEGIN ... END block is left, so the third INSERT is never executed. Only row 1 is stored."}, {"n": 176, "s": 15, "lv": "T", "q": "What is the result of the CALL statement?", "code": "DELIMITER //\nCREATE PROCEDURE chk(IN age INT)\nBEGIN\n  IF age < 18 THEN\n    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Too young';\n  END IF;\n  SELECT 'OK';\nEND //\nDELIMITER ;\nCALL chk(15);", "o": ["An error is raised with the message 'Too young'", "A warning is shown and then OK", "OK", "NULL"], "oc": [false, false, false, false], "a": 0, "e": "SIGNAL with SQLSTATE '45000' (the general user-defined exception) raises an error, and because no handler is declared the procedure stops."}, {"n": 177, "s": 16, "lv": "E", "q": "MongoDB belongs to which category of NoSQL databases?", "code": "", "o": ["Graph store", "Key-value store", "Document store", "Column-oriented store"], "oc": [false, false, false, false], "a": 2, "e": "MongoDB stores data as JSON-like documents."}, {"n": 178, "s": 16, "lv": "E", "q": "A table and a row of an RDBMS correspond to which terms in MongoDB?", "code": "", "o": ["Database and collection", "Document and field", "Collection and document", "Field and value"], "oc": [false, false, false, false], "a": 2, "e": "Table = collection, row (tuple) = document, column = field."}, {"n": 179, "s": 16, "lv": "E", "q": "Which of the following is NOT a NoSQL database?", "code": "", "o": ["Cassandra", "Redis", "Oracle", "MongoDB"], "oc": [false, false, false, false], "a": 2, "e": "Oracle is a relational DBMS."}, {"n": 180, "s": 16, "lv": "E", "q": "In which format does MongoDB store documents internally?", "code": "", "o": ["CSV", "YAML", "XML", "BSON"], "oc": [false, false, false, false], "a": 3, "e": "BSON is a binary encoding of JSON-like documents that supports additional data types such as Date and ObjectId."}, {"n": 181, "s": 16, "lv": "M", "q": "In the CAP theorem, the letters C, A and P stand for ______.", "code": "", "o": ["Consistency, Atomicity, Performance", "Concurrency, Atomicity, Persistence", "Capacity, Availability, Partitioning", "Consistency, Availability, Partition tolerance"], "oc": [false, false, false, false], "a": 3, "e": "The CAP theorem says that a distributed system can guarantee at most two of these three properties at the same time."}, {"n": 182, "s": 16, "lv": "M", "q": "Which of the following pairings of a database with its NoSQL category is wrong?", "code": "", "o": ["Cassandra : graph store", "Redis : key-value store", "MongoDB : document store", "Neo4j : graph store"], "oc": [false, false, false, false], "a": 0, "e": "Cassandra is a column-oriented (wide-column) store."}, {"n": 183, "s": 16, "lv": "M", "q": "JSON documents in which different documents may have different fields are an example of ______ data.", "code": "", "o": ["semi-structured", "relational", "structured", "unstructured"], "oc": [false, false, false, false], "a": 0, "e": "Structured data has a fixed schema (tables), semi-structured data is self-describing (JSON, XML), and unstructured data has no model (images, video, free text)."}, {"n": 184, "s": 16, "lv": "T", "q": "Which of the following is a true statement about MongoDB documents?", "code": "", "o": ["BSON supports fewer data types than JSON", "All documents of a collection must have exactly the same fields", "Every document must have an _id field that is unique within its collection; MongoDB adds one automatically if it is not supplied", "The maximum size of a BSON document is 16 KB"], "oc": [false, false, false, false], "a": 2, "e": "_id is the primary key. Collections have a flexible schema, the maximum document size is 16 MB, and BSON has more types than JSON."}, {"n": 185, "s": 16, "lv": "T", "q": "Which of the following correctly describes the BASE model followed by many NoSQL databases?", "code": "", "o": ["Backup, Archive, Store, Encrypt", "Basically Available, Soft state, Eventual consistency", "Basic Atomicity, Strict consistency, Exclusive locking", "Balanced Availability, Serializable Execution"], "oc": [false, false, false, false], "a": 1, "e": "BASE gives up immediate consistency for availability: all copies of the data become consistent eventually, not at once as under ACID."}, {"n": 186, "s": 16, "lv": "T", "q": "Which of the following is a wrong statement?", "code": "", "o": ["Relational databases traditionally scale vertically by upgrading the server", "NoSQL databases usually allow a flexible schema", "All NoSQL databases require a fixed schema to be defined before data can be inserted", "NoSQL databases generally scale horizontally by adding more servers"], "oc": [false, false, false, false], "a": 2, "e": "Most NoSQL databases are schema-less or schema-flexible. A predefined schema is a property of relational databases."}, {"n": 187, "s": 17, "lv": "E", "q": "Which method inserts a single document into a MongoDB collection?", "code": "", "o": ["db.collection.create()", "db.collection.put()", "db.collection.add()", "db.collection.insertOne()"], "oc": [true, true, true, true], "a": 3, "e": "insertOne() adds one document and insertMany() adds an array of documents."}, {"n": 188, "s": 17, "lv": "E", "q": "Which command returns all the documents of the collection users?", "code": "", "o": ["SELECT * FROM users", "db.users.select()", "db.users.getAll()", "db.users.find()"], "oc": [true, true, true, true], "a": 3, "e": "find() with no filter returns every document."}, {"n": 189, "s": 17, "lv": "E", "q": "Select the correct query to display users in descending order of age.", "code": "", "o": ["db.users.find().sort({age: -1})", "db.users.find().sort({age: 1})", "db.users.find().order({age: \"desc\"})", "db.users.find().limit()"], "oc": [true, true, true, true], "a": 0, "e": "In sort(), 1 means ascending and -1 means descending."}, {"n": 190, "s": 17, "lv": "E", "q": "What is the primary key in MongoDB?", "code": "", "o": ["The first field of every document", "The _id field, a unique identifier for each document in a collection", "A key used to encrypt and decrypt data", "A key that indexes all the fields of a collection"], "oc": [false, false, false, false], "a": 1, "e": "Every document has an _id, which is unique in its collection and indexed automatically."}, {"n": 191, "s": 17, "lv": "E", "q": "In the aggregation pipeline, which stage filters documents in the same way as find()?", "code": "", "o": ["$match", "$sort", "$group", "$project"], "oc": [false, false, false, false], "a": 0, "e": "$match filters documents, $group groups them, $project reshapes fields and $sort orders them."}, {"n": 192, "s": 17, "lv": "E", "q": "In the mongo shell, which keyword is typed to iterate the cursor and display more documents?", "code": "", "o": ["more", "it", "next", "cursor"], "oc": [false, false, false, false], "a": 1, "e": "The shell shows 20 documents at a time; typing it shows the next batch."}, {"n": 193, "s": 17, "lv": "M", "q": "Which query finds the users whose age is greater than 25?", "code": "", "o": ["db.users.find({age > 25})", "db.users.find({age: {$gt: 25}})", "db.users.find({age: {$gte: 25}})", "db.users.find({$gt: {age: 25}})"], "oc": [true, true, true, true], "a": 1, "e": "A comparison operator is written inside a sub-document for the field: {field: {$operator: value}}. $gte would also include 25."}, {"n": 194, "s": 17, "lv": "M", "q": "Which statement creates a unique index on the field email of the collection users?", "code": "", "o": ["db.users.createUniqueIndex(\"email\")", "db.users.createIndex({email: \"unique\"})", "db.users.addIndex({email: 1}, {unique: true})", "db.users.createIndex({email: 1}, {unique: true})"], "oc": [true, true, true, true], "a": 3, "e": "createIndex() takes the key specification and an options document. A compound index lists several fields: {city: 1, age: -1}."}, {"n": 195, "s": 17, "lv": "M", "q": "What does the option {upsert: true} do in an update operation?", "code": "", "o": ["It updates all the matching documents", "It inserts a new document if no document matches the filter", "It makes the update run inside a transaction", "It replaces the whole document"], "oc": [false, false, false, false], "a": 1, "e": "Upsert = update if a matching document is found, otherwise insert."}, {"n": 196, "s": 17, "lv": "M", "q": "What does the following query return?", "code": "db.users.find({}, {name: 1, _id: 0})", "o": ["All fields of all documents except name", "Only the documents that have name equal to 1", "Only the name field of every document", "The name and _id fields of every document"], "oc": [false, false, false, false], "a": 2, "e": "The second argument of find() is the projection: 1 includes a field and 0 excludes it. _id is included by default unless it is set to 0."}, {"n": 197, "s": 17, "lv": "T", "q": "What does the last statement return?", "code": "db.u.insertMany([\n  {_id: 1, n: \"A\", age: 30}, {_id: 2, n: \"B\", age: 25},\n  {_id: 3, n: \"C\", age: 35}, {_id: 4, n: \"D\", age: 25}]);\ndb.u.find({age: {$gte: 25, $lt: 35}}, {n: 1, _id: 0}).sort({age: -1, n: 1}).skip(1).limit(2)", "o": ["{ n: \"D\" } and { n: \"B\" }", "{ n: \"A\" } and { n: \"B\" }", "{ n: \"C\" } and { n: \"A\" }", "{ n: \"B\" } and { n: \"D\" }"], "oc": [false, false, false, false], "a": 3, "e": "The filter keeps A (30), B (25) and D (25). Sorting by age descending and then name ascending gives A, B, D. skip(1) drops A and limit(2) returns B and D."}, {"n": 198, "s": 17, "lv": "T", "q": "What does the last statement return?", "code": "db.c.insertOne({_id: 1, tags: [\"a\", \"b\"]});\ndb.c.updateOne({_id: 1}, {$push: {tags: \"a\"}});\ndb.c.updateOne({_id: 1}, {$addToSet: {tags: \"b\"}});\ndb.c.updateOne({_id: 1}, {$pull: {tags: \"a\"}});\ndb.c.findOne({_id: 1}).tags", "o": ["[ \"b\" ]", "[ \"a\", \"b\" ]", "[ \"b\", \"a\" ]", "[ \"b\", \"b\" ]"], "oc": [false, false, false, false], "a": 0, "e": "$push always appends, giving [\"a\", \"b\", \"a\"]. $addToSet adds a value only if it is not already present, so nothing changes. $pull removes every occurrence of \"a\"."}, {"n": 199, "s": 17, "lv": "T", "q": "What does the last statement return?", "code": "db.s.updateOne({_id: \"x\"}, {$inc: {c: 5}}, {upsert: true});\ndb.s.updateOne({_id: \"x\"}, {$inc: {c: 2}, $set: {f: 1}});\ndb.s.updateMany({c: {$gt: 100}}, {$set: {f: 9}});\ndb.s.find().toArray()", "o": ["One document: { _id: \"x\", c: 7, f: 1 }", "One document: { _id: \"x\", c: 7, f: 9 }", "One document: { _id: \"x\", c: 2, f: 1 }", "An empty array, because the first update matches nothing"], "oc": [false, false, false, false], "a": 0, "e": "No document matches the first update, so upsert inserts { _id: \"x\", c: 5 }. The second update adds 2 to c and sets f. The third matches nothing, because c is not greater than 100."}, {"n": 200, "s": 17, "lv": "T", "q": "What does the last statement return?", "code": "db.p.insertMany([\n  {_id: 1, q: 5, t: \"x\"}, {_id: 2, q: 15, t: \"y\"},\n  {_id: 3, q: 25, t: \"x\"}, {_id: 4, q: 35, t: \"z\"}]);\ndb.p.deleteMany({$or: [{q: {$lt: 10}}, {t: {$in: [\"z\"]}}]});\ndb.p.replaceOne({_id: 2}, {q: 1});\ndb.p.find({}, {_id: 0}).sort({q: 1}).toArray()", "o": ["{ q: 1 } and { q: 25, t: \"x\" }", "{ q: 15, t: \"y\" } and { q: 25, t: \"x\" }", "{ q: 1, t: \"y\" } and { q: 25, t: \"x\" }", "{ q: 1 } only"], "oc": [false, false, false, false], "a": 0, "e": "deleteMany removes the documents with _id 1 (q < 10) and _id 4 (t is \"z\"). replaceOne replaces the whole document except _id, so the field t disappears from document 2."}]}</script>
+<script>
+(function(){
+"use strict";
+const DATA = JSON.parse(document.getElementById('qdata').textContent);
+const Q = DATA.questions;
+const TOTAL_Q = Q.length;
+const byN = {}; Q.forEach(q => { byN[q.n] = q; });
+const LV = {E:'Easy', M:'Medium', T:'Tough'};
+const LVBARS = {E:1, M:2, T:3};
+const SESS = DATA.sessions.map(s => {
+  const i = s.title.indexOf(': ');
+  const qs = Q.filter(q => q.s === s.n).map(q => q.n);
+  return {n:s.n, refs:s.refs, name: i > 0 ? s.title.slice(0, i) : s.title, topics: i > 0 ? s.title.slice(i + 2) : '', qs};
+});
+const sessByN = {}; SESS.forEach(s => { sessByN[s.n] = s; });
+
+/* ---------- helpers ---------- */
+const $ = id => document.getElementById(id);
+function esc(s){ return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function pct(a, b){ return b ? Math.round(100 * a / b) : 0; }
+const SQLKW = /^(SELECT|FROM|WHERE|AND|OR|NOT|IN|IS|NULL|AS|ON|JOIN|LEFT|RIGHT|INNER|OUTER|CROSS|FULL|NATURAL|USING|GROUP|BY|ORDER|HAVING|LIMIT|OFFSET|DISTINCT|UNION|ALL|ANY|EXISTS|INSERT|INTO|VALUES|UPDATE|SET|DELETE|CREATE|TABLE|VIEW|INDEX|ALTER|DROP|TRUNCATE|RENAME|TO|ADD|COLUMN|MODIFY|CHANGE|PRIMARY|FOREIGN|KEY|REFERENCES|UNIQUE|CHECK|DEFAULT|CONSTRAINT|AUTO_INCREMENT|INT|INTEGER|BIGINT|VARCHAR|CHAR|DECIMAL|DATE|TEXT|BEGIN|END|DECLARE|PROCEDURE|FUNCTION|RETURNS|RETURN|CALL|IF|THEN|ELSE|ELSEIF|CASE|WHEN|WHILE|DO|LOOP|LEAVE|ITERATE|REPEAT|UNTIL|CURSOR|FOR|OPEN|FETCH|CLOSE|HANDLER|CONTINUE|EXIT|FOUND|SQLEXCEPTION|SQLSTATE|SIGNAL|RESIGNAL|TRIGGER|BEFORE|AFTER|EACH|ROW|NEW|OLD|DELIMITER|START|TRANSACTION|COMMIT|ROLLBACK|SAVEPOINT|GRANT|REVOKE|WITH|RECURSIVE|OVER|PARTITION|ROWS|BETWEEN|LIKE|DESC|ASC|COUNT|SUM|AVG|MIN|MAX|ROW_NUMBER|RANK|DENSE_RANK|LAG|LEAD|COALESCE|IFNULL|CONCAT|DETERMINISTIC|READS|SQL|DATA|OUT|INOUT|TEMPORARY|ENGINE|SHOW|DESCRIBE|USE|DATABASE|TRUE|FALSE|def|return|if|elif|else|for|while|break|continue|pass|import|from|as|class|try|except|finally|raise|with|yield|lambda|and|or|not|in|is|None|True|False|self|super|async|await|global|nonlocal|del|assert|function|library|require|install|packages|c|list|data|frame|matrix|factor|NA|NaN|NULL|Inf|TRUE|FALSE|print|range|len|set|dict|tuple|int|float|str|bool|sum|min|max|sorted|zip|map|filter|open|ggplot|aes|geom_bar|geom_point|coord_polar|facet_wrap|group_by|summarise|mutate|select|filter|arrange|pivot_longer|pivot_wider|public|private|protected|static|final|void|new|this|extends|implements|interface|abstract|throws|throw|catch|synchronized|volatile|transient|package|boolean|byte|short|long|double|char|switch|case|default|do|instanceof|enum|System|out|println|String|StringBuilder|List|ArrayList|Set|HashSet|Map|HashMap|IntStream|LocalDate|Thread|PreparedStatement)$/;
+function highlight(code){
+  const re = /('(?:[^'\\]|\\.)*'|"(?:[^"\\]|\\.)*"|--[^\n]*|\/\/[^\n]*|#[^\n]*|\b\d+(?:\.\d+)?\b|\b[A-Za-z_]+\b)/g;
+  let out = '', last = 0, m;
+  while ((m = re.exec(code))){
+    out += esc(code.slice(last, m.index));
+    const t = m[0];
+    if (t[0] === "'" || t[0] === '"') out += '<span class="st">' + esc(t) + '</span>';
+    else if (t.startsWith('--') || t.startsWith('//') || t[0] === '#') out += '<span class="cm">' + esc(t) + '</span>';
+    else if (/^\d/.test(t)) out += '<span class="nu">' + esc(t) + '</span>';
+    else if (SQLKW.test(t)) out += '<span class="kw">' + esc(t) + '</span>';
+    else out += esc(t);
+    last = m.index + t.length;
+  }
+  return out + esc(code.slice(last));
+}
+function asciiTable(rows){
+  const w = rows[0].map((_, c) => Math.max(...rows.map(r => String(r[c]).length)));
+  const line = '+' + w.map(x => '-'.repeat(x + 2)).join('+') + '+';
+  const fmt = r => '| ' + r.map((v, c) => { const s = String(v); return /^\d+$/.test(s) ? s.padStart(w[c]) : s.padEnd(w[c]); }).join(' | ') + ' |';
+  return [line, fmt(rows[0]), line, ...rows.slice(1).map(fmt), line].join('\n') + '\n' + (rows.length - 1) + ' rows in set';
+}
+let toastTimer = null;
+function toast(msg){ const t = $('toast'); t.textContent = msg; t.hidden = false; clearTimeout(toastTimer); toastTimer = setTimeout(() => { t.hidden = true; }, 2200); }
+
+/* ---------- progress store ---------- */
+const LS_KEY = 'dbms200-progress-v1';
+let store = {a:{}, resetAt:0};
+function lsRead(){ try { const s = localStorage.getItem(LS_KEY); if (s){ const o = JSON.parse(s); if (o && typeof o.a === 'object') store = {a:o.a, resetAt:o.resetAt || 0}; } } catch(e){} }
+function lsWrite(){ try { localStorage.setItem(LS_KEY, JSON.stringify(store)); } catch(e){} }
+function ans(n){ const e = store.a[n]; return (e && e.c >= 0) ? e : null; }
+function record(n, choice){
+  const q = byN[n], ok = choice === q.a, e = store.a[n] || {};
+  store.a[n] = {c:choice, ok, t:Date.now(), w:(e.w || 0) + (ok ? 0 : 1), r:(e.r || 0) + (ok ? 1 : 0)};
+  persist();
+}
+function clearAnswers(ns){
+  const t = Date.now();
+  ns.forEach(n => { const e = store.a[n]; if (e && e.c >= 0) store.a[n] = Object.assign({}, e, {c:-1, ok:false, t}); });
+  persist();
+}
+function resetAll(){ store = {a:{}, resetAt:Date.now()}; persist(); }
+function stats(ns){
+  let ok = 0, bad = 0;
+  ns.forEach(n => { const e = ans(n); if (e){ if (e.ok) ok++; else bad++; } });
+  return {ok, bad, done: ok + bad, total: ns.length, todo: ns.length - ok - bad};
+}
+function wrongList(){ return Q.filter(q => { const e = ans(q.n); return e && !e.ok; }).map(q => q.n); }
+
+let ref = null, remoteOn = false, dirty = false, saveTimer = null, writing = Promise.resolve(), retried = false;
+function setSync(s){
+  const el = $('sync'); el.dataset.s = s;
+  $('syncText').textContent = s === 'account' ? 'Saved to your account' : s === 'connecting' ? 'Connecting…' : 'Saved in this browser';
+}
+function persist(){
+  lsWrite();
+  $('mistakesCount').textContent = wrongList().length;
+  if (remoteOn){ dirty = true; clearTimeout(saveTimer); saveTimer = setTimeout(flush, 1200); }
+}
+function flush(){
+  if (!dirty || !ref || !remoteOn) return;
+  dirty = false;
+  const body = JSON.parse(JSON.stringify(store));
+  writing = writing.then(() => ref.set(body)).then(() => { retried = false; setSync('account'); }, err => {
+    if (err && err.code === 'unavailable' && !retried){ retried = true; dirty = true; saveTimer = setTimeout(flush, 2500 + Math.random() * 2500); }
+    else { remoteOn = false; setSync('local'); }
+  });
+}
+
+/* ---------- view state & universal history stack ---------- */
+let view = 'home';
+let sortMode = 'syllabus';
+let resetArmed = false;
+let set = null;          // {title, sub, kind, s, ns}
+let lvFilter = 'all';    // all | E | M | T
+let stFilter = 'all';    // all | todo | wrong
+let list = [];           // question numbers currently in filtered list
+let idx = 0;             // active question index in list
+let showRefs = false;
+
+let navStack = [];
+let navPtr = -1;
+let suppressPush = false;
+
+function captureSnapshot() {
+  return {
+    view,
+    sortMode,
+    set: set ? JSON.parse(JSON.stringify(set)) : null,
+    lvFilter,
+    stFilter,
+    idx,
+    scrollY: window.scrollY
+  };
+}
+
+function pushNavState() {
+  if (suppressPush) return;
+  const snap = captureSnapshot();
+  if (navPtr >= 0) {
+    const cur = navStack[navPtr];
+    if (cur && cur.view === snap.view && cur.lvFilter === snap.lvFilter && cur.stFilter === snap.stFilter &&
+        cur.sortMode === snap.sortMode && ((cur.set && snap.set && cur.set.title === snap.set.title) || (!cur.set && !snap.set))) {
+      navStack[navPtr] = snap;
+      updateNavButtons();
+      return;
+    }
+  }
+  navStack = navStack.slice(0, navPtr + 1);
+  navStack.push(snap);
+  navPtr = navStack.length - 1;
+  try { history.pushState({navPtr}, ''); } catch(e) {}
+  updateNavButtons();
+}
+
+function restoreNavState(targetPtr) {
+  if (targetPtr < 0 || targetPtr >= navStack.length) return;
+  if (navPtr >= 0 && navStack[navPtr]) {
+    navStack[navPtr].scrollY = window.scrollY;
+  }
+  navPtr = targetPtr;
+  const snap = navStack[navPtr];
+  suppressPush = true;
+  view = snap.view;
+  sortMode = snap.sortMode || 'syllabus';
+  set = snap.set ? JSON.parse(JSON.stringify(snap.set)) : null;
+  lvFilter = snap.lvFilter || 'all';
+  stFilter = snap.stFilter || 'all';
+  if (set) buildList();
+  idx = snap.idx || 0;
+  $('vHome').hidden = view !== 'home';
+  $('vQuiz').hidden = view !== 'quiz';
+  $('vResult').hidden = view !== 'result';
+  $('vMistakes').hidden = view !== 'mistakes';
+  refresh();
+  updateNavButtons();
+  setTimeout(() => {
+    window.scrollTo({top: snap.scrollY || 0, behavior: 'auto'});
+    suppressPush = false;
+  }, 10);
+}
+
+function updateNavButtons() {
+  const backBtn = $('navBackBtn');
+  const fwdBtn = $('navFwdBtn');
+  if (backBtn) backBtn.disabled = navPtr <= 0;
+  if (fwdBtn) fwdBtn.disabled = navPtr >= navStack.length - 1;
+}
+
+window.addEventListener('popstate', ev => {
+  if (ev.state && typeof ev.state.navPtr === 'number') {
+    restoreNavState(ev.state.navPtr);
+  }
+});
+
+function show(v, skipScrollTop){
+  if (navPtr >= 0 && navStack[navPtr]) {
+    navStack[navPtr].scrollY = window.scrollY;
+  }
+  view = v;
+  $('vHome').hidden = v !== 'home'; $('vQuiz').hidden = v !== 'quiz'; $('vResult').hidden = v !== 'result'; $('vMistakes').hidden = v !== 'mistakes';
+  refresh();
+  if (!skipScrollTop) window.scrollTo(0, 0);
+  pushNavState();
+}
+
+function refresh(){
+  $('mistakesCount').textContent = wrongList().length;
+  if (view === 'home') renderHome();
+  else if (view === 'quiz') renderQuiz();
+  else if (view === 'result') renderResult();
+  else if (view === 'mistakes') renderMistakes();
+  updateNavButtons();
+}
+
+/* ---------- home ---------- */
+function stackBar(st, cls){
+  const t = st.total || 1;
+  return '<div class="stack ' + (cls || '') + '" role="img" aria-label="' + st.ok + ' right, ' + st.bad + ' wrong, ' + st.todo + ' not answered"><span class="s-ok" style="width:' + (100 * st.ok / t) + '%"></span><span class="s-bad" style="width:' + (100 * st.bad / t) + '%"></span></div>';
+}
+function renderHome(){
+  const all = stats(Q.map(q => q.n));
+  const acc = all.done ? pct(all.ok, all.done) : null;
+  const lvRows = ['E', 'M', 'T'].map(l => {
+    const st = stats(Q.filter(q => q.lv === l).map(q => q.n));
+    return '<div class="lvrow"><span>' + LV[l] + '</span>' + stackBar(st) + '<span class="num">' + st.ok + '/' + st.done + ' · ' + st.total + '</span></div>';
+  }).join('');
+  const weak = SESS.map(s => ({s, st: stats(s.qs)})).filter(x => x.st.bad > 0)
+    .sort((a, b) => (a.st.ok / a.st.done) - (b.st.ok / b.st.done) || b.st.bad - a.st.bad).slice(0, 5);
+  const weakHtml = weak.length
+    ? '<ul class="weaklist">' + weak.map(x => '<li><button type="button" data-review="' + x.s.n + '"><span class="wname">S' + x.s.n + ' · ' + esc(x.s.name) + '</span><span class="wstat">' + x.st.bad + ' wrong · ' + pct(x.st.ok, x.st.done) + '%</span></button></li>').join('') + '</ul>'
+    : '<p class="empty-note">Answer a few questions and your weakest sessions will show up here, worst first.</p>';
+  const wrongN = wrongList().length;
+  const order = SESS.slice();
+  if (sortMode === 'weak') order.sort((a, b) => {
+    const A = stats(a.qs), B = stats(b.qs);
+    const ka = A.done ? A.ok / A.done : 2, kb = B.done ? B.ok / B.done : 2;
+    return ka - kb || a.n - b.n;
+  });
+  const topics = order.map(s => {
+    const st = stats(s.qs);
+    const lv = {E:0, M:0, T:0}; s.qs.forEach(n => lv[byN[n].lv]++);
+    const score = st.done ? '<div class="tscore">' + pct(st.ok, st.done) + '%<small>' + st.done + '/' + st.total + ' done</small></div>' : '<div class="tscore na">—<small>not started</small></div>';
+    return '<li><button class="topic" type="button" data-session="' + s.n + '">' +
+      '<span class="tnum">S<b>' + String(s.n).padStart(2, '0') + '</b></span>' +
+      '<span class="tbody"><span class="tname">' + esc(s.name) + '</span>' +
+      (s.topics ? '<span class="tsub">' + esc(s.topics) + '</span>' : '') +
+      '<span class="tmeta"><span>Q' + s.qs[0] + '–Q' + s.qs[s.qs.length - 1] + '</span><span>' + s.qs.length + ' questions</span><span>E' + lv.E + ' M' + lv.M + ' T' + lv.T + '</span></span>' +
+      stackBar(st, 'tbar') + '</span>' + score + '</button></li>';
+  }).join('');
+  $('vHome').innerHTML =
+  '<div class="home">' +
+    '<aside class="summary panel">' +
+      '<div><div class="eyebrow">Overall</div><div class="bigrow"><div class="big">' + (acc === null ? '—' : acc + '<small>%</small>') + '</div><div class="muted" style="padding-bottom:4px">accuracy on ' + all.done + ' of ' + TOTAL_Q + ' answered</div></div></div>' +
+      stackBar(all) +
+      '<div class="legend"><span><i class="dot ok"></i>Right <b>' + all.ok + '</b></span><span><i class="dot bad"></i>Wrong <b>' + all.bad + '</b></span><span><i class="dot todo"></i>Left <b>' + all.todo + '</b></span></div>' +
+      '<div><div class="eyebrow" style="margin-bottom:8px">By difficulty · right/answered · total</div><div class="lvrows">' + lvRows + '</div></div>' +
+      '<div class="actions">' +
+        '<button class="btn primary" type="button" id="practiseWrong"' + (wrongN ? '' : ' disabled') + '>Practise my mistakes <span class="count">' + wrongN + '</span></button>' +
+        '<button class="btn" type="button" id="random20">Random 20 from all sessions</button>' +
+      '</div>' +
+      '<div class="weak"><h3>Where you lose marks</h3>' + weakHtml + '</div>' +
+      '<div class="reset">' + (resetArmed
+        ? '<div class="confirm"><span>Clear every answer?</span><button class="btn small" type="button" id="resetYes">Yes, clear</button><button class="btn small ghost" type="button" id="resetNo">Cancel</button></div>'
+        : '<button class="btn small ghost" type="button" id="resetBtn"' + (all.done || wrongN ? '' : ' disabled') + '>Reset all progress</button>') + '</div>' +
+    '</aside>' +
+    '<section>' +
+      '<div class="topics-head"><div><div class="eyebrow">Pick a session</div><h2>17 sessions · 200 questions</h2></div>' +
+        '<div class="seg" role="group" aria-label="Order sessions"><button type="button" data-sort="syllabus" aria-pressed="' + (sortMode === 'syllabus') + '">Syllabus order</button><button type="button" data-sort="weak" aria-pressed="' + (sortMode === 'weak') + '">Weakest first</button></div></div>' +
+      '<p class="intro">Answer one session at a time in a continuous vertical list. You see right or wrong as soon as you tap an option, with the explanation from the answer key. Output questions were run on MySQL 8.0.36 and MongoDB 8.0.</p>' +
+      '<ul class="topiclist">' + topics + '</ul>' +
+    '</section>' +
+  '</div>';
+}
+
+/* ---------- quiz (Continuous Vertical List) ---------- */
+function startSet(s){ set = s; lvFilter = 'all'; stFilter = 'all'; buildList(); idx = firstOpen(); show('quiz'); }
+function startSession(n){
+  const s = sessByN[n];
+  if (!s) return;
+  startSet({kind:'session', s:n, title:'S' + n + ' · ' + s.name, sub:s.topics, ns:s.qs.slice()});
+}
+function firstOpen(){ const i = list.findIndex(n => !ans(n)); return i < 0 ? 0 : i; }
+function buildList(){
+  list = set.ns.filter(n => {
+    const q = byN[n], e = ans(n);
+    if (lvFilter !== 'all' && q.lv !== lvFilter) return false;
+    if (stFilter === 'todo' && e) return false;
+    if (stFilter === 'wrong' && !(e && !e.ok)) return false;
+    return true;
+  });
+}
+
+function renderSessionSwitcherBar() {
+  if (set.kind !== 'session') return '';
+  const curS = set.s;
+  const prevS = curS > 1 ? sessByN[curS - 1] : null;
+  const nextS = curS < SESS.length ? sessByN[curS + 1] : null;
+  const optionsHtml = SESS.map(s => {
+    const st = stats(s.qs);
+    return '<option value="' + s.n + '"' + (s.n === curS ? ' selected' : '') + '>S' + String(s.n).padStart(2, '0') + ' · ' + esc(s.name) + ' (' + st.done + '/' + st.total + ')</option>';
+  }).join('');
+  return '<div class="sessbar">' +
+    '<button type="button" class="btn small" id="prevSessBtn"' + (prevS ? ' data-goto-session="' + prevS.n + '"' : ' disabled') + '>◀ ' + (prevS ? 'S' + prevS.n : 'Prev') + '</button>' +
+    '<select id="sessJumpSelect" aria-label="Jump to session">' + optionsHtml + '</select>' +
+    '<button type="button" class="btn small" id="nextSessBtn"' + (nextS ? ' data-goto-session="' + nextS.n + '"' : ' disabled') + '>' + (nextS ? 'S' + nextS.n : 'Next') + ' ▶</button>' +
+  '</div>';
+}
+
+function renderQuiz(preserveScroll){
+  const prevY = window.scrollY;
+  const st = stats(set.ns);
+  const lvCounts = {E:0, M:0, T:0}; set.ns.forEach(n => lvCounts[byN[n].lv]++);
+  const lvSeg = '<div class="seg" role="group" aria-label="Difficulty">' + [['all', 'All ' + set.ns.length]].concat(['E', 'M', 'T'].filter(l => lvCounts[l]).map(l => [l, LV[l] + ' ' + lvCounts[l]]))
+    .map(([k, label]) => '<button type="button" data-lv="' + k + '" aria-pressed="' + (lvFilter === k) + '">' + label + '</button>').join('') + '</div>';
+  const stSeg = '<div class="seg" role="group" aria-label="Show"><button type="button" data-st="all" aria-pressed="' + (stFilter === 'all') + '">All</button><button type="button" data-st="todo" aria-pressed="' + (stFilter === 'todo') + '">Not answered</button><button type="button" data-st="wrong" aria-pressed="' + (stFilter === 'wrong') + '">Wrong</button></div>';
+  const strip = list.map((n, i) => {
+    const e = ans(n);
+    return '<button type="button" class="sq' + (e ? (e.ok ? ' ok' : ' bad') : '') + (i === idx ? ' cur' : '') + '" data-go="' + i + '" aria-label="Jump to Question ' + n + (e ? (e.ok ? ', right' : ', wrong') : ', not answered') + '">' + n + '</button>';
+  }).join('');
+  
+  let cardsHtml;
+  if (!list.length){
+    cardsHtml = '<div class="qcard nolist">No questions match this filter. <button class="btn small" type="button" data-st="all">Show all</button></div>';
+  } else {
+    if (idx >= list.length) idx = list.length - 1;
+    cardsHtml = '<div class="qfeed">' + list.map(n => renderCard(byN[n])).join('') + '</div>';
+  }
+
+  const nextS = (set.kind === 'session' && set.s < SESS.length) ? sessByN[set.s + 1] : null;
+  const prevS = (set.kind === 'session' && set.s > 1) ? sessByN[set.s - 1] : null;
+
+  $('vQuiz').innerHTML =
+  '<div class="quiz">' +
+    renderSessionSwitcherBar() +
+    '<div class="qhead"><div class="titles"><div class="eyebrow">' + (set.kind === 'session' ? 'Session' : set.kind === 'random' ? 'Mixed practice' : 'Mistake practice') + '</div><h2>' + esc(set.title) + '</h2>' + (set.sub ? '<div class="muted" style="font-size:13px">' + esc(set.sub) + '</div>' : '') + '</div>' +
+      '<button class="btn small" type="button" id="toResult">See result</button></div>' +
+    '<div class="progressline"><span><b>' + st.done + '</b> of ' + st.total + ' answered</span><span><i class="dot ok"></i><b>' + st.ok + '</b> right</span><span><i class="dot bad"></i><b>' + st.bad + '</b> wrong</span>' + (st.done ? '<span><b>' + pct(st.ok, st.done) + '%</b> accuracy</span>' : '') + '</div>' +
+    stackBar(st) +
+    '<div class="qsticky">' +
+      '<div class="filters">' + lvSeg + stSeg + '</div>' +
+      '<div class="strip-wrap"><div class="strip">' + strip + '</div></div>' +
+    '</div>' +
+    cardsHtml +
+    (list.length ? '<div class="qfoot">' +
+      (prevS ? '<button class="btn" type="button" data-goto-session="' + prevS.n + '">◀ Session ' + prevS.n + '</button>' : '<button class="btn" type="button" data-home>← All sessions</button>') +
+      '<button class="btn ghost small" type="button" id="scrollTopBtn">↑ Top</button>' +
+      '<span class="spacer"></span>' +
+      '<button class="btn" type="button" id="finish">See result scorecard</button>' +
+      (nextS ? '<button class="btn primary" type="button" data-goto-session="' + nextS.n + '">Session ' + nextS.n + ' ▶</button>' : '') +
+    '</div>' : '') +
+  '</div>';
+
+  const sel = $('sessJumpSelect');
+  if (sel) sel.addEventListener('change', function() { startSession(+this.value); });
+
+  if (preserveScroll) {
+    window.scrollTo({top: prevY, behavior: 'auto'});
+  }
+}
+
+function lvlBadge(q){ return '<span class="lvl"><span class="bars on' + LVBARS[q.lv] + '"><i></i><i></i><i></i></span>' + LV[q.lv] + '</span>'; }
+function refsBlock(){
+  if (!DATA.tables || !DATA.tables.EMP) return '';
+  return '<div class="refs"><div class="cap mono">mysql&gt; SELECT * FROM emp;</div><div class="grid-wrap"><pre>' + esc(asciiTable(DATA.tables.EMP)) + '</pre></div>' +
+    '<div class="cap mono">mysql&gt; SELECT * FROM dept;</div><div class="grid-wrap"><pre>' + esc(asciiTable(DATA.tables.DEPT)) + '</pre></div></div>';
+}
+function needsRefs(q){ return sessByN[q.s] && sessByN[q.s].refs && /\b(EMP|DEPT)\b/.test(q.q) && /Refer to|on the EMP|views are created/.test(q.q); }
+
+function renderCard(q){
+  const e = ans(q.n);
+  const opts = q.o.map((t, i) => {
+    let cls = 'opt', mark = '';
+    if (e){
+      if (i === q.a){ cls += ' right'; mark = i === e.c ? '✓ Your answer' : '✓ Correct'; }
+      else if (i === e.c){ cls += ' wrong'; mark = '✗ Your answer'; }
+      else cls += ' dim';
+    }
+    return '<li><button type="button" class="' + cls + '" data-q="' + q.n + '" data-opt="' + i + '"' + (e ? ' disabled' : '') + '><span class="key">' + 'ABCD'[i] + '</span><span class="otext' + (q.oc[i] ? ' codey' : '') + '">' + esc(t) + '</span><span class="mark">' + mark + '</span></button></li>';
+  }).join('');
+  const all = store.a[q.n];
+  const missed = all && all.w ? '<span class="missed">missed ' + all.w + '×</span>' : '';
+  const refs = needsRefs(q);
+  let fb = '';
+  if (e){
+    fb = '<div class="feedback ' + (e.ok ? 'yes' : 'no') + '" role="status"><div class="verdict">' + (e.ok ? 'Correct. Answer ' + 'ABCD'[q.a] : 'Wrong. You chose ' + 'ABCD'[e.c] + ', the answer is ' + 'ABCD'[q.a]) + '</div>' +
+      (e.ok ? '' : '<p><b>' + 'ABCD'[q.a] + '.</b> ' + esc(q.o[q.a]) + '</p>') +
+      '<p>' + esc(q.e) + '</p><div class="fbrow"><button class="btn small ghost" type="button" data-retry-q="' + q.n + '">Try this one again</button></div></div>';
+  }
+  return '<article class="qcard" id="qcard-' + q.n + '" data-qno="' + q.n + '">' +
+    '<div class="qmeta"><span class="qno">Q' + q.n + '</span>' + lvlBadge(q) + '<span class="muted" style="font-size:12.5px">S' + q.s + '</span>' + missed +
+      (refs ? '<button class="btn small refbtn" type="button" data-ref-toggle="' + q.n + '" aria-expanded="' + showRefs + '">' + (showRefs ? 'Hide' : 'Show') + ' EMP &amp; DEPT</button>' : '') + '</div>' +
+    '<p class="stem">' + esc(q.q) + '</p>' +
+    (refs && showRefs ? refsBlock() : '') +
+    (q.code ? '<pre class="code">' + highlight(q.code) + '</pre>' : '') +
+    '<ol class="opts">' + opts + '</ol>' + fb +
+  '</article>';
+}
+
+function answerQuestion(qNum, choiceIdx){
+  if (ans(qNum)) return;
+  record(qNum, choiceIdx);
+  const pos = list.indexOf(qNum);
+  if (pos >= 0) idx = pos;
+  renderQuiz(true);
+}
+
+function goQuestion(i){
+  if (i < 0 || i >= list.length) return;
+  idx = i;
+  const qNum = list[i];
+  document.querySelectorAll('.sq').forEach((btn, bIdx) => btn.classList.toggle('cur', bIdx === i));
+  const card = $('qcard-' + qNum);
+  if (card) card.scrollIntoView({behavior: 'smooth', block: 'start'});
+}
+
+/* Update active question pill in sticky strip while scrolling vertically */
+window.addEventListener('scroll', () => {
+  if (view !== 'quiz' || !list.length) return;
+  const cards = document.querySelectorAll('.qcard[data-qno]');
+  let activeQ = list[0];
+  const threshold = 220;
+  for (let i = 0; i < cards.length; i++) {
+    const rect = cards[i].getBoundingClientRect();
+    if (rect.top <= threshold) {
+      activeQ = +cards[i].dataset.qno;
+    } else {
+      break;
+    }
+  }
+  const newIdx = list.indexOf(activeQ);
+  if (newIdx >= 0 && newIdx !== idx) {
+    idx = newIdx;
+    const sqs = document.querySelectorAll('.sq');
+    sqs.forEach((btn, bIdx) => btn.classList.toggle('cur', bIdx === idx));
+    const cur = sqs[idx];
+    if (cur) {
+      const w = cur.parentElement.parentElement;
+      w.scrollLeft = cur.offsetLeft - w.clientWidth / 2 + cur.clientWidth / 2;
+    }
+  }
+}, {passive: true});
+
+/* ---------- results ---------- */
+function ring(ok, total){
+  const r = 54, c = 2 * Math.PI * r, f = total ? ok / total : 0;
+  return '<div class="ring"><svg viewBox="0 0 132 132" aria-hidden="true"><circle cx="66" cy="66" r="' + r + '" fill="none" stroke="var(--sunken)" stroke-width="12"/>' +
+    '<circle cx="66" cy="66" r="' + r + '" fill="none" stroke="var(--ok)" stroke-width="12" stroke-linecap="round" stroke-dasharray="' + (c * f) + ' ' + c + '"/></svg>' +
+    '<div class="lbl"><div><b>' + ok + '/' + total + '</b><small>correct</small></div></div></div>';
+}
+function mistakeCard(n){
+  const q = byN[n], e = ans(n), all = store.a[n];
+  return '<article class="mistake"><div class="qmeta"><span class="qno">Q' + q.n + '</span>' + lvlBadge(q) + '<span class="muted" style="font-size:12.5px">S' + q.s + '</span>' + (all && all.w > 1 ? '<span class="missed">missed ' + all.w + '×</span>' : '') + '</div>' +
+    '<p class="stem">' + esc(q.q) + '</p>' + (q.code ? '<pre class="code">' + highlight(q.code) + '</pre>' : '') +
+    '<div class="answers"><div class="ans yours"><span class="who">You chose ' + 'ABCD'[e.c] + '</span><span class="' + (q.oc[e.c] ? 'mono' : '') + '">' + esc(q.o[e.c]) + '</span></div>' +
+    '<div class="ans correct"><span class="who">Correct: ' + 'ABCD'[q.a] + '</span><span class="' + (q.oc[q.a] ? 'mono' : '') + '">' + esc(q.o[q.a]) + '</span></div></div>' +
+    '<p class="explain"><b>Why:</b> ' + esc(q.e) + '</p></article>';
+}
+function renderResult(){
+  const st = stats(set.ns);
+  const wrong = set.ns.filter(n => { const e = ans(n); return e && !e.ok; });
+  const lvRows = ['E', 'M', 'T'].map(l => {
+    const ns = set.ns.filter(n => byN[n].lv === l); if (!ns.length) return '';
+    const s = stats(ns);
+    return '<div class="lvrow"><span>' + LV[l] + '</span>' + stackBar(s) + '<span class="num">' + s.ok + '/' + s.total + '</span></div>';
+  }).join('');
+  const nextS = (set.kind === 'session' && set.s < SESS.length) ? sessByN[set.s + 1] : null;
+  $('vResult').innerHTML =
+  '<div class="result">' +
+    renderSessionSwitcherBar() +
+    '<div><div class="eyebrow">Result</div><h2 style="font-size:24px">' + esc(set.title) + '</h2></div>' +
+    '<div class="panel scorecard">' + ring(st.ok, st.total) +
+      '<div style="display:flex;flex-direction:column;gap:12px;min-width:0">' +
+        '<div class="legend"><span><i class="dot ok"></i>Right <b>' + st.ok + '</b></span><span><i class="dot bad"></i>Wrong <b>' + st.bad + '</b></span><span><i class="dot todo"></i>Skipped <b>' + st.todo + '</b></span>' + (st.done ? '<span>Accuracy <b>' + pct(st.ok, st.done) + '%</b></span>' : '') + '</div>' +
+        '<div class="lvrows">' + lvRows + '</div>' +
+        '<div class="rowbtns">' + (wrong.length ? '<button class="btn primary" type="button" id="retryWrong">Retry the ' + wrong.length + ' wrong</button>' : '') +
+          (st.todo ? '<button class="btn" type="button" id="backToQuiz">Answer the ' + st.todo + ' skipped</button>' : '') +
+          (nextS ? '<button class="btn primary" type="button" data-goto-session="' + nextS.n + '">Next: Session ' + nextS.n + ' ▶</button>' : '') +
+          '<button class="btn" type="button" id="restartSet">Restart this set</button><button class="btn ghost" type="button" data-home>All sessions</button></div>' +
+      '</div></div>' +
+    (wrong.length ? '<div class="grouphead"><h3>Where you went wrong</h3><span class="muted">' + wrong.length + ' question' + (wrong.length > 1 ? 's' : '') + '</span></div>' + wrong.map(mistakeCard).join('')
+      : (st.done ? '<div class="panel">No wrong answers in this set.' + (st.todo ? ' ' + st.todo + ' still unanswered.' : '') + '</div>' : '<div class="panel">Nothing answered yet in this set.</div>')) +
+  '</div>';
+  const sel = $('sessJumpSelect');
+  if (sel) sel.addEventListener('change', function() { startSession(+this.value); });
+}
+
+/* ---------- all mistakes ---------- */
+function renderMistakes(){
+  const wrong = wrongList();
+  let html = '<div class="result"><div><div class="eyebrow">Review</div><h2 style="font-size:24px">My mistakes</h2><p class="muted" style="margin:4px 0 0">Every question whose latest answer was wrong, grouped by session.</p></div>';
+  if (!wrong.length){
+    html += '<div class="panel">No wrong answers right now. <button class="btn small" type="button" data-home>Pick a session</button></div>';
+  } else {
+    html += '<div class="rowbtns"><button class="btn primary" type="button" id="practiseAllWrong">Practise all ' + wrong.length + '</button><button class="btn ghost" type="button" data-home>All sessions</button></div>';
+    SESS.forEach(s => {
+      const ns = wrong.filter(n => byN[n].s === s.n); if (!ns.length) return;
+      html += '<div class="grouphead"><h3>S' + s.n + ' · ' + esc(s.name) + '</h3><span class="muted">' + ns.length + ' wrong</span><button class="btn small" type="button" data-practise-session="' + s.n + '">Practise these</button></div>' + ns.map(mistakeCard).join('');
+    });
+  }
+  $('vMistakes').innerHTML = html + '</div>';
+}
+function practiseWrong(ns, title){
+  if (!ns.length) return;
+  clearAnswers(ns);
+  startSet({kind:'retry', title, sub:'Your earlier answers on these are cleared so you can try them fresh.', ns});
+}
+function sampleRandom(k){
+  const shuffle = a => { for (let i = a.length - 1; i > 0; i--){ const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+  const todo = shuffle(Q.filter(q => !ans(q.n)).map(q => q.n));
+  let pick = todo.slice(0, k);
+  if (pick.length < k){
+    const extra = shuffle(Q.filter(q => ans(q.n)).map(q => q.n)).slice(0, k - pick.length);
+    clearAnswers(extra); pick = pick.concat(extra);
+  }
+  return pick.sort((a, b) => a - b);
+}
+
+/* ---------- events ---------- */
+document.addEventListener('click', ev => {
+  const t = ev.target.closest('button'); if (!t) return;
+  if (t.id === 'navBackBtn'){ if (navPtr > 0) restoreNavState(navPtr - 1); return; }
+  if (t.id === 'navFwdBtn'){ if (navPtr < navStack.length - 1) restoreNavState(navPtr + 1); return; }
+  if (t.id === 'homeBtn' || t.hasAttribute('data-home')){ resetArmed = false; show('home'); return; }
+  if (t.id === 'mistakesBtn'){ show('mistakes'); return; }
+  if (t.dataset.session){ startSession(+t.dataset.session); return; }
+  if (t.dataset.gotoSession){ startSession(+t.dataset.gotoSession); return; }
+  if (t.dataset.sort){ sortMode = t.dataset.sort; renderHome(); pushNavState(); return; }
+  if (t.dataset.review){ const s = sessByN[+t.dataset.review]; const ns = s.qs.filter(n => { const e = ans(n); return e && !e.ok; }); practiseWrong(ns, 'S' + s.n + ' mistakes · ' + s.name); return; }
+  if (t.dataset.practiseSession){ const s = sessByN[+t.dataset.practiseSession]; practiseWrong(wrongList().filter(n => byN[n].s === s.n), 'S' + s.n + ' mistakes · ' + s.name); return; }
+  if (t.id === 'practiseWrong' || t.id === 'practiseAllWrong'){ practiseWrong(wrongList(), 'All my mistakes'); return; }
+  if (t.id === 'random20'){ startSet({kind:'random', title:'Random 20', sub:'Unanswered questions first, drawn from all 17 sessions.', ns:sampleRandom(20)}); return; }
+  if (t.id === 'resetBtn'){ resetArmed = true; renderHome(); return; }
+  if (t.id === 'resetNo'){ resetArmed = false; renderHome(); return; }
+  if (t.id === 'resetYes'){ resetArmed = false; resetAll(); refresh(); toast('All progress cleared'); return; }
+  if (t.dataset.opt !== undefined && !t.disabled){ answerQuestion(+t.dataset.q, +t.dataset.opt); return; }
+  if (t.dataset.go !== undefined){ goQuestion(+t.dataset.go); return; }
+  if (t.dataset.lv){ lvFilter = t.dataset.lv; buildList(); idx = firstOpen(); renderQuiz(); pushNavState(); return; }
+  if (t.dataset.st){ stFilter = t.dataset.st; buildList(); idx = firstOpen(); renderQuiz(); pushNavState(); return; }
+  if (t.id === 'scrollTopBtn'){ window.scrollTo({top:0, behavior:'smooth'}); return; }
+  if (t.id === 'finish' || t.id === 'toResult'){ show('result'); return; }
+  if (t.dataset.refToggle){ showRefs = !showRefs; renderQuiz(true); return; }
+  if (t.dataset.retryQ){ clearAnswers([+t.dataset.retryQ]); renderQuiz(true); return; }
+  if (t.id === 'retryWrong'){ const ns = set.ns.filter(n => { const e = ans(n); return e && !e.ok; }); practiseWrong(ns, set.title.replace(/^(S\d+) · /, '$1 mistakes · ')); return; }
+  if (t.id === 'backToQuiz'){ stFilter = 'todo'; lvFilter = 'all'; buildList(); idx = 0; show('quiz'); return; }
+  if (t.id === 'restartSet'){ clearAnswers(set.ns); lvFilter = 'all'; stFilter = 'all'; buildList(); idx = 0; show('quiz'); return; }
+});
+
+document.addEventListener('keydown', ev => {
+  const tag = (ev.target && ev.target.tagName) || '';
+  if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
+  if (ev.altKey && ev.key === 'ArrowLeft') { ev.preventDefault(); if (navPtr > 0) restoreNavState(navPtr - 1); return; }
+  if (ev.altKey && ev.key === 'ArrowRight') { ev.preventDefault(); if (navPtr < navStack.length - 1) restoreNavState(navPtr + 1); return; }
+  if (view === 'quiz' && set && set.kind === 'session' && ev.shiftKey) {
+    if (ev.key === 'ArrowRight' && set.s < SESS.length) { ev.preventDefault(); startSession(set.s + 1); return; }
+    if (ev.key === 'ArrowLeft' && set.s > 1) { ev.preventDefault(); startSession(set.s - 1); return; }
+  }
+});
+
+/* ---------- boot ---------- */
+function start(){
+  lsRead();
+  show('home');
+}
+start();
+})();
+</script>
+
+</body>
+</html>

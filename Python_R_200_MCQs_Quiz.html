@@ -1,0 +1,817 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Python & R 200 MCQs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<style>
+/* Study Console: Topic ledger + summary on the home screen, continuous vertical question list on the quiz stage,
+   universal Back/Forward history navigation, and instant explanations. */
+:root{
+  --bg:#F2F5F6; --surface:#FFFFFF; --sunken:#E7EDEF; --ink:#13232B; --muted:#56676F; --line:#D2DCE0;
+  --accent:#1B5E86; --accent-ink:#FFFFFF; --accent-soft:#DCEAF3;
+  --ok:#1C7A4A; --ok-soft:#DCF1E4; --bad:#B23A2E; --bad-soft:#F7E0DC; --todo:#C3CED3;
+  --code-bg:#11202A; --code-ink:#D9E5EA; --code-kw:#86C8EC; --code-str:#E8C47A; --code-com:#7E949D; --code-num:#B9A6F0;
+  --font-ui:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --font-display:"IBM Plex Sans Condensed","IBM Plex Sans","Arial Narrow",system-ui,sans-serif;
+  --font-mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --radius:10px; --shadow:0 1px 2px rgba(19,35,43,.06),0 4px 14px rgba(19,35,43,.05);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0D161B; --surface:#142128; --sunken:#1A2A32; --ink:#E2EBEE; --muted:#93A5AD; --line:#293B44;
+    --accent:#72B6E0; --accent-ink:#06141C; --accent-soft:#17324A;
+    --ok:#5CC98F; --ok-soft:#163626; --bad:#F08C80; --bad-soft:#3D1F1C; --todo:#33464F;
+    --code-bg:#09131A; --code-ink:#D9E5EA; --code-kw:#86C8EC; --code-str:#E8C47A; --code-com:#7E949D; --code-num:#B9A6F0;
+    --shadow:0 1px 2px rgba(0,0,0,.3); color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0D161B; --surface:#142128; --sunken:#1A2A32; --ink:#E2EBEE; --muted:#93A5AD; --line:#293B44;
+  --accent:#72B6E0; --accent-ink:#06141C; --accent-soft:#17324A;
+  --ok:#5CC98F; --ok-soft:#163626; --bad:#F08C80; --bad-soft:#3D1F1C; --todo:#33464F;
+  --code-bg:#09131A; --code-ink:#D9E5EA; --code-kw:#86C8EC; --code-str:#E8C47A; --code-com:#7E949D; --code-num:#B9A6F0;
+  --shadow:0 1px 2px rgba(0,0,0,.3); color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-ui);font-size:15px;line-height:1.55;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 48px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+button,select{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.wrap{max-width:1080px;margin:0 auto}
+h1,h2,h3{font-family:var(--font-display);text-wrap:balance;margin:0;line-height:1.2}
+.mono{font-family:var(--font-mono)}
+.muted{color:var(--muted)}
+.eyebrow{font-family:var(--font-mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+
+/* Top bar */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:15;background:var(--bg);border-bottom:1px solid var(--line);margin-inline:calc(-1 * max(16px,env(safe-area-inset-left,0px))) calc(-1 * max(16px,env(safe-area-inset-right,0px)));
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.top-in{max-width:1080px;margin:0 auto;display:flex;align-items:center;gap:10px;padding-block:10px;flex-wrap:wrap}
+.nav-arrows{display:inline-flex;gap:4px;align-items:center}
+.brand{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;min-width:0;background:none;border:0;padding:0;cursor:pointer;text-align:left}
+.brand b{font-family:var(--font-display);font-size:21px;font-weight:700;letter-spacing:-.01em}
+.brand span{font-size:13px;color:var(--muted)}
+.sync{margin-left:auto;display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted);font-family:var(--font-mono)}
+.sync i{width:7px;height:7px;border-radius:50%;background:var(--todo);display:inline-block}
+.sync[data-s="account"] i{background:var(--ok)}
+.sync[data-s="connecting"] i{background:var(--accent)}
+.toplinks{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid var(--line);background:var(--surface);border-radius:8px;
+  padding:8px 14px;font-weight:500;cursor:pointer;min-height:40px;text-align:center;text-decoration:none;color:inherit}
+.btn:hover:not([disabled]){border-color:var(--accent)}
+.btn.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.btn.primary:hover:not([disabled]){filter:brightness(1.07)}
+.btn.ghost{background:transparent}
+.btn.small{padding:5px 10px;min-height:32px;font-size:13px}
+.btn[disabled]{opacity:.42;cursor:not-allowed}
+.btn .count{font-family:var(--font-mono);font-size:12px;opacity:.85}
+
+/* Session Switcher Bar (Forward / Backward between sessions) */
+.sessbar{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:8px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:8px 10px;box-shadow:var(--shadow)}
+.sessbar select{width:100%;border:1px solid var(--line);background:var(--sunken);border-radius:7px;padding:6px 10px;font-weight:600;font-size:13.5px;cursor:pointer;text-overflow:ellipsis}
+@media (max-width:600px){.sessbar{grid-template-columns:1fr 1fr}.sessbar select{grid-column:1 / -1;order:-1}}
+
+/* Sticky Quiz Controls & Question Strip */
+.qsticky{position:sticky;top:calc(env(safe-area-inset-top,0px) + 53px);z-index:10;background:var(--bg);padding-block:8px;border-bottom:1px solid var(--line);display:flex;flex-direction:column;gap:8px}
+.qfeed{display:flex;flex-direction:column;gap:16px}
+.qcard{scroll-margin-top:calc(env(safe-area-inset-top,0px) + 165px)}
+
+/* Home */
+.home{display:grid;grid-template-columns:330px minmax(0,1fr);gap:24px;margin-top:22px;align-items:start}
+@media (max-width:900px){.home{grid-template-columns:minmax(0,1fr)}}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
+.summary{display:flex;flex-direction:column;gap:18px}
+@media (min-width:901px){.summary{position:sticky;top:calc(env(safe-area-inset-top,0px) + 76px)}}
+.bigrow{display:flex;align-items:flex-end;gap:14px;flex-wrap:wrap}
+.big{font-family:var(--font-display);font-size:46px;font-weight:700;line-height:1;font-variant-numeric:tabular-nums}
+.big small{font-size:20px;color:var(--muted);font-weight:600}
+.stack{display:flex;height:10px;border-radius:5px;overflow:hidden;background:var(--sunken)}
+.stack span{display:block;height:100%}
+.stack .s-ok{background:var(--ok)} .stack .s-bad{background:var(--bad)}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.legend b{color:var(--ink);font-weight:600}
+.dot{width:9px;height:9px;border-radius:2px;display:inline-block;margin-right:5px;vertical-align:baseline}
+.dot.ok{background:var(--ok)} .dot.bad{background:var(--bad)} .dot.todo{background:var(--todo)}
+.lvrows{display:grid;gap:8px}
+.lvrow{display:grid;grid-template-columns:78px minmax(0,1fr) 78px;gap:10px;align-items:center;font-size:13px}
+.lvrow .stack{height:7px}
+.lvrow .num{text-align:right;font-family:var(--font-mono);font-variant-numeric:tabular-nums;color:var(--muted)}
+.actions{display:grid;gap:8px}
+.weak h3{font-size:16px;margin-bottom:8px}
+.weaklist{display:grid;gap:6px;margin:0;padding:0;list-style:none}
+.weaklist button{width:100%;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center;text-align:left;background:var(--sunken);border:1px solid transparent;border-radius:8px;padding:8px 10px;cursor:pointer}
+.weaklist button:hover{border-color:var(--accent)}
+.weaklist .wname{font-size:13px;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.weaklist .wstat{font-family:var(--font-mono);font-size:12px;color:var(--bad);white-space:nowrap}
+.empty-note{font-size:13px;color:var(--muted)}
+.reset{border-top:1px solid var(--line);padding-top:14px;display:flex;flex-direction:column;gap:8px}
+.reset .confirm{display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:13px}
+
+.topics-head{display:flex;align-items:flex-end;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.topics-head h2{font-size:24px}
+.seg{display:inline-flex;background:var(--sunken);border-radius:8px;padding:3px;gap:2px;flex-wrap:wrap}
+.seg button{border:0;background:transparent;padding:5px 10px;border-radius:6px;font-size:13px;cursor:pointer;color:var(--muted)}
+.seg button[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:var(--shadow);font-weight:500}
+.topics-head .seg{margin-left:auto}
+.topiclist{display:grid;gap:8px;list-style:none;margin:0;padding:0}
+.topic{width:100%;display:grid;grid-template-columns:44px minmax(0,1fr) 84px;gap:14px;align-items:center;text-align:left;background:var(--surface);
+  border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;cursor:pointer;box-shadow:var(--shadow)}
+.topic:hover{border-color:var(--accent)}
+.tnum{font-family:var(--font-mono);font-size:13px;color:var(--muted);line-height:1.1}
+.tnum b{display:block;font-family:var(--font-display);font-size:24px;color:var(--ink);font-weight:600}
+.tbody{display:flex;flex-direction:column;gap:6px;min-width:0}
+.tname{font-weight:600;font-size:15px;line-height:1.35}
+.tsub{font-size:12.5px;color:var(--muted);line-height:1.4}
+.tmeta{font-family:var(--font-mono);font-size:12px;color:var(--muted);display:flex;gap:10px;flex-wrap:wrap}
+.tbar{height:6px}
+.tscore{text-align:right;font-family:var(--font-display);font-size:22px;font-weight:600;font-variant-numeric:tabular-nums}
+.tscore small{display:block;font-family:var(--font-mono);font-size:11px;color:var(--muted);font-weight:400;white-space:nowrap}
+.tscore.na{color:var(--todo)}
+@media (max-width:520px){.topic{grid-template-columns:32px minmax(0,1fr) 66px;gap:10px;padding:12px}.tnum b{font-size:20px}.tscore{font-size:18px}}
+.intro{font-size:13.5px;color:var(--muted);max-width:62ch}
+
+/* Quiz */
+.quiz{max-width:820px;margin:18px auto 0;display:flex;flex-direction:column;gap:14px}
+.qhead{display:flex;align-items:flex-start;gap:12px;flex-wrap:wrap}
+.qhead .titles{min-width:0;flex:1 1 300px}
+.qhead h2{font-size:22px}
+.filters{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.strip-wrap{overflow-x:auto;padding-bottom:4px;-webkit-overflow-scrolling:touch}
+.strip{display:flex;gap:5px;width:max-content}
+.sq{width:38px;height:30px;border-radius:6px;border:1px solid var(--line);background:var(--surface);font-family:var(--font-mono);font-size:11.5px;cursor:pointer;color:var(--muted);flex:none}
+.sq.ok{background:var(--ok-soft);border-color:var(--ok);color:var(--ok)}
+.sq.bad{background:var(--bad-soft);border-color:var(--bad);color:var(--bad)}
+.sq.cur{outline:2px solid var(--accent);outline-offset:1px;color:var(--ink);font-weight:600}
+.progressline{display:flex;gap:14px;flex-wrap:wrap;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.progressline b{color:var(--ink)}
+.qcard{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:14px;min-width:0}
+@media (max-width:520px){.qcard{padding:16px}}
+.qmeta{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.qno{font-family:var(--font-mono);font-weight:600;font-size:14px;background:var(--sunken);padding:2px 8px;border-radius:5px}
+.lvl{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;color:var(--muted)}
+.bars{display:inline-flex;gap:2px;align-items:flex-end;height:12px}
+.bars i{width:4px;background:var(--todo);border-radius:1px}
+.bars i:nth-child(1){height:5px}.bars i:nth-child(2){height:8px}.bars i:nth-child(3){height:12px}
+.bars.on1 i:nth-child(-n+1),.bars.on2 i:nth-child(-n+2),.bars.on3 i:nth-child(-n+3){background:var(--accent)}
+.missed{font-family:var(--font-mono);font-size:11.5px;color:var(--bad);border:1px solid var(--bad);border-radius:20px;padding:1px 8px}
+.qmeta .refbtn{margin-left:auto}
+.stem{font-size:17px;line-height:1.5;margin:0;white-space:pre-wrap;font-weight:500}
+.code{background:var(--code-bg);color:var(--code-ink);border-radius:8px;padding:14px 16px;margin:0;overflow-x:auto;font-family:var(--font-mono);font-size:13.5px;line-height:1.55;tab-size:2}
+.code .kw{color:var(--code-kw)} .code .st{color:var(--code-str)} .code .cm{color:var(--code-com);font-style:italic} .code .nu{color:var(--code-num)}
+.refs{display:grid;gap:10px;background:var(--sunken);border-radius:8px;padding:12px}
+.refs .grid-wrap{overflow-x:auto}
+.refs pre{margin:0;font-family:var(--font-mono);font-size:12.5px;line-height:1.35}
+.refs .cap{font-size:12px;color:var(--muted)}
+.opts{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.opt{width:100%;display:grid;grid-template-columns:30px minmax(0,1fr) auto;gap:12px;align-items:start;text-align:left;background:var(--surface);border:1.5px solid var(--line);border-radius:9px;padding:11px 12px;cursor:pointer;min-height:48px}
+.opt:hover:not([disabled]){border-color:var(--accent);background:var(--accent-soft)}
+.opt[disabled]{cursor:default}
+.key{width:28px;height:28px;border-radius:6px;background:var(--sunken);display:grid;place-items:center;font-family:var(--font-mono);font-weight:600;font-size:13px}
+.otext{padding-top:3px;min-width:0;overflow-wrap:anywhere}
+.otext.codey{font-family:var(--font-mono);font-size:13.5px}
+.mark{padding-top:3px;font-family:var(--font-mono);font-size:12px;font-weight:600;white-space:nowrap}
+.opt.right{border-color:var(--ok);background:var(--ok-soft)}
+.opt.right .key{background:var(--ok);color:var(--surface)}
+.opt.right .mark{color:var(--ok)}
+.opt.wrong{border-color:var(--bad);background:var(--bad-soft)}
+.opt.wrong .key{background:var(--bad);color:var(--surface)}
+.opt.wrong .mark{color:var(--bad)}
+.opt.dim{opacity:.6}
+.feedback{border-radius:9px;padding:14px;display:flex;flex-direction:column;gap:6px;border-left:4px solid var(--ok);background:var(--ok-soft)}
+.feedback.no{border-left-color:var(--bad);background:var(--bad-soft)}
+.feedback .verdict{font-weight:600;font-size:15px}
+.feedback.yes .verdict{color:var(--ok)} .feedback.no .verdict{color:var(--bad)}
+.feedback p{margin:0}
+.feedback .fbrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
+.qfoot{display:flex;gap:10px;align-items:center;flex-wrap:wrap;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:14px 18px;box-shadow:var(--shadow)}
+.qfoot .spacer{flex:1}
+@media (max-width:620px){.qhead h2{font-size:19px}}
+.nolist{padding:28px;text-align:center;color:var(--muted)}
+
+/* Results + mistakes */
+.result{max-width:820px;margin:18px auto 0;display:flex;flex-direction:column;gap:16px}
+.scorecard{display:grid;grid-template-columns:auto minmax(0,1fr);gap:22px;align-items:center}
+@media (max-width:560px){.scorecard{grid-template-columns:minmax(0,1fr)}}
+.ring{width:132px;height:132px;position:relative;flex:none}
+.ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ring .lbl{position:absolute;inset:0;display:grid;place-items:center;text-align:center}
+.ring .lbl b{font-family:var(--font-display);font-size:32px;line-height:1}
+.ring .lbl small{display:block;font-size:12px;color:var(--muted);font-family:var(--font-mono)}
+.mistake{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.mistake .stem{font-size:15px}
+.answers{display:grid;gap:6px}
+.ans{display:grid;grid-template-columns:116px minmax(0,1fr);gap:10px;font-size:14px;align-items:start;padding:8px 10px;border-radius:7px}
+@media (max-width:520px){.ans{grid-template-columns:minmax(0,1fr);gap:2px}}
+.ans .who{font-family:var(--font-mono);font-size:12px;padding-top:2px}
+.ans.yours{background:var(--bad-soft)} .ans.yours .who{color:var(--bad)}
+.ans.correct{background:var(--ok-soft)} .ans.correct .who{color:var(--ok)}
+.explain{font-size:14px;margin:0;color:var(--ink)}
+.explain b{font-weight:600}
+.grouphead{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-top:6px}
+.grouphead h3{font-size:18px}
+.rowbtns{display:flex;gap:8px;flex-wrap:wrap}
+.toast{position:fixed;left:50%;bottom:calc(18px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:9px 16px;border-radius:8px;font-size:14px;z-index:20;max-width:calc(100% - 32px)}
+@media (prefers-reduced-motion:no-preference){.opt,.btn,.topic,.sq{transition:border-color .15s,background-color .15s}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="top-in">
+    <a href="index.html" class="btn small ghost">← All Tests</a>
+    <div class="nav-arrows" role="group" aria-label="View navigation">
+      <button class="btn small" id="navBackBtn" type="button" title="Go Back (Alt+Left)" disabled>← Back</button>
+      <button class="btn small" id="navFwdBtn" type="button" title="Go Forward (Alt+Right)" disabled>Forward →</button>
+    </div>
+    <button class="brand" id="homeBtn" type="button" aria-label="Back to topics"><b>Python &amp; R 200</b><span>PGCP-BDA · Python &amp; R Programming</span></button>
+    <div class="toplinks">
+      <button class="btn small ghost" id="mistakesBtn" type="button">My mistakes <span class="count" id="mistakesCount">0</span></button>
+      <button class="btn small ghost" id="themeBtn" type="button" onclick="togglePortalTheme()">🌙 Dark</button>
+    </div>
+    <div class="sync" id="sync" data-s="local"><i></i><span id="syncText">Saved in this browser</span></div>
+  </div>
+</header>
+<script>
+  (function() {
+    const saved = localStorage.getItem('portal_theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', saved);
+    const btn = document.getElementById('themeBtn');
+    if (btn) btn.textContent = saved === 'dark' ? '🌙 Dark' : '☀️ Light';
+  })();
+  function togglePortalTheme() {
+    const cur = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', cur);
+    localStorage.setItem('portal_theme', cur);
+    const btn = document.getElementById('themeBtn');
+    if (btn) btn.textContent = cur === 'dark' ? '🌙 Dark' : '☀️ Light';
+  }
+</script>
+
+<main class="wrap">
+  <section id="vHome"></section>
+  <section id="vQuiz" hidden></section>
+  <section id="vResult" hidden></section>
+  <section id="vMistakes" hidden></section>
+</main>
+<div class="toast" id="toast" hidden></div>
+
+<script type="application/json" id="qdata">{"sessions": [{"n": 1, "title": "Session 1 — Introduction to Python, Operators & Control Flow (2T + 4L + 2SL): Introduction to Python • Basic Syntax, Data Types, Variables, Operators, Input/Output • Flow of Control (Modules, Branching) • If, If-else, Nested if-else • Looping (For, While, Nested Loops) • Break, Continue, and Pass • Lab: Factorial (0! to 10! and < 2 billion)", "refs": false}, {"n": 2, "title": "Session 2 — Strings, Slicing & Formatting (2T + 2L + 2SL): Strings and Tuples • Accessing Strings • Basic Operations • Assigning Multiple Values at Once • Formatting Strings • String Slices • Lab: Calendar Printer, histogram(), Phrase Palindrome & Pangram Checker", "refs": false}, {"n": 3, "title": "Session 3 — Dictionaries & Comprehension (2T + 2L + 2SL): Defining Dictionaries • Modifying Dictionaries • Deleting Items from Dictionaries • Dictionary Comprehension • Lab: Caesar Cipher & ROT-13 Encoder/Decoder", "refs": false}, {"n": 4, "title": "Session 4 — Lists, List Operations & String Splitting/Joining (2T + 2L + 2SL): Defining Lists • Declaring, Assigning, and Retrieving Values • Accessing & Searching Lists • Adding & Deleting List Elements • List Operators & Mapping • Joining Lists & Splitting Strings • Lab: Largest/Smallest in List & Multiple Lists", "refs": false}, {"n": 5, "title": "Session 5 — Functions, Lambdas, Modules & Pickling (2T + 4L + 4SL): Defining & Calling Functions • Optional & Named Arguments • Anonymous Functions (Lambda, Map, List Comprehension) • Global & Local Variables • Built-in Functions (type, str, dir) • Modules • Pickling • Lab: Rövarspråket translate(), Recursive sum(), overlapping(), filter_long_words(), make_ing_form()", "refs": false}, {"n": 6, "title": "Session 6 — Tuples & Tuple Operations (2T + 2L + 2SL): Introducing Tuples • Accessing Tuples • Tuple Operations • Lab: Repeated Tuple Items, Sorting Tuples by Float Element, Counting Elements Until Tuple, Element-Wise Tuple Sum with zip()", "refs": false}, {"n": 7, "title": "Sessions 7 & 8 — Advanced Python — OOP, Regex, Generators & Decorators (4T + 4L + 5SL): OOP Concepts • Object References • Class & Object (__init__, __str__) • Attributes & Inheritance • Overloading & Overriding • Data Hiding • Regular Expressions (re) • Generators (yield) • Decorators (@log_method_call) • Lab: Student GPA Class, NumberSeries Generator & Method Logger Decorator", "refs": false}, {"n": 8, "title": "Session 9 — Exception Handling & Logging in Python (2T + 2L + 2SL): Operations Exception • Exception Handling (try, except, else, finally) • Multiple Except Clauses • User-Defined Exceptions • Logging in Python (DEBUG, INFO, WARNING, ERROR, CRITICAL)", "refs": false}, {"n": 9, "title": "Session 10 — NumPy, Pandas & Data Cleaning (2T + 4L + 2SL): Working with NumPy • PIL Image to NumPy Array • Working with Pandas & Data Wrangling • Data Cleaning • Lab: Read CSV in NumPy, DataFrame to NumPy Array, Diamonds Dataset (head(6), mean, groupby cut count/min/max price, info, duplicated rows)", "refs": false}, {"n": 10, "title": "Session 11 — Web Scraping (BeautifulSoup) & Data Visualization (2T + 4L + 2SL): Working with BeautifulSoup (bs4) • Visualizing Using Matplotlib & Seaborn • Working with ggplot & Plotly • Lab: Website Data Extraction, Correlation Matrix Heatmap (seaborn) & Scatter Plots (matplotlib/plotly)", "refs": false}, {"n": 11, "title": "Session 12 — File Handling, CSV, JSON & Context Managers (2T + 2L + 3SL): File Handling (Read, Write, Append) • Working with Text & CSV Files (csv module) • JSON File Processing (json module) • Context Managers (with Statement)", "refs": false}, {"n": 12, "title": "Session 13 — Virtual Environments, Database Connectivity & FastAPI (4T + 4L + 4SL): Python Virtual Environment (venv, pip) • Connecting & Manipulating Databases with Python (CRUD) • Introduction to FastAPI & REST APIs • Path & Query Parameters • Request & Response Models (Pydantic) • Testing APIs with Postman & Swagger UI", "refs": false}, {"n": 13, "title": "Session 14 — Introduction to R, RStudio & Basic Operations (2T + 2L + 2SL): The R Project for Statistical Computing • Installation of R • R Basics & Finding Help (?, help, example) • Code Editors, R GUI & RStudio • Basic Mathematical & Arithmetic Operations in R", "refs": false}, {"n": 14, "title": "Session 15 — R Data Objects, Packages, Workspace & Data I/O (2T + 2L + 2SL): Data Objects (Vectors, Lists, Arrays, Matrices, Data Frames, Factors) • Packages in R • R Workspace Management • Reading/Exporting Text, CSV, Excel (writexl) & Databases • Lab: Vector sum/mean/prod, airquality Dataset, List of DataFrames, Summary & Multi-Column Sorting", "refs": false}, {"n": 15, "title": "Session 16 — Tidyverse, Data Manipulation & Reshaping in R (2T + 2L + 2SL): Introduction to tidyverse (dplyr, tidyr, ggplot2) • Manipulating & Processing Data in R • Creating, Accessing & Sorting Data Frames • Extracting, Combining, Merging & Reshaping Data Frames • Lab: XML & JSON in R, Web Scraping (rvest), Diamonds Pie Chart & Bar Graph", "refs": false}, {"n": 16, "title": "Session 17 — R Functions, R Markdown & ChickWeight Case Study (2T + 2L + 2SL): User-Defined Functions in R • Built-in Functions (Numeric, Character, Statistical) • Interactive Reporting with R Markdown (.Rmd, knitr) • Lab Case Study: Built-in ChickWeight Dataset (split(), Weight vs Time Plot, Diet Group Boxplots, Group Mean Lines & Legend)", "refs": false}], "tables": {}, "questions": [{"n": 1, "s": 1, "lv": "E", "q": "What is the return type of the built-in input() function in Python 3?", "code": "", "o": ["int or float depending on the user's input", "Always str (string)", "bytes", "NoneType"], "oc": [false, true, false, false], "a": 1, "e": "In Python 3, input() always reads a line from standard input and returns it as a string (str), requiring explicit type conversion like int() or float() for numeric math."}, {"n": 2, "s": 1, "lv": "E", "q": "Which operator in Python performs floor (integer) division?", "code": "", "o": ["/", "//", "%", "**"], "oc": [false, true, false, true], "a": 1, "e": "The // operator performs floor division, returning the largest integer less than or equal to the quotient (e.g., 7 // 2 evaluates to 3)."}, {"n": 3, "s": 1, "lv": "E", "q": "What does the pass statement do in Python?", "code": "", "o": ["Terminates the nearest enclosing loop immediately", "Skips the rest of the current loop iteration", "Acts as a null (no-op) placeholder where a statement is syntactically required", "Raises a PassException at runtime"], "oc": [false, false, true, false], "a": 2, "e": "pass is a null operation in Python; nothing happens when it executes. It is used as a syntactic placeholder in empty function, class, or branch bodies."}, {"n": 4, "s": 1, "lv": "E", "q": "Which of the following variable names is INVALID in Python?", "code": "", "o": ["_total_count", "data2_value", "2nd_value", "MAX_LIMIT"], "oc": [false, false, false, false], "a": 2, "e": "Python identifiers cannot start with a digit. They must start with a letter (a-z, A-Z) or an underscore (_)."}, {"n": 5, "s": 1, "lv": "E", "q": "What is the output of print(2 ** 3 ** 2) in Python?", "code": "", "o": ["64", "512", "36", "81"], "oc": [false, false, false, false], "a": 1, "e": "The exponentiation operator (**) in Python is right-associative, so 3 ** 2 is evaluated first (9), and then 2 ** 9 evaluates to 512."}, {"n": 6, "s": 1, "lv": "M", "q": "What is the result of the floor division expression -7 // 2 in Python?", "code": "", "o": ["-3", "-4", "-3.5", "3"], "oc": [false, false, false, false], "a": 1, "e": "Floor division (//) rounds toward negative infinity. Since -7 / 2 is -3.5, rounding down toward -infinity gives -4."}, {"n": 7, "s": 1, "lv": "M", "q": "In the Session 1 factorial lab algorithm (starting with f = 1, n = 0, and repeating: print n! = f, n = n + 1, f = f * n), what value is printed on the very first iteration?", "code": "", "o": ["1 ! =  1", "0 ! =  1", "0 ! =  0", "1 ! =  0"], "oc": [false, false, false, false], "a": 1, "e": "Before incrementing n and multiplying f, f is initialized to 1 and n to 0, so the first output is '0 ! =  1', accurately representing 0! = 1."}, {"n": 8, "s": 1, "lv": "M", "q": "What is printed by the following loop?", "code": "for i in range(1, 6):\n    if i == 3:\n        continue\n    print(i, end=' ')", "o": ["1 2", "1 2 3 4 5", "1 2 4 5", "1 2 4 5 6"], "oc": [false, false, false, false], "a": 2, "e": "range(1, 6) generates 1, 2, 3, 4, 5. When i == 3, continue skips printing 3 and proceeds to the next iteration (4 and 5)."}, {"n": 9, "s": 1, "lv": "M", "q": "What is the output of print(bool('False'), bool(''), bool(0))?", "code": "", "o": ["False False False", "True False False", "True True False", "False True False"], "oc": [false, false, false, false], "a": 1, "e": "Any non-empty string in Python (including 'False') is truthy (True), while an empty string '' and numeric 0 are falsy (False)."}, {"n": 10, "s": 1, "lv": "M", "q": "What does print(10, 20, 30, sep='-', end='!') output?", "code": "", "o": ["10-20-30!", "10 20 30-!", "10-20-30!\\n", "-10-20-30!"], "oc": [false, false, false, false], "a": 0, "e": "The sep parameter specifies the separator between arguments ('-'), and end specifies what to print at the end ('!') instead of a newline."}, {"n": 11, "s": 1, "lv": "T", "q": "When does the else block of a Python for or while loop execute?", "code": "", "o": ["Only when the loop terminates prematurely via a break statement", "Only when the loop condition is initially False and zero iterations run", "Whenever the loop finishes normally without encountering a break statement", "After every single iteration of the loop"], "oc": [false, false, false, false], "a": 2, "e": "A loop's else clause executes when the loop exhausts its iterable (for) or its condition becomes False (while), provided the loop was NOT exited via break."}, {"n": 12, "s": 1, "lv": "T", "q": "What is the output of the expression: print(0 or 'Hello' and 'World')?", "code": "", "o": ["0", "Hello", "World", "True"], "oc": [false, false, false, false], "a": 2, "e": "In Python, 'and' has higher precedence than 'or'. First, 'Hello' and 'World' evaluates to 'World' (since 'Hello' is truthy, 'and' returns the second operand). Then 0 or 'World' returns 'World'."}, {"n": 13, "s": 1, "lv": "T", "q": "In the Session 1 Lab Q2 (printing factorials less than 2,000,000,000 using a while loop), what is the largest n whose factorial n! is strictly less than 2 billion (2,000,000,000)?", "code": "", "o": ["10 (10! = 3,628,800)", "12 (12! = 479,001,600)", "13 (13! = 6,227,020,800)", "15 (15! = 1,307,674,368,000)"], "oc": [true, true, true, true], "a": 1, "e": "12! = 479,001,600, which is less than 2 billion (2,000,000,000), whereas 13! = 6,227,020,800 exceeds 2 billion."}, {"n": 14, "s": 1, "lv": "T", "q": "What happens when the following code is executed?", "code": "x = 5\nif x > 2:\n    if x < 4:\n        print('A')\nelse:\n    print('B')", "o": ["Prints A", "Prints B", "Prints nothing", "Raises IndentationError"], "oc": [false, false, false, false], "a": 2, "e": "Because of indentation, the else block belongs to the outer 'if x > 2:'. Since x > 2 is True, Python enters the outer if, checks x < 4 (which is False), and prints nothing."}, {"n": 15, "s": 2, "lv": "E", "q": "Given s = 'Python', what does s[-1] evaluate to?", "code": "", "o": ["'P'", "'n'", "'o'", "IndexError"], "oc": [false, false, false, false], "a": 1, "e": "Negative indices in Python count from the right end of the sequence, where -1 refers to the last character ('n')."}, {"n": 16, "s": 2, "lv": "E", "q": "How do you reverse a string s in Python using slicing?", "code": "", "o": ["s[0:-1]", "s[::-1]", "s[-1:0]", "s.reverse()"], "oc": [true, true, true, true], "a": 1, "e": "The slice s[::-1] uses a step of -1 with omitted start and stop, traversing the string from right to left and returning a reversed copy."}, {"n": 17, "s": 2, "lv": "E", "q": "Which statement assigns 10 to a, 20 to b, and 30 to c in a single line?", "code": "", "o": ["a, b, c = 10, 20, 30", "a = 10; b = 20; c = 30 only", "int a=10, b=20, c=30", "(a, b) = (10, 20, 30)"], "oc": [false, false, false, true], "a": 0, "e": "Python supports tuple unpacking (multiple assignment) on a single line using a, b, c = 10, 20, 30."}, {"n": 18, "s": 2, "lv": "E", "q": "What is the output of 'abc' * 3?", "code": "", "o": ["'abc3'", "'abcabcabc'", "'aaabbbccc'", "TypeError"], "oc": [false, false, false, false], "a": 1, "e": "The * operator on a string and an integer repeats the string that many times, producing 'abcabcabc'."}, {"n": 19, "s": 2, "lv": "M", "q": "What is the output of s = 'DataScience'; print(s[4:1:-1])?", "code": "", "o": ["'Scia'", "'Sata'", "'Sat'", "'' (empty string)"], "oc": [false, false, false, true], "a": 2, "e": "Starting at index 4 ('S') and stepping backward by -1 down to (but excluding) index 1 ('a'), indices 4, 3, 2 give 'S', 'a', 't' -> 'Sat'."}, {"n": 20, "s": 2, "lv": "M", "q": "What happens when you execute s = 'hello'; s[0] = 'H'?", "code": "", "o": ["s becomes 'Hello'", "Raises TypeError because strings are immutable", "Raises ValueError", "Returns a new string 'Hello' without changing s"], "oc": [false, false, false, false], "a": 1, "e": "Strings in Python are immutable sequences; attempting item assignment raises TypeError: 'str' object does not support item assignment."}, {"n": 21, "s": 2, "lv": "M", "q": "What does f'{3.14159:.2f}' evaluate to?", "code": "", "o": ["'3.14'", "'3.14159'", "'3.1'", "'3.15'"], "oc": [false, false, false, false], "a": 0, "e": "The format specifier :.2f formats a floating-point number rounded to 2 decimal places as '3.14'."}, {"n": 22, "s": 2, "lv": "M", "q": "In Session 2 Lab Q2 (histogram([4, 9, 7])), which expression prints a row of n asterisks for an integer n?", "code": "", "o": ["print('*' + n)", "print('*' * n)", "print(n.repeat('*'))", "print('*' ^ n)"], "oc": [true, true, true, true], "a": 1, "e": "In Python, '*' * n repeats the asterisk character n times, making histogram([4, 9, 7]) concise via for n in items: print('*' * n)."}, {"n": 23, "s": 2, "lv": "M", "q": "In Session 2 Lab Q1 (printing a monthly calendar starting on day d where 0=Sunday/Monday offset), which expression helps determine when to wrap to a new line after every 7 columns?", "code": "", "o": ["(day + start_offset) % 7 == 0", "day // 7 == 1", "day ** 7 == 0", "day & 7 == 0"], "oc": [true, true, true, true], "a": 0, "e": "When printing leading blanks for start_offset and then each day number, checking (day + start_offset) % 7 == 0 identifies the end of each 7-day week row."}, {"n": 24, "s": 2, "lv": "T", "q": "In Session 2 Lab Q3 (phrase palindrome recognizer for 'Go hang a salami I'm a lasagna hog.'), which expression strips punctuation/spaces and normalizes case before checking s == s[::-1]?", "code": "", "o": ["''.join(ch.lower() for ch in text if ch.isalnum())", "text.strip().lower()", "text.replace(' ', '')", "text.split().lower()"], "oc": [true, true, true, true], "a": 0, "e": "Filtering with ch.isalnum() keeps only letters and digits (ignoring spaces, apostrophes, periods, and commas), and .lower() makes the check case-insensitive."}, {"n": 25, "s": 2, "lv": "T", "q": "In Session 2 Lab Q4 (checking if a sentence is a pangram containing all 26 English letters), which expression correctly returns True for any pangram s?", "code": "", "o": ["len(s) >= 26", "set('abcdefghijklmnopqrstuvwxyz') <= set(s.lower())", "s.isalpha() and len(set(s)) == 26", "'a' in s and 'z' in s"], "oc": [true, true, true, false], "a": 1, "e": "Checking whether the set of all 26 lowercase letters is a subset (<=) of set(s.lower()) verifies that every letter 'a' through 'z' appears at least once."}, {"n": 26, "s": 2, "lv": "T", "q": "What is the result of 'hello world'.SwapCase() vs 'hello world'.title()?", "code": "", "o": ["Both are valid and return 'HELLO WORLD' and 'Hello World'", "SwapCase() raises AttributeError (method is swapcase()), while title() returns 'Hello World'", "Both raise AttributeError", "title() capitalizes only the first word"], "oc": [false, true, false, true], "a": 1, "e": "String methods in Python are lowercase: str.swapcase() is valid, whereas SwapCase() raises AttributeError. str.title() capitalizes the first letter of each word."}, {"n": 27, "s": 3, "lv": "E", "q": "Which of the following creates an empty dictionary in Python?", "code": "", "o": ["set()", "{}", "[]", "()"], "oc": [true, true, true, true], "a": 1, "e": "Curly braces {} create an empty dictionary, whereas set() is required to create an empty set."}, {"n": 28, "s": 3, "lv": "E", "q": "Given d = {'a': 1, 'b': 2}, what does d.get('c', 0) return?", "code": "", "o": ["KeyError", "None", "0", "False"], "oc": [false, false, false, false], "a": 2, "e": "dict.get(key, default) returns the value for key if present, or the specified default value (0) instead of raising a KeyError."}, {"n": 29, "s": 3, "lv": "E", "q": "Which dictionary method removes a specified key and returns its corresponding value?", "code": "", "o": ["d.remove(key)", "d.pop(key)", "d.delete(key)", "d.discard(key)"], "oc": [true, true, true, true], "a": 1, "e": "d.pop(key) removes the key-value pair from the dictionary and returns the value associated with that key."}, {"n": 30, "s": 3, "lv": "E", "q": "Which method returns a view of (key, value) tuple pairs from a dictionary d?", "code": "", "o": ["d.pairs()", "d.items()", "d.entries()", "d.keys_values()"], "oc": [true, true, true, true], "a": 1, "e": "d.items() returns a dict_items view object yielding (key, value) tuples."}, {"n": 31, "s": 3, "lv": "M", "q": "Which of the following types CAN be used as a dictionary key in Python?", "code": "", "o": ["list", "dict", "tuple of strings and integers", "set"], "oc": [false, false, false, false], "a": 2, "e": "Dictionary keys must be hashable (immutable). A tuple containing only immutable elements (such as strings and ints) is hashable, unlike lists, dicts, or sets."}, {"n": 32, "s": 3, "lv": "M", "q": "What is the output of {x: x**2 for x in range(1, 5) if x % 2 == 0}?", "code": "", "o": ["{1: 1, 2: 4, 3: 9, 4: 16}", "{2: 4, 4: 16}", "{1: 1, 3: 9}", "[4, 16]"], "oc": [true, true, true, true], "a": 1, "e": "The dictionary comprehension filters range(1, 5) for even numbers (2 and 4) and maps each to its square: {2: 4, 4: 16}."}, {"n": 33, "s": 3, "lv": "M", "q": "In the Session 3 Lab Q1 (ROT-13 cipher using a dictionary `key`), why can the exact same ROT-13 function be used for both encoding and decoding English text?", "code": "", "o": ["Because Python dictionaries automatically invert themselves on second use", "Because the English alphabet has 26 letters and rotating twice by 13 places (13 + 13 = 26) returns the original letter", "Because ROT-13 only shifts vowels", "Because ASCII values of letters are all prime numbers"], "oc": [false, true, false, false], "a": 1, "e": "Since the English alphabet has 26 letters, shifting by 13 is its own inverse: applying ROT-13 a second time shifts by 13 + 13 = 26 (modulo 26 = 0), restoring the original letter."}, {"n": 34, "s": 3, "lv": "M", "q": "In the Session 3 Lab Q1, what does the ROT-13 ciphertext 'Pnrfne pvcure? V zhpu cersre Pnrfne fnynq!' decode to?", "code": "", "o": ["'Python coding? I much prefer Python lists!'", "'Caesar cipher? I much prefer Caesar salad!'", "'Secret message? I love coding in Python!'", "'Rotate thirteen? A very simple cipher!'"], "oc": [false, false, false, false], "a": 1, "e": "Applying the ROT-13 dictionary mapping (P->C, n->a, r->e, f->s, n->a, r->e, etc.) decodes the message to 'Caesar cipher? I much prefer Caesar salad!'."}, {"n": 35, "s": 3, "lv": "M", "q": "How do you encode a string `msg` using the Session 3 ROT-13 dictionary `key` while preserving spaces and punctuation like '?' and '!'?", "code": "", "o": ["''.join(key[ch] for ch in msg)", "''.join(key.get(ch, ch) for ch in msg)", "msg.replace(key)", "dict(msg)"], "oc": [true, true, true, true], "a": 1, "e": "Using key.get(ch, ch) maps alphabetic characters present in `key` to their ROT-13 counterpart while returning non-alphabetic characters (spaces, '?', '!') unchanged."}, {"n": 36, "s": 3, "lv": "T", "q": "What is the result of executing d = {1: 'A', True: 'B', 1.0: 'C'}; print(len(d), d[1])?", "code": "", "o": ["3 A", "1 C", "2 B", "3 C"], "oc": [false, false, false, false], "a": 1, "e": "In Python, 1 == True == 1.0 and hash(1) == hash(True) == hash(1.0). They all map to the same dictionary key (1), and each subsequent assignment overwrites the value, leaving {1: 'C'} with length 1."}, {"n": 37, "s": 3, "lv": "T", "q": "What happens if you delete a key from a dictionary while iterating directly over it (for k in d: del d[k])?", "code": "", "o": ["All keys are silently deleted", "Raises RuntimeError: dictionary changed size during iteration", "Deletes only the first key and stops", "Raises KeyError"], "oc": [false, false, false, false], "a": 1, "e": "Mutating a dictionary's size while iterating over its view raises RuntimeError: dictionary changed size during iteration. Iterate over list(d.keys()) instead."}, {"n": 38, "s": 3, "lv": "T", "q": "Given d = {'x': 10, 'y': 20}, what does d.setdefault('x', 99) return, and what is d['x'] afterward?", "code": "", "o": ["Returns 99, d['x'] becomes 99", "Returns 10, d['x'] remains 10", "Returns None, d['x'] remains 10", "Raises KeyError"], "oc": [true, true, true, false], "a": 1, "e": "dict.setdefault(key, default) returns the existing value if key is already in the dictionary without overwriting it; it only inserts default if key is absent."}, {"n": 39, "s": 4, "lv": "E", "q": "What is the key difference between list.append(x) and list.extend(iterable)?", "code": "", "o": ["append() adds elements at the start; extend() adds at the end", "append() adds x as a single element; extend() iterates over iterable and appends each element individually", "extend() only works with integers", "There is no difference"], "oc": [true, true, true, false], "a": 1, "e": "append([4, 5]) adds the list [4, 5] as a single nested element, whereas extend([4, 5]) adds 4 and 5 as individual elements to the list."}, {"n": 40, "s": 4, "lv": "E", "q": "Which method removes the first occurrence of a specific value from a list?", "code": "", "o": ["list.pop(value)", "list.remove(value)", "list.delete(value)", "del list(value)"], "oc": [true, true, true, true], "a": 1, "e": "list.remove(x) searches for the first occurrence of value x and removes it (raising ValueError if absent), whereas list.pop(i) takes an index."}, {"n": 41, "s": 4, "lv": "E", "q": "In Session 4 Lab Q1, which built-in functions directly return the largest and smallest numbers in a non-empty list `nums`?", "code": "", "o": ["largest(nums) and smallest(nums)", "max(nums) and min(nums)", "top(nums) and bottom(nums)", "nums.max() and nums.min()"], "oc": [true, true, true, true], "a": 1, "e": "Python's built-in max(nums) and min(nums) functions return the largest and smallest elements of any iterable or list."}, {"n": 42, "s": 4, "lv": "E", "q": "What does ' '.join(['Python', 'is', 'fun']) return?", "code": "", "o": ["['Python', ' ', 'is', ' ', 'fun']", "'Python is fun'", "'Pythonisfun'", "TypeError"], "oc": [true, false, false, false], "a": 1, "e": "str.join(iterable) concatenates the strings in the list separated by the delimiter string (' '), producing 'Python is fun'."}, {"n": 43, "s": 4, "lv": "M", "q": "What is the result of 'a,b,,c'.split(',') vs 'a  b   c'.split()?", "code": "", "o": ["Both return ['a', 'b', 'c']", "['a', 'b', '', 'c'] and ['a', 'b', 'c']", "['a', 'b', 'c'] and ['a', '', 'b', '', '', 'c']", "Both include empty strings"], "oc": [true, true, true, false], "a": 1, "e": "When an explicit separator ',' is given, consecutive delimiters produce empty strings (['a', 'b', '', 'c']). When split() is called with no argument, consecutive whitespace runs are treated as a single separator."}, {"n": 44, "s": 4, "lv": "M", "q": "What is printed by the following code?", "code": "a = [1, 2, 3]\nb = a\nb.append(4)\nprint(a)", "o": ["[1, 2, 3]", "[1, 2, 3, 4]", "[4]", "Error"], "oc": [true, true, true, false], "a": 1, "e": "Assignment b = a copies the list reference, not the list itself. Both a and b refer to the same list object in memory, so b.append(4) mutates a as well."}, {"n": 45, "s": 4, "lv": "M", "q": "What does list.sort() return compared to the built-in sorted(list)?", "code": "", "o": ["Both return a new sorted list", "list.sort() sorts the list in-place and returns None; sorted(list) leaves the original unchanged and returns a new sorted list", "sorted() sorts in-place and returns None", "list.sort() only works on strings"], "oc": [false, true, true, true], "a": 1, "e": "list.sort() mutates the list in-place and returns None to remind callers no new list was created, whereas sorted(iterable) returns a new sorted list."}, {"n": 46, "s": 4, "lv": "M", "q": "Given nums = [10, 20, 30, 40, 50], what is nums after executing nums[1:4] = [99]?", "code": "", "o": ["[10, 99, 20, 30, 40, 50]", "[10, 99, 50]", "[10, 99, 40, 50]", "ValueError"], "oc": [true, true, true, false], "a": 1, "e": "Slice assignment replaces the slice nums[1:4] (which holds 20, 30, 40) with the elements of the iterable [99], resulting in [10, 99, 50]."}, {"n": 47, "s": 4, "lv": "M", "q": "Why is the 'Historical Note on String Methods' mentioned in Session 4 alongside joining and splitting?", "code": "", "o": ["In early Python (Python 1.x / early 2.x), string operations like join() and split() were functions in the `string` module before becoming methods on str objects", "Strings used to be mutable lists in Python 2", "join() was originally a method on the list class", "split() was removed in Python 3"], "oc": [true, false, true, true], "a": 0, "e": "Historically in Python, functions like string.join(words, ' ') and string.split(s) lived in the `string` module before strings gained their own methods like ' '.join(words) and s.split()."}, {"n": 48, "s": 4, "lv": "T", "q": "What happens when you create a 2D list using matrix = [[0] * 3] * 3 and then set matrix[0][0] = 9?", "code": "", "o": ["matrix becomes [[9, 0, 0], [0, 0, 0], [0, 0, 0]]", "matrix becomes [[9, 0, 0], [9, 0, 0], [9, 0, 0]]", "Raises IndexError", "matrix becomes [[9, 9, 9], [0, 0, 0], [0, 0, 0]]"], "oc": [true, true, false, true], "a": 1, "e": "Multiplying a list of lists [[0]*3]*3 duplicates references to the exact same inner list 3 times. Modifying matrix[0][0] modifies row 0, row 1, and row 2 simultaneously."}, {"n": 49, "s": 4, "lv": "T", "q": "What is the output of [x * y for x in [1, 2] for y in [10, 20]]?", "code": "", "o": ["[10, 40]", "[10, 20, 20, 40]", "[[10, 20], [20, 40]]", "[10, 20, 30, 40]"], "oc": [true, true, true, true], "a": 1, "e": "In a nested list comprehension, the outer loop is the first `for` (x in [1, 2]) and the inner loop is the second `for` (y in [10, 20]), producing 1*10, 1*20, 2*10, 2*20 -> [10, 20, 20, 40]."}, {"n": 50, "s": 4, "lv": "T", "q": "How does shallow copy `b = a[:]` behave when `a = [[1, 2], [3, 4]]` and you execute `b[0].append(5)`?", "code": "", "o": ["Only b is changed; a remains [[1, 2], [3, 4]]", "Both a[0] and b[0] become [1, 2, 5] because slicing performs a shallow copy of the outer list only", "Raises TypeError", "a becomes [[1, 2, 5], [3, 4, 5]]"], "oc": [true, true, false, true], "a": 1, "e": "a[:] creates a new outer list, but its elements still reference the same inner lists. Mutating b[0] in-place affects a[0] unless copy.deepcopy(a) is used."}, {"n": 51, "s": 5, "lv": "E", "q": "In Session 5 Lab Q1, given `people={'Arham':'Blue','Lisa':'Yellow','Vinod':'Purple','Jenny':'Pink'}`, how do you sort and print the students alphabetically by name?", "code": "", "o": ["for k in people.sort(): print(k, people[k])", "for k in sorted(people): print(k, people[k])", "people.sort_keys()", "sorted(people.values())"], "oc": [true, true, true, true], "a": 1, "e": "Passing a dictionary to sorted(people) returns a list of its keys sorted in ascending alphabetical order."}, {"n": 52, "s": 5, "lv": "E", "q": "What does a Python function return by default if it has no return statement?", "code": "", "o": ["0", "False", "None", "An empty tuple ()"], "oc": [false, false, false, true], "a": 2, "e": "Every Python function returns None by default when execution reaches the end of the function body without hitting an explicit return value."}, {"n": 53, "s": 5, "lv": "E", "q": "Which module is standard in Python for serializing and deserializing Python object hierarchies ('Pickling')?", "code": "", "o": ["json", "pickle", "marshal_csv", "serialize"], "oc": [false, false, false, false], "a": 1, "e": "The `pickle` module implements binary protocols for serializing (pickling via pickle.dump/dumps) and deserializing (unpickling via pickle.load/loads) Python objects."}, {"n": 54, "s": 5, "lv": "E", "q": "What is the purpose of the built-in `dir(obj)` function in Python?", "code": "", "o": ["Returns the file system directory of the script", "Returns a sorted list of valid attribute and method names for that object", "Deletes the object from memory", "Returns the memory address of the object"], "oc": [false, false, true, false], "a": 1, "e": "dir(obj) attempts to return a list of valid attributes and methods associated with the object (or names in the current local scope if called with no arguments)."}, {"n": 55, "s": 5, "lv": "M", "q": "In Session 5 Lab Q1, the `translate(text)` function converts English into 'rövarspråket' by doubling every consonant and placing 'o' in between (e.g., 'fun' -> 'fofunon'). Which expression transforms a single character `c` given `consonants = 'bcdfghjklmnpqrstvwxz'`?", "code": "", "o": ["c + 'o' + c.lower() if c.lower() in consonants else c", "c * 2 + 'o' if c in consonants else c", "'o'.join(c) if c.isalpha() else c", "c.replace(c, c + 'o')"], "oc": [true, false, true, true], "a": 0, "e": "If `c` is a consonant, it is replaced by `c + 'o' + c.lower()` (so 't' becomes 'tot'); vowels and spaces are returned unchanged."}, {"n": 56, "s": 5, "lv": "M", "q": "In Session 5 Lab Q3, the recursive function `sum_rec(x)` computes `1 + 2 + ... + x` for integer `x >= 1`. Which implementation is correct?", "code": "", "o": ["def sum_rec(x): return x + sum_rec(x - 1)", "def sum_rec(x): return 1 if x == 1 else x + sum_rec(x - 1)", "def sum_rec(x): return 0 if x == 1 else x * sum_rec(x - 1)", "def sum_rec(x): return x + sum_rec(x + 1)"], "oc": [true, true, true, true], "a": 1, "e": "A recursive function requires a base case (`if x == 1: return 1`) and a recursive step (`x + sum_rec(x - 1)`) that progresses toward the base case."}, {"n": 57, "s": 5, "lv": "M", "q": "In Session 5 Lab Q4, `overlapping(list1, list2)` returns True if the two lists share at least one common element. Which implementation is both valid and concise?", "code": "", "o": ["return bool(set(list1) & set(list2))", "return list1 == list2", "return list1 in list2", "return len(list1 + list2) > 0"], "oc": [true, true, false, true], "a": 0, "e": "Intersecting the two sets `set(list1) & set(list2)` (or using `any(x in list2 for x in list1)`) returns a non-empty set if and only if they share at least one element."}, {"n": 58, "s": 5, "lv": "M", "q": "In Session 5 Lab Q5 & Q6 (`find_longest_word(words)` and `filter_long_words(words, n)`), which pair of expressions solves both tasks?", "code": "", "o": ["max(len(w) for w in words) and [w for w in words if len(w) > n]", "len(max(words)) and filter(n, words)", "max(words) and [w for w in words if w > n]", "sum(len(w) for w in words) and words[:n]"], "oc": [true, true, true, true], "a": 0, "e": "max(len(w) for w in words) returns the maximum word length, and the list comprehension [w for w in words if len(w) > n] filters words strictly longer than n."}, {"n": 59, "s": 5, "lv": "M", "q": "What is the difference between `pickle.dump(obj, file)` and `pickle.dumps(obj)`?", "code": "", "o": ["dump() writes the pickled bytes to an open file-like object; dumps() returns the pickled representation as a bytes object", "dumps() writes to disk; dump() returns a string", "dump() is for lists; dumps() is for dictionaries", "There is no difference"], "oc": [true, true, true, false], "a": 0, "e": "In `pickle` (and `json`), functions ending in `s` (`dumps`, `loads`) operate on in-memory bytes/strings, while `dump` and `load` read/write file objects."}, {"n": 60, "s": 5, "lv": "T", "q": "In Session 5 Lab Q7 (`correct(s)` spelling correction that compresses 2+ spaces into 1 and inserts a space after a period if directly followed by a letter, e.g., `'cool.Indeed!'` -> `'cool. Indeed!'`), which regex call accomplishes both?", "code": "", "o": ["re.sub(r'\\s+', ' ', re.sub(r'\\.([A-Za-z])', r'. \\1', s))", "s.replace('  ', ' ').replace('.', '. ')", "s.split().join('. ')", "re.match(r'\\.', s)"], "oc": [true, true, true, true], "a": 0, "e": "First, `re.sub(r'\\.([A-Za-z])', r'. \\1', s)` inserts a space after any period immediately followed by a letter, and `re.sub(r'\\s+', ' ', ...)` compresses multiple spaces into one."}, {"n": 61, "s": 5, "lv": "T", "q": "What happens when a function uses a mutable default argument like `def add_item(x, items=[]): items.append(x); return items` and is called twice as `add_item(1)` then `add_item(2)`?", "code": "", "o": ["Returns [1] then [2]", "Returns [1] then [1, 2] because default argument values are evaluated only once when the function is defined", "Raises TypeError", "Returns [2] both times"], "oc": [true, true, false, true], "a": 1, "e": "Default parameter values are evaluated once at function definition time (`def`), so the same list object is reused across calls that omit `items`."}, {"n": 62, "s": 5, "lv": "T", "q": "What happens when the following code runs?", "code": "x = 10\ndef foo():\n    print(x)\n    x = 20\nfoo()", "o": ["Prints 10", "Prints 20", "Raises UnboundLocalError: cannot access local variable 'x' where it is not associated with a value", "Raises NameError"], "oc": [false, false, false, false], "a": 2, "e": "Because `x = 20` appears inside `foo()`, Python treats `x` as a local variable throughout the entire function body. Reading `x` before its local assignment raises UnboundLocalError."}, {"n": 63, "s": 5, "lv": "T", "q": "In afunction definition `def func(a, b=2, *args, c=3, **kwargs):`, what kind of parameter is `c`?", "code": "", "o": ["Positional-only parameter", "Keyword-only parameter (must be passed by name if overridden)", "Variable-length positional parameter", "SyntaxError: parameters cannot appear after *args"], "oc": [false, true, false, false], "a": 1, "e": "Any parameter declared after `*args` (or a bare `*`) and before `**kwargs` is a keyword-only parameter and can only be overridden using `c=value`."}, {"n": 64, "s": 6, "lv": "E", "q": "How do you correctly create a single-element tuple containing the integer 5 in Python?", "code": "", "o": ["(5)", "(5,)", "tuple(5)", "[5]"], "oc": [true, true, true, true], "a": 1, "e": "Parentheses around a single expression `(5)` just group the integer 5; a trailing comma `(5,)` or `5,` is required to construct a 1-element tuple."}, {"n": 65, "s": 6, "lv": "E", "q": "Which tuple methods exist on a standard Python `tuple` object?", "code": "", "o": ["append(), remove(), index(), count()", "count() and index() only", "sort(), reverse(), count()", "insert() and pop()"], "oc": [true, true, true, true], "a": 1, "e": "Because tuples are immutable, they only provide the two non-mutating sequence methods: `count(x)` and `index(x)`."}, {"n": 66, "s": 6, "lv": "E", "q": "In Session 6 Lab Q1 (finding repeated items in a tuple `t = (1, 2, 3, 2, 4, 1)`), which expression returns the set of repeated elements?", "code": "", "o": ["{x for x in t if t.count(x) > 1}", "t.duplicates()", "{x for x in t if t.index(x) > 1}", "set(t)"], "oc": [true, true, true, true], "a": 0, "e": "Checking `t.count(x) > 1` inside a set comprehension collects every distinct item that appears two or more times in the tuple."}, {"n": 67, "s": 6, "lv": "M", "q": "In Session 6 Lab Q2, given `data = [('item1', '12.20'), ('item2', '15.10'), ('item3', '24.5')]`, how do you sort the list in descending order by its float value to produce `[('item3', '24.5'), ('item2', '15.10'), ('item1', '12.20')]`?", "code": "", "o": ["sorted(data, key=lambda x: float(x[1]), reverse=True)", "sorted(data, reverse=True)", "data.sort(key=1)", "sorted(data, key=lambda x: int(x[1]))"], "oc": [true, true, true, true], "a": 0, "e": "Sorting by `key=lambda x: float(x[1])` with `reverse=True` converts the second tuple element to float for numerical comparison and orders from highest to lowest."}, {"n": 68, "s": 6, "lv": "M", "q": "In Session 6 Lab Q3, given `lst = [10, 20, 30, (40, 50), 60]`, we want to count elements in `lst` until an element is a tuple (expected output: `3`). Which condition accurately checks if element `x` is a tuple?", "code": "", "o": ["isinstance(x, tuple)", "type(x) == 'tuple'", "x.is_tuple()", "len(x) == 2"], "oc": [true, true, true, true], "a": 0, "e": "`isinstance(x, tuple)` (or `type(x) is tuple`) returns True when `x` is a tuple, allowing the loop to break after counting 10, 20, and 30 (count = 3)."}, {"n": 69, "s": 6, "lv": "M", "q": "In Session 6 Lab Q4, given `t1 = (1, 2, 3, 4)`, `t2 = (3, 5, 2, 1)`, and `t3 = (2, 2, 3, 1)`, which expression computes the element-wise sum `(6, 9, 8, 6)` using `zip()`?", "code": "", "o": ["tuple(sum(vals) for vals in zip(t1, t2, t3))", "tuple(t1 + t2 + t3)", "zip(sum(t1, t2, t3))", "tuple(map(max, zip(t1, t2, t3)))"], "oc": [true, true, true, true], "a": 0, "e": "`zip(t1, t2, t3)` pairs corresponding elements `(1,3,2), (2,5,2), (3,2,3), (4,1,1)`, and `tuple(sum(vals) for vals in ...)` (or `tuple(map(sum, zip(t1, t2, t3)))`) sums each group to `(6, 9, 8, 6)`."}, {"n": 70, "s": 6, "lv": "M", "q": "What is the result of unpacking `a, *b, c = (10, 20, 30, 40, 50)`?", "code": "", "o": ["a=10, b=(20, 30, 40), c=50", "a=10, b=[20, 30, 40], c=50", "a=10, b=20, c=[30, 40, 50]", "SyntaxError"], "oc": [true, true, true, false], "a": 1, "e": "Extended iterable unpacking with `*b` always assigns the captured middle elements as a `list` (`[20, 30, 40]`), even when unpacking a tuple."}, {"n": 71, "s": 6, "lv": "T", "q": "What happens when you execute `t = (1, 2, [3, 4]); t[2].append(5)`?", "code": "", "o": ["Raises TypeError and leaves t unchanged", "Mutates the inner list so t becomes (1, 2, [3, 4, 5]) without error", "Creates a new tuple", "Raises AttributeError"], "oc": [false, true, false, false], "a": 1, "e": "While the tuple's references cannot be rebound, `t[2]` references a mutable list; calling `.append(5)` mutates the list in-place without changing which object `t[2]` points to."}, {"n": 72, "s": 6, "lv": "T", "q": "What happens instead if you execute `t = (1, 2, [3, 4]); t[2] += [5]`?", "code": "", "o": ["Executes cleanly with no error", "Both mutates the inner list to [3, 4, 5] AND raises TypeError: 'tuple' object does not support item assignment", "Leaves the list as [3, 4] and raises TypeError", "Raises IndexError"], "oc": [false, true, true, false], "a": 1, "e": "Because `+=` on a list invokes `list.__iadd__` (which mutates the list in-place) and then attempts to reassign the result back to `t[2]`, the list becomes `[3, 4, 5]` AND `TypeError` is raised!"}, {"n": 73, "s": 6, "lv": "T", "q": "What does `list(zip([1, 2, 3], ['a', 'b']))` return in Python?", "code": "", "o": ["[(1, 'a'), (2, 'b'), (3, None)]", "[(1, 'a'), (2, 'b')]", "Raises ValueError: zip() arguments have different lengths", "[1, 'a', 2, 'b', 3]"], "oc": [true, true, true, true], "a": 1, "e": "By default, `zip()` stops as soon as the shortest input iterable is exhausted, returning `[(1, 'a'), (2, 'b')]`."}, {"n": 74, "s": 7, "lv": "E", "q": "In Sessions 7 & 8 Lab Q1 (`Student` class), which special method is automatically invoked to initialize a newly created instance?", "code": "", "o": ["__new_object__(self)", "__init__(self, ...)", "__str__(self)", "constructor(self)"], "oc": [true, true, true, true], "a": 1, "e": "`__init__(self, ...)` is Python's instance initializer method called automatically after the object is created."}, {"n": 75, "s": 7, "lv": "E", "q": "In Sessions 7 & 8 Lab Q1, which special method should be overridden in the `Student` class so that `print(student_obj)` displays a readable string summary?", "code": "", "o": ["__print__(self)", "__str__(self)", "__display__(self)", "__format_str__(self)"], "oc": [true, true, true, true], "a": 1, "e": "Overriding `__str__(self)` defines the informal, human-readable string representation returned by `str(obj)` and used by `print(obj)`."}, {"n": 76, "s": 7, "lv": "E", "q": "Which keyword is used inside a Python function or method to turn it into a generator (as in the `NumberSeries` class in Sessions 7 & 8 Lab Q3)?", "code": "", "o": ["generate", "yield", "emit", "async"], "oc": [false, false, false, false], "a": 1, "e": "Using `yield` in a function or method makes it a generator function that returns a lazy generator iterator."}, {"n": 77, "s": 7, "lv": "E", "q": "Which module in the Python standard library provides support for Perl-style regular expressions?", "code": "", "o": ["regex_lib", "re", "pyregex", "pattern"], "oc": [false, false, false, false], "a": 1, "e": "The `re` module is Python's built-in module for regular expression matching, searching, splitting, and substitution."}, {"n": 78, "s": 7, "lv": "M", "q": "In Sessions 7 & 8 Lab Q1, a student has `marks = {'Math': 75, 'Java': 35, 'Python': 82}` where passing is 40. Which expression checks if the student has failed in ANY subject?", "code": "", "o": ["any(score < 40 for score in self.marks.values())", "all(score < 40 for score in self.marks.values())", "min(self.marks.keys()) < 40", "self.marks < 40"], "oc": [true, true, true, false], "a": 0, "e": "`any(score < 40 for score in self.marks.values())` returns True as soon as at least one subject mark is below 40."}, {"n": 79, "s": 7, "lv": "M", "q": "In Sessions 7 & 8 Lab Q2, the GPA formula is `gpa = (1/3)*m1 + (1/2)*m2 + (1/4)*m3`. If a student has `m1 = 60, m2 = 80, m3 = 40`, what does `calculate_gpa()` return?", "code": "", "o": ["60.0", "70.0", "65.0", "75.0"], "oc": [false, false, false, false], "a": 1, "e": "(1/3)*60 = 20.0, (1/2)*80 = 40.0, and (1/4)*40 = 10.0. Their sum is 20.0 + 40.0 + 10.0 = 70.0."}, {"n": 80, "s": 7, "lv": "M", "q": "How does Python implement data hiding (name mangling) for an attribute declared as `self.__gpa` inside `class Student`?", "code": "", "o": ["It makes the attribute completely inaccessible from anywhere outside the class", "It mangles the attribute name to `self._Student__gpa` to prevent accidental collisions in subclasses", "It encrypts the attribute value in memory", "It raises a SyntaxError unless declared with the `private` keyword"], "oc": [true, true, false, false], "a": 1, "e": "Leading double underscores (without trailing double underscores) trigger name mangling to `_ClassName__attr` (`_Student__gpa`), preventing accidental overriding in subclasses."}, {"n": 81, "s": 7, "lv": "M", "q": "What is the key difference between `re.match(pattern, text)` and `re.search(pattern, text)`?", "code": "", "o": ["re.match() checks for a match only at the beginning of the string, whereas re.search() scans through the entire string looking for the first match", "re.search() only matches the beginning of the string", "re.match() returns all matches as a list", "There is no difference"], "oc": [true, true, true, false], "a": 0, "e": "`re.match()` anchors matching at index 0 of the string, while `re.search()` searches anywhere in the string for the first matching substring."}, {"n": 82, "s": 7, "lv": "M", "q": "In Sessions 7 & 8 Lab Q3, we write a decorator `log_method_call(func)` to log the method name and arguments before calling the method. How do we access the decorated function's name inside the wrapper?", "code": "", "o": ["func.name()", "func.__name__", "self.__func__", "str(func.id)"], "oc": [true, true, true, true], "a": 1, "e": "Every function object in Python stores its declared identifier in the `__name__` attribute (`func.__name__`)."}, {"n": 83, "s": 7, "lv": "M", "q": "In Python inheritance, how does a subclass `GradStudent(Student)` invoke the `__init__` method of its parent class?", "code": "", "o": ["super().__init__(rollno, sname, course)", "parent.__init__(self, rollno, sname, course)", "this.super(rollno, sname, course)", "Student.super()"], "oc": [true, true, true, true], "a": 0, "e": "`super().__init__(...)` resolves the next class in the Method Resolution Order (MRO) and invokes its `__init__` method without needing to pass `self` explicitly."}, {"n": 84, "s": 7, "lv": "T", "q": "What happens in Python if you define two methods with the exact same name `def show(self, a):` and `def show(self, a, b):` inside the same class body?", "code": "", "o": ["Both methods coexist via compile-time method overloading", "The second definition `show(self, a, b)` overwrites the first `show(self, a)` in the class namespace", "Raises DuplicateMethodError at class definition time", "The first definition is kept and the second is ignored"], "oc": [false, true, false, false], "a": 1, "e": "Python does not have Java/C++-style signature-based method overloading; methods are attributes in the class dictionary, so a later `def show` rebinds the name `show`."}, {"n": 85, "s": 7, "lv": "T", "q": "In Sessions 7 & 8 Lab Q3 (`NumberSeries` generator yielding even numbers from 0 up to `limit`), what happens when `next(gen)` is called after the generator has yielded its final value and returned?", "code": "", "o": ["It returns None indefinitely", "It restarts from 0 automatically", "It raises a StopIteration exception", "It raises an IndexError"], "oc": [false, true, false, false], "a": 2, "e": "When a generator function completes execution, subsequent calls to `next(gen)` raise `StopIteration` (which `for` loops catch automatically to stop iterating)."}, {"n": 86, "s": 7, "lv": "T", "q": "What does `re.findall(r'(\\d+)-(\\w+)', '10-apple 20-banana')` return when the regex pattern contains capturing groups?", "code": "", "o": ["['10-apple', '20-banana']", "[('10', 'apple'), ('20', 'banana')]", "['10', '20']", "Match objects"], "oc": [true, true, true, false], "a": 1, "e": "When a pattern passed to `re.findall()` has two or more capturing groups, it returns a list of tuples containing the captured group strings for each match."}, {"n": 87, "s": 7, "lv": "T", "q": "When writing the `@log_method_call` decorator in Sessions 7 & 8 Lab Q3, why is `@functools.wraps(func)` applied to the inner `wrapper(*args, **kwargs)` function?", "code": "", "o": ["To make the function run faster on multiple CPU cores", "To preserve the original function's metadata such as `__name__` and `__doc__` instead of replacing them with `'wrapper'`", "To automatically catch all exceptions in the method", "Because decorators fail to compile without it"], "oc": [false, true, false, false], "a": 1, "e": "`@functools.wraps(func)` copies metadata (`__name__`, `__doc__`, `__qualname__`, `__annotations__`, `__wrapped__`) from the original function onto the wrapper function."}, {"n": 88, "s": 7, "lv": "T", "q": "In a diamond multiple-inheritance hierarchy `class D(B, C)` where both `B` and `C` inherit from `A`, which algorithm does Python 3 use to determine the Method Resolution Order (`D.__mro__`)?", "code": "", "o": ["Depth-First Left-to-Right without deduplication", "C3 Linearization", "Breadth-First Random Order", "Alphabetical class name ordering"], "oc": [false, false, false, false], "a": 1, "e": "Python 3 uses the C3 superclass linearization algorithm, ensuring monotonicity and guaranteeing that a base class (`A`) is visited only after all of its subclasses (`B` and `C`)."}, {"n": 89, "s": 8, "lv": "E", "q": "In a Python `try ... except ... else ... finally` statement (Session 9 Lab Q1), when does the `else` block execute?", "code": "", "o": ["When an exception is caught by an except block", "Only when NO exception is raised inside the try block", "Always, regardless of whether an exception occurred", "When the finally block fails"], "oc": [false, false, false, false], "a": 1, "e": "The `else` block in a `try` statement runs if and only if the `try` block completes normally without raising an exception (and without executing `return`, `break`, or `continue`)."}, {"n": 90, "s": 8, "lv": "E", "q": "Which class should a user-defined application exception inherit from in Python (Session 9 Lab Q2)?", "code": "", "o": ["BaseObject", "Exception", "SystemExit", "Warning"], "oc": [false, false, false, false], "a": 1, "e": "Custom application exceptions should inherit from `Exception` (not `BaseException`, which is reserved for system-exiting exceptions like `SystemExit` and `KeyboardInterrupt`)."}, {"n": 91, "s": 8, "lv": "E", "q": "What is the correct ascending order of standard logging severity levels in Python's `logging` module (Session 9 Lab Q4)?", "code": "", "o": ["INFO < DEBUG < WARNING < ERROR < CRITICAL", "DEBUG < INFO < WARNING < ERROR < CRITICAL", "DEBUG < WARNING < INFO < CRITICAL < ERROR", "TRACE < INFO < ERROR < FATAL"], "oc": [false, false, false, false], "a": 1, "e": "Python's standard numeric logging levels are DEBUG (10) < INFO (20) < WARNING (30) < ERROR (40) < CRITICAL (50)."}, {"n": 92, "s": 8, "lv": "E", "q": "What is the default logging level of the root logger in Python's `logging` module if `basicConfig(level=...)` is not specified?", "code": "", "o": ["DEBUG", "INFO", "WARNING", "ERROR"], "oc": [false, false, false, false], "a": 2, "e": "By default, the root logger is set to `WARNING` (level 30), meaning `logging.debug()` and `logging.info()` messages are not emitted unless the level is lowered."}, {"n": 93, "s": 8, "lv": "M", "q": "How do you catch both `ValueError` and `ZeroDivisionError` in a single `except` clause and bind the exception instance to `e`?", "code": "", "o": ["except ValueError, ZeroDivisionError as e:", "except (ValueError, ZeroDivisionError) as e:", "except ValueError or ZeroDivisionError as e:", "catch (ValueError | ZeroDivisionError) e:"], "oc": [false, true, false, true], "a": 1, "e": "In Python 3, catching multiple exception types in one handler requires a parenthesized tuple: `except (ValueError, ZeroDivisionError) as e:`."}, {"n": 94, "s": 8, "lv": "M", "q": "In Session 9 Lab Q4, which `logging.basicConfig()` call configures logging to write `DEBUG` and higher messages to `'app.log'` in append mode?", "code": "", "o": ["logging.basicConfig(filename='app.log', filemode='a', level=logging.DEBUG)", "logging.basicConfig(file='app.log', level='ALL')", "logging.open('app.log', mode='DEBUG')", "logging.setFile('app.log')"], "oc": [true, true, true, true], "a": 0, "e": "`logging.basicConfig(filename='app.log', filemode='a', level=logging.DEBUG)` directs log output to `app.log` and records all events from DEBUG (10) upward."}, {"n": 95, "s": 8, "lv": "M", "q": "Which keyword is used in Python to explicitly trigger an exception (e.g., for input validation in Session 9 Lab Q2)?", "code": "", "o": ["throw", "raise", "trigger", "except"], "oc": [false, false, false, false], "a": 1, "e": "Python uses the `raise` statement (e.g., `raise InvalidAgeError('Age must be positive')`) to raise an exception."}, {"n": 96, "s": 8, "lv": "M", "q": "What does a bare `raise` statement (with no arguments) inside an `except` block do?", "code": "", "o": ["Raises a new RuntimeError", "Re-raises the exact active exception that is currently being handled, preserving its original traceback", "Suppresses the exception and continues", "Raises SyntaxError"], "oc": [false, false, false, false], "a": 1, "e": "A bare `raise` inside an `except` handler re-raises the active exception without losing the original stack trace, which is useful after logging an error."}, {"n": 97, "s": 8, "lv": "T", "q": "What does the following function return?", "code": "def test():\n    try:\n        return 'from_try'\n    finally:\n        return 'from_finally'", "o": ["'from_try'", "'from_finally'", "('from_try', 'from_finally')", "Raises SyntaxError"], "oc": [false, false, true, false], "a": 1, "e": "Because the `finally` block always executes before the function exits, a `return` statement inside `finally` overrides any earlier `return` value (and even suppresses uncaught exceptions) from `try`."}, {"n": 98, "s": 8, "lv": "T", "q": "Why do `KeyboardInterrupt` and `SystemExit` inherit directly from `BaseException` rather than `Exception`?", "code": "", "o": ["So that `except Exception:` blocks in application code do not accidentally swallow Ctrl+C interrupts or `sys.exit()` calls", "Because they are compile-time syntax errors", "Because they cannot be caught by any except block", "Because they are part of the os module"], "oc": [true, false, false, false], "a": 0, "e": "Placing `KeyboardInterrupt` and `SystemExit` under `BaseException` outside `Exception` allows `except Exception:` to catch normal runtime errors while letting program termination signals pass through."}, {"n": 99, "s": 8, "lv": "T", "q": "What does `raise CustomError('DB failed') from original_err` accomplish in Python 3?", "code": "", "o": ["It ignores original_err completely", "It performs explicit exception chaining by setting `__cause__` on `CustomError` to `original_err`", "It catches original_err without raising CustomError", "It logs original_err to syslog only"], "oc": [false, true, false, false], "a": 1, "e": "`raise NewException from cause` sets `NewException.__cause__ = cause` and displays `'The above exception was the direct cause of the following exception:'` in the traceback."}, {"n": 100, "s": 8, "lv": "T", "q": "Which `logging` method logs a message at the `ERROR` level AND automatically attaches the current exception's stack trace (traceback) when called inside an `except` block?", "code": "", "o": ["logging.error_trace('msg')", "logging.exception('msg')", "logging.critical('msg')", "logging.debug('msg')"], "oc": [true, true, true, true], "a": 1, "e": "`logging.exception(msg)` logs a message with severity `ERROR` and automatically sets `exc_info=True`, appending the full exception traceback to the log entry."}, {"n": 101, "s": 9, "lv": "E", "q": "In Session 10 Lab Q5, which NumPy function is commonly used to load numeric data from a CSV file (such as `'data.csv'` with delimiter `','`) into a NumPy array?", "code": "", "o": ["np.read_csv('data.csv')", "np.loadtxt('data.csv', delimiter=',') or np.genfromtxt('data.csv', delimiter=',')", "np.open_csv('data.csv')", "np.fromfile_csv('data.csv')"], "oc": [true, true, true, true], "a": 1, "e": "NumPy provides `np.loadtxt()` and `np.genfromtxt()` (which also handles missing values and headers) to read delimited text/CSV files into ndarrays."}, {"n": 102, "s": 9, "lv": "E", "q": "In Session 10 Lab Q8 (`diamonds` DataFrame), which Pandas expression prints the first 6 rows of a DataFrame `df`?", "code": "", "o": ["df.first(6)", "df.head(6)", "df.top(6)", "df[6]"], "oc": [true, true, true, true], "a": 1, "e": "`df.head(n)` returns the first `n` rows of a DataFrame (defaulting to 5 when `n` is omitted, so `df.head(6)` returns the first 6 rows)."}, {"n": 103, "s": 9, "lv": "E", "q": "In Session 10 Lab Q8, which DataFrame method prints a concise summary of `df` including index dtype, column names, non-null counts, and memory usage?", "code": "", "o": ["df.summary()", "df.info()", "df.details()", "df.structure()"], "oc": [true, true, true, true], "a": 1, "e": "`df.info()` prints a concise structural summary of a Pandas DataFrame, including column dtypes, non-null counts, and memory footprint."}, {"n": 104, "s": 9, "lv": "E", "q": "In Session 10 Lab Q7, which modern Pandas attribute/method is recommended to convert a DataFrame `df` into a NumPy ndarray?", "code": "", "o": ["df.to_numpy()", "df.as_list()", "np.matrix(df)", "df.ndarray()"], "oc": [true, true, true, true], "a": 0, "e": "`df.to_numpy()` converts the DataFrame to a NumPy ndarray (and `df.columns.to_numpy()` extracts the column headers)."}, {"n": 105, "s": 9, "lv": "M", "q": "In Session 10 Lab Q6 (converting a PIL `Image` object `img` to a NumPy array `arr` and then converting `arr` back into a PIL `Image`), which pair of calls is used?", "code": "", "o": ["arr = np.array(img) and img2 = Image.fromarray(arr)", "arr = img.to_numpy() and img2 = Image.from_numpy(arr)", "arr = np.imread(img) and img2 = np.imwrite(arr)", "arr = list(img) and img2 = Image.open(arr)"], "oc": [true, true, true, true], "a": 0, "e": "Passing a PIL Image to `np.array(img)` (or `np.asarray(img)`) creates a 3D `(H, W, C)` uint8 array, and `Image.fromarray(arr)` reconstructs the PIL Image."}, {"n": 106, "s": 9, "lv": "M", "q": "In Session 10 Lab Q8 (`diamonds` DataFrame), which expression calculates the count, minimum, and maximum `price` for each `cut` category?", "code": "", "o": ["df.groupby('cut')['price'].agg(['count', 'min', 'max'])", "df.sort_values('cut')['price'].summary()", "df.pivot('cut', 'price')", "df['cut'].value_counts('price')"], "oc": [true, true, true, true], "a": 0, "e": "Grouping by `'cut'`, selecting the `'price'` column, and calling `.agg(['count', 'min', 'max'])` computes all three aggregations per cut."}, {"n": 107, "s": 9, "lv": "M", "q": "In Session 10 Lab Q8, how do you count the total number of duplicate rows in a Pandas DataFrame `df`?", "code": "", "o": ["df.duplicated().sum()", "df.count_duplicates()", "len(df.unique())", "df.isna().sum()"], "oc": [true, true, true, true], "a": 0, "e": "`df.duplicated()` returns a boolean Series marking duplicate rows as `True` (1), so `.sum()` returns the exact count of duplicate rows."}, {"n": 108, "s": 9, "lv": "M", "q": "In Session 10 Lab Q8, how do you calculate the mean of only the numeric columns in `df` in modern Pandas?", "code": "", "o": ["df.mean(numeric_only=True)", "df.average()", "df.mean(all=False)", "np.mean_str(df)"], "oc": [true, true, true, true], "a": 0, "e": "Passing `numeric_only=True` to `df.mean(numeric_only=True)` computes the column-wise mean across all int/float columns while skipping categorical/string columns like `cut` or `color`."}, {"n": 109, "s": 9, "lv": "M", "q": "What is the key difference between `df.loc[]` and `df.iloc[]` in Pandas?", "code": "", "o": ["`loc` is label-based (and inclusive of the stop label in slices), whereas `iloc` is integer position-based (and exclusive of the stop index)", "`iloc` is label-based and `loc` is integer-based", "`loc` only selects rows while `iloc` only selects columns", "There is no difference"], "oc": [true, false, false, false], "a": 0, "e": "`df.loc[row_labels, col_labels]` indexes by index/column labels (with inclusive slice endpoints), while `df.iloc[row_pos, col_pos]` indexes by 0-based integer positions."}, {"n": 110, "s": 9, "lv": "M", "q": "Which Pandas method replaces missing (`NaN`) values in a DataFrame with a specified value or strategy, and which method removes rows/columns containing `NaN`?", "code": "", "o": ["df.fillna() and df.dropna()", "df.replace_na() and df.delete_na()", "df.clean() and df.purge()", "df.impute() and df.omit()"], "oc": [true, true, true, true], "a": 0, "e": "`df.fillna(value)` imputes missing values and `df.dropna()` removes rows (or columns with `axis=1`) containing missing values."}, {"n": 111, "s": 9, "lv": "T", "q": "In NumPy broadcasting, if array `A` has shape `(4, 1)` and array `B` has shape `(3,)`, what is the shape of `A + B`?", "code": "", "o": ["Raises ValueError: operands could not be broadcast together", "(4, 3)", "(4, 1)", "(1, 3)"], "oc": [false, true, true, true], "a": 1, "e": "By NumPy's broadcasting rules, `(3,)` is prepended with 1 to `(1, 3)`, and then dimensions of size 1 stretch to match `(4, 1)` and `(1, 3)` -> output shape `(4, 3)`."}, {"n": 112, "s": 9, "lv": "T", "q": "In NumPy, given `a = np.array([10, 20, 30, 40])`, what is the difference between `b = a[1:3]` (basic slicing) and `c = a[[1, 2]]` (fancy indexing)?", "code": "", "o": ["b is a view sharing memory with a, whereas c is an independent copy", "Both b and c are views sharing memory with a", "Both b and c are independent copies", "c is a view and b is a copy"], "oc": [false, false, false, false], "a": 0, "e": "Basic slicing (`a[1:3]`) creates a view of the original array buffer (modifying `b` modifies `a`), whereas integer array (fancy) indexing (`a[[1, 2]]`) always creates a new copy."}, {"n": 113, "s": 9, "lv": "T", "q": "In Pandas, why does chaining assignments like `df[df['price'] > 5000]['carat'] = 2.0` trigger a `SettingWithCopyWarning` (or fail to modify `df`)?", "code": "", "o": ["Because `df[df['price'] > 5000]` may return a temporary copy rather than a view; you should use `df.loc[df['price'] > 5000, 'carat'] = 2.0` instead", "Because Pandas DataFrames are completely immutable", "Because 'carat' is a reserved keyword", "Because > cannot be used on Series"], "oc": [true, false, false, false], "a": 0, "e": "Chained indexing (`df[mask]['col'] = val`) operates on an intermediate object that is often a copy. Using single-step `df.loc[mask, 'col'] = val` guarantees modifying `df` directly."}, {"n": 114, "s": 9, "lv": "T", "q": "In Session 10 Lab Q7 (converting a Pandas DataFrame `df` to a NumPy structured array so column headers are preserved as field names), which call accomplishes this?", "code": "", "o": ["df.to_records(index=False)", "df.values_with_headers()", "np.array(df, headers=True)", "df.to_dict()"], "oc": [true, true, true, true], "a": 0, "e": "`df.to_records(index=False)` converts a DataFrame into a NumPy record/structured array whose dtype field names preserve the DataFrame's column headers."}, {"n": 115, "s": 10, "lv": "E", "q": "In Session 11 Lab Q1, how do you parse an HTML string `html_doc` using BeautifulSoup?", "code": "", "o": ["soup = BeautifulSoup(html_doc, 'html.parser')", "soup = BeautifulSoup.parse_url(html_doc)", "soup = bs4.read_html(html_doc)", "soup = html.BeautifulSoup(html_doc)"], "oc": [true, true, true, true], "a": 0, "e": "`BeautifulSoup(html_doc, 'html.parser')` (from `bs4`) parses the HTML markup into a navigable parse tree."}, {"n": 116, "s": 10, "lv": "E", "q": "In BeautifulSoup, what is the difference between `soup.find('a')` and `soup.find_all('a')`?", "code": "", "o": ["find() returns the first matching Tag (or None); find_all() returns a ResultSet (list) of all matching Tags", "find() returns a list; find_all() returns a dictionary", "find() searches by CSS selector; find_all() searches by XPath", "There is no difference"], "oc": [true, true, true, false], "a": 0, "e": "`soup.find()` returns only the first matching element (or `None` if not found), whereas `soup.find_all()` returns a list of all matching elements in the document."}, {"n": 117, "s": 10, "lv": "E", "q": "In Session 11 Lab Q2, which Seaborn function plots a color-encoded matrix of pairwise correlations from `df.corr(numeric_only=True)`?", "code": "", "o": ["sns.corrplot(df)", "sns.heatmap(df.corr(numeric_only=True), annot=True)", "sns.matrixplot(df)", "sns.scatterplot(df.corr())"], "oc": [true, true, true, true], "a": 1, "e": "`sns.heatmap(corr_matrix, annot=True)` renders a 2D correlation heatmap and displays the correlation coefficients inside each cell when `annot=True`."}, {"n": 118, "s": 10, "lv": "E", "q": "In Matplotlib (`import matplotlib.pyplot as plt`), which function creates a scatter plot of two numeric arrays or Series `x` and `y`?", "code": "", "o": ["plt.scatter(x, y)", "plt.points(x, y)", "plt.xyplot(x, y)", "plt.dots(x, y)"], "oc": [true, true, true, true], "a": 0, "e": "`plt.scatter(x, y)` creates a 2D scatter plot of `x` versus `y` in Matplotlib."}, {"n": 119, "s": 10, "lv": "M", "q": "In BeautifulSoup, how do you extract the URL target (`href` attribute) and visible text from an anchor tag `tag = soup.find('a')`?", "code": "", "o": ["tag.get('href') (or tag['href']) and tag.get_text()", "tag.url() and tag.value()", "tag.href() and tag.innerText()", "tag.attr('href') and tag.str()"], "oc": [true, true, true, true], "a": 0, "e": "Tag attributes act like a dictionary (`tag['href']` or `tag.get('href')`), and `.get_text()` (or `.text`) extracts all inner text content."}, {"n": 120, "s": 10, "lv": "M", "q": "Which BeautifulSoup method lets you query elements using standard CSS selectors such as `'div.article > p.summary'`?", "code": "", "o": ["soup.css('div.article > p.summary')", "soup.select('div.article > p.summary')", "soup.find_css('div.article > p.summary')", "soup.xpath('div.article > p.summary')"], "oc": [true, true, true, true], "a": 1, "e": "`soup.select(selector)` finds all elements matching a CSS selector (and `soup.select_one(selector)` returns the first match)."}, {"n": 121, "s": 10, "lv": "M", "q": "In Session 11 Lab Q2, which high-level Plotly module (`import plotly.express as px`) creates an interactive scatter plot from a DataFrame `df` in a single function call?", "code": "", "o": ["px.scatter(df, x='col1', y='col2')", "px.plot_points(df, 'col1', 'col2')", "px.xy(df, x='col1', y='col2')", "px.heatmap_scatter(df)"], "oc": [true, true, true, true], "a": 0, "e": "`plotly.express.scatter(df, x='col1', y='col2')` creates an interactive HTML/WebGL scatter plot with hover tooltips and zoom controls."}, {"n": 122, "s": 10, "lv": "M", "q": "What does `fig, ax = plt.subplots(2, 3, figsize=(12, 8))` create in Matplotlib?", "code": "", "o": ["2 figures with 3 axes each", "A single Figure object `fig` and a 2x3 NumPy array of Axes objects `ax` (6 subplots total)", "A 3D plot with dimensions 2, 3, 12", "6 separate window popups"], "oc": [false, true, false, false], "a": 1, "e": "`plt.subplots(nrows=2, ncols=3)` returns a single `(Figure, Axes)` tuple where `ax` is a 2x3 grid of subplot Axes."}, {"n": 123, "s": 10, "lv": "T", "q": "In Session 11 Lab Q2, given a correlation matrix `corr = df.corr(numeric_only=True)`, why must you ignore the main diagonal (`r = 1.0`) when programmatically finding the two distinct columns with the highest correlation?", "code": "", "o": ["Because every column has a self-correlation of 1.0 with itself on the main diagonal", "Because the main diagonal always contains NaN values", "Because Seaborn heatmaps delete the diagonal", "Because correlation values on the diagonal are negative"], "oc": [false, false, false, false], "a": 0, "e": "Every variable correlates with itself at `r = 1.0` on the diagonal of `df.corr()`. Masking the diagonal (or taking the upper triangle `np.triu(..., k=1)`) finds the highest correlation between two distinct columns."}, {"n": 124, "s": 10, "lv": "T", "q": "In Python's Grammar of Graphics library `plotnine` (`from plotnine import ggplot, aes, geom_point`), which operator combines layers together (just like `ggplot2` in R)?", "code": "", "o": ["|", "+", ">>", "&"], "oc": [false, false, false, false], "a": 1, "e": "Both R's `ggplot2` and Python's `plotnine` overload the `+` operator to add aesthetic mappings, geometries (`geom_point()`), and themes to a `ggplot(df, aes(...))` object."}, {"n": 125, "s": 10, "lv": "T", "q": "In BeautifulSoup, what is the difference between `tag.string` and `tag.get_text()` when `tag` contains nested child tags like `<p>Hello <b>World</b></p>`?", "code": "", "o": ["`tag.string` returns `None` when a tag contains multiple child nodes, whereas `tag.get_text()` concatenates all descendant text strings (`'Hello World'`)", "Both return `'Hello World'`", "`tag.string` returns `'Hello '` and `tag.get_text()` raises ValueError", "`tag.get_text()` returns HTML tags included"], "oc": [true, false, true, true], "a": 0, "e": "`tag.string` only returns a `NavigableString` if the tag has a single string child; if it contains mixed text and child elements (`<b>`), `tag.string` is `None` while `tag.get_text()` returns `'Hello World'`."}, {"n": 126, "s": 11, "lv": "E", "q": "In Python file handling, what is the difference between file modes `'w'` and `'a'`?", "code": "", "o": ["'w' truncates (overwrites) an existing file or creates a new one; 'a' appends data to the end of the file without erasing existing content", "'w' appends to the end; 'a' overwrites from the beginning", "'a' is for reading only", "'w' raises FileExistsError if the file already exists"], "oc": [true, true, false, false], "a": 0, "e": "Mode `'w'` truncates the file to zero length on open, whereas mode `'a'` positions the stream at the end of the file for appending."}, {"n": 127, "s": 11, "lv": "E", "q": "Why is using a context manager (`with open('data.txt', 'r') as f:`) recommended over calling `f = open(...)` and `f.close()` manually?", "code": "", "o": ["It guarantees the file is automatically closed when exiting the `with` block, even if an exception is raised inside the block", "It loads the file 10x faster into GPU memory", "It automatically converts text files to JSON", "It prevents syntax errors inside the block"], "oc": [false, false, false, false], "a": 0, "e": "The `with` statement invokes `f.__exit__()` upon leaving the block under all circumstances (normal exit, `return`, or raised exception), preventing file descriptor leaks."}, {"n": 128, "s": 11, "lv": "E", "q": "In Session 12 Lab Q3, which two functions in Python's `json` module parse a JSON string vs. read a JSON file object?", "code": "", "o": ["json.loads(str_data) and json.load(file_obj)", "json.read_str(str_data) and json.read_file(file_obj)", "json.parse(str_data) and json.open(file_obj)", "json.dumps(str_data) and json.dump(file_obj)"], "oc": [true, true, true, true], "a": 0, "e": "`json.loads(s)` ('load string') deserializes a JSON-formatted `str` into Python objects, while `json.load(fp)` deserializes directly from an open file stream."}, {"n": 129, "s": 11, "lv": "E", "q": "What is the difference between `f.read()`, `f.readline()`, and `f.readlines()`?", "code": "", "o": ["`read()` returns the entire file as one string; `readline()` reads a single line; `readlines()` returns a list of all lines in the file", "`readlines()` reads one character at a time", "`read()` returns a list of lines", "`readline()` reads the entire file without newlines"], "oc": [true, true, true, true], "a": 0, "e": "`read()` reads the whole file into a single string, `readline()` reads up to the next newline character, and `readlines()` reads all remaining lines into a list of strings."}, {"n": 130, "s": 11, "lv": "M", "q": "When writing a CSV file on Windows using Python's `csv.writer`, why should you open the file with `open('out.csv', 'w', newline='')`?", "code": "", "o": ["To prevent extra blank lines from appearing between rows due to double `\\r\\r\\n` line-ending translation", "Because csv.writer raises ValueError without newline=''", "To strip commas from strings", "To encode the file in UTF-16"], "oc": [true, true, true, false], "a": 0, "e": "The `csv` module writes its own `\\r\\n` line terminators; opening with `newline=''` disables universal newline translation so Windows doesn't turn `\\r\\n` into `\\r\\r\\n`."}, {"n": 131, "s": 11, "lv": "M", "q": "In Session 12 Lab Q2, which class in the `csv` module reads each row of a CSV file as a dictionary keyed by the header row column names?", "code": "", "o": ["csv.DictReader(f)", "csv.MapReader(f)", "csv.HeaderReader(f)", "csv.JsonReader(f)"], "oc": [true, true, true, true], "a": 0, "e": "`csv.DictReader(f)` uses the first row of the CSV file (by default) as fieldnames and yields each subsequent row as a `dict` mapping column name to cell value."}, {"n": 132, "s": 11, "lv": "M", "q": "Which `json.dump()` / `json.dumps()` parameters format the JSON output with 4-space indentation and sorted keys?", "code": "", "o": ["indent=4, sort_keys=True", "pretty=4, ordered=True", "spaces=4, sort=True", "tab=4, key_sort=True"], "oc": [false, false, false, false], "a": 0, "e": "Passing `indent=4` and `sort_keys=True` to `json.dump()` or `json.dumps()` pretty-prints the JSON output with 4-space indentation and alphabetically sorted keys."}, {"n": 133, "s": 11, "lv": "M", "q": "What does the file mode `'x'` (e.g., `open('report.txt', 'x')`) do in Python?", "code": "", "o": ["Opens the file for exclusive creation, raising `FileExistsError` if the file already exists", "Opens an XML file automatically", "Executes the file as a shell script", "Deletes the file immediately upon closing"], "oc": [false, false, false, false], "a": 0, "e": "Mode `'x'` is exclusive creation mode: it creates and opens a new file for writing, or fails with `FileExistsError` if the path already exists."}, {"n": 134, "s": 11, "lv": "T", "q": "Which two special ('dunder') methods must a custom class implement to adhere to Python's Context Manager protocol (`with obj as x:`)?", "code": "", "o": ["__open__(self) and __close__(self)", "__enter__(self) and __exit__(self, exc_type, exc_val, exc_tb)", "__start__(self) and __stop__(self)", "__init__(self) and __del__(self)"], "oc": [true, true, true, true], "a": 1, "e": "A context manager implements `__enter__(self)` (whose return value is bound to the `as` target) and `__exit__(self, exc_type, exc_val, exc_tb)`."}, {"n": 135, "s": 11, "lv": "T", "q": "If an exception occurs inside a `with` block and the context manager's `__exit__(self, exc_type, exc_val, exc_tb)` method returns `True`, what happens?", "code": "", "o": ["The exception is suppressed and execution resumes normally after the `with` block", "The exception is re-raised immediately", "The program terminates with exit code 1", "Python raises a ContextError"], "oc": [false, false, false, false], "a": 0, "e": "If `__exit__()` returns a truthy value (`True`), Python suppresses the exception raised inside the `with` block; if it returns `False` or `None`, the exception propagates normally."}, {"n": 136, "s": 11, "lv": "T", "q": "What happens when you pass a Python `set` `{1, 2, 3}` to `json.dumps({1, 2, 3})` without a custom `default` serializer?", "code": "", "o": ["Returns '[1, 2, 3]'", "Returns '{1, 2, 3}'", "Raises TypeError: Object of type set is not JSON serializable", "Returns 'null'"], "oc": [true, true, false, false], "a": 2, "e": "Standard JSON only supports objects (`dict`), arrays (`list`/`tuple`), strings, numbers, booleans (`true`/`false`), and `null`; Python `set` objects raise `TypeError` unless converted to a `list`."}, {"n": 137, "s": 11, "lv": "T", "q": "In `f.seek(offset, whence)` on a binary file, what do `whence = 0`, `whence = 1`, and `whence = 2` represent?", "code": "", "o": ["0 = start of file, 1 = current stream position, 2 = end of file", "0 = end of file, 1 = start of file, 2 = middle of file", "0 = read mode, 1 = write mode, 2 = append mode", "Line numbers 0, 1, and 2"], "oc": [false, false, false, false], "a": 0, "e": "`SEEK_SET` (`0`) seeks relative to the beginning of the file, `SEEK_CUR` (`1`) relative to the current position, and `SEEK_END` (`2`) relative to the end of the file."}, {"n": 138, "s": 12, "lv": "E", "q": "In Session 13 Lab Q1, which command creates a new Python virtual environment named `.venv` using the standard library?", "code": "", "o": ["python3 -m venv .venv", "pip create env .venv", "python3 --virtualenv .venv", "venv init .venv"], "oc": [true, true, true, false], "a": 0, "e": "`python3 -m venv .venv` invokes the built-in `venv` module to create an isolated Python environment in the `.venv` directory."}, {"n": 139, "s": 12, "lv": "E", "q": "Which command exports all currently installed packages and their exact versions in a virtual environment to `requirements.txt`?", "code": "", "o": ["pip list > requirements.txt", "pip freeze > requirements.txt", "pip export requirements.txt", "python3 -m pip save requirements.txt"], "oc": [true, true, true, true], "a": 1, "e": "`pip freeze > requirements.txt` outputs installed packages in `package==version` format suitable for `pip install -r requirements.txt`."}, {"n": 140, "s": 12, "lv": "E", "q": "In FastAPI (Session 13 Lab Q3), which decorator registers a function to handle HTTP GET requests at the path `/items`?", "code": "", "o": ["@app.route('/items', methods=['GET'])", "@app.get('/items')", "@fastapi.get_endpoint('/items')", "@app.request_get('/items')"], "oc": [true, true, true, true], "a": 1, "e": "FastAPI provides operation decorators matching HTTP methods directly: `@app.get('/items')`, `@app.post('/items')`, `@app.put(...)`, and `@app.delete(...)`."}, {"n": 141, "s": 12, "lv": "E", "q": "In Session 13 Lab Q4, what is the default URL path where FastAPI automatically serves its interactive Swagger UI documentation?", "code": "", "o": ["/swagger", "/docs", "/api-ui", "/help"], "oc": [false, false, false, false], "a": 1, "e": "FastAPI automatically generates OpenAPI schemas and serves interactive Swagger UI at `/docs` (and ReDoc at `/redoc`)."}, {"n": 142, "s": 12, "lv": "M", "q": "In FastAPI, given `@app.get('/users/{user_id}')", "code": "def read_user(user_id: int, active: bool = True):`, how are `user_id` and `active` classified?", "o": ["`user_id` is a path parameter and `active` is a query parameter", "Both are path parameters", "Both are request body fields", "`user_id` is a query parameter and `active` is a header"], "oc": [false, false, false, false], "a": 0, "e": "Because `{user_id}` appears in the URL path template, FastAPI treats `user_id` as a path parameter; `active` is not in the path and is a scalar type, so FastAPI treats it as a query parameter (`?active=true`)."}, {"n": 143, "s": 12, "lv": "M", "q": "In FastAPI (Session 13 Lab Q3), which base class from `pydantic` is subclassed to define structured JSON Request and Response models with automatic type validation?", "code": "", "o": ["pydantic.Schema", "pydantic.BaseModel", "fastapi.Model", "pydantic.DataClass"], "oc": [false, false, false, false], "a": 1, "e": "FastAPI uses `pydantic.BaseModel` subclasses to validate, parse, and document JSON request bodies and response payloads."}, {"n": 144, "s": 12, "lv": "M", "q": "In Python DB-API 2.0 (Session 13 Lab Q2, e.g., `sqlite3` or `mysql.connector`), why must you call `conn.commit()` after executing `INSERT`, `UPDATE`, or `DELETE` statements?", "code": "", "o": ["Because DB-API connections start a transaction by default and changes are not permanently saved to the database until `conn.commit()` is called", "Because `cursor.execute()` only checks SQL syntax without running the query", "To close the database connection", "To clear the cursor cache"], "oc": [true, true, false, false], "a": 0, "e": "Per PEP 249 (DB-API 2.0), database connections disable autocommit by default; without `conn.commit()`, uncommitted DML changes are rolled back when the connection closes."}, {"n": 145, "s": 12, "lv": "M", "q": "In Python's `sqlite3` module, which parameterized query syntax safely prevents SQL injection when inserting a tuple `(name, age)`?", "code": "", "o": ["cursor.execute('INSERT INTO users VALUES (?, ?)', (name, age))", "cursor.execute(f'INSERT INTO users VALUES ({name}, {age})')", "cursor.execute('INSERT INTO users VALUES ($1, $2)' % (name, age))", "cursor.execute('INSERT INTO users VALUES (@name, @age)', name, age)"], "oc": [true, true, true, true], "a": 0, "e": "`sqlite3` uses `?` (qmark) placeholders (while `mysql.connector`/`psycopg2` use `%s`) with a parameter tuple passed as the second argument to `cursor.execute()`."}, {"n": 146, "s": 12, "lv": "M", "q": "What is the difference between `cursor.fetchone()`, `cursor.fetchmany(size)`, and `cursor.fetchall()` after executing a `SELECT` query?", "code": "", "o": ["`fetchone()` returns a single row (or None); `fetchmany(size)` returns up to `size` rows as a list; `fetchall()` returns all remaining rows as a list", "`fetchone()` returns the first column of all rows", "`fetchall()` returns a Pandas DataFrame automatically", "`fetchmany()` returns a dictionary of tables"], "oc": [true, true, true, true], "a": 0, "e": "`fetchone()` retrieves the next row tuple (or `None`), `fetchmany(n)` retrieves the next batch of `n` rows, and `fetchall()` retrieves all remaining rows from the query result set."}, {"n": 147, "s": 12, "lv": "T", "q": "In FastAPI, what happens automatically when a client sends `/users/abc` to an endpoint declared as `@app.get('/users/{user_id}')", "code": "def get_user(user_id: int):`?", "o": ["FastAPI passes `'abc'` as a string into `get_user`", "FastAPI returns HTTP 422 Unprocessable Entity with a JSON validation error explaining that `user_id` is not a valid integer", "The server crashes with HTTP 500", "FastAPI converts `'abc'` to `0`"], "oc": [false, false, false, false], "a": 1, "e": "FastAPI uses Pydantic type annotations to validate path and query parameters automatically, returning an HTTP `422 Unprocessable Entity` JSON response when validation fails."}, {"n": 148, "s": 12, "lv": "T", "q": "In FastAPI, what is the purpose of declaring `@app.post('/users', response_model=UserPublic, status_code=201)` when the endpoint function returns a `UserInDB` object containing a `hashed_password` field?", "code": "", "o": ["FastAPI filters and serializes the output strictly according to `UserPublic` (stripping sensitive fields like `hashed_password` not present in `UserPublic`) and returns HTTP status 201", "It raises an error because the return type does not match `UserInDB`", "It encrypts the password in Swagger UI", "It saves `UserPublic` to SQLite automatically"], "oc": [true, false, false, false], "a": 0, "e": "`response_model` instructs FastAPI to validate, filter out any unexposed fields (like passwords), and serialize the response matching the public schema."}, {"n": 149, "s": 12, "lv": "T", "q": "Which ASGI server is standardly used to run a FastAPI application (`app` in `main.py`) from the command line?", "code": "", "o": ["uvicorn main:app --reload", "wsgi run main.py", "django-admin runserver", "flask run --fastapi"], "oc": [true, false, false, false], "a": 0, "e": "FastAPI is an ASGI framework and is typically served using `uvicorn main:app --reload` (or `fastapi dev main.py`)."}, {"n": 150, "s": 12, "lv": "T", "q": "In FastAPI, how do you raise an HTTP 404 error with a custom JSON detail message inside an endpoint?", "code": "", "o": ["return 404, 'Not found'", "raise HTTPException(status_code=404, detail='Item not found')", "app.abort(404)", "raise ValueError(404)"], "oc": [false, true, true, true], "a": 1, "e": "Raising `fastapi.HTTPException(status_code=404, detail='Item not found')` immediately halts request processing and sends a standard HTTP 404 JSON response to the client."}, {"n": 151, "s": 13, "lv": "E", "q": "In R (Session 14), which operator is the preferred community standard for variable assignment?", "code": "", "o": ["<-", ":=", "=>", "=="], "oc": [true, false, false, true], "a": 0, "e": "In R, `<-` (created with `<` and `-`, or Alt + `-` in RStudio) is the canonical assignment operator (e.g., `x <- 10`)."}, {"n": 152, "s": 13, "lv": "E", "q": "How do you open the documentation help page for a specific function such as `mean` in the R console (Session 14)?", "code": "", "o": ["?mean or help(mean)", "info(mean)", "doc('mean')", "man(mean)"], "oc": [true, true, true, true], "a": 0, "e": "`?mean` or `help(mean)` opens the official R documentation page for `mean`, while `??topic` or `help.search('topic')` performs a fuzzy search across documentation."}, {"n": 153, "s": 13, "lv": "E", "q": "What are the four standard panes in the RStudio IDE workspace (Session 14)?", "code": "", "o": ["Source Editor, Console, Environment/History, and Files/Plots/Packages/Help/Viewer", "Compiler, Debugger, Terminal, and Registry", "Spreadsheet, Slide Deck, Browser, and Shell", "Database, Network, Memory, and GPU"], "oc": [false, false, false, false], "a": 0, "e": "RStudio organizes its interface into 4 panes: Source (top-left), Console/Terminal (bottom-left), Environment/History/Connections (top-right), and Files/Plots/Packages/Help/Viewer (bottom-right)."}, {"n": 154, "s": 13, "lv": "E", "q": "In R, which operators compute the remainder (modulo) and integer division respectively?", "code": "", "o": ["% and //", "%% and %/%", "mod and div", "rem and intdiv"], "oc": [true, false, false, false], "a": 1, "e": "In R, `%%` is the modulo (remainder) operator (e.g., `7 %% 2` is `1`) and `%/%` is the integer division operator (e.g., `7 %/% 2` is `3`)."}, {"n": 155, "s": 13, "lv": "M", "q": "What is the starting index of vectors, lists, and data frames in R (compared to Python)?", "code": "", "o": ["0-indexed (starts at 0)", "1-indexed (starts at 1)", "-1-indexed", "Depends on the package loaded"], "oc": [true, true, false, false], "a": 1, "e": "Unlike Python (which is 0-indexed), R is 1-indexed: the first element of a vector `v` is `v[1]`."}, {"n": 156, "s": 13, "lv": "M", "q": "What does the R expression `c(1, 2, 3) + c(10, 20, 30)` return?", "code": "", "o": ["c(1, 2, 3, 10, 20, 30)", "c(11, 22, 33)", "66", "Error: cannot add vectors"], "oc": [true, true, false, false], "a": 1, "e": "Arithmetic operators in R are vectorized element-wise by default, adding `1+10`, `2+20`, and `3+30` to return the numeric vector `11 22 33`."}, {"n": 157, "s": 13, "lv": "M", "q": "What happens in R when you add two vectors of unequal length, such as `c(1, 2) + c(10, 20, 30, 40)`?", "code": "", "o": ["Raises an immediate DimensionError", "R recycles the shorter vector to match the longer vector, returning `c(11, 22, 31, 42)`", "Truncates the longer vector to length 2", "Fills missing positions with NA"], "oc": [false, true, false, false], "a": 1, "e": "R applies vector recycling: the shorter vector `c(1, 2)` is repeated as `c(1, 2, 1, 2)` and added element-wise to produce `11 22 31 42`."}, {"n": 158, "s": 13, "lv": "M", "q": "Which R function runs all the code examples found at the bottom of a function's help page (e.g., for `lm` or `mean`)?", "code": "", "o": ["example(mean)", "demo_help(mean)", "run_doc(mean)", "test(mean)"], "oc": [true, true, true, true], "a": 0, "e": "Calling `example(function_name)` executes the example code section from that function's R documentation right in the console."}, {"n": 159, "s": 13, "lv": "T", "q": "In R, what is the difference between the numeric literal `5` and `5L` (`typeof(5)` vs `typeof(5L)`)?", "code": "", "o": ["`5` has type `'double'` (floating-point) by default, whereas `5L` has type `'integer'`", "Both have type `'integer'`", "`5L` is a 128-bit long float", "`5L` is a character string"], "oc": [true, false, false, false], "a": 0, "e": "In R, bare numbers like `5` are stored as double-precision floating-point (`'double'`) by default; appending `L` (`5L`) creates a 32-bit signed `'integer'`."}, {"n": 160, "s": 13, "lv": "T", "q": "What is the result of `c(0 / 0, 1 / 0, NA + 5)` in R?", "code": "", "o": ["c(0, Inf, 5)", "c(NaN, Inf, NA)", "c(NA, NaN, 0)", "Error: division by zero"], "oc": [true, true, true, false], "a": 1, "e": "In R's IEEE 754 arithmetic, `0 / 0` yields `NaN` (Not a Number), `1 / 0` yields `Inf` (positive infinity), and any arithmetic with `NA` (missing value) propagates `NA`."}, {"n": 161, "s": 13, "lv": "T", "q": "What happens in R if you index a vector with a negative integer, such as `v <- c(10, 20, 30, 40); v[-2]`?", "code": "", "o": ["Returns the second-to-last element (30)", "Returns a vector with the 2nd element excluded (`10 30 40`)", "Returns NA", "Raises an OutOfBounds error"], "oc": [true, true, false, false], "a": 1, "e": "In R, negative indices exclude the specified positions rather than counting from the end: `v[-2]` returns all elements of `v` except the second element."}, {"n": 162, "s": 13, "lv": "T", "q": "What is the difference between `is.na(x)` and `is.nan(x)` in R when `x <- c(NA, NaN, 5)`?", "code": "", "o": ["`is.na(x)` is TRUE for both `NA` and `NaN` (`TRUE TRUE FALSE`), whereas `is.nan(x)` is TRUE only for `NaN` (`FALSE TRUE FALSE`)", "Both return `TRUE TRUE FALSE`", "`is.na(x)` is FALSE for `NaN`", "Both return `FALSE FALSE FALSE`"], "oc": [true, false, true, false], "a": 0, "e": "In R, every `NaN` is considered a missing value (`is.na(NaN)` is `TRUE`), but `NA` is not `NaN` (`is.nan(NA)` is `FALSE`)."}, {"n": 163, "s": 14, "lv": "E", "q": "In Session 15 Lab Q1, which three built-in R functions compute the sum, arithmetic mean, and product of a numeric vector `v`?", "code": "", "o": ["sum(v), mean(v), and prod(v)", "total(v), avg(v), and mult(v)", "add(v), mean(v), and product(v)", "sum(v), average(v), and multiply(v)"], "oc": [true, true, true, true], "a": 0, "e": "Base R provides `sum(v)`, `mean(v)`, and `prod(v)` to compute the sum, mean, and product of vector elements."}, {"n": 164, "s": 14, "lv": "E", "q": "In R (Session 15), which pair of functions installs a package from CRAN and loads it into the current session?", "code": "", "o": ["install.packages('writexl') and library(writexl)", "pip.install('writexl') and import(writexl)", "get.package('writexl') and use(writexl)", "cran.add('writexl') and include(writexl)"], "oc": [true, true, true, true], "a": 0, "e": "`install.packages('pkg')` downloads and installs a package from CRAN, and `library(pkg)` attaches it to the current R session."}, {"n": 165, "s": 14, "lv": "E", "q": "Which R workspace functions list all objects in the current environment and remove an object `x` respectively?", "code": "", "o": ["ls() (or objects()) and rm(x)", "dir() and del(x)", "list_vars() and delete(x)", "show() and clear(x)"], "oc": [true, true, true, true], "a": 0, "e": "`ls()` lists the names of objects in the active workspace environment, and `rm(x)` removes `x` (or `rm(list = ls())` clears all objects)."}, {"n": 166, "s": 14, "lv": "E", "q": "In Session 15 Lab Q5, which function from the `writexl` package exports an R data frame `df` to an Excel `.xlsx` file?", "code": "", "o": ["write_xlsx(df, 'output.xlsx')", "export_excel(df, 'output.xlsx')", "save.xlsx(df, 'output.xlsx')", "to_excel(df, 'output.xlsx')"], "oc": [true, true, true, true], "a": 0, "e": "`writexl::write_xlsx(df, 'output.xlsx')` exports a data frame (or a named list of data frames as multiple sheets) to an `.xlsx` file with zero Java/Perl dependencies."}, {"n": 167, "s": 14, "lv": "M", "q": "In R (Session 15), what happens when you combine mixed atomic types in `c(10, TRUE, 'hello')`?", "code": "", "o": ["Creates a list preserving each type", "Coerces all elements to the most flexible atomic type (`character`), returning `c('10', 'TRUE', 'hello')`", "Raises a TypeError", "Coerces everything to numeric `c(10, 1, NA)`"], "oc": [false, true, false, true], "a": 1, "e": "Atomic vectors created with `c()` must be homogeneous; R coerces elements up the hierarchy `logical -> integer -> double -> character`."}, {"n": 168, "s": 14, "lv": "M", "q": "In Session 15 Lab Q3 & Q4 (creating a list of data frames `df_list <- list(df1, df2)` and accessing each data frame), what is the difference between `df_list[1]` and `df_list[[1]]`?", "code": "", "o": ["`df_list[1]` returns a sublist of length 1, whereas `df_list[[1]]` extracts the actual `data.frame` object itself", "`df_list[1]` extracts the data frame and `df_list[[1]]` extracts the first row", "Both return the exact same object", "`df_list[[1]]` is a syntax error in R"], "oc": [true, true, false, true], "a": 0, "e": "Single brackets `[ ]` on a list always return a sub-list, whereas double brackets `[[ ]]` (or `$name`) extract the underlying element (`df1`) inside the list."}, {"n": 169, "s": 14, "lv": "M", "q": "In Session 15 Lab Q2 (`airquality` built-in dataset, which contains `NA` values in the `Ozone` column), what does `mean(airquality$Ozone)` return if `na.rm = TRUE` is NOT specified?", "code": "", "o": ["The mean of the non-missing Ozone values", "NA", "0", "NaN"], "oc": [false, false, false, false], "a": 1, "e": "By default in R, `mean()`, `sum()`, `sd()`, and `prod()` return `NA` if any element in the vector is `NA`; you must pass `na.rm = TRUE` to ignore missing values."}, {"n": 170, "s": 14, "lv": "M", "q": "In Session 15 Lab Q5, which two R functions provide the statistical summary (Min, 1st Qu., Median, Mean, 3rd Qu., Max) and the internal structure/nature (types and sample values) of a data frame `df`?", "code": "", "o": ["summary(df) and str(df)", "describe(df) and info(df)", "stats(df) and typeof(df)", "mean(df) and dim(df)"], "oc": [true, true, true, true], "a": 0, "e": "`summary(df)` computes five-number summaries + mean (or frequency counts for factors), and `str(df)` displays the compact internal structure, dimensions, and column types."}, {"n": 171, "s": 14, "lv": "M", "q": "In Session 15 Lab Q5, how do you sort a base R data frame `df` by `dept` ascending and then `salary` descending?", "code": "", "o": ["df[order(df$dept, -df$salary), ]", "sort(df, by = c('dept', '-salary'))", "df.sort_values('dept', 'salary')", "order(df$dept, df$salary)"], "oc": [true, true, true, true], "a": 0, "e": "`order(df$dept, -df$salary)` returns the row index permutation that orders `df` by `dept` ascending and `salary` descending, which is passed to `df[row_indices, ]`."}, {"n": 172, "s": 14, "lv": "T", "q": "By default, how does R fill a matrix when you execute `matrix(1:6, nrow = 2, ncol = 3)`?", "code": "", "o": ["Column-wise (by column), unless `byrow = TRUE` is specified", "Row-wise (by row)", "Diagonally", "Randomly"], "oc": [true, true, false, false], "a": 0, "e": "R stores matrices in column-major order, so `matrix(1:6, nrow = 2, ncol = 3)` fills column 1 (`1, 2`), column 2 (`3, 4`), and column 3 (`5, 6`) unless `byrow = TRUE` is passed."}, {"n": 173, "s": 14, "lv": "T", "q": "In R, what is the dangerous pitfall of converting a factor `f <- factor(c('10', '20', '30'))` directly to numeric using `as.numeric(f)`?", "code": "", "o": ["`as.numeric(f)` returns the internal integer level codes `c(1, 2, 3)` instead of `c(10, 20, 30)`; you should use `as.numeric(as.character(f))`", "It raises an error", "It returns `c(NA, NA, NA)`", "It converts them to strings"], "oc": [true, false, true, false], "a": 0, "e": "Factors are stored internally as integer level indices (`1, 2, 3`). Calling `as.numeric(f)` returns those internal codes; converting via `as.numeric(as.character(f))` parses the actual labels."}, {"n": 174, "s": 14, "lv": "T", "q": "What happens in base R when you subset a single column from a data frame or matrix as `df[, 1]` vs `df[, 1, drop = FALSE]`?", "code": "", "o": ["`df[, 1]` simplifies (drops dimensions) to a 1D vector, whereas `df[, 1, drop = FALSE]` preserves it as a 1-column data frame", "Both return a 1-column data frame", "`df[, 1]` returns a list", "`drop = FALSE` deletes the first column"], "oc": [true, false, true, false], "a": 0, "e": "In base R `data.frame` and `matrix` indexing, selecting a single column (`df[, 1]`) defaults to `drop = TRUE`, simplifying the result to a vector unless `drop = FALSE` is specified."}, {"n": 175, "s": 14, "lv": "T", "q": "What is the difference between `library(pkg)` and `require(pkg)` when loading an R package that is NOT installed?", "code": "", "o": ["`library(pkg)` stops with an immediate error, whereas `require(pkg)` emits a warning and returns `FALSE` (designed for use inside conditional checks)", "`require(pkg)` automatically installs the package from CRAN", "`library(pkg)` returns `FALSE` silently", "There is no difference"], "oc": [true, true, true, false], "a": 0, "e": "`library()` throws an error if the package does not exist, whereas `require()` returns a logical `TRUE`/`FALSE` and only gives a warning on failure."}, {"n": 176, "s": 15, "lv": "E", "q": "Which core `tidyverse` package provides the grammar of data manipulation verbs (`filter`, `select`, `mutate`, `arrange`, `summarise`)?", "code": "", "o": ["dplyr", "tidyr", "purrr", "forcats"], "oc": [false, false, false, false], "a": 0, "e": "`dplyr` is the tidyverse package dedicated to data frame manipulation via intuitive verbs."}, {"n": 177, "s": 15, "lv": "E", "q": "In `dplyr`, what is the difference between `filter()` and `select()`?", "code": "", "o": ["`filter()` subsets rows based on logical conditions; `select()` subsets columns by name or helper predicate", "`filter()` subsets columns; `select()` subsets rows", "`filter()` sorts rows; `select()` groups rows", "They are aliases for the same function"], "oc": [true, true, true, false], "a": 0, "e": "`filter(df, cond)` keeps rows matching `cond`, whereas `select(df, col1, col2)` keeps only the specified columns."}, {"n": 178, "s": 15, "lv": "E", "q": "Which `dplyr` verb adds new computed columns to a data frame while preserving existing columns?", "code": "", "o": ["mutate()", "transmute_only()", "append_col()", "summarise()"], "oc": [true, true, true, true], "a": 0, "e": "`mutate()` creates new columns (or modifies existing ones) as functions of existing columns while retaining all other columns."}, {"n": 179, "s": 15, "lv": "E", "q": "What do the pipe operators `%>%` (magrittr/tidyverse) and `|>` (base R 4.1+) do?", "code": "", "o": ["Pass the left-hand side expression as the first argument to the right-hand side function call", "Perform bitwise OR on two data frames", "Save a data frame to a file", "Run two functions in parallel threads"], "oc": [false, false, false, false], "a": 0, "e": "The pipe `x %>% f(y)` (or `x |> f(y)`) passes `x` as the first argument `f(x, y)`, enabling readable left-to-right data transformation pipelines."}, {"n": 180, "s": 15, "lv": "M", "q": "According to the Tidy Data philosophy emphasized in Session 16 Lab (Hadley Wickham / `tidyr`), what are the three defining rules of a tidy dataset?", "code": "", "o": ["Every variable is a column, every observation is a row, and every value is a single cell", "Every table has at most 5 columns, no missing values, and sorted keys", "All columns must be numeric, normalized to [0, 1], and stored in JSON", "Every row is a variable and every column is an observation"], "oc": [false, false, true, false], "a": 0, "e": "Tidy data requires: (1) each variable forms a column, (2) each observation forms a row, and (3) each value occupies a single cell."}, {"n": 181, "s": 15, "lv": "M", "q": "In `tidyr` (Session 16), which pair of modern functions reshapes data between wide format and long format (superseding `gather()` and `spread()`)?", "code": "", "o": ["pivot_longer() and pivot_wider()", "melt() and cast()", "stack() and unstack()", "lengthen() and widen()"], "oc": [true, true, true, true], "a": 0, "e": "`pivot_longer()` reshapes wide data into long (tidy) format, and `pivot_wider()` reshapes long data into wide format."}, {"n": 182, "s": 15, "lv": "M", "q": "In Session 16 Lab Q1, which R packages are standardly used to read/parse XML files and JSON files respectively in RStudio?", "code": "", "o": ["xml2 (or XML) and jsonlite", "rxml and rjson_core", "bs4 and simplejson", "readr and writexl"], "oc": [true, false, false, false], "a": 0, "e": "`xml2::read_xml()` (or `XML`) reads XML documents and `jsonlite::fromJSON()` parses JSON files directly into R lists/data frames."}, {"n": 183, "s": 15, "lv": "M", "q": "In Session 16 Lab Q2, which tidyverse-ecosystem R package is designed for extracting/scraping data from HTML web pages (similar to Python's BeautifulSoup)?", "code": "", "o": ["rvest", "httr_scrape", "shiny", "knitr"], "oc": [false, false, false, false], "a": 0, "e": "`rvest` (harvest) provides `read_html()`, `html_elements()`, `html_text()`, and `html_table()` for web scraping in R."}, {"n": 184, "s": 15, "lv": "M", "q": "In Session 16 Lab Q3 (calling the `diamonds` dataset in `ggplot2` and plotting a bar graph of `cut`), which `ggplot2` expression creates a bar chart of diamond counts by `cut`?", "code": "", "o": ["ggplot(diamonds, aes(x = cut)) + geom_bar()", "ggplot(diamonds, aes(x = cut)) + geom_histogram()", "plot_bar(diamonds$cut)", "ggplot(diamonds) %>% bar(cut)"], "oc": [true, true, true, true], "a": 0, "e": "`ggplot(diamonds, aes(x = cut)) + geom_bar()` counts observations per discrete `cut` category and renders a bar chart."}, {"n": 185, "s": 15, "lv": "M", "q": "In `ggplot2` (Session 16 Lab Q3), how is a Pie Chart constructed from a stacked bar chart?", "code": "", "o": ["By adding `+ coord_polar(theta = 'y')` to a single stacked bar chart (`geom_bar(width = 1)`)", "By calling `geom_pie()` directly", "By adding `+ theme_circle()`", "By calling `ggplot_pie()`"], "oc": [true, true, true, true], "a": 0, "e": "In `ggplot2`, a pie chart is a stacked bar chart (`geom_bar(stat='identity', width=1)` or `geom_col()`) transformed into polar coordinates via `+ coord_polar(theta = 'y')`."}, {"n": 186, "s": 15, "lv": "T", "q": "In `dplyr`, what happens to the grouping structure after calling `df %>% group_by(dept, role) %>% summarise(avg_sal = mean(salary))` by default?", "code": "", "o": ["`summarise()` peels off (drops) the last grouping level (`role`), leaving the result grouped by `dept` (unless `.groups = 'drop'` is specified)", "It drops all grouping levels automatically", "It keeps both `dept` and `role` grouped", "It converts the tibble to a matrix"], "oc": [true, false, false, false], "a": 0, "e": "By default (`'.groups = \"drop_last\"'`), `dplyr::summarise()` removes the rightmost grouping variable (`role`), leaving the output grouped by the remaining group (`dept`)."}, {"n": 187, "s": 15, "lv": "T", "q": "In `dplyr`, which join function returns all rows from table `x` that do NOT have a matching key in table `y` (useful for finding unmatched records)?", "code": "", "o": ["anti_join(x, y, by = 'id')", "semi_join(x, y, by = 'id')", "left_join(x, y, by = 'id')", "full_join(x, y, by = 'id')"], "oc": [true, true, true, true], "a": 0, "e": "`anti_join(x, y)` is a filtering join that keeps only the rows in `x` without a match in `y` (whereas `semi_join(x, y)` keeps rows in `x` that do have a match in `y`)."}, {"n": 188, "s": 15, "lv": "T", "q": "In base R, how do you perform a Left Outer Join of two data frames `x` and `y` using the `merge()` function?", "code": "", "o": ["merge(x, y, by = 'id', all.x = TRUE)", "merge(x, y, by = 'id', left = TRUE)", "merge(x, y, by = 'id', all.y = TRUE)", "merge(x, y, by = 'id')"], "oc": [true, true, true, true], "a": 0, "e": "`merge(x, y, by = 'id')` performs an inner join by default; passing `all.x = TRUE` performs a left outer join (`all.y = TRUE` for right join, `all = TRUE` for full outer join)."}, {"n": 189, "s": 16, "lv": "E", "q": "In R (Session 17), what value does a user-defined function `f <- function(a, b = 2) { a * b }` return if no explicit `return()` call is used?", "code": "", "o": ["NULL", "The value of the last evaluated expression in the function body (`a * b`)", "NA", "TRUE"], "oc": [false, true, false, false], "a": 1, "e": "In R, functions automatically return the value of the final evaluated expression in their body without requiring an explicit `return()` call."}, {"n": 190, "s": 16, "lv": "E", "q": "Which built-in R character function concatenates strings together with a space separator by default, and which variant concatenates with no separator (`sep = ''`)?", "code": "", "o": ["paste() and paste0()", "concat() and concat0()", "str_join() and str_cat()", "join() and glue0()"], "oc": [true, true, true, true], "a": 0, "e": "`paste(..., sep = ' ')` joins arguments with a space by default, while `paste0(...)` joins them with an empty string `''`."}, {"n": 191, "s": 16, "lv": "E", "q": "In R, what is the difference between `length('DataScience')` and `nchar('DataScience')`?", "code": "", "o": ["`length('DataScience')` returns `1` (a character vector of 1 string), whereas `nchar('DataScience')` returns `11` (the number of characters in that string)", "Both return `11`", "`length()` returns `11` and `nchar()` returns `1`", "`nchar()` raises an error on strings"], "oc": [true, false, true, true], "a": 0, "e": "In R, `'DataScience'` is a character vector of length 1 (`length()` = 1); `nchar()` counts the characters inside each string element (`11`)."}, {"n": 192, "s": 16, "lv": "E", "q": "In R Markdown (`.Rmd`, Session 17), what are the three main components of an R Markdown document?", "code": "", "o": ["YAML metadata header (`---`), Markdown narrative text, and executable R code chunks (```` ```{r} ````)", "HTML head, CSS stylesheet, and JavaScript script tag", "Preamble, LaTeX body, and BibTeX file only", "SQL schema, R script, and CSV attachment"], "oc": [true, false, false, false], "a": 0, "e": "An `.Rmd` file consists of a YAML frontmatter header enclosed in `---`, formatted Markdown prose, and fenced code chunks ` ```{r} ... ``` `."}, {"n": 193, "s": 16, "lv": "M", "q": "In R Markdown code chunk options (```` ```{r, echo=FALSE, eval=TRUE} ````), what is the difference between `echo=FALSE` and `eval=FALSE`?", "code": "", "o": ["`echo=FALSE` hides the R source code in the final report but still runs the code and shows its output/plots; `eval=FALSE` prevents the code from running at all", "`echo=FALSE` disables plots; `eval=FALSE` hides code", "Both hide the code and prevent execution", "`echo=FALSE` prints warnings only"], "oc": [true, false, false, true], "a": 0, "e": "`echo=FALSE` suppresses displaying the source code in the rendered document while still evaluating the chunk and displaying its results/plots; `eval=FALSE` skips executing the chunk."}, {"n": 194, "s": 16, "lv": "M", "q": "In Session 17 Lab Case Study (`ChickWeight` dataset), what are the four variables (columns) in the built-in `ChickWeight` data frame?", "code": "", "o": ["weight, Time, Chick, and Diet", "height, Age, Bird, and Food", "mass, Day, ID, and Group", "weight, Week, Species, and Supplement"], "oc": [false, false, false, false], "a": 0, "e": "The built-in R dataset `ChickWeight` has 578 rows and 4 columns: `weight` (gm), `Time` (days since birth), `Chick` (unique chick identifier), and `Diet` (experimental diet 1–4)."}, {"n": 195, "s": 16, "lv": "M", "q": "In the Session 17 `ChickWeight` Case Study, what does `split(ChickWeight, ChickWeight$Diet)` return?", "code": "", "o": ["A named list of 4 data frames, one for each level of `Diet` (1, 2, 3, and 4)", "A single sorted data frame", "A 4x4 correlation matrix", "A vector of mean weights"], "oc": [true, false, false, false], "a": 0, "e": "`split(x, f)` divides the data frame `ChickWeight` into a named list of subsets grouped by the factor `ChickWeight$Diet`."}, {"n": 196, "s": 16, "lv": "M", "q": "In the Session 17 `ChickWeight` Case Study, after subsetting `diet4 <- subset(ChickWeight, Diet == 4)`, which base R formula call displays box plots of `weight` for each `Time` point?", "code": "", "o": ["boxplot(weight ~ Time, data = diet4)", "plot_box(diet4$Time, diet4$weight)", "hist(weight ~ Time, data = diet4)", "barplot(diet4$weight, diet4$Time)"], "oc": [true, true, true, true], "a": 0, "e": "`boxplot(weight ~ Time, data = diet4)` (or `boxplot(split(diet4$weight, diet4$Time))`) draws side-by-side boxplots of chick weight at each time point for Diet group 4."}, {"n": 197, "s": 16, "lv": "M", "q": "In the Session 17 `ChickWeight` Case Study, after plotting the mean weight vs. time for Diet group 4 using `plot(times, mean_g4, type = 'l')`, which base R function adds the mean weight curve for Diet group 2 onto the EXISTING plot without erasing it?", "code": "", "o": ["lines(times, mean_g2, col = 'red')", "plot(times, mean_g2, add = TRUE)", "add_curve(times, mean_g2)", "boxplot(times, mean_g2)"], "oc": [true, true, true, true], "a": 0, "e": "In base R graphics, `plot()` starts a new plot frame, whereas low-level plotting functions like `lines()`, `points()`, `legend()`, and `title()` add layers to the existing active plot."}, {"n": 198, "s": 16, "lv": "T", "q": "In the Session 17 `ChickWeight` Case Study, which base R expression computes the mean `weight` for each `Time` point within `diet4` (`Diet == 4`)?", "code": "", "o": ["tapply(diet4$weight, diet4$Time, mean)", "lapply(diet4$weight, mean)", "vapply(diet4, diet4$Time, sum)", "mapply(mean, diet4$weight)"], "oc": [true, true, true, true], "a": 0, "e": "`tapply(X, INDEX, FUN)` applies a function (`mean`) to a ragged array/vector (`diet4$weight`) grouped by one or more factors (`diet4$Time`), returning the mean weight at each time point."}, {"n": 199, "s": 16, "lv": "T", "q": "In R's built-in numeric rounding functions (Session 17), what does `round(c(2.5, 3.5))` return under R's IEC 60559 'round to even' (banker's rounding) rule?", "code": "", "o": ["c(3, 4)", "c(2, 4)", "c(2, 3)", "c(3, 3)"], "oc": [true, true, true, true], "a": 1, "e": "R's `round()` uses round-half-to-even: exact `.5` values round to the nearest EVEN integer, so `2.5` rounds to `2` and `3.5` rounds to `4`."}, {"n": 200, "s": 16, "lv": "T", "q": "What is the difference between `grep('cat', x)` and `grepl('cat', x)` in R's built-in character functions?", "code": "", "o": ["`grep()` returns the integer indices of matching elements (or values if `value=TRUE`), whereas `grepl()` returns a logical (`TRUE`/`FALSE`) vector of the same length as `x`", "`grepl()` returns a list and `grep()` returns a vector", "`grep()` replaces matches with a new string", "There is no difference"], "oc": [true, true, true, false], "a": 0, "e": "`grep(pattern, x)` returns a vector of matching element indices, while `grepl(pattern, x)` ('grep logical') returns a boolean vector (`TRUE`/`FALSE` for every element of `x`)."}]}</script>
+<script>
+(function(){
+"use strict";
+const DATA = JSON.parse(document.getElementById('qdata').textContent);
+const Q = DATA.questions;
+const TOTAL_Q = Q.length;
+const byN = {}; Q.forEach(q => { byN[q.n] = q; });
+const LV = {E:'Easy', M:'Medium', T:'Tough'};
+const LVBARS = {E:1, M:2, T:3};
+const SESS = DATA.sessions.map(s => {
+  const i = s.title.indexOf(': ');
+  const qs = Q.filter(q => q.s === s.n).map(q => q.n);
+  return {n:s.n, refs:s.refs, name: i > 0 ? s.title.slice(0, i) : s.title, topics: i > 0 ? s.title.slice(i + 2) : '', qs};
+});
+const sessByN = {}; SESS.forEach(s => { sessByN[s.n] = s; });
+
+/* ---------- helpers ---------- */
+const $ = id => document.getElementById(id);
+function esc(s){ return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function pct(a, b){ return b ? Math.round(100 * a / b) : 0; }
+const SQLKW = /^(SELECT|FROM|WHERE|AND|OR|NOT|IN|IS|NULL|AS|ON|JOIN|LEFT|RIGHT|INNER|OUTER|CROSS|FULL|NATURAL|USING|GROUP|BY|ORDER|HAVING|LIMIT|OFFSET|DISTINCT|UNION|ALL|ANY|EXISTS|INSERT|INTO|VALUES|UPDATE|SET|DELETE|CREATE|TABLE|VIEW|INDEX|ALTER|DROP|TRUNCATE|RENAME|TO|ADD|COLUMN|MODIFY|CHANGE|PRIMARY|FOREIGN|KEY|REFERENCES|UNIQUE|CHECK|DEFAULT|CONSTRAINT|AUTO_INCREMENT|INT|INTEGER|BIGINT|VARCHAR|CHAR|DECIMAL|DATE|TEXT|BEGIN|END|DECLARE|PROCEDURE|FUNCTION|RETURNS|RETURN|CALL|IF|THEN|ELSE|ELSEIF|CASE|WHEN|WHILE|DO|LOOP|LEAVE|ITERATE|REPEAT|UNTIL|CURSOR|FOR|OPEN|FETCH|CLOSE|HANDLER|CONTINUE|EXIT|FOUND|SQLEXCEPTION|SQLSTATE|SIGNAL|RESIGNAL|TRIGGER|BEFORE|AFTER|EACH|ROW|NEW|OLD|DELIMITER|START|TRANSACTION|COMMIT|ROLLBACK|SAVEPOINT|GRANT|REVOKE|WITH|RECURSIVE|OVER|PARTITION|ROWS|BETWEEN|LIKE|DESC|ASC|COUNT|SUM|AVG|MIN|MAX|ROW_NUMBER|RANK|DENSE_RANK|LAG|LEAD|COALESCE|IFNULL|CONCAT|DETERMINISTIC|READS|SQL|DATA|OUT|INOUT|TEMPORARY|ENGINE|SHOW|DESCRIBE|USE|DATABASE|TRUE|FALSE|def|return|if|elif|else|for|while|break|continue|pass|import|from|as|class|try|except|finally|raise|with|yield|lambda|and|or|not|in|is|None|True|False|self|super|async|await|global|nonlocal|del|assert|function|library|require|install|packages|c|list|data|frame|matrix|factor|NA|NaN|NULL|Inf|TRUE|FALSE|print|range|len|set|dict|tuple|int|float|str|bool|sum|min|max|sorted|zip|map|filter|open|ggplot|aes|geom_bar|geom_point|coord_polar|facet_wrap|group_by|summarise|mutate|select|filter|arrange|pivot_longer|pivot_wider|public|private|protected|static|final|void|new|this|extends|implements|interface|abstract|throws|throw|catch|synchronized|volatile|transient|package|boolean|byte|short|long|double|char|switch|case|default|do|instanceof|enum|System|out|println|String|StringBuilder|List|ArrayList|Set|HashSet|Map|HashMap|IntStream|LocalDate|Thread|PreparedStatement)$/;
+function highlight(code){
+  const re = /('(?:[^'\\]|\\.)*'|"(?:[^"\\]|\\.)*"|--[^\n]*|\/\/[^\n]*|#[^\n]*|\b\d+(?:\.\d+)?\b|\b[A-Za-z_]+\b)/g;
+  let out = '', last = 0, m;
+  while ((m = re.exec(code))){
+    out += esc(code.slice(last, m.index));
+    const t = m[0];
+    if (t[0] === "'" || t[0] === '"') out += '<span class="st">' + esc(t) + '</span>';
+    else if (t.startsWith('--') || t.startsWith('//') || t[0] === '#') out += '<span class="cm">' + esc(t) + '</span>';
+    else if (/^\d/.test(t)) out += '<span class="nu">' + esc(t) + '</span>';
+    else if (SQLKW.test(t)) out += '<span class="kw">' + esc(t) + '</span>';
+    else out += esc(t);
+    last = m.index + t.length;
+  }
+  return out + esc(code.slice(last));
+}
+function asciiTable(rows){
+  const w = rows[0].map((_, c) => Math.max(...rows.map(r => String(r[c]).length)));
+  const line = '+' + w.map(x => '-'.repeat(x + 2)).join('+') + '+';
+  const fmt = r => '| ' + r.map((v, c) => { const s = String(v); return /^\d+$/.test(s) ? s.padStart(w[c]) : s.padEnd(w[c]); }).join(' | ') + ' |';
+  return [line, fmt(rows[0]), line, ...rows.slice(1).map(fmt), line].join('\n') + '\n' + (rows.length - 1) + ' rows in set';
+}
+let toastTimer = null;
+function toast(msg){ const t = $('toast'); t.textContent = msg; t.hidden = false; clearTimeout(toastTimer); toastTimer = setTimeout(() => { t.hidden = true; }, 2200); }
+
+/* ---------- progress store ---------- */
+const LS_KEY = 'pyr200-progress-v1';
+let store = {a:{}, resetAt:0};
+function lsRead(){ try { const s = localStorage.getItem(LS_KEY); if (s){ const o = JSON.parse(s); if (o && typeof o.a === 'object') store = {a:o.a, resetAt:o.resetAt || 0}; } } catch(e){} }
+function lsWrite(){ try { localStorage.setItem(LS_KEY, JSON.stringify(store)); } catch(e){} }
+function ans(n){ const e = store.a[n]; return (e && e.c >= 0) ? e : null; }
+function record(n, choice){
+  const q = byN[n], ok = choice === q.a, e = store.a[n] || {};
+  store.a[n] = {c:choice, ok, t:Date.now(), w:(e.w || 0) + (ok ? 0 : 1), r:(e.r || 0) + (ok ? 1 : 0)};
+  persist();
+}
+function clearAnswers(ns){
+  const t = Date.now();
+  ns.forEach(n => { const e = store.a[n]; if (e && e.c >= 0) store.a[n] = Object.assign({}, e, {c:-1, ok:false, t}); });
+  persist();
+}
+function resetAll(){ store = {a:{}, resetAt:Date.now()}; persist(); }
+function stats(ns){
+  let ok = 0, bad = 0;
+  ns.forEach(n => { const e = ans(n); if (e){ if (e.ok) ok++; else bad++; } });
+  return {ok, bad, done: ok + bad, total: ns.length, todo: ns.length - ok - bad};
+}
+function wrongList(){ return Q.filter(q => { const e = ans(q.n); return e && !e.ok; }).map(q => q.n); }
+
+let ref = null, remoteOn = false, dirty = false, saveTimer = null, writing = Promise.resolve(), retried = false;
+function setSync(s){
+  const el = $('sync'); el.dataset.s = s;
+  $('syncText').textContent = s === 'account' ? 'Saved to your account' : s === 'connecting' ? 'Connecting…' : 'Saved in this browser';
+}
+function persist(){
+  lsWrite();
+  $('mistakesCount').textContent = wrongList().length;
+  if (remoteOn){ dirty = true; clearTimeout(saveTimer); saveTimer = setTimeout(flush, 1200); }
+}
+function flush(){
+  if (!dirty || !ref || !remoteOn) return;
+  dirty = false;
+  const body = JSON.parse(JSON.stringify(store));
+  writing = writing.then(() => ref.set(body)).then(() => { retried = false; setSync('account'); }, err => {
+    if (err && err.code === 'unavailable' && !retried){ retried = true; dirty = true; saveTimer = setTimeout(flush, 2500 + Math.random() * 2500); }
+    else { remoteOn = false; setSync('local'); }
+  });
+}
+
+/* ---------- view state & universal history stack ---------- */
+let view = 'home';
+let sortMode = 'syllabus';
+let resetArmed = false;
+let set = null;          // {title, sub, kind, s, ns}
+let lvFilter = 'all';    // all | E | M | T
+let stFilter = 'all';    // all | todo | wrong
+let list = [];           // question numbers currently in filtered list
+let idx = 0;             // active question index in list
+let showRefs = false;
+
+let navStack = [];
+let navPtr = -1;
+let suppressPush = false;
+
+function captureSnapshot() {
+  return {
+    view,
+    sortMode,
+    set: set ? JSON.parse(JSON.stringify(set)) : null,
+    lvFilter,
+    stFilter,
+    idx,
+    scrollY: window.scrollY
+  };
+}
+
+function pushNavState() {
+  if (suppressPush) return;
+  const snap = captureSnapshot();
+  if (navPtr >= 0) {
+    const cur = navStack[navPtr];
+    if (cur && cur.view === snap.view && cur.lvFilter === snap.lvFilter && cur.stFilter === snap.stFilter &&
+        cur.sortMode === snap.sortMode && ((cur.set && snap.set && cur.set.title === snap.set.title) || (!cur.set && !snap.set))) {
+      navStack[navPtr] = snap;
+      updateNavButtons();
+      return;
+    }
+  }
+  navStack = navStack.slice(0, navPtr + 1);
+  navStack.push(snap);
+  navPtr = navStack.length - 1;
+  try { history.pushState({navPtr}, ''); } catch(e) {}
+  updateNavButtons();
+}
+
+function restoreNavState(targetPtr) {
+  if (targetPtr < 0 || targetPtr >= navStack.length) return;
+  if (navPtr >= 0 && navStack[navPtr]) {
+    navStack[navPtr].scrollY = window.scrollY;
+  }
+  navPtr = targetPtr;
+  const snap = navStack[navPtr];
+  suppressPush = true;
+  view = snap.view;
+  sortMode = snap.sortMode || 'syllabus';
+  set = snap.set ? JSON.parse(JSON.stringify(snap.set)) : null;
+  lvFilter = snap.lvFilter || 'all';
+  stFilter = snap.stFilter || 'all';
+  if (set) buildList();
+  idx = snap.idx || 0;
+  $('vHome').hidden = view !== 'home';
+  $('vQuiz').hidden = view !== 'quiz';
+  $('vResult').hidden = view !== 'result';
+  $('vMistakes').hidden = view !== 'mistakes';
+  refresh();
+  updateNavButtons();
+  setTimeout(() => {
+    window.scrollTo({top: snap.scrollY || 0, behavior: 'auto'});
+    suppressPush = false;
+  }, 10);
+}
+
+function updateNavButtons() {
+  const backBtn = $('navBackBtn');
+  const fwdBtn = $('navFwdBtn');
+  if (backBtn) backBtn.disabled = navPtr <= 0;
+  if (fwdBtn) fwdBtn.disabled = navPtr >= navStack.length - 1;
+}
+
+window.addEventListener('popstate', ev => {
+  if (ev.state && typeof ev.state.navPtr === 'number') {
+    restoreNavState(ev.state.navPtr);
+  }
+});
+
+function show(v, skipScrollTop){
+  if (navPtr >= 0 && navStack[navPtr]) {
+    navStack[navPtr].scrollY = window.scrollY;
+  }
+  view = v;
+  $('vHome').hidden = v !== 'home'; $('vQuiz').hidden = v !== 'quiz'; $('vResult').hidden = v !== 'result'; $('vMistakes').hidden = v !== 'mistakes';
+  refresh();
+  if (!skipScrollTop) window.scrollTo(0, 0);
+  pushNavState();
+}
+
+function refresh(){
+  $('mistakesCount').textContent = wrongList().length;
+  if (view === 'home') renderHome();
+  else if (view === 'quiz') renderQuiz();
+  else if (view === 'result') renderResult();
+  else if (view === 'mistakes') renderMistakes();
+  updateNavButtons();
+}
+
+/* ---------- home ---------- */
+function stackBar(st, cls){
+  const t = st.total || 1;
+  return '<div class="stack ' + (cls || '') + '" role="img" aria-label="' + st.ok + ' right, ' + st.bad + ' wrong, ' + st.todo + ' not answered"><span class="s-ok" style="width:' + (100 * st.ok / t) + '%"></span><span class="s-bad" style="width:' + (100 * st.bad / t) + '%"></span></div>';
+}
+function renderHome(){
+  const all = stats(Q.map(q => q.n));
+  const acc = all.done ? pct(all.ok, all.done) : null;
+  const lvRows = ['E', 'M', 'T'].map(l => {
+    const st = stats(Q.filter(q => q.lv === l).map(q => q.n));
+    return '<div class="lvrow"><span>' + LV[l] + '</span>' + stackBar(st) + '<span class="num">' + st.ok + '/' + st.done + ' · ' + st.total + '</span></div>';
+  }).join('');
+  const weak = SESS.map(s => ({s, st: stats(s.qs)})).filter(x => x.st.bad > 0)
+    .sort((a, b) => (a.st.ok / a.st.done) - (b.st.ok / b.st.done) || b.st.bad - a.st.bad).slice(0, 5);
+  const weakHtml = weak.length
+    ? '<ul class="weaklist">' + weak.map(x => '<li><button type="button" data-review="' + x.s.n + '"><span class="wname">S' + x.s.n + ' · ' + esc(x.s.name) + '</span><span class="wstat">' + x.st.bad + ' wrong · ' + pct(x.st.ok, x.st.done) + '%</span></button></li>').join('') + '</ul>'
+    : '<p class="empty-note">Answer a few questions and your weakest sessions will show up here, worst first.</p>';
+  const wrongN = wrongList().length;
+  const order = SESS.slice();
+  if (sortMode === 'weak') order.sort((a, b) => {
+    const A = stats(a.qs), B = stats(b.qs);
+    const ka = A.done ? A.ok / A.done : 2, kb = B.done ? B.ok / B.done : 2;
+    return ka - kb || a.n - b.n;
+  });
+  const topics = order.map(s => {
+    const st = stats(s.qs);
+    const lv = {E:0, M:0, T:0}; s.qs.forEach(n => lv[byN[n].lv]++);
+    const score = st.done ? '<div class="tscore">' + pct(st.ok, st.done) + '%<small>' + st.done + '/' + st.total + ' done</small></div>' : '<div class="tscore na">—<small>not started</small></div>';
+    return '<li><button class="topic" type="button" data-session="' + s.n + '">' +
+      '<span class="tnum">S<b>' + String(s.n).padStart(2, '0') + '</b></span>' +
+      '<span class="tbody"><span class="tname">' + esc(s.name) + '</span>' +
+      (s.topics ? '<span class="tsub">' + esc(s.topics) + '</span>' : '') +
+      '<span class="tmeta"><span>Q' + s.qs[0] + '–Q' + s.qs[s.qs.length - 1] + '</span><span>' + s.qs.length + ' questions</span><span>E' + lv.E + ' M' + lv.M + ' T' + lv.T + '</span></span>' +
+      stackBar(st, 'tbar') + '</span>' + score + '</button></li>';
+  }).join('');
+  $('vHome').innerHTML =
+  '<div class="home">' +
+    '<aside class="summary panel">' +
+      '<div><div class="eyebrow">Overall</div><div class="bigrow"><div class="big">' + (acc === null ? '—' : acc + '<small>%</small>') + '</div><div class="muted" style="padding-bottom:4px">accuracy on ' + all.done + ' of ' + TOTAL_Q + ' answered</div></div></div>' +
+      stackBar(all) +
+      '<div class="legend"><span><i class="dot ok"></i>Right <b>' + all.ok + '</b></span><span><i class="dot bad"></i>Wrong <b>' + all.bad + '</b></span><span><i class="dot todo"></i>Left <b>' + all.todo + '</b></span></div>' +
+      '<div><div class="eyebrow" style="margin-bottom:8px">By difficulty · right/answered · total</div><div class="lvrows">' + lvRows + '</div></div>' +
+      '<div class="actions">' +
+        '<button class="btn primary" type="button" id="practiseWrong"' + (wrongN ? '' : ' disabled') + '>Practise my mistakes <span class="count">' + wrongN + '</span></button>' +
+        '<button class="btn" type="button" id="random20">Random 20 from all sessions</button>' +
+      '</div>' +
+      '<div class="weak"><h3>Where you lose marks</h3>' + weakHtml + '</div>' +
+      '<div class="reset">' + (resetArmed
+        ? '<div class="confirm"><span>Clear every answer?</span><button class="btn small" type="button" id="resetYes">Yes, clear</button><button class="btn small ghost" type="button" id="resetNo">Cancel</button></div>'
+        : '<button class="btn small ghost" type="button" id="resetBtn"' + (all.done || wrongN ? '' : ' disabled') + '>Reset all progress</button>') + '</div>' +
+    '</aside>' +
+    '<section>' +
+      '<div class="topics-head"><div><div class="eyebrow">Pick a session</div><h2>16 sessions · 200 questions</h2></div>' +
+        '<div class="seg" role="group" aria-label="Order sessions"><button type="button" data-sort="syllabus" aria-pressed="' + (sortMode === 'syllabus') + '">Syllabus order</button><button type="button" data-sort="weak" aria-pressed="' + (sortMode === 'weak') + '">Weakest first</button></div></div>' +
+      '<p class="intro">Answer one session at a time in a continuous vertical list. You see right or wrong as soon as you tap an option, with the explanation from the answer key. Covers Python (Sessions 1–13) and R Programming (Sessions 14–17).</p>' +
+      '<ul class="topiclist">' + topics + '</ul>' +
+    '</section>' +
+  '</div>';
+}
+
+/* ---------- quiz (Continuous Vertical List) ---------- */
+function startSet(s){ set = s; lvFilter = 'all'; stFilter = 'all'; buildList(); idx = firstOpen(); show('quiz'); }
+function startSession(n){
+  const s = sessByN[n];
+  if (!s) return;
+  startSet({kind:'session', s:n, title:'S' + n + ' · ' + s.name, sub:s.topics, ns:s.qs.slice()});
+}
+function firstOpen(){ const i = list.findIndex(n => !ans(n)); return i < 0 ? 0 : i; }
+function buildList(){
+  list = set.ns.filter(n => {
+    const q = byN[n], e = ans(n);
+    if (lvFilter !== 'all' && q.lv !== lvFilter) return false;
+    if (stFilter === 'todo' && e) return false;
+    if (stFilter === 'wrong' && !(e && !e.ok)) return false;
+    return true;
+  });
+}
+
+function renderSessionSwitcherBar() {
+  if (set.kind !== 'session') return '';
+  const curS = set.s;
+  const prevS = curS > 1 ? sessByN[curS - 1] : null;
+  const nextS = curS < SESS.length ? sessByN[curS + 1] : null;
+  const optionsHtml = SESS.map(s => {
+    const st = stats(s.qs);
+    return '<option value="' + s.n + '"' + (s.n === curS ? ' selected' : '') + '>S' + String(s.n).padStart(2, '0') + ' · ' + esc(s.name) + ' (' + st.done + '/' + st.total + ')</option>';
+  }).join('');
+  return '<div class="sessbar">' +
+    '<button type="button" class="btn small" id="prevSessBtn"' + (prevS ? ' data-goto-session="' + prevS.n + '"' : ' disabled') + '>◀ ' + (prevS ? 'S' + prevS.n : 'Prev') + '</button>' +
+    '<select id="sessJumpSelect" aria-label="Jump to session">' + optionsHtml + '</select>' +
+    '<button type="button" class="btn small" id="nextSessBtn"' + (nextS ? ' data-goto-session="' + nextS.n + '"' : ' disabled') + '>' + (nextS ? 'S' + nextS.n : 'Next') + ' ▶</button>' +
+  '</div>';
+}
+
+function renderQuiz(preserveScroll){
+  const prevY = window.scrollY;
+  const st = stats(set.ns);
+  const lvCounts = {E:0, M:0, T:0}; set.ns.forEach(n => lvCounts[byN[n].lv]++);
+  const lvSeg = '<div class="seg" role="group" aria-label="Difficulty">' + [['all', 'All ' + set.ns.length]].concat(['E', 'M', 'T'].filter(l => lvCounts[l]).map(l => [l, LV[l] + ' ' + lvCounts[l]]))
+    .map(([k, label]) => '<button type="button" data-lv="' + k + '" aria-pressed="' + (lvFilter === k) + '">' + label + '</button>').join('') + '</div>';
+  const stSeg = '<div class="seg" role="group" aria-label="Show"><button type="button" data-st="all" aria-pressed="' + (stFilter === 'all') + '">All</button><button type="button" data-st="todo" aria-pressed="' + (stFilter === 'todo') + '">Not answered</button><button type="button" data-st="wrong" aria-pressed="' + (stFilter === 'wrong') + '">Wrong</button></div>';
+  const strip = list.map((n, i) => {
+    const e = ans(n);
+    return '<button type="button" class="sq' + (e ? (e.ok ? ' ok' : ' bad') : '') + (i === idx ? ' cur' : '') + '" data-go="' + i + '" aria-label="Jump to Question ' + n + (e ? (e.ok ? ', right' : ', wrong') : ', not answered') + '">' + n + '</button>';
+  }).join('');
+  
+  let cardsHtml;
+  if (!list.length){
+    cardsHtml = '<div class="qcard nolist">No questions match this filter. <button class="btn small" type="button" data-st="all">Show all</button></div>';
+  } else {
+    if (idx >= list.length) idx = list.length - 1;
+    cardsHtml = '<div class="qfeed">' + list.map(n => renderCard(byN[n])).join('') + '</div>';
+  }
+
+  const nextS = (set.kind === 'session' && set.s < SESS.length) ? sessByN[set.s + 1] : null;
+  const prevS = (set.kind === 'session' && set.s > 1) ? sessByN[set.s - 1] : null;
+
+  $('vQuiz').innerHTML =
+  '<div class="quiz">' +
+    renderSessionSwitcherBar() +
+    '<div class="qhead"><div class="titles"><div class="eyebrow">' + (set.kind === 'session' ? 'Session' : set.kind === 'random' ? 'Mixed practice' : 'Mistake practice') + '</div><h2>' + esc(set.title) + '</h2>' + (set.sub ? '<div class="muted" style="font-size:13px">' + esc(set.sub) + '</div>' : '') + '</div>' +
+      '<button class="btn small" type="button" id="toResult">See result</button></div>' +
+    '<div class="progressline"><span><b>' + st.done + '</b> of ' + st.total + ' answered</span><span><i class="dot ok"></i><b>' + st.ok + '</b> right</span><span><i class="dot bad"></i><b>' + st.bad + '</b> wrong</span>' + (st.done ? '<span><b>' + pct(st.ok, st.done) + '%</b> accuracy</span>' : '') + '</div>' +
+    stackBar(st) +
+    '<div class="qsticky">' +
+      '<div class="filters">' + lvSeg + stSeg + '</div>' +
+      '<div class="strip-wrap"><div class="strip">' + strip + '</div></div>' +
+    '</div>' +
+    cardsHtml +
+    (list.length ? '<div class="qfoot">' +
+      (prevS ? '<button class="btn" type="button" data-goto-session="' + prevS.n + '">◀ Session ' + prevS.n + '</button>' : '<button class="btn" type="button" data-home>← All sessions</button>') +
+      '<button class="btn ghost small" type="button" id="scrollTopBtn">↑ Top</button>' +
+      '<span class="spacer"></span>' +
+      '<button class="btn" type="button" id="finish">See result scorecard</button>' +
+      (nextS ? '<button class="btn primary" type="button" data-goto-session="' + nextS.n + '">Session ' + nextS.n + ' ▶</button>' : '') +
+    '</div>' : '') +
+  '</div>';
+
+  const sel = $('sessJumpSelect');
+  if (sel) sel.addEventListener('change', function() { startSession(+this.value); });
+
+  if (preserveScroll) {
+    window.scrollTo({top: prevY, behavior: 'auto'});
+  }
+}
+
+function lvlBadge(q){ return '<span class="lvl"><span class="bars on' + LVBARS[q.lv] + '"><i></i><i></i><i></i></span>' + LV[q.lv] + '</span>'; }
+function refsBlock(){
+  if (!DATA.tables || !DATA.tables.EMP) return '';
+  return '<div class="refs"><div class="cap mono">mysql&gt; SELECT * FROM emp;</div><div class="grid-wrap"><pre>' + esc(asciiTable(DATA.tables.EMP)) + '</pre></div>' +
+    '<div class="cap mono">mysql&gt; SELECT * FROM dept;</div><div class="grid-wrap"><pre>' + esc(asciiTable(DATA.tables.DEPT)) + '</pre></div></div>';
+}
+function needsRefs(q){ return sessByN[q.s] && sessByN[q.s].refs && /\b(EMP|DEPT)\b/.test(q.q) && /Refer to|on the EMP|views are created/.test(q.q); }
+
+function renderCard(q){
+  const e = ans(q.n);
+  const opts = q.o.map((t, i) => {
+    let cls = 'opt', mark = '';
+    if (e){
+      if (i === q.a){ cls += ' right'; mark = i === e.c ? '✓ Your answer' : '✓ Correct'; }
+      else if (i === e.c){ cls += ' wrong'; mark = '✗ Your answer'; }
+      else cls += ' dim';
+    }
+    return '<li><button type="button" class="' + cls + '" data-q="' + q.n + '" data-opt="' + i + '"' + (e ? ' disabled' : '') + '><span class="key">' + 'ABCD'[i] + '</span><span class="otext' + (q.oc[i] ? ' codey' : '') + '">' + esc(t) + '</span><span class="mark">' + mark + '</span></button></li>';
+  }).join('');
+  const all = store.a[q.n];
+  const missed = all && all.w ? '<span class="missed">missed ' + all.w + '×</span>' : '';
+  const refs = needsRefs(q);
+  let fb = '';
+  if (e){
+    fb = '<div class="feedback ' + (e.ok ? 'yes' : 'no') + '" role="status"><div class="verdict">' + (e.ok ? 'Correct. Answer ' + 'ABCD'[q.a] : 'Wrong. You chose ' + 'ABCD'[e.c] + ', the answer is ' + 'ABCD'[q.a]) + '</div>' +
+      (e.ok ? '' : '<p><b>' + 'ABCD'[q.a] + '.</b> ' + esc(q.o[q.a]) + '</p>') +
+      '<p>' + esc(q.e) + '</p><div class="fbrow"><button class="btn small ghost" type="button" data-retry-q="' + q.n + '">Try this one again</button></div></div>';
+  }
+  return '<article class="qcard" id="qcard-' + q.n + '" data-qno="' + q.n + '">' +
+    '<div class="qmeta"><span class="qno">Q' + q.n + '</span>' + lvlBadge(q) + '<span class="muted" style="font-size:12.5px">S' + q.s + '</span>' + missed +
+      (refs ? '<button class="btn small refbtn" type="button" data-ref-toggle="' + q.n + '" aria-expanded="' + showRefs + '">' + (showRefs ? 'Hide' : 'Show') + ' EMP &amp; DEPT</button>' : '') + '</div>' +
+    '<p class="stem">' + esc(q.q) + '</p>' +
+    (refs && showRefs ? refsBlock() : '') +
+    (q.code ? '<pre class="code">' + highlight(q.code) + '</pre>' : '') +
+    '<ol class="opts">' + opts + '</ol>' + fb +
+  '</article>';
+}
+
+function answerQuestion(qNum, choiceIdx){
+  if (ans(qNum)) return;
+  record(qNum, choiceIdx);
+  const pos = list.indexOf(qNum);
+  if (pos >= 0) idx = pos;
+  renderQuiz(true);
+}
+
+function goQuestion(i){
+  if (i < 0 || i >= list.length) return;
+  idx = i;
+  const qNum = list[i];
+  document.querySelectorAll('.sq').forEach((btn, bIdx) => btn.classList.toggle('cur', bIdx === i));
+  const card = $('qcard-' + qNum);
+  if (card) card.scrollIntoView({behavior: 'smooth', block: 'start'});
+}
+
+/* Update active question pill in sticky strip while scrolling vertically */
+window.addEventListener('scroll', () => {
+  if (view !== 'quiz' || !list.length) return;
+  const cards = document.querySelectorAll('.qcard[data-qno]');
+  let activeQ = list[0];
+  const threshold = 220;
+  for (let i = 0; i < cards.length; i++) {
+    const rect = cards[i].getBoundingClientRect();
+    if (rect.top <= threshold) {
+      activeQ = +cards[i].dataset.qno;
+    } else {
+      break;
+    }
+  }
+  const newIdx = list.indexOf(activeQ);
+  if (newIdx >= 0 && newIdx !== idx) {
+    idx = newIdx;
+    const sqs = document.querySelectorAll('.sq');
+    sqs.forEach((btn, bIdx) => btn.classList.toggle('cur', bIdx === idx));
+    const cur = sqs[idx];
+    if (cur) {
+      const w = cur.parentElement.parentElement;
+      w.scrollLeft = cur.offsetLeft - w.clientWidth / 2 + cur.clientWidth / 2;
+    }
+  }
+}, {passive: true});
+
+/* ---------- results ---------- */
+function ring(ok, total){
+  const r = 54, c = 2 * Math.PI * r, f = total ? ok / total : 0;
+  return '<div class="ring"><svg viewBox="0 0 132 132" aria-hidden="true"><circle cx="66" cy="66" r="' + r + '" fill="none" stroke="var(--sunken)" stroke-width="12"/>' +
+    '<circle cx="66" cy="66" r="' + r + '" fill="none" stroke="var(--ok)" stroke-width="12" stroke-linecap="round" stroke-dasharray="' + (c * f) + ' ' + c + '"/></svg>' +
+    '<div class="lbl"><div><b>' + ok + '/' + total + '</b><small>correct</small></div></div></div>';
+}
+function mistakeCard(n){
+  const q = byN[n], e = ans(n), all = store.a[n];
+  return '<article class="mistake"><div class="qmeta"><span class="qno">Q' + q.n + '</span>' + lvlBadge(q) + '<span class="muted" style="font-size:12.5px">S' + q.s + '</span>' + (all && all.w > 1 ? '<span class="missed">missed ' + all.w + '×</span>' : '') + '</div>' +
+    '<p class="stem">' + esc(q.q) + '</p>' + (q.code ? '<pre class="code">' + highlight(q.code) + '</pre>' : '') +
+    '<div class="answers"><div class="ans yours"><span class="who">You chose ' + 'ABCD'[e.c] + '</span><span class="' + (q.oc[e.c] ? 'mono' : '') + '">' + esc(q.o[e.c]) + '</span></div>' +
+    '<div class="ans correct"><span class="who">Correct: ' + 'ABCD'[q.a] + '</span><span class="' + (q.oc[q.a] ? 'mono' : '') + '">' + esc(q.o[q.a]) + '</span></div></div>' +
+    '<p class="explain"><b>Why:</b> ' + esc(q.e) + '</p></article>';
+}
+function renderResult(){
+  const st = stats(set.ns);
+  const wrong = set.ns.filter(n => { const e = ans(n); return e && !e.ok; });
+  const lvRows = ['E', 'M', 'T'].map(l => {
+    const ns = set.ns.filter(n => byN[n].lv === l); if (!ns.length) return '';
+    const s = stats(ns);
+    return '<div class="lvrow"><span>' + LV[l] + '</span>' + stackBar(s) + '<span class="num">' + s.ok + '/' + s.total + '</span></div>';
+  }).join('');
+  const nextS = (set.kind === 'session' && set.s < SESS.length) ? sessByN[set.s + 1] : null;
+  $('vResult').innerHTML =
+  '<div class="result">' +
+    renderSessionSwitcherBar() +
+    '<div><div class="eyebrow">Result</div><h2 style="font-size:24px">' + esc(set.title) + '</h2></div>' +
+    '<div class="panel scorecard">' + ring(st.ok, st.total) +
+      '<div style="display:flex;flex-direction:column;gap:12px;min-width:0">' +
+        '<div class="legend"><span><i class="dot ok"></i>Right <b>' + st.ok + '</b></span><span><i class="dot bad"></i>Wrong <b>' + st.bad + '</b></span><span><i class="dot todo"></i>Skipped <b>' + st.todo + '</b></span>' + (st.done ? '<span>Accuracy <b>' + pct(st.ok, st.done) + '%</b></span>' : '') + '</div>' +
+        '<div class="lvrows">' + lvRows + '</div>' +
+        '<div class="rowbtns">' + (wrong.length ? '<button class="btn primary" type="button" id="retryWrong">Retry the ' + wrong.length + ' wrong</button>' : '') +
+          (st.todo ? '<button class="btn" type="button" id="backToQuiz">Answer the ' + st.todo + ' skipped</button>' : '') +
+          (nextS ? '<button class="btn primary" type="button" data-goto-session="' + nextS.n + '">Next: Session ' + nextS.n + ' ▶</button>' : '') +
+          '<button class="btn" type="button" id="restartSet">Restart this set</button><button class="btn ghost" type="button" data-home>All sessions</button></div>' +
+      '</div></div>' +
+    (wrong.length ? '<div class="grouphead"><h3>Where you went wrong</h3><span class="muted">' + wrong.length + ' question' + (wrong.length > 1 ? 's' : '') + '</span></div>' + wrong.map(mistakeCard).join('')
+      : (st.done ? '<div class="panel">No wrong answers in this set.' + (st.todo ? ' ' + st.todo + ' still unanswered.' : '') + '</div>' : '<div class="panel">Nothing answered yet in this set.</div>')) +
+  '</div>';
+  const sel = $('sessJumpSelect');
+  if (sel) sel.addEventListener('change', function() { startSession(+this.value); });
+}
+
+/* ---------- all mistakes ---------- */
+function renderMistakes(){
+  const wrong = wrongList();
+  let html = '<div class="result"><div><div class="eyebrow">Review</div><h2 style="font-size:24px">My mistakes</h2><p class="muted" style="margin:4px 0 0">Every question whose latest answer was wrong, grouped by session.</p></div>';
+  if (!wrong.length){
+    html += '<div class="panel">No wrong answers right now. <button class="btn small" type="button" data-home>Pick a session</button></div>';
+  } else {
+    html += '<div class="rowbtns"><button class="btn primary" type="button" id="practiseAllWrong">Practise all ' + wrong.length + '</button><button class="btn ghost" type="button" data-home>All sessions</button></div>';
+    SESS.forEach(s => {
+      const ns = wrong.filter(n => byN[n].s === s.n); if (!ns.length) return;
+      html += '<div class="grouphead"><h3>S' + s.n + ' · ' + esc(s.name) + '</h3><span class="muted">' + ns.length + ' wrong</span><button class="btn small" type="button" data-practise-session="' + s.n + '">Practise these</button></div>' + ns.map(mistakeCard).join('');
+    });
+  }
+  $('vMistakes').innerHTML = html + '</div>';
+}
+function practiseWrong(ns, title){
+  if (!ns.length) return;
+  clearAnswers(ns);
+  startSet({kind:'retry', title, sub:'Your earlier answers on these are cleared so you can try them fresh.', ns});
+}
+function sampleRandom(k){
+  const shuffle = a => { for (let i = a.length - 1; i > 0; i--){ const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+  const todo = shuffle(Q.filter(q => !ans(q.n)).map(q => q.n));
+  let pick = todo.slice(0, k);
+  if (pick.length < k){
+    const extra = shuffle(Q.filter(q => ans(q.n)).map(q => q.n)).slice(0, k - pick.length);
+    clearAnswers(extra); pick = pick.concat(extra);
+  }
+  return pick.sort((a, b) => a - b);
+}
+
+/* ---------- events ---------- */
+document.addEventListener('click', ev => {
+  const t = ev.target.closest('button'); if (!t) return;
+  if (t.id === 'navBackBtn'){ if (navPtr > 0) restoreNavState(navPtr - 1); return; }
+  if (t.id === 'navFwdBtn'){ if (navPtr < navStack.length - 1) restoreNavState(navPtr + 1); return; }
+  if (t.id === 'homeBtn' || t.hasAttribute('data-home')){ resetArmed = false; show('home'); return; }
+  if (t.id === 'mistakesBtn'){ show('mistakes'); return; }
+  if (t.dataset.session){ startSession(+t.dataset.session); return; }
+  if (t.dataset.gotoSession){ startSession(+t.dataset.gotoSession); return; }
+  if (t.dataset.sort){ sortMode = t.dataset.sort; renderHome(); pushNavState(); return; }
+  if (t.dataset.review){ const s = sessByN[+t.dataset.review]; const ns = s.qs.filter(n => { const e = ans(n); return e && !e.ok; }); practiseWrong(ns, 'S' + s.n + ' mistakes · ' + s.name); return; }
+  if (t.dataset.practiseSession){ const s = sessByN[+t.dataset.practiseSession]; practiseWrong(wrongList().filter(n => byN[n].s === s.n), 'S' + s.n + ' mistakes · ' + s.name); return; }
+  if (t.id === 'practiseWrong' || t.id === 'practiseAllWrong'){ practiseWrong(wrongList(), 'All my mistakes'); return; }
+  if (t.id === 'random20'){ startSet({kind:'random', title:'Random 20', sub:'Unanswered questions first, drawn from all 16 sessions.', ns:sampleRandom(20)}); return; }
+  if (t.id === 'resetBtn'){ resetArmed = true; renderHome(); return; }
+  if (t.id === 'resetNo'){ resetArmed = false; renderHome(); return; }
+  if (t.id === 'resetYes'){ resetArmed = false; resetAll(); refresh(); toast('All progress cleared'); return; }
+  if (t.dataset.opt !== undefined && !t.disabled){ answerQuestion(+t.dataset.q, +t.dataset.opt); return; }
+  if (t.dataset.go !== undefined){ goQuestion(+t.dataset.go); return; }
+  if (t.dataset.lv){ lvFilter = t.dataset.lv; buildList(); idx = firstOpen(); renderQuiz(); pushNavState(); return; }
+  if (t.dataset.st){ stFilter = t.dataset.st; buildList(); idx = firstOpen(); renderQuiz(); pushNavState(); return; }
+  if (t.id === 'scrollTopBtn'){ window.scrollTo({top:0, behavior:'smooth'}); return; }
+  if (t.id === 'finish' || t.id === 'toResult'){ show('result'); return; }
+  if (t.dataset.refToggle){ showRefs = !showRefs; renderQuiz(true); return; }
+  if (t.dataset.retryQ){ clearAnswers([+t.dataset.retryQ]); renderQuiz(true); return; }
+  if (t.id === 'retryWrong'){ const ns = set.ns.filter(n => { const e = ans(n); return e && !e.ok; }); practiseWrong(ns, set.title.replace(/^(S\d+) · /, '$1 mistakes · ')); return; }
+  if (t.id === 'backToQuiz'){ stFilter = 'todo'; lvFilter = 'all'; buildList(); idx = 0; show('quiz'); return; }
+  if (t.id === 'restartSet'){ clearAnswers(set.ns); lvFilter = 'all'; stFilter = 'all'; buildList(); idx = 0; show('quiz'); return; }
+});
+
+document.addEventListener('keydown', ev => {
+  const tag = (ev.target && ev.target.tagName) || '';
+  if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
+  if (ev.altKey && ev.key === 'ArrowLeft') { ev.preventDefault(); if (navPtr > 0) restoreNavState(navPtr - 1); return; }
+  if (ev.altKey && ev.key === 'ArrowRight') { ev.preventDefault(); if (navPtr < navStack.length - 1) restoreNavState(navPtr + 1); return; }
+  if (view === 'quiz' && set && set.kind === 'session' && ev.shiftKey) {
+    if (ev.key === 'ArrowRight' && set.s < SESS.length) { ev.preventDefault(); startSession(set.s + 1); return; }
+    if (ev.key === 'ArrowLeft' && set.s > 1) { ev.preventDefault(); startSession(set.s - 1); return; }
+  }
+});
+
+/* ---------- boot ---------- */
+function start(){
+  lsRead();
+  show('home');
+}
+start();
+})();
+</script>
+
+</body>
+</html>

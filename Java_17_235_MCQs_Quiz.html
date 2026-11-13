@@ -1,0 +1,817 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Java 17 — 235 MCQs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<style>
+/* Study Console: Topic ledger + summary on the home screen, continuous vertical question list on the quiz stage,
+   universal Back/Forward history navigation, and instant explanations. */
+:root{
+  --bg:#F2F5F6; --surface:#FFFFFF; --sunken:#E7EDEF; --ink:#13232B; --muted:#56676F; --line:#D2DCE0;
+  --accent:#1B5E86; --accent-ink:#FFFFFF; --accent-soft:#DCEAF3;
+  --ok:#1C7A4A; --ok-soft:#DCF1E4; --bad:#B23A2E; --bad-soft:#F7E0DC; --todo:#C3CED3;
+  --code-bg:#11202A; --code-ink:#D9E5EA; --code-kw:#86C8EC; --code-str:#E8C47A; --code-com:#7E949D; --code-num:#B9A6F0;
+  --font-ui:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --font-display:"IBM Plex Sans Condensed","IBM Plex Sans","Arial Narrow",system-ui,sans-serif;
+  --font-mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --radius:10px; --shadow:0 1px 2px rgba(19,35,43,.06),0 4px 14px rgba(19,35,43,.05);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0D161B; --surface:#142128; --sunken:#1A2A32; --ink:#E2EBEE; --muted:#93A5AD; --line:#293B44;
+    --accent:#72B6E0; --accent-ink:#06141C; --accent-soft:#17324A;
+    --ok:#5CC98F; --ok-soft:#163626; --bad:#F08C80; --bad-soft:#3D1F1C; --todo:#33464F;
+    --code-bg:#09131A; --code-ink:#D9E5EA; --code-kw:#86C8EC; --code-str:#E8C47A; --code-com:#7E949D; --code-num:#B9A6F0;
+    --shadow:0 1px 2px rgba(0,0,0,.3); color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0D161B; --surface:#142128; --sunken:#1A2A32; --ink:#E2EBEE; --muted:#93A5AD; --line:#293B44;
+  --accent:#72B6E0; --accent-ink:#06141C; --accent-soft:#17324A;
+  --ok:#5CC98F; --ok-soft:#163626; --bad:#F08C80; --bad-soft:#3D1F1C; --todo:#33464F;
+  --code-bg:#09131A; --code-ink:#D9E5EA; --code-kw:#86C8EC; --code-str:#E8C47A; --code-com:#7E949D; --code-num:#B9A6F0;
+  --shadow:0 1px 2px rgba(0,0,0,.3); color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-ui);font-size:15px;line-height:1.55;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 48px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+button,select{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.wrap{max-width:1080px;margin:0 auto}
+h1,h2,h3{font-family:var(--font-display);text-wrap:balance;margin:0;line-height:1.2}
+.mono{font-family:var(--font-mono)}
+.muted{color:var(--muted)}
+.eyebrow{font-family:var(--font-mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+
+/* Top bar */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:15;background:var(--bg);border-bottom:1px solid var(--line);margin-inline:calc(-1 * max(16px,env(safe-area-inset-left,0px))) calc(-1 * max(16px,env(safe-area-inset-right,0px)));
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.top-in{max-width:1080px;margin:0 auto;display:flex;align-items:center;gap:10px;padding-block:10px;flex-wrap:wrap}
+.nav-arrows{display:inline-flex;gap:4px;align-items:center}
+.brand{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;min-width:0;background:none;border:0;padding:0;cursor:pointer;text-align:left}
+.brand b{font-family:var(--font-display);font-size:21px;font-weight:700;letter-spacing:-.01em}
+.brand span{font-size:13px;color:var(--muted)}
+.sync{margin-left:auto;display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted);font-family:var(--font-mono)}
+.sync i{width:7px;height:7px;border-radius:50%;background:var(--todo);display:inline-block}
+.sync[data-s="account"] i{background:var(--ok)}
+.sync[data-s="connecting"] i{background:var(--accent)}
+.toplinks{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid var(--line);background:var(--surface);border-radius:8px;
+  padding:8px 14px;font-weight:500;cursor:pointer;min-height:40px;text-align:center;text-decoration:none;color:inherit}
+.btn:hover:not([disabled]){border-color:var(--accent)}
+.btn.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.btn.primary:hover:not([disabled]){filter:brightness(1.07)}
+.btn.ghost{background:transparent}
+.btn.small{padding:5px 10px;min-height:32px;font-size:13px}
+.btn[disabled]{opacity:.42;cursor:not-allowed}
+.btn .count{font-family:var(--font-mono);font-size:12px;opacity:.85}
+
+/* Session Switcher Bar (Forward / Backward between sessions) */
+.sessbar{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:8px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:8px 10px;box-shadow:var(--shadow)}
+.sessbar select{width:100%;border:1px solid var(--line);background:var(--sunken);border-radius:7px;padding:6px 10px;font-weight:600;font-size:13.5px;cursor:pointer;text-overflow:ellipsis}
+@media (max-width:600px){.sessbar{grid-template-columns:1fr 1fr}.sessbar select{grid-column:1 / -1;order:-1}}
+
+/* Sticky Quiz Controls & Question Strip */
+.qsticky{position:sticky;top:calc(env(safe-area-inset-top,0px) + 53px);z-index:10;background:var(--bg);padding-block:8px;border-bottom:1px solid var(--line);display:flex;flex-direction:column;gap:8px}
+.qfeed{display:flex;flex-direction:column;gap:16px}
+.qcard{scroll-margin-top:calc(env(safe-area-inset-top,0px) + 165px)}
+
+/* Home */
+.home{display:grid;grid-template-columns:330px minmax(0,1fr);gap:24px;margin-top:22px;align-items:start}
+@media (max-width:900px){.home{grid-template-columns:minmax(0,1fr)}}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
+.summary{display:flex;flex-direction:column;gap:18px}
+@media (min-width:901px){.summary{position:sticky;top:calc(env(safe-area-inset-top,0px) + 76px)}}
+.bigrow{display:flex;align-items:flex-end;gap:14px;flex-wrap:wrap}
+.big{font-family:var(--font-display);font-size:46px;font-weight:700;line-height:1;font-variant-numeric:tabular-nums}
+.big small{font-size:20px;color:var(--muted);font-weight:600}
+.stack{display:flex;height:10px;border-radius:5px;overflow:hidden;background:var(--sunken)}
+.stack span{display:block;height:100%}
+.stack .s-ok{background:var(--ok)} .stack .s-bad{background:var(--bad)}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.legend b{color:var(--ink);font-weight:600}
+.dot{width:9px;height:9px;border-radius:2px;display:inline-block;margin-right:5px;vertical-align:baseline}
+.dot.ok{background:var(--ok)} .dot.bad{background:var(--bad)} .dot.todo{background:var(--todo)}
+.lvrows{display:grid;gap:8px}
+.lvrow{display:grid;grid-template-columns:78px minmax(0,1fr) 78px;gap:10px;align-items:center;font-size:13px}
+.lvrow .stack{height:7px}
+.lvrow .num{text-align:right;font-family:var(--font-mono);font-variant-numeric:tabular-nums;color:var(--muted)}
+.actions{display:grid;gap:8px}
+.weak h3{font-size:16px;margin-bottom:8px}
+.weaklist{display:grid;gap:6px;margin:0;padding:0;list-style:none}
+.weaklist button{width:100%;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center;text-align:left;background:var(--sunken);border:1px solid transparent;border-radius:8px;padding:8px 10px;cursor:pointer}
+.weaklist button:hover{border-color:var(--accent)}
+.weaklist .wname{font-size:13px;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.weaklist .wstat{font-family:var(--font-mono);font-size:12px;color:var(--bad);white-space:nowrap}
+.empty-note{font-size:13px;color:var(--muted)}
+.reset{border-top:1px solid var(--line);padding-top:14px;display:flex;flex-direction:column;gap:8px}
+.reset .confirm{display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:13px}
+
+.topics-head{display:flex;align-items:flex-end;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.topics-head h2{font-size:24px}
+.seg{display:inline-flex;background:var(--sunken);border-radius:8px;padding:3px;gap:2px;flex-wrap:wrap}
+.seg button{border:0;background:transparent;padding:5px 10px;border-radius:6px;font-size:13px;cursor:pointer;color:var(--muted)}
+.seg button[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:var(--shadow);font-weight:500}
+.topics-head .seg{margin-left:auto}
+.topiclist{display:grid;gap:8px;list-style:none;margin:0;padding:0}
+.topic{width:100%;display:grid;grid-template-columns:44px minmax(0,1fr) 84px;gap:14px;align-items:center;text-align:left;background:var(--surface);
+  border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;cursor:pointer;box-shadow:var(--shadow)}
+.topic:hover{border-color:var(--accent)}
+.tnum{font-family:var(--font-mono);font-size:13px;color:var(--muted);line-height:1.1}
+.tnum b{display:block;font-family:var(--font-display);font-size:24px;color:var(--ink);font-weight:600}
+.tbody{display:flex;flex-direction:column;gap:6px;min-width:0}
+.tname{font-weight:600;font-size:15px;line-height:1.35}
+.tsub{font-size:12.5px;color:var(--muted);line-height:1.4}
+.tmeta{font-family:var(--font-mono);font-size:12px;color:var(--muted);display:flex;gap:10px;flex-wrap:wrap}
+.tbar{height:6px}
+.tscore{text-align:right;font-family:var(--font-display);font-size:22px;font-weight:600;font-variant-numeric:tabular-nums}
+.tscore small{display:block;font-family:var(--font-mono);font-size:11px;color:var(--muted);font-weight:400;white-space:nowrap}
+.tscore.na{color:var(--todo)}
+@media (max-width:520px){.topic{grid-template-columns:32px minmax(0,1fr) 66px;gap:10px;padding:12px}.tnum b{font-size:20px}.tscore{font-size:18px}}
+.intro{font-size:13.5px;color:var(--muted);max-width:62ch}
+
+/* Quiz */
+.quiz{max-width:820px;margin:18px auto 0;display:flex;flex-direction:column;gap:14px}
+.qhead{display:flex;align-items:flex-start;gap:12px;flex-wrap:wrap}
+.qhead .titles{min-width:0;flex:1 1 300px}
+.qhead h2{font-size:22px}
+.filters{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.strip-wrap{overflow-x:auto;padding-bottom:4px;-webkit-overflow-scrolling:touch}
+.strip{display:flex;gap:5px;width:max-content}
+.sq{width:38px;height:30px;border-radius:6px;border:1px solid var(--line);background:var(--surface);font-family:var(--font-mono);font-size:11.5px;cursor:pointer;color:var(--muted);flex:none}
+.sq.ok{background:var(--ok-soft);border-color:var(--ok);color:var(--ok)}
+.sq.bad{background:var(--bad-soft);border-color:var(--bad);color:var(--bad)}
+.sq.cur{outline:2px solid var(--accent);outline-offset:1px;color:var(--ink);font-weight:600}
+.progressline{display:flex;gap:14px;flex-wrap:wrap;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.progressline b{color:var(--ink)}
+.qcard{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:14px;min-width:0}
+@media (max-width:520px){.qcard{padding:16px}}
+.qmeta{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.qno{font-family:var(--font-mono);font-weight:600;font-size:14px;background:var(--sunken);padding:2px 8px;border-radius:5px}
+.lvl{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;color:var(--muted)}
+.bars{display:inline-flex;gap:2px;align-items:flex-end;height:12px}
+.bars i{width:4px;background:var(--todo);border-radius:1px}
+.bars i:nth-child(1){height:5px}.bars i:nth-child(2){height:8px}.bars i:nth-child(3){height:12px}
+.bars.on1 i:nth-child(-n+1),.bars.on2 i:nth-child(-n+2),.bars.on3 i:nth-child(-n+3){background:var(--accent)}
+.missed{font-family:var(--font-mono);font-size:11.5px;color:var(--bad);border:1px solid var(--bad);border-radius:20px;padding:1px 8px}
+.qmeta .refbtn{margin-left:auto}
+.stem{font-size:17px;line-height:1.5;margin:0;white-space:pre-wrap;font-weight:500}
+.code{background:var(--code-bg);color:var(--code-ink);border-radius:8px;padding:14px 16px;margin:0;overflow-x:auto;font-family:var(--font-mono);font-size:13.5px;line-height:1.55;tab-size:2}
+.code .kw{color:var(--code-kw)} .code .st{color:var(--code-str)} .code .cm{color:var(--code-com);font-style:italic} .code .nu{color:var(--code-num)}
+.refs{display:grid;gap:10px;background:var(--sunken);border-radius:8px;padding:12px}
+.refs .grid-wrap{overflow-x:auto}
+.refs pre{margin:0;font-family:var(--font-mono);font-size:12.5px;line-height:1.35}
+.refs .cap{font-size:12px;color:var(--muted)}
+.opts{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.opt{width:100%;display:grid;grid-template-columns:30px minmax(0,1fr) auto;gap:12px;align-items:start;text-align:left;background:var(--surface);border:1.5px solid var(--line);border-radius:9px;padding:11px 12px;cursor:pointer;min-height:48px}
+.opt:hover:not([disabled]){border-color:var(--accent);background:var(--accent-soft)}
+.opt[disabled]{cursor:default}
+.key{width:28px;height:28px;border-radius:6px;background:var(--sunken);display:grid;place-items:center;font-family:var(--font-mono);font-weight:600;font-size:13px}
+.otext{padding-top:3px;min-width:0;overflow-wrap:anywhere}
+.otext.codey{font-family:var(--font-mono);font-size:13.5px}
+.mark{padding-top:3px;font-family:var(--font-mono);font-size:12px;font-weight:600;white-space:nowrap}
+.opt.right{border-color:var(--ok);background:var(--ok-soft)}
+.opt.right .key{background:var(--ok);color:var(--surface)}
+.opt.right .mark{color:var(--ok)}
+.opt.wrong{border-color:var(--bad);background:var(--bad-soft)}
+.opt.wrong .key{background:var(--bad);color:var(--surface)}
+.opt.wrong .mark{color:var(--bad)}
+.opt.dim{opacity:.6}
+.feedback{border-radius:9px;padding:14px;display:flex;flex-direction:column;gap:6px;border-left:4px solid var(--ok);background:var(--ok-soft)}
+.feedback.no{border-left-color:var(--bad);background:var(--bad-soft)}
+.feedback .verdict{font-weight:600;font-size:15px}
+.feedback.yes .verdict{color:var(--ok)} .feedback.no .verdict{color:var(--bad)}
+.feedback p{margin:0}
+.feedback .fbrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
+.qfoot{display:flex;gap:10px;align-items:center;flex-wrap:wrap;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:14px 18px;box-shadow:var(--shadow)}
+.qfoot .spacer{flex:1}
+@media (max-width:620px){.qhead h2{font-size:19px}}
+.nolist{padding:28px;text-align:center;color:var(--muted)}
+
+/* Results + mistakes */
+.result{max-width:820px;margin:18px auto 0;display:flex;flex-direction:column;gap:16px}
+.scorecard{display:grid;grid-template-columns:auto minmax(0,1fr);gap:22px;align-items:center}
+@media (max-width:560px){.scorecard{grid-template-columns:minmax(0,1fr)}}
+.ring{width:132px;height:132px;position:relative;flex:none}
+.ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ring .lbl{position:absolute;inset:0;display:grid;place-items:center;text-align:center}
+.ring .lbl b{font-family:var(--font-display);font-size:32px;line-height:1}
+.ring .lbl small{display:block;font-size:12px;color:var(--muted);font-family:var(--font-mono)}
+.mistake{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.mistake .stem{font-size:15px}
+.answers{display:grid;gap:6px}
+.ans{display:grid;grid-template-columns:116px minmax(0,1fr);gap:10px;font-size:14px;align-items:start;padding:8px 10px;border-radius:7px}
+@media (max-width:520px){.ans{grid-template-columns:minmax(0,1fr);gap:2px}}
+.ans .who{font-family:var(--font-mono);font-size:12px;padding-top:2px}
+.ans.yours{background:var(--bad-soft)} .ans.yours .who{color:var(--bad)}
+.ans.correct{background:var(--ok-soft)} .ans.correct .who{color:var(--ok)}
+.explain{font-size:14px;margin:0;color:var(--ink)}
+.explain b{font-weight:600}
+.grouphead{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-top:6px}
+.grouphead h3{font-size:18px}
+.rowbtns{display:flex;gap:8px;flex-wrap:wrap}
+.toast{position:fixed;left:50%;bottom:calc(18px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:9px 16px;border-radius:8px;font-size:14px;z-index:20;max-width:calc(100% - 32px)}
+@media (prefers-reduced-motion:no-preference){.opt,.btn,.topic,.sq{transition:border-color .15s,background-color .15s}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="top-in">
+    <a href="index.html" class="btn small ghost">← All Tests</a>
+    <div class="nav-arrows" role="group" aria-label="View navigation">
+      <button class="btn small" id="navBackBtn" type="button" title="Go Back (Alt+Left)" disabled>← Back</button>
+      <button class="btn small" id="navFwdBtn" type="button" title="Go Forward (Alt+Right)" disabled>Forward →</button>
+    </div>
+    <button class="brand" id="homeBtn" type="button" aria-label="Back to topics"><b>Java 17 · 235</b><span>CDAC CMC · Java 17 LTS</span></button>
+    <div class="toplinks">
+      <button class="btn small ghost" id="mistakesBtn" type="button">My mistakes <span class="count" id="mistakesCount">0</span></button>
+      <button class="btn small ghost" id="themeBtn" type="button" onclick="togglePortalTheme()">🌙 Dark</button>
+    </div>
+    <div class="sync" id="sync" data-s="local"><i></i><span id="syncText">Saved in this browser</span></div>
+  </div>
+</header>
+<script>
+  (function() {
+    const saved = localStorage.getItem('portal_theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', saved);
+    const btn = document.getElementById('themeBtn');
+    if (btn) btn.textContent = saved === 'dark' ? '🌙 Dark' : '☀️ Light';
+  })();
+  function togglePortalTheme() {
+    const cur = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', cur);
+    localStorage.setItem('portal_theme', cur);
+    const btn = document.getElementById('themeBtn');
+    if (btn) btn.textContent = cur === 'dark' ? '🌙 Dark' : '☀️ Light';
+  }
+</script>
+
+<main class="wrap">
+  <section id="vHome"></section>
+  <section id="vQuiz" hidden></section>
+  <section id="vResult" hidden></section>
+  <section id="vMistakes" hidden></section>
+</main>
+<div class="toast" id="toast" hidden></div>
+
+<script type="application/json" id="qdata">{"sessions": [{"n": 1, "title": "Section 1 — Java Fundamentals, JVM, Data Types and Control Flow: JVM, JDK, JRE, bytecode (.class), javac, primitive data types, local variables, main(), operators, loops, switch & type conversions", "refs": false}, {"n": 2, "title": "Section 2 — Packages, Arrays, References and Object Lifecycle: Packages, import order, classpath, fixed-length arrays, zero-based indexing, object references, garbage collection, static, this & instanceof", "refs": false}, {"n": 3, "title": "Section 3 — OOP, Methods, Encapsulation, Constructors and Inheritance: Classes & objects, 4 OOP pillars, access modifiers, constructors, this() & super(), single inheritance, overloading vs overriding, abstract classes & interfaces", "refs": false}, {"n": 4, "title": "Section 4 — Exception Handling: Throwable hierarchy, checked vs unchecked exceptions, throw vs throws, try-catch-finally ordering, exception propagation & try-with-resources", "refs": false}, {"n": 5, "title": "Section 5 — Strings, StringBuilder, StringBuffer and Regex: String immutability, == vs equals(), String constant pool, intern(), StringBuilder vs StringBuffer, substring(), split() & regular expressions", "refs": false}, {"n": 6, "title": "Section 6 — Generics and Collections Framework: Generics type safety, List, ArrayList, LinkedList, Set, HashSet, LinkedHashSet, TreeSet, Map, HashMap, TreeMap, Iterator, Comparable vs Comparator & PECS wildcards", "refs": false}, {"n": 7, "title": "Section 7 — Enums, Wrapper Classes, Annotations and Utilities: Enum constants, values() & valueOf(), autoboxing & unboxing, parseInt() vs valueOf(), java.lang vs java.util, @Override & @FunctionalInterface", "refs": false}, {"n": 8, "title": "Section 8 — Functional Programming and Lambda Expressions: Functional interfaces, lambda expressions (->), target typing, Predicate<T>, Function<T,R>, Consumer<T>, Supplier<T>, method references (::) & forEach()", "refs": false}, {"n": 9, "title": "Section 9 — Java Streams and Date-Time API: Stream pipelines, intermediate vs terminal operations, filter(), map(), flatMap(), reduce(), IntStream, boxed(), Collectors.toList(), LocalDate, LocalDateTime, Instant & Period", "refs": false}, {"n": 10, "title": "Section 10 — Multithreading and Synchronization: Threads vs processes, Runnable, start() vs run(), sleep(), join(), yield(), synchronized monitors, wait(), notify(), notifyAll(), Thread.State & race conditions", "refs": false}, {"n": 11, "title": "Section 11 — File Handling and Serialization: java.io streams, ObjectOutputStream & ObjectInputStream, Serializable, transient, static fields, serialVersionUID, InvalidClassException, BufferedReader & AutoCloseable", "refs": false}, {"n": 12, "title": "Section 12 — JDBC and Database Connectivity: JDBC architecture, Drivers, Connection, Statement vs PreparedStatement, parameter binding (?), ResultSet.next(), executeQuery() vs executeUpdate(), SQL injection & DAO pattern", "refs": false}, {"n": 13, "title": "Section 13 — Code Reading and Output-Based MCQs: Java 17 code tracing: pre/post-increment, String immutability & pooling, Integer cache, switch, List.remove(int), Set/Map duplicates, Streams, polymorphism & LocalDate math", "refs": false}], "tables": {}, "questions": [{"n": 1, "s": 1, "lv": "E", "q": "Which component executes Java bytecode?", "code": "", "o": ["JVM", "Javadoc", "javac source editor", "JAR manifest"], "oc": [false, false, true, false], "a": 0, "e": "The Java Virtual Machine loads and executes bytecode. The Java compiler (javac) translates source code into bytecode."}, {"n": 2, "s": 1, "lv": "E", "q": "Which statement best describes the JDK?", "code": "", "o": ["Only the JVM", "A development kit that includes tools such as the compiler and a runtime", "Only the Java standard library", "A database driver"], "oc": [false, false, false, false], "a": 1, "e": "The JDK is used to develop Java applications and includes development tools such as javac along with the runtime components."}, {"n": 3, "s": 1, "lv": "E", "q": "What is the usual extension of compiled Java bytecode files?", "code": "", "o": [".java", ".class", ".jar", ".exe"], "oc": [false, false, false, false], "a": 1, "e": "A .java file contains source code; javac normally produces a .class file containing bytecode."}, {"n": 4, "s": 1, "lv": "E", "q": "Which command compiles Hello.java?", "code": "", "o": ["java Hello.java", "javac Hello.java", "javadoc Hello.java", "jar Hello.java"], "oc": [false, true, false, false], "a": 1, "e": "javac is the Java compiler. The java launcher runs a compiled class or, in supported versions, a source file."}, {"n": 5, "s": 1, "lv": "E", "q": "Which is a primitive type in Java?", "code": "", "o": ["String", "Integer", "boolean", "ArrayList"], "oc": [false, false, false, false], "a": 2, "e": "boolean is a primitive type. String, Integer and ArrayList are reference types."}, {"n": 6, "s": 1, "lv": "E", "q": "What is the size of Java's int type?", "code": "", "o": ["8 bits", "16 bits", "32 bits", "64 bits"], "oc": [false, false, false, false], "a": 2, "e": "Java int is a signed 32-bit integer with a defined range independent of the platform."}, {"n": 7, "s": 1, "lv": "E", "q": "Which primitive type stores a 64-bit integer?", "code": "", "o": ["short", "int", "long", "float"], "oc": [false, false, false, false], "a": 2, "e": "long is a signed 64-bit integral primitive type."}, {"n": 8, "s": 1, "lv": "M", "q": "What is the default value of an instance field of type int?", "code": "", "o": ["0", "1", "null", "Undefined"], "oc": [false, false, false, false], "a": 0, "e": "Instance fields receive default values; numeric integral fields default to zero. Local variables do not receive automatic defaults."}, {"n": 9, "s": 1, "lv": "M", "q": "Which statement about local variables is correct?", "code": "", "o": ["They always default to zero", "They must be definitely assigned before use", "They can be used without declaration", "They are always static"], "oc": [false, false, false, false], "a": 1, "e": "Java's definite-assignment rules require a local variable to be assigned before it is read."}, {"n": 10, "s": 1, "lv": "M", "q": "Which is a valid Java entry-point declaration?", "code": "", "o": ["public void main()", "public static void main(String[] args)", "static int main(String args)", "private static main(String[] args)"], "oc": [true, true, true, true], "a": 1, "e": "The conventional application entry point is public static void main(String[] args)."}, {"n": 11, "s": 1, "lv": "M", "q": "Which keyword is used to create an object?", "code": "", "o": ["class", "this", "new", "instanceof"], "oc": [false, false, false, false], "a": 2, "e": "The new operator creates an object and invokes a constructor."}, {"n": 12, "s": 1, "lv": "M", "q": "What does the expression 7 / 2 evaluate to when both operands are int?", "code": "", "o": ["3.5", "3", "4", "Compile-time error"], "oc": [false, false, false, false], "a": 1, "e": "Integer division discards the fractional part, so 7 / 2 evaluates to 3."}, {"n": 13, "s": 1, "lv": "M", "q": "Which operator is the short-circuit logical AND?", "code": "", "o": ["&", "&&", "||", "!"], "oc": [false, true, true, false], "a": 1, "e": "&& evaluates the right operand only if the left operand is true. The single & can also operate on booleans but does not short-circuit."}, {"n": 14, "s": 1, "lv": "M", "q": "What is the result of 5 % 2?", "code": "", "o": ["0", "1", "2", "2.5"], "oc": [false, false, false, false], "a": 1, "e": "The remainder operator % returns the remainder after division; 5 divided by 2 leaves remainder 1."}, {"n": 15, "s": 1, "lv": "M", "q": "Which loop guarantees that its body executes at least once?", "code": "", "o": ["for", "while", "do-while", "enhanced for"], "oc": [false, false, false, false], "a": 2, "e": "A do-while loop tests its condition after executing the body."}, {"n": 16, "s": 1, "lv": "T", "q": "Which statement exits the nearest enclosing loop or switch?", "code": "", "o": ["continue", "break", "return", "throw"], "oc": [false, false, false, false], "a": 1, "e": "break terminates the nearest enclosing loop or switch statement."}, {"n": 17, "s": 1, "lv": "T", "q": "What does continue do in a loop?", "code": "", "o": ["Terminates the program", "Skips to the next iteration", "Exits all enclosing loops", "Restarts the JVM"], "oc": [false, false, false, false], "a": 1, "e": "continue skips the remaining statements in the current iteration and proceeds to the next iteration."}, {"n": 18, "s": 1, "lv": "T", "q": "Which construct is suitable for selecting among several discrete cases?", "code": "", "o": ["switch", "try", "synchronized", "package"], "oc": [false, false, false, false], "a": 0, "e": "switch selects a branch based on a selector expression and matching case labels."}, {"n": 19, "s": 1, "lv": "T", "q": "Which conversion is generally a widening primitive conversion?", "code": "", "o": ["double to int", "long to byte", "int to long", "float to short"], "oc": [false, false, true, false], "a": 2, "e": "Converting int to long widens the value and is allowed implicitly. Narrowing conversions generally require a cast."}, {"n": 20, "s": 1, "lv": "T", "q": "What does the ternary operator return?", "code": "", "o": ["A class", "A value selected from two expressions", "A loop", "A package"], "oc": [false, false, false, false], "a": 1, "e": "The conditional operator condition ? expr1 : expr2 evaluates one of the two expressions and yields its value."}, {"n": 21, "s": 2, "lv": "E", "q": "What is the primary purpose of a Java package?", "code": "", "o": ["To execute bytecode", "To group related types and help avoid naming conflicts", "To allocate heap memory", "To create threads"], "oc": [false, true, false, false], "a": 1, "e": "Packages organize related classes and interfaces, provide namespace management and participate in access control."}, {"n": 22, "s": 2, "lv": "E", "q": "Which declaration, if present, must appear before import declarations?", "code": "", "o": ["class declaration", "package declaration", "main method", "constructor"], "oc": [true, false, false, false], "a": 1, "e": "A package declaration appears first in a compilation unit, followed by imports and then top-level type declarations."}, {"n": 23, "s": 2, "lv": "E", "q": "What does the classpath help the Java compiler/runtime locate?", "code": "", "o": ["Only CPU registers", "Classes and package resources", "Only source comments", "The operating system kernel"], "oc": [false, false, false, false], "a": 1, "e": "The classpath identifies locations from which user classes and resources can be loaded."}, {"n": 24, "s": 2, "lv": "E", "q": "Which statement about Java arrays is correct?", "code": "", "o": ["Their length changes automatically", "They store elements of a declared component type and have fixed length", "They can store only primitives", "They have no index"], "oc": [false, false, false, false], "a": 1, "e": "An array has a fixed length once created and can hold primitives or references of its component type."}, {"n": 25, "s": 2, "lv": "E", "q": "What is the valid index range for an array of length n?", "code": "", "o": ["1 through n", "0 through n", "0 through n-1", "-1 through n-1"], "oc": [false, false, false, false], "a": 2, "e": "Java arrays are zero-indexed. The final valid index is length - 1."}, {"n": 26, "s": 2, "lv": "E", "q": "Which property gives the number of elements in an array arr?", "code": "", "o": ["arr.size()", "arr.length", "arr.length()", "arr.count"], "oc": [true, false, true, false], "a": 1, "e": "Arrays expose a length field, not a length() method."}, {"n": 27, "s": 2, "lv": "M", "q": "What happens when code accesses arr[arr.length]?", "code": "", "o": ["It accesses the last element", "It returns null", "ArrayIndexOutOfBoundsException is thrown", "The array grows"], "oc": [false, false, false, false], "a": 2, "e": "The last valid index is arr.length - 1, so arr.length is out of bounds."}, {"n": 28, "s": 2, "lv": "M", "q": "What does a reference variable contain?", "code": "", "o": ["The complete object inline", "A reference to an object or null", "Only an integer", "A method body"], "oc": [false, false, false, false], "a": 1, "e": "A reference variable refers to an object; it does not contain the object's full instance state as a primitive value."}, {"n": 29, "s": 2, "lv": "M", "q": "What happens after b = a when a and b are object references?", "code": "", "o": ["A deep copy is always made", "Both can refer to the same object", "The object is destroyed", "The class is copied"], "oc": [false, false, false, true], "a": 1, "e": "Reference assignment copies the reference value. It does not automatically clone the referenced object."}, {"n": 30, "s": 2, "lv": "M", "q": "When is an object eligible for garbage collection?", "code": "", "o": ["Immediately after construction", "When it is no longer reachable from live references", "Whenever a method returns", "Only when finalize is called"], "oc": [false, false, false, false], "a": 1, "e": "An object becomes eligible when it is unreachable, although the JVM does not guarantee immediate collection."}, {"n": 31, "s": 2, "lv": "M", "q": "Which statement about System.gc() is correct?", "code": "", "o": ["It guarantees immediate collection", "It requests garbage collection but does not guarantee it", "It deletes all objects", "It runs finalize synchronously"], "oc": [false, false, false, false], "a": 1, "e": "System.gc() is only a request/hint to the JVM; collection timing is not guaranteed."}, {"n": 32, "s": 2, "lv": "T", "q": "In modern Java, should finalize() be relied upon for resource cleanup?", "code": "", "o": ["Yes, it is guaranteed to run immediately", "Yes, it replaces close()", "No, finalization is deprecated for removal and is unreliable", "Only for arrays"], "oc": [false, true, false, false], "a": 2, "e": "Finalization is deprecated for removal and must not be used as a dependable cleanup mechanism. Prefer try-with-resources and explicit close methods."}, {"n": 33, "s": 2, "lv": "T", "q": "Which keyword declares a class-level member shared by all instances?", "code": "", "o": ["final", "static", "volatile", "transient"], "oc": [false, false, false, false], "a": 1, "e": "A static field or method belongs to the class rather than to each individual instance."}, {"n": 34, "s": 2, "lv": "T", "q": "Which keyword refers to the current object?", "code": "", "o": ["super", "this", "self", "current"], "oc": [false, false, false, false], "a": 1, "e": "this is a reference to the current object and can distinguish instance fields from parameters."}, {"n": 35, "s": 2, "lv": "T", "q": "What does instanceof test?", "code": "", "o": ["Whether two references are identical", "Whether an object is compatible with a given reference type", "Whether a class is abstract", "Whether a method is static"], "oc": [false, false, true, false], "a": 1, "e": "instanceof performs a runtime type-compatibility test and returns a boolean."}, {"n": 36, "s": 3, "lv": "E", "q": "A class is best described as:", "code": "", "o": ["An instance of an object", "A blueprint defining state and behaviour", "A primitive data type", "A running thread"], "oc": [false, true, false, false], "a": 1, "e": "A class defines fields and methods from which objects are instantiated."}, {"n": 37, "s": 3, "lv": "E", "q": "Which set lists the four commonly taught OOP pillars?", "code": "", "o": ["JVM, JDK, JRE, API", "Abstraction, encapsulation, inheritance, polymorphism", "Looping, branching, casting, compiling", "Files, streams, sockets, threads"], "oc": [false, false, false, false], "a": 1, "e": "These are the four core OOP concepts emphasized in the lecture material."}, {"n": 38, "s": 3, "lv": "E", "q": "Which concept exposes essential features while hiding unnecessary implementation detail?", "code": "", "o": ["Inheritance", "Abstraction", "Overloading", "Serialization"], "oc": [false, false, false, false], "a": 1, "e": "Abstraction models the relevant features of an entity while omitting irrelevant details."}, {"n": 39, "s": 3, "lv": "E", "q": "Which concept bundles data with methods and controls direct access to internal state?", "code": "", "o": ["Encapsulation", "Recursion", "Casting", "Iteration"], "oc": [false, false, false, false], "a": 0, "e": "Encapsulation protects an object's internal state and exposes controlled operations through methods."}, {"n": 40, "s": 3, "lv": "E", "q": "Which access modifier gives the broadest access?", "code": "", "o": ["private", "protected", "default/package-private", "public"], "oc": [false, false, false, false], "a": 3, "e": "public members are accessible wherever the declaring type is accessible, subject to module and type accessibility."}, {"n": 41, "s": 3, "lv": "E", "q": "A member with no explicit access modifier is:", "code": "", "o": ["private", "package-private", "protected", "public"], "oc": [false, false, false, false], "a": 1, "e": "No modifier means package-private access: the member is accessible within its package."}, {"n": 42, "s": 3, "lv": "E", "q": "Which access modifier restricts a member to its declaring class?", "code": "", "o": ["public", "protected", "private", "default"], "oc": [false, false, false, false], "a": 2, "e": "private members are directly accessible only within the declaring top-level class (including relevant nestmate access rules)."}, {"n": 43, "s": 3, "lv": "E", "q": "Which statement about constructors is correct?", "code": "", "o": ["They have a return type", "They initialize newly created objects", "They must be static", "They cannot be overloaded"], "oc": [false, false, false, false], "a": 1, "e": "Constructors initialize instances and have the same name as the class; they do not declare a return type."}, {"n": 44, "s": 3, "lv": "E", "q": "If no constructor is declared in a class, what does the compiler provide?", "code": "", "o": ["A public parameterized constructor", "A default no-argument constructor", "A copy constructor", "No constructor at all"], "oc": [true, false, false, false], "a": 1, "e": "The compiler provides a default no-argument constructor only when the class declares no constructor."}, {"n": 45, "s": 3, "lv": "M", "q": "What is constructor overloading?", "code": "", "o": ["Defining multiple constructors with different parameter lists", "Overriding a constructor", "Calling a constructor repeatedly", "Making a constructor static"], "oc": [false, false, false, false], "a": 0, "e": "Constructors can be overloaded by providing different parameter lists."}, {"n": 46, "s": 3, "lv": "M", "q": "Which statement about this() in a constructor is correct?", "code": "", "o": ["It calls a superclass method", "It invokes another constructor in the same class and must be the first statement", "It creates a new thread", "It is optional after return"], "oc": [true, true, false, false], "a": 1, "e": "this(...) performs constructor chaining within the same class and must be the first constructor statement."}, {"n": 47, "s": 3, "lv": "M", "q": "Which keyword invokes a superclass constructor?", "code": "", "o": ["this", "base", "super", "parent"], "oc": [false, false, false, false], "a": 2, "e": "super(...) invokes a superclass constructor and, when written explicitly, must be the first statement in the constructor."}, {"n": 48, "s": 3, "lv": "M", "q": "Java supports which class inheritance model?", "code": "", "o": ["A class can extend multiple classes", "A class can extend one class", "A class cannot extend another class", "Interfaces cannot be implemented"], "oc": [true, true, true, false], "a": 1, "e": "A Java class has at most one direct superclass, though it can implement multiple interfaces."}, {"n": 49, "s": 3, "lv": "M", "q": "Inheritance commonly models which relationship?", "code": "", "o": ["has-a", "is-a", "uses-a-only", "part-of-a-only"], "oc": [false, false, false, false], "a": 1, "e": "Inheritance represents an is-a relationship between a subclass and its superclass."}, {"n": 50, "s": 3, "lv": "M", "q": "Which members are not directly inherited as accessible members by a subclass?", "code": "", "o": ["public fields", "protected methods", "private fields", "package-visible members in same package"], "oc": [true, true, true, false], "a": 2, "e": "Private superclass members are not directly accessible in the subclass, although they remain part of the superclass portion of the object."}, {"n": 51, "s": 3, "lv": "M", "q": "What is method overloading?", "code": "", "o": ["Same method name with different parameter lists", "Same signature in subclass only", "Changing only the return type", "Calling a method twice"], "oc": [false, true, false, false], "a": 0, "e": "Overloaded methods share a name but differ in parameter number, types or order. Return type alone cannot distinguish overloads."}, {"n": 52, "s": 3, "lv": "M", "q": "What is method overriding?", "code": "", "o": ["A subclass provides a compatible implementation of an inherited instance method", "A class defines two constructors", "A method changes only its return type", "A method is declared final"], "oc": [true, true, false, false], "a": 0, "e": "Overriding lets a subclass specialize an inherited instance method using a compatible signature and return type."}, {"n": 53, "s": 3, "lv": "M", "q": "Which polymorphism is typically resolved at runtime through overriding?", "code": "", "o": ["Compile-time polymorphism", "Runtime polymorphism", "Static binding only", "Operator precedence"], "oc": [false, false, false, false], "a": 1, "e": "Dynamic method dispatch selects an overridden instance method based on the actual object at runtime."}, {"n": 54, "s": 3, "lv": "T", "q": "What does a superclass reference pointing to a subclass object demonstrate?", "code": "", "o": ["Autoboxing", "Upcasting and polymorphism", "Serialization", "Method hiding"], "oc": [false, false, false, false], "a": 1, "e": "A superclass reference can refer to a subclass instance; overridden instance methods dispatch to the subclass implementation."}, {"n": 55, "s": 3, "lv": "T", "q": "Which cast can fail at runtime if the actual object is not of the target subtype?", "code": "", "o": ["Widening primitive conversion", "Downcasting a reference", "int to long", "char to int"], "oc": [false, false, true, false], "a": 1, "e": "An invalid reference downcast throws ClassCastException; instanceof can be used to check compatibility first."}, {"n": 56, "s": 3, "lv": "T", "q": "Which class cannot be instantiated directly?", "code": "", "o": ["Concrete class", "Abstract class", "Final class", "Nested static class"], "oc": [false, false, false, true], "a": 1, "e": "An abstract class may contain abstract methods and cannot be instantiated directly."}, {"n": 57, "s": 3, "lv": "T", "q": "Which statement about an interface is correct?", "code": "", "o": ["A class can implement multiple interfaces", "An interface can be instantiated with new", "A class can implement only one interface", "Interfaces cannot have default methods"], "oc": [true, false, true, false], "a": 0, "e": "Java permits a class to implement multiple interfaces. Interfaces can also declare default, static and private methods under applicable rules."}, {"n": 58, "s": 3, "lv": "T", "q": "What is an inner class?", "code": "", "o": ["A class declared inside another class or interface", "A class without methods", "A top-level public class", "A primitive wrapper"], "oc": [true, true, true, false], "a": 0, "e": "Nested classes are declared within another class; a non-static nested class is commonly called an inner class."}, {"n": 59, "s": 3, "lv": "T", "q": "An anonymous class is:", "code": "", "o": ["A class with no constructor", "A class expression declared and instantiated without a name", "A class that cannot implement interfaces", "A package-private top-level class"], "oc": [true, true, true, true], "a": 1, "e": "An anonymous class provides a one-off subclass or interface implementation at the point of creation."}, {"n": 60, "s": 3, "lv": "T", "q": "Which keyword prevents a class from being subclassed?", "code": "", "o": ["static", "final", "abstract", "volatile"], "oc": [false, false, false, false], "a": 1, "e": "A final class cannot be extended."}, {"n": 61, "s": 4, "lv": "E", "q": "What is an exception?", "code": "", "o": ["A syntax rule", "An event that disrupts normal program flow", "A package declaration", "A compiler optimization"], "oc": [false, false, false, false], "a": 1, "e": "An exception represents an abnormal condition that can be detected and handled during execution."}, {"n": 62, "s": 4, "lv": "E", "q": "Which is the root class of Java's exception/error hierarchy?", "code": "", "o": ["Exception", "Throwable", "RuntimeException", "Object"], "oc": [false, false, false, false], "a": 1, "e": "Throwable is the superclass of Exception and Error."}, {"n": 63, "s": 4, "lv": "E", "q": "Which category generally requires handling or declaration at compile time?", "code": "", "o": ["Checked exceptions", "Unchecked exceptions", "Errors only", "All runtime exceptions"], "oc": [false, false, false, false], "a": 0, "e": "Checked exceptions, except certain special cases, must be caught or declared with throws."}, {"n": 64, "s": 4, "lv": "E", "q": "Which is an unchecked exception?", "code": "", "o": ["IOException", "SQLException", "NullPointerException", "ClassNotFoundException"], "oc": [false, false, false, false], "a": 2, "e": "NullPointerException extends RuntimeException and is unchecked."}, {"n": 65, "s": 4, "lv": "E", "q": "Which keyword explicitly throws an exception object?", "code": "", "o": ["throws", "throw", "catch", "finally"], "oc": [false, false, false, false], "a": 1, "e": "throw is used in a statement to throw a particular Throwable instance."}, {"n": 66, "s": 4, "lv": "E", "q": "Which keyword declares exceptions a method may pass to its caller?", "code": "", "o": ["throw", "throws", "try", "final"], "oc": [false, false, false, false], "a": 1, "e": "throws appears in a method or constructor declaration to list exception types that may be propagated."}, {"n": 67, "s": 4, "lv": "M", "q": "What is the purpose of a finally block?", "code": "", "o": ["To declare a class", "To execute cleanup code after try/catch flow, subject to abrupt JVM termination", "To catch only Errors", "To prevent all exceptions"], "oc": [false, false, false, false], "a": 1, "e": "finally is generally used for cleanup and normally runs whether or not an exception occurs."}, {"n": 68, "s": 4, "lv": "M", "q": "Which order should multiple catch blocks use?", "code": "", "o": ["Superclass before subclass", "Subclass before superclass", "Random order", "Only RuntimeException first"], "oc": [true, true, false, false], "a": 1, "e": "A catch for a superclass makes later catches for its subclasses unreachable, so more specific exception types must come first."}, {"n": 69, "s": 4, "lv": "M", "q": "What happens if an exception is not caught in the current method?", "code": "", "o": ["It is ignored", "It propagates up the call stack", "It becomes a checked exception", "The compiler restarts"], "oc": [false, false, false, false], "a": 1, "e": "An uncaught exception propagates to the caller until handled or until it reaches the thread's uncaught-exception handler."}, {"n": 70, "s": 4, "lv": "M", "q": "Which exception commonly results from integer division by zero?", "code": "", "o": ["IOException", "ArithmeticException", "NumberFormatException", "IndexOutOfBoundsException"], "oc": [false, false, false, false], "a": 1, "e": "Integer division by zero throws ArithmeticException."}, {"n": 71, "s": 4, "lv": "M", "q": "Which exception can result from parsing a non-numeric string using Integer.parseInt?", "code": "", "o": ["NumberFormatException", "IOException", "SQLException", "InterruptedException"], "oc": [false, false, false, false], "a": 0, "e": "parseInt throws NumberFormatException when the input is not a valid integer representation."}, {"n": 72, "s": 4, "lv": "T", "q": "A custom checked exception should generally extend:", "code": "", "o": ["Error", "RuntimeException", "Exception", "Object"], "oc": [false, false, false, false], "a": 2, "e": "A custom checked exception typically extends Exception directly or through another checked exception class."}, {"n": 73, "s": 4, "lv": "T", "q": "Which statement about Error is generally correct?", "code": "", "o": ["It is normally intended for routine application recovery", "It represents serious JVM or system-level problems", "It is always checked", "It is a subclass of RuntimeException"], "oc": [false, false, false, true], "a": 1, "e": "Error represents serious problems that applications generally are not expected to handle as routine conditions."}, {"n": 74, "s": 4, "lv": "T", "q": "What is try-with-resources designed to do?", "code": "", "o": ["Automatically close eligible resources", "Automatically retry failed SQL", "Create threads", "Suppress compilation"], "oc": [false, false, false, false], "a": 0, "e": "Try-with-resources closes AutoCloseable resources automatically when control leaves the statement."}, {"n": 75, "s": 4, "lv": "T", "q": "If a method declares throws IOException, what does it mean?", "code": "", "o": ["It catches IOException", "It may propagate IOException to its caller", "It can never throw IOException", "It converts it to RuntimeException"], "oc": [false, false, false, false], "a": 1, "e": "The throws clause documents and permits propagation of the checked exception to callers."}, {"n": 76, "s": 5, "lv": "E", "q": "Why is String described as immutable?", "code": "", "o": ["Its contents cannot be changed after creation", "It cannot be referenced", "It stores only one character", "It is always mutable"], "oc": [false, false, false, false], "a": 0, "e": "String objects are immutable; operations that appear to modify a string create or return another String."}, {"n": 77, "s": 5, "lv": "E", "q": "What does s1 == s2 compare for String references?", "code": "", "o": ["Text content", "Reference identity", "Alphabetical order", "String length"], "oc": [false, false, false, false], "a": 1, "e": "For references, == checks whether both references identify the same object. Use equals() for content equality."}, {"n": 78, "s": 5, "lv": "E", "q": "Which method compares String contents?", "code": "", "o": ["==", "equals()", "compare()", "same()"], "oc": [true, true, true, true], "a": 1, "e": "String.equals() compares character content, while == compares reference identity."}, {"n": 79, "s": 5, "lv": "E", "q": "What is the String constant pool used for?", "code": "", "o": ["Storing thread stacks", "Sharing/interning string literals and canonical strings", "Storing primitive local variables", "Caching JDBC connections"], "oc": [false, false, false, false], "a": 1, "e": "The string pool enables reuse of equal interned strings, including string literals."}, {"n": 80, "s": 5, "lv": "E", "q": "What does String.intern() return?", "code": "", "o": ["A mutable copy", "The canonical pooled representation of the string", "The string length", "A byte array"], "oc": [false, false, false, false], "a": 1, "e": "intern() returns the canonical pooled String for the same contents, adding it to the pool if necessary."}, {"n": 81, "s": 5, "lv": "E", "q": "Which class is generally preferred for repeated string modification in single-threaded code?", "code": "", "o": ["StringBuilder", "String", "StringTokenizer", "Character"], "oc": [false, false, false, false], "a": 0, "e": "StringBuilder is mutable and avoids creating a new String for every append operation."}, {"n": 82, "s": 5, "lv": "M", "q": "Which class provides synchronized mutable string operations?", "code": "", "o": ["String", "StringBuilder", "StringBuffer", "CharSequence"], "oc": [false, false, false, false], "a": 2, "e": "StringBuffer's methods are synchronized, making it suitable for certain shared mutable-string scenarios."}, {"n": 83, "s": 5, "lv": "M", "q": "Which statement is correct about StringBuilder?", "code": "", "o": ["It is immutable", "It is mutable and not synchronized by default", "It cannot append numbers", "It is an interface"], "oc": [false, false, false, false], "a": 1, "e": "StringBuilder is mutable and generally faster than StringBuffer in single-threaded use because its methods are not synchronized."}, {"n": 84, "s": 5, "lv": "M", "q": "What does length() return for a String?", "code": "", "o": ["Number of bytes in memory", "Number of UTF-16 code units", "Number of words", "Number of distinct characters"], "oc": [false, false, false, false], "a": 1, "e": "String.length() returns the number of UTF-16 code units, not necessarily Unicode code points or displayed characters."}, {"n": 85, "s": 5, "lv": "M", "q": "Which method extracts a portion of a String?", "code": "", "o": ["substring()", "splitOnly()", "sliceArray()", "extract()"], "oc": [true, true, true, true], "a": 0, "e": "substring(begin, end) returns a new String from begin inclusive to end exclusive."}, {"n": 86, "s": 5, "lv": "M", "q": "Which method checks whether a string starts with a prefix?", "code": "", "o": ["contains()", "startsWith()", "matches()", "endsWith()"], "oc": [true, true, true, true], "a": 1, "e": "startsWith(prefix) tests whether the string begins with the supplied prefix."}, {"n": 87, "s": 5, "lv": "T", "q": "Which String method splits text using a regular expression?", "code": "", "o": ["divide()", "split()", "tokenize()", "partition()"], "oc": [true, true, true, true], "a": 1, "e": "String.split(regex) splits around matches of a regular expression."}, {"n": 88, "s": 5, "lv": "T", "q": "In a regular expression, what does \\\\d represent?", "code": "", "o": ["Any letter", "A digit", "Whitespace only", "End of input"], "oc": [false, false, false, false], "a": 1, "e": "The regex token \\d matches a digit; in a Java string literal the backslash is escaped as \\\\d."}, {"n": 89, "s": 5, "lv": "T", "q": "Which method tests whether the entire string matches a regular expression?", "code": "", "o": ["contains()", "matches()", "find()", "search()"], "oc": [true, true, true, true], "a": 1, "e": "String.matches(regex) returns true only when the entire string matches the pattern."}, {"n": 90, "s": 5, "lv": "T", "q": "What does StringBuilder.append() typically return?", "code": "", "o": ["void", "The same StringBuilder instance", "A char array", "A new immutable String"], "oc": [false, false, false, false], "a": 1, "e": "append() returns the StringBuilder itself, allowing chained calls."}, {"n": 91, "s": 6, "lv": "E", "q": "What is the main benefit of Java generics?", "code": "", "o": ["Runtime code generation", "Compile-time type safety and reduced casting", "Automatic database mapping", "Thread scheduling"], "oc": [false, false, false, false], "a": 1, "e": "Generics let APIs express element types and catch many type errors at compile time."}, {"n": 92, "s": 6, "lv": "E", "q": "What does List<E> represent?", "code": "", "o": ["A key-value mapping", "An ordered collection that permits duplicates", "A collection that forbids duplicates", "A thread-safe queue only"], "oc": [false, false, false, false], "a": 1, "e": "List preserves positional order and allows duplicate elements."}, {"n": 93, "s": 6, "lv": "E", "q": "Which implementation is backed by a resizable array?", "code": "", "o": ["ArrayList", "LinkedList", "TreeSet", "HashMap"], "oc": [false, false, false, false], "a": 0, "e": "ArrayList uses a dynamically resizable array internally."}, {"n": 94, "s": 6, "lv": "E", "q": "Which implementation is based on a doubly linked list?", "code": "", "o": ["ArrayList", "LinkedList", "HashSet", "TreeMap"], "oc": [false, false, false, false], "a": 1, "e": "LinkedList implements List and Deque and uses linked nodes, commonly described as a doubly linked list."}, {"n": 95, "s": 6, "lv": "E", "q": "Which collection does not allow duplicate elements?", "code": "", "o": ["List", "Set", "ArrayList", "Vector"], "oc": [false, false, false, false], "a": 1, "e": "Set models a collection with no duplicate elements according to equality semantics."}, {"n": 96, "s": 6, "lv": "E", "q": "Which Set implementation maintains natural sorted order?", "code": "", "o": ["HashSet", "LinkedHashSet", "TreeSet", "ArrayList"], "oc": [false, false, false, false], "a": 2, "e": "TreeSet is a sorted set, normally ordering elements by natural ordering or a supplied Comparator."}, {"n": 97, "s": 6, "lv": "E", "q": "Which Set implementation maintains insertion order?", "code": "", "o": ["HashSet", "LinkedHashSet", "TreeSet", "PriorityQueue"], "oc": [false, false, false, false], "a": 1, "e": "LinkedHashSet maintains a predictable insertion-order iteration sequence."}, {"n": 98, "s": 6, "lv": "E", "q": "Which Map implementation generally makes no ordering guarantee?", "code": "", "o": ["TreeMap", "LinkedHashMap", "HashMap", "EnumMap"], "oc": [false, false, false, false], "a": 2, "e": "HashMap does not guarantee iteration order."}, {"n": 99, "s": 6, "lv": "E", "q": "Which Map implementation sorts keys by natural order by default?", "code": "", "o": ["HashMap", "TreeMap", "LinkedHashMap", "IdentityHashMap"], "oc": [false, false, false, false], "a": 1, "e": "TreeMap is a sorted map ordered by key natural ordering or a supplied Comparator."}, {"n": 100, "s": 6, "lv": "M", "q": "Can a HashMap contain a null key?", "code": "", "o": ["Never", "At most one null key", "Unlimited null keys", "Only if values are null"], "oc": [false, false, false, false], "a": 1, "e": "HashMap permits one null key and multiple null values."}, {"n": 101, "s": 6, "lv": "M", "q": "What does Map.put(key, value) do when the key already exists?", "code": "", "o": ["Always throws an exception", "Replaces the mapping and returns the previous value", "Adds a duplicate key entry", "Clears the map"], "oc": [false, false, false, false], "a": 1, "e": "A Map has unique keys; put replaces the value associated with an existing key and returns the previous value."}, {"n": 102, "s": 6, "lv": "M", "q": "Which interface provides hasNext() and next() for sequential traversal?", "code": "", "o": ["Comparator", "Iterator", "Runnable", "Serializable"], "oc": [false, false, false, false], "a": 1, "e": "Iterator provides hasNext() and next(), and optionally remove() depending on implementation support."}, {"n": 103, "s": 6, "lv": "M", "q": "Which utility class provides static methods such as sort(List)?", "code": "", "o": ["Collection", "Collections", "ArraysList", "Iterator"], "oc": [false, false, false, false], "a": 1, "e": "java.util.Collections contains static algorithms and utility methods for working with collections."}, {"n": 104, "s": 6, "lv": "M", "q": "Which interface is commonly used for a class's natural ordering?", "code": "", "o": ["Comparator", "Comparable", "Iterable", "Cloneable"], "oc": [false, false, false, false], "a": 1, "e": "Comparable<T> defines compareTo(T) and represents a type's natural ordering."}, {"n": 105, "s": 6, "lv": "M", "q": "Which interface supports external/custom comparison strategies?", "code": "", "o": ["Comparable", "Comparator", "Runnable", "AutoCloseable"], "oc": [false, false, false, false], "a": 1, "e": "Comparator<T> defines compare(a, b) and allows multiple ordering strategies."}, {"n": 106, "s": 6, "lv": "M", "q": "What does Comparator.compare(a, b) return when a should come before b?", "code": "", "o": ["Always 0", "A negative integer", "A positive integer", "A boolean"], "oc": [false, false, false, false], "a": 1, "e": "A negative result means the first argument is ordered before the second; zero means equal in ordering; positive means after."}, {"n": 107, "s": 6, "lv": "M", "q": "What does a Queue typically model?", "code": "", "o": ["Last-in-first-out only", "Elements waiting to be processed", "Key-value pairs", "Sorted unique keys only"], "oc": [false, false, false, false], "a": 1, "e": "Queue represents a collection designed for holding elements prior to processing, commonly FIFO."}, {"n": 108, "s": 6, "lv": "M", "q": "Which collection interface provides operations at both ends?", "code": "", "o": ["Deque", "Map", "Set", "SortedMap"], "oc": [false, false, false, false], "a": 0, "e": "Deque is a double-ended queue supporting insertion and removal at both the front and rear."}, {"n": 109, "s": 6, "lv": "T", "q": "What is the purpose of the wildcard <? extends Number>?", "code": "", "o": ["Accept any supertype of Number", "Accept Number or a subtype, primarily for reading values as Number", "Accept only Integer", "Make the list mutable"], "oc": [false, false, false, false], "a": 1, "e": "An upper-bounded wildcard accepts Number and its subtypes; it is useful when a producer supplies values."}, {"n": 110, "s": 6, "lv": "T", "q": "What does <? super Integer> mean?", "code": "", "o": ["Integer or a subtype only", "Integer or one of its supertypes", "Only Object", "Any primitive integer"], "oc": [false, false, false, false], "a": 1, "e": "A lower-bounded wildcard accepts Integer or a supertype of Integer, making it useful for consuming Integer values."}, {"n": 111, "s": 6, "lv": "T", "q": "Which principle summarizes wildcard use for producers and consumers?", "code": "", "o": ["FIFO/LIFO", "PECS: Producer Extends, Consumer Super", "DRY", "MVC"], "oc": [false, false, false, false], "a": 1, "e": "PECS is a practical guideline: use extends when reading/producing values and super when writing/consuming values."}, {"n": 112, "s": 6, "lv": "T", "q": "What does List<Integer> prevent at compile time?", "code": "", "o": ["Storing Integer values", "Adding an unrelated type such as String", "Using iteration", "Calling size()"], "oc": [false, false, false, true], "a": 1, "e": "The generic type parameter restricts elements to Integer-compatible values at compile time."}, {"n": 113, "s": 6, "lv": "T", "q": "Which method reports the number of elements in a Collection?", "code": "", "o": ["length", "size()", "count()", "capacity()"], "oc": [false, true, true, true], "a": 1, "e": "Collection.size() returns the number of elements currently in the collection."}, {"n": 114, "s": 6, "lv": "T", "q": "Which statement about Map is correct?", "code": "", "o": ["Map extends Collection", "Map stores key-value mappings and is separate from Collection hierarchy", "Map forbids values", "Map allows duplicate keys"], "oc": [false, false, false, false], "a": 1, "e": "Map is part of the Collections Framework but does not extend the Collection interface."}, {"n": 115, "s": 6, "lv": "T", "q": "Which is the most suitable structure for fast lookup by a unique employee ID?", "code": "", "o": ["ArrayList only", "HashMap<ID, Employee>", "StringBuilder", "TreeSet of salaries"], "oc": [false, true, false, false], "a": 1, "e": "A HashMap provides key-based lookup and is a natural fit for ID-to-object mappings."}, {"n": 116, "s": 7, "lv": "E", "q": "What is an enum?", "code": "", "o": ["A list of named constants represented by a special class type", "A primitive type", "A thread group", "A file format"], "oc": [true, false, false, false], "a": 0, "e": "An enum defines a fixed set of instances known as enum constants."}, {"n": 117, "s": 7, "lv": "E", "q": "Can an enum be instantiated using new from ordinary client code?", "code": "", "o": ["Yes, always", "No", "Only with public constructor", "Only inside main"], "oc": [false, false, true, false], "a": 1, "e": "Enum instances are the declared constants; client code cannot instantiate enum types using new."}, {"n": 118, "s": 7, "lv": "E", "q": "Which method returns the declared enum constants as an array?", "code": "", "o": ["values()", "valueOf()", "toArray()", "constants()"], "oc": [true, true, true, true], "a": 0, "e": "The compiler provides a static values() method returning an array of the enum constants."}, {"n": 119, "s": 7, "lv": "E", "q": "What does EnumType.valueOf(\"READY\") do?", "code": "", "o": ["Returns null for all inputs", "Returns the enum constant named READY or throws IllegalArgumentException if absent", "Creates a new enum instance", "Returns the ordinal"], "oc": [false, false, false, false], "a": 1, "e": "valueOf(String) looks up a constant by its exact declared name."}, {"n": 120, "s": 7, "lv": "E", "q": "What is autoboxing?", "code": "", "o": ["Converting a wrapper to a primitive", "Automatic conversion of a primitive to its corresponding wrapper type", "Casting Object to String", "Converting int to long"], "oc": [false, false, false, true], "a": 1, "e": "Autoboxing automatically converts a primitive value such as int to its wrapper Integer when required."}, {"n": 121, "s": 7, "lv": "E", "q": "What is unboxing?", "code": "", "o": ["Converting Integer to int automatically", "Converting String to Integer", "Converting double to long", "Creating an enum"], "oc": [true, false, false, false], "a": 0, "e": "Unboxing converts a wrapper object to its corresponding primitive value; unboxing null can throw NullPointerException."}, {"n": 122, "s": 7, "lv": "M", "q": "Which method parses a decimal integer from a String into primitive int?", "code": "", "o": ["Integer.valueOf()", "Integer.parseInt()", "Integer.toString()", "Integer.compareTo()"], "oc": [true, true, true, true], "a": 1, "e": "Integer.parseInt(String) returns primitive int. Integer.valueOf(String) returns an Integer object."}, {"n": 123, "s": 7, "lv": "M", "q": "What does Integer.valueOf(\"42\") return?", "code": "", "o": ["primitive int", "Integer object", "String", "long"], "oc": [false, false, false, false], "a": 1, "e": "valueOf returns an Integer wrapper object, potentially using cached instances for some values."}, {"n": 124, "s": 7, "lv": "M", "q": "Which package contains fundamental classes such as String, Object and Integer?", "code": "", "o": ["java.util", "java.lang", "java.io", "java.sql"], "oc": [true, true, true, true], "a": 1, "e": "java.lang contains core language classes and is implicitly imported into every compilation unit."}, {"n": 125, "s": 7, "lv": "M", "q": "Which package contains ArrayList, HashMap and Random?", "code": "", "o": ["java.lang", "java.util", "java.io", "java.net"], "oc": [true, true, true, true], "a": 1, "e": "These utility and collection classes are in java.util."}, {"n": 126, "s": 7, "lv": "M", "q": "What is the purpose of @Override?", "code": "", "o": ["It creates an interface", "It asks the compiler to verify that a method overrides an inherited method", "It makes a method static", "It prevents exceptions"], "oc": [false, false, false, false], "a": 1, "e": "@Override is a compile-time annotation that helps detect accidental non-overrides."}, {"n": 127, "s": 7, "lv": "T", "q": "Which annotation marks a functional interface?", "code": "", "o": ["@Override", "@FunctionalInterface", "@Deprecated", "@SuppressWarnings"], "oc": [true, true, true, true], "a": 1, "e": "@FunctionalInterface asks the compiler to verify that the interface has exactly one abstract method."}, {"n": 128, "s": 7, "lv": "T", "q": "What does Math.max(a, b) return?", "code": "", "o": ["The smaller value", "The larger value", "The average", "The absolute difference"], "oc": [false, false, false, false], "a": 1, "e": "Math.max returns the greater of its two arguments."}, {"n": 129, "s": 7, "lv": "T", "q": "Which class is used to generate pseudo-random values in java.util?", "code": "", "o": ["Random", "MathOnly", "ThreadLocalDate", "Scanner"], "oc": [false, false, false, false], "a": 0, "e": "java.util.Random generates pseudorandom values; it is not intended for cryptographic security."}, {"n": 130, "s": 7, "lv": "T", "q": "Which statement about wrapper classes is correct?", "code": "", "o": ["They allow primitive values to be represented as objects", "They are all mutable", "They cannot be used in collections", "They are user-defined only"], "oc": [false, false, false, false], "a": 0, "e": "Wrapper classes such as Integer and Double represent primitive values as objects, enabling use in generics and collections."}, {"n": 131, "s": 8, "lv": "E", "q": "A functional interface contains:", "code": "", "o": ["Exactly one abstract method", "Exactly one method of any kind", "No methods", "Only static methods"], "oc": [false, false, false, true], "a": 0, "e": "A functional interface has exactly one abstract method; default and static methods do not count toward the single abstract method."}, {"n": 132, "s": 8, "lv": "E", "q": "What is the lambda operator in Java?", "code": "", "o": ["=>", "->", "::", "==>"], "oc": [true, true, true, true], "a": 1, "e": "Java lambda expressions use -> between the parameter list and the body."}, {"n": 133, "s": 8, "lv": "E", "q": "A lambda expression can be assigned where?", "code": "", "o": ["To any primitive variable", "Where a compatible functional-interface target type is expected", "Only to String", "Only to Thread"], "oc": [false, false, false, false], "a": 1, "e": "The target functional-interface type supplies the parameter and return-type context for a lambda."}, {"n": 134, "s": 8, "lv": "E", "q": "Which functional interface represents a test that returns boolean?", "code": "", "o": ["Consumer<T>", "Predicate<T>", "Supplier<T>", "Function<T,R>"], "oc": [true, true, true, true], "a": 1, "e": "Predicate<T> has test(T) and returns boolean."}, {"n": 135, "s": 8, "lv": "E", "q": "Which interface accepts one argument and returns a result?", "code": "", "o": ["Consumer<T>", "Function<T,R>", "Runnable", "Supplier<T>"], "oc": [true, true, false, true], "a": 1, "e": "Function<T,R> represents a function from T to R through apply(T)."}, {"n": 136, "s": 8, "lv": "E", "q": "Which interface accepts one argument and returns no result?", "code": "", "o": ["Consumer<T>", "Supplier<T>", "Predicate<T>", "Callable<T>"], "oc": [true, true, true, true], "a": 0, "e": "Consumer<T> has accept(T) and returns void."}, {"n": 137, "s": 8, "lv": "M", "q": "Which interface supplies a result without taking an input argument?", "code": "", "o": ["Function<T,R>", "Supplier<T>", "Predicate<T>", "Comparator<T>"], "oc": [true, true, true, true], "a": 1, "e": "Supplier<T> has get() and takes no arguments."}, {"n": 138, "s": 8, "lv": "M", "q": "Which method is the abstract method of Predicate<T>?", "code": "", "o": ["apply(T)", "accept(T)", "test(T)", "get()"], "oc": [true, true, true, true], "a": 2, "e": "Predicate's functional method is boolean test(T t)."}, {"n": 139, "s": 8, "lv": "M", "q": "Which method is the abstract method of Function<T,R>?", "code": "", "o": ["apply(T)", "test(T)", "accept(T)", "run()"], "oc": [true, true, true, true], "a": 0, "e": "Function's functional method is R apply(T t)."}, {"n": 140, "s": 8, "lv": "M", "q": "Which method is the abstract method of Consumer<T>?", "code": "", "o": ["get()", "accept(T)", "apply(T)", "compare(T,T)"], "oc": [true, true, true, true], "a": 1, "e": "Consumer's functional method is void accept(T t)."}, {"n": 141, "s": 8, "lv": "M", "q": "Which lambda correctly represents a Predicate<Integer> that tests whether n is positive?", "code": "", "o": ["n -> n > 0", "n => n > 0", "n -> return n > 0;", "positive(n)"], "oc": [true, true, true, true], "a": 0, "e": "The expression lambda n -> n > 0 returns a boolean and is compatible with Predicate<Integer>."}, {"n": 142, "s": 8, "lv": "T", "q": "What does the method reference String::length represent in an appropriate target context?", "code": "", "o": ["A reference to the length method", "A constructor call", "A package declaration", "A thread start"], "oc": [false, false, false, false], "a": 0, "e": "The :: operator provides a method reference; its compatibility depends on the target functional interface."}, {"n": 143, "s": 8, "lv": "T", "q": "Can a functional interface contain default methods?", "code": "", "o": ["No", "Yes", "Only one method total", "Only private methods"], "oc": [false, false, false, true], "a": 1, "e": "A functional interface may contain default, static and private methods in addition to its one abstract method."}, {"n": 144, "s": 8, "lv": "T", "q": "Which statement about lambda parameter types is correct?", "code": "", "o": ["They must always be explicitly declared", "They can often be inferred from the target type", "They must be primitive", "They must be named arg0"], "oc": [false, false, false, false], "a": 1, "e": "The compiler can infer lambda parameter types from the functional-interface target type."}, {"n": 145, "s": 8, "lv": "T", "q": "Which Collection method accepts a Consumer and performs an action for each element?", "code": "", "o": ["forEach()", "filter()", "reduce()", "compareTo()"], "oc": [true, true, true, true], "a": 0, "e": "Iterable.forEach(Consumer) performs the supplied action for each element."}, {"n": 146, "s": 9, "lv": "E", "q": "A Stream is best described as:", "code": "", "o": ["A data structure that permanently stores elements", "A sequence of elements supporting aggregate operations", "A thread", "A file descriptor"], "oc": [false, false, false, false], "a": 1, "e": "A Stream processes a sequence of elements from a source through a pipeline; it does not itself store the data."}, {"n": 147, "s": 9, "lv": "E", "q": "Which is a key difference between a Collection and a Stream?", "code": "", "o": ["Collections store/manage data; streams process data through operations", "Streams always modify the source", "Collections can never be iterated", "Streams can be reused repeatedly"], "oc": [true, false, false, false], "a": 0, "e": "A collection is a data structure, while a stream is a one-use computation pipeline over a source."}, {"n": 148, "s": 9, "lv": "E", "q": "Which stream operation selects elements matching a condition?", "code": "", "o": ["map()", "filter()", "reduce()", "sorted()"], "oc": [true, true, true, true], "a": 1, "e": "filter(Predicate) retains only elements for which the predicate returns true."}, {"n": 149, "s": 9, "lv": "E", "q": "Which stream operation transforms each element?", "code": "", "o": ["filter()", "map()", "count()", "anyMatch()"], "oc": [true, true, true, true], "a": 1, "e": "map(Function) applies a transformation to each element and emits the mapped results."}, {"n": 150, "s": 9, "lv": "E", "q": "Which operation combines stream elements into a single result?", "code": "", "o": ["filter()", "reduce()", "peek()", "limit()"], "oc": [true, true, true, true], "a": 1, "e": "reduce performs a reduction using an accumulator, optionally with an identity value."}, {"n": 151, "s": 9, "lv": "E", "q": "Which operation converts each element to zero or more elements and flattens the results?", "code": "", "o": ["map()", "flatMap()", "count()", "distinct()"], "oc": [true, true, true, true], "a": 1, "e": "flatMap maps each input to a stream and flattens those streams into one output stream."}, {"n": 152, "s": 9, "lv": "E", "q": "Which of the following is a terminal stream operation?", "code": "", "o": ["filter()", "map()", "sorted()", "count()"], "oc": [true, true, true, true], "a": 3, "e": "count() is terminal and triggers evaluation of the pipeline."}, {"n": 153, "s": 9, "lv": "M", "q": "Which of the following is an intermediate stream operation?", "code": "", "o": ["collect()", "forEach()", "filter()", "count()"], "oc": [true, true, true, true], "a": 2, "e": "filter() is intermediate and returns another stream; terminal operations produce a result or side effect."}, {"n": 154, "s": 9, "lv": "M", "q": "What happens after a terminal operation has been performed on a stream?", "code": "", "o": ["The same stream can be reused freely", "The stream is consumed and should not be reused", "The source collection is always deleted", "The JVM shuts down"], "oc": [false, false, false, false], "a": 1, "e": "A stream is consumed by a terminal operation; attempting to reuse it generally causes IllegalStateException."}, {"n": 155, "s": 9, "lv": "M", "q": "What does anyMatch(predicate) return?", "code": "", "o": ["A count", "True if at least one element matches", "A sorted list", "The first element"], "oc": [false, false, false, false], "a": 1, "e": "anyMatch is a short-circuiting terminal operation that returns true when at least one element matches."}, {"n": 156, "s": 9, "lv": "M", "q": "Which primitive stream specializes for int values?", "code": "", "o": ["Stream<Integer>", "IntStream", "LongStream", "DoubleStream"], "oc": [true, false, false, false], "a": 1, "e": "IntStream is the primitive specialization for int values and offers operations such as sum and average."}, {"n": 157, "s": 9, "lv": "M", "q": "Which method converts an IntStream into Stream<Integer>?", "code": "", "o": ["unbox()", "boxed()", "wrap()", "toObject()"], "oc": [true, true, true, true], "a": 1, "e": "boxed() converts primitive int elements to Integer elements in a reference stream."}, {"n": 158, "s": 9, "lv": "M", "q": "Which method can collect stream results into a List using modern Java APIs?", "code": "", "o": ["collect(Collectors.toList())", "toArrayListOnly()", "reduceList()", "filterList()"], "oc": [true, true, true, true], "a": 0, "e": "A common collection pattern is stream.collect(Collectors.toList()); Java 16+ also provides Stream.toList(), which returns an unmodifiable list."}, {"n": 159, "s": 9, "lv": "M", "q": "Which class represents a date without time or time zone in java.time?", "code": "", "o": ["Date", "LocalDate", "LocalDateTime", "Instant"], "oc": [false, false, false, false], "a": 1, "e": "LocalDate represents a calendar date without a time or time zone."}, {"n": 160, "s": 9, "lv": "M", "q": "Which class represents a date and time without a time zone?", "code": "", "o": ["LocalDate", "LocalTime", "LocalDateTime", "ZoneId"], "oc": [false, false, false, false], "a": 2, "e": "LocalDateTime combines date and time fields but has no time-zone or offset information."}, {"n": 161, "s": 9, "lv": "T", "q": "Which API type represents a point on the UTC timeline?", "code": "", "o": ["LocalDate", "Instant", "Month", "Period"], "oc": [false, false, false, false], "a": 1, "e": "Instant represents a moment on the timeline using seconds and nanoseconds from the epoch."}, {"n": 162, "s": 9, "lv": "T", "q": "Which type is commonly used to represent a date-based amount such as years, months and days?", "code": "", "o": ["Duration", "Period", "Instant", "ZoneOffset"], "oc": [false, false, false, false], "a": 1, "e": "Period represents a date-based amount in years, months and days; Duration is time-based."}, {"n": 163, "s": 9, "lv": "T", "q": "Which class is commonly used to calculate the amount of time between two LocalDate values?", "code": "", "o": ["Period", "Random", "StringBuilder", "Thread"], "oc": [false, false, false, false], "a": 0, "e": "Period.between(start, end) calculates the date-based difference between two LocalDate values."}, {"n": 164, "s": 9, "lv": "T", "q": "Which statement about stream laziness is correct?", "code": "", "o": ["Intermediate operations are generally lazy", "All operations execute immediately", "Terminal operations are always lazy", "Streams never evaluate"], "oc": [false, false, false, false], "a": 0, "e": "Intermediate operations build a pipeline and are generally evaluated only when a terminal operation is invoked."}, {"n": 165, "s": 9, "lv": "T", "q": "Which operation sorts stream elements?", "code": "", "o": ["order()", "sorted()", "arrange()", "sortNow()"], "oc": [true, true, true, true], "a": 1, "e": "sorted() returns a stream with elements ordered by natural order or a supplied Comparator."}, {"n": 166, "s": 10, "lv": "E", "q": "What is a thread?", "code": "", "o": ["A separate program file", "A path of execution within a process", "A database table", "A Java package"], "oc": [false, false, false, false], "a": 1, "e": "A thread is an independent sequence of execution within a process; threads in a process share process resources."}, {"n": 167, "s": 10, "lv": "E", "q": "Which interface is commonly used to define a task for a thread?", "code": "", "o": ["Serializable", "Runnable", "Comparator", "Collection"], "oc": [false, false, false, false], "a": 1, "e": "Runnable represents a task through its run() method."}, {"n": 168, "s": 10, "lv": "E", "q": "Which method actually schedules a new thread of execution?", "code": "", "o": ["run()", "start()", "sleep()", "join()"], "oc": [true, true, true, true], "a": 1, "e": "Calling start() causes the JVM to schedule a new thread; the new thread then invokes run()."}, {"n": 169, "s": 10, "lv": "E", "q": "What happens when run() is called directly like an ordinary method?", "code": "", "o": ["A new thread is always created", "It executes on the current thread", "The JVM rejects it", "It terminates the current thread"], "oc": [false, false, false, false], "a": 1, "e": "A direct call to run() is an ordinary method call and does not start a new thread."}, {"n": 170, "s": 10, "lv": "E", "q": "Which method pauses the current thread for a specified time?", "code": "", "o": ["join()", "sleep()", "notify()", "yield()"], "oc": [true, true, true, true], "a": 1, "e": "Thread.sleep() pauses the currently executing thread for at least the specified duration, subject to scheduling."}, {"n": 171, "s": 10, "lv": "E", "q": "Which method waits for another thread to finish?", "code": "", "o": ["sleep()", "join()", "yield()", "notifyAll()"], "oc": [true, true, true, true], "a": 1, "e": "join() causes the current thread to wait for the target thread to terminate."}, {"n": 172, "s": 10, "lv": "E", "q": "Which method gives a scheduling hint to let other threads run?", "code": "", "o": ["yield()", "wait()", "start()", "interrupt()"], "oc": [true, true, true, true], "a": 0, "e": "yield() is a scheduler hint; it does not guarantee that another thread will run."}, {"n": 173, "s": 10, "lv": "M", "q": "Which object defines the monitor used by a synchronized instance method?", "code": "", "o": ["The class loader", "The current object (this)", "The current thread's stack", "The garbage collector"], "oc": [true, true, false, false], "a": 1, "e": "A synchronized instance method acquires the monitor lock associated with this."}, {"n": 174, "s": 10, "lv": "M", "q": "A synchronized static method locks:", "code": "", "o": ["The current instance", "The Class object associated with the declaring class", "Every object in the JVM", "The current thread"], "oc": [false, false, false, false], "a": 1, "e": "A static synchronized method acquires the monitor of the Class object for the declaring class."}, {"n": 175, "s": 10, "lv": "M", "q": "What problem does synchronization primarily help prevent when accessing shared mutable state?", "code": "", "o": ["Syntax errors", "Race conditions", "Package conflicts", "Integer overflow"], "oc": [false, false, false, false], "a": 1, "e": "Synchronization provides mutual exclusion and memory-visibility guarantees for code guarded by the same monitor."}, {"n": 176, "s": 10, "lv": "M", "q": "Which method releases an object's monitor while waiting for a condition?", "code": "", "o": ["sleep()", "wait()", "join()", "yield()"], "oc": [true, true, true, true], "a": 1, "e": "Object.wait() releases the monitor and suspends the thread until notification, interruption or timeout."}, {"n": 177, "s": 10, "lv": "M", "q": "Which method wakes one thread waiting on an object's monitor?", "code": "", "o": ["notify()", "notifyAll()", "start()", "interruptAll()"], "oc": [true, true, true, true], "a": 0, "e": "notify() wakes one arbitrarily selected thread waiting on that object's monitor."}, {"n": 178, "s": 10, "lv": "M", "q": "Which method wakes all threads waiting on an object's monitor?", "code": "", "o": ["notify()", "notifyAll()", "sleep()", "join()"], "oc": [true, true, true, true], "a": 1, "e": "notifyAll() wakes all threads waiting on that object's monitor; they must reacquire the monitor before proceeding."}, {"n": 179, "s": 10, "lv": "M", "q": "Where must wait(), notify() and notifyAll() be called?", "code": "", "o": ["Anywhere", "While holding the same object's monitor", "Only in static methods", "Only in main"], "oc": [false, false, true, false], "a": 1, "e": "Calling these Object methods without owning the object's monitor throws IllegalMonitorStateException."}, {"n": 180, "s": 10, "lv": "M", "q": "Which state indicates a thread has been created but start() has not yet been called?", "code": "", "o": ["RUNNABLE", "NEW", "BLOCKED", "TERMINATED"], "oc": [false, false, false, false], "a": 1, "e": "A newly constructed Thread is in the NEW state until start() is invoked."}, {"n": 181, "s": 10, "lv": "T", "q": "Which Thread.State represents a thread waiting to acquire a monitor lock?", "code": "", "o": ["WAITING", "TIMED_WAITING", "BLOCKED", "NEW"], "oc": [false, false, false, false], "a": 2, "e": "BLOCKED means the thread is waiting to enter a synchronized block or method because another thread owns the monitor."}, {"n": 182, "s": 10, "lv": "T", "q": "Which is a valid way to implement a task using Runnable?", "code": "", "o": ["Implement run() and pass the instance to Thread", "Implement main() only", "Extend String", "Override wait()"], "oc": [true, true, false, true], "a": 0, "e": "A Runnable implementation defines run() and can be supplied to a Thread constructor."}, {"n": 183, "s": 10, "lv": "T", "q": "What is a race condition?", "code": "", "o": ["A deterministic compile-time warning", "A result that depends on uncontrolled timing/interleaving of concurrent operations", "A thread that runs fastest", "A JVM memory region"], "oc": [false, false, false, false], "a": 1, "e": "A race condition occurs when correctness depends on unpredictable thread interleavings, commonly involving shared mutable state."}, {"n": 184, "s": 10, "lv": "T", "q": "What does thread interruption do?", "code": "", "o": ["Always forcibly terminates a thread", "Sets an interruption signal that cooperative code can detect", "Restarts the JVM", "Releases every lock"], "oc": [false, false, false, false], "a": 1, "e": "Interruption is a cooperative cancellation mechanism; blocking methods may throw InterruptedException."}, {"n": 185, "s": 10, "lv": "T", "q": "What is the main difference between multiprocessing and multithreading in the lecture comparison?", "code": "", "o": ["Processes share one address space by default", "Threads in a process share address space; processes generally have separate address spaces", "Threads always run on separate computers", "Processes cannot run concurrently"], "oc": [false, true, false, false], "a": 1, "e": "The notes contrast separate process address spaces with threads sharing a process address space, with lower communication/context-switch overhead typically associated with threads."}, {"n": 186, "s": 11, "lv": "E", "q": "Which package contains core file and stream I/O classes?", "code": "", "o": ["java.io", "java.sql", "java.net", "java.awt"], "oc": [true, true, true, true], "a": 0, "e": "The java.io package provides stream-based input/output and serialization classes."}, {"n": 187, "s": 11, "lv": "E", "q": "What does serialization mean in Java?", "code": "", "o": ["Converting an object state into a byte stream", "Converting bytecode to source", "Sorting objects", "Starting a thread"], "oc": [false, false, false, false], "a": 0, "e": "Serialization writes an object's state to a byte stream so it can be stored or transmitted."}, {"n": 188, "s": 11, "lv": "E", "q": "Which marker interface enables default Java object serialization?", "code": "", "o": ["Runnable", "Serializable", "Comparable", "Cloneable"], "oc": [false, false, false, false], "a": 1, "e": "A class generally implements Serializable to allow its instances to be serialized by ObjectOutputStream."}, {"n": 189, "s": 11, "lv": "E", "q": "Which class writes objects to an output stream?", "code": "", "o": ["ObjectInputStream", "ObjectOutputStream", "FileReader", "BufferedReader"], "oc": [false, false, false, false], "a": 1, "e": "ObjectOutputStream writes primitive data and object graphs to an underlying output stream."}, {"n": 190, "s": 11, "lv": "E", "q": "Which class reads serialized objects?", "code": "", "o": ["ObjectOutputStream", "ObjectInputStream", "FileWriter", "PrintWriter"], "oc": [false, false, false, false], "a": 1, "e": "ObjectInputStream reads primitive data and objects previously written by ObjectOutputStream."}, {"n": 191, "s": 11, "lv": "E", "q": "Which keyword marks an instance field to be excluded from default serialization?", "code": "", "o": ["volatile", "static", "transient", "native"], "oc": [false, false, false, false], "a": 2, "e": "transient fields are not written as part of default serialization; after deserialization they receive default values unless restored separately."}, {"n": 192, "s": 11, "lv": "M", "q": "Are static fields serialized as part of an individual object's default state?", "code": "", "o": ["Yes, always", "No, static fields belong to the class, not the serialized instance state", "Only if final", "Only if transient"], "oc": [false, true, false, false], "a": 1, "e": "Default serialization records instance state, not static class state."}, {"n": 193, "s": 11, "lv": "M", "q": "Which exception may occur when deserializing an incompatible serialized class version?", "code": "", "o": ["InvalidClassException", "ArithmeticException", "NullPointerException", "NumberFormatException"], "oc": [false, false, false, false], "a": 0, "e": "InvalidClassException is an ObjectStreamException commonly raised for serialization compatibility problems."}, {"n": 194, "s": 11, "lv": "M", "q": "What is serialVersionUID used for?", "code": "", "o": ["Thread identification", "Version compatibility checking during serialization", "File naming", "Database connection pooling"], "oc": [false, false, false, false], "a": 1, "e": "serialVersionUID identifies a serializable class version and helps the runtime verify compatibility."}, {"n": 195, "s": 11, "lv": "M", "q": "Which approach is recommended to ensure a stream is closed?", "code": "", "o": ["Ignore it", "Use try-with-resources", "Call System.gc()", "Use finalize()"], "oc": [false, false, true, true], "a": 1, "e": "Try-with-resources automatically closes resources that implement AutoCloseable, including many I/O streams."}, {"n": 196, "s": 11, "lv": "M", "q": "Which class reads character data efficiently using buffering?", "code": "", "o": ["BufferedReader", "ObjectOutputStream", "Random", "Thread"], "oc": [false, false, false, false], "a": 0, "e": "BufferedReader buffers character input and provides convenient methods such as readLine()."}, {"n": 197, "s": 11, "lv": "T", "q": "Which class writes character data to a file?", "code": "", "o": ["FileWriter", "FileInputStream", "ObjectInputStream", "DataInputStream"], "oc": [false, false, false, false], "a": 0, "e": "FileWriter is a character-output convenience class; for explicit charset control, newer APIs such as Files.newBufferedWriter are often preferable."}, {"n": 198, "s": 11, "lv": "T", "q": "Which statement about File is correct?", "code": "", "o": ["It directly represents the contents of a file in memory", "It represents a file-system path and supports path-related operations", "It serializes objects automatically", "It is a thread"], "oc": [false, false, false, false], "a": 1, "e": "java.io.File represents a file or directory path and provides operations such as exists(), isDirectory() and delete()."}, {"n": 199, "s": 11, "lv": "T", "q": "Which interface should a resource implement to be used in try-with-resources?", "code": "", "o": ["Runnable", "AutoCloseable", "Comparator", "Iterable"], "oc": [false, false, false, false], "a": 1, "e": "Try-with-resources works with resources implementing AutoCloseable; Closeable extends AutoCloseable."}, {"n": 200, "s": 11, "lv": "T", "q": "What is deserialization?", "code": "", "o": ["Writing object state to a stream", "Reconstructing objects from a serialized byte stream", "Deleting a file", "Compiling Java"], "oc": [false, false, false, false], "a": 1, "e": "Deserialization reads a serialized representation and reconstructs the object graph."}, {"n": 201, "s": 12, "lv": "E", "q": "What does JDBC stand for?", "code": "", "o": ["Java Database Connectivity", "Java Data Binary Compiler", "Java Distributed Byte Code", "Joint Database Class"], "oc": [false, false, false, true], "a": 0, "e": "JDBC is the Java API for connecting to databases and executing SQL operations."}, {"n": 202, "s": 12, "lv": "E", "q": "What is the main role of a JDBC driver?", "code": "", "o": ["Compile Java source", "Translate JDBC calls into database-specific communication", "Create Java threads", "Serialize Java objects"], "oc": [false, false, false, false], "a": 1, "e": "A JDBC driver implements the JDBC interfaces and communicates with a particular database system."}, {"n": 203, "s": 12, "lv": "E", "q": "Which JDBC object represents an active database session?", "code": "", "o": ["ResultSet", "Connection", "DriverManager only", "SQLException"], "oc": [false, false, false, false], "a": 1, "e": "Connection represents a session/connection to a particular database."}, {"n": 204, "s": 12, "lv": "E", "q": "Which interface is used to execute a simple SQL statement without parameters?", "code": "", "o": ["Statement", "ResultSet", "Runnable", "PreparedStatement only"], "oc": [false, false, false, false], "a": 0, "e": "Statement is used to execute static SQL statements; PreparedStatement is generally preferred for parameterized SQL."}, {"n": 205, "s": 12, "lv": "E", "q": "Which JDBC interface represents a precompiled parameterized SQL statement?", "code": "", "o": ["Statement", "PreparedStatement", "ResultSet", "Driver"], "oc": [false, false, false, false], "a": 1, "e": "PreparedStatement supports parameter placeholders, parameter binding and repeated execution."}, {"n": 206, "s": 12, "lv": "E", "q": "Which character is commonly used as a parameter placeholder in PreparedStatement SQL?", "code": "", "o": ["#", "?", "@", "$"], "oc": [false, false, true, false], "a": 1, "e": "A question mark (?) represents a positional parameter that is set using methods such as setInt() and setString()."}, {"n": 207, "s": 12, "lv": "M", "q": "Which interface represents tabular data returned by a SELECT query?", "code": "", "o": ["Connection", "ResultSet", "Statement", "DriverManager"], "oc": [false, false, false, false], "a": 1, "e": "ResultSet provides a cursor over rows returned by a query."}, {"n": 208, "s": 12, "lv": "M", "q": "What does ResultSet.next() do?", "code": "", "o": ["Moves to the next row and reports whether one exists", "Closes the connection", "Executes an UPDATE", "Moves to the previous table"], "oc": [false, false, false, false], "a": 0, "e": "next() advances the cursor to the next row and returns false when there are no more rows."}, {"n": 209, "s": 12, "lv": "M", "q": "Which method is commonly used for INSERT, UPDATE and DELETE statements?", "code": "", "o": ["executeQuery()", "executeUpdate()", "next()", "getString()"], "oc": [true, true, true, true], "a": 1, "e": "executeUpdate() is used for SQL statements that change data or schema and returns an update count (or zero for statements with no count)."}, {"n": 210, "s": 12, "lv": "M", "q": "Which method is commonly used for a SELECT query that returns a ResultSet?", "code": "", "o": ["executeQuery()", "executeUpdate()", "setString()", "closeAll()"], "oc": [true, true, true, true], "a": 0, "e": "executeQuery() executes a query and returns its ResultSet."}, {"n": 211, "s": 12, "lv": "M", "q": "Why is PreparedStatement generally safer for user-supplied values?", "code": "", "o": ["It disables SQL", "It binds values separately from SQL text, helping prevent SQL injection", "It encrypts the database", "It removes all constraints"], "oc": [false, false, false, false], "a": 1, "e": "Parameterized values are bound separately, preventing user input from being interpreted as SQL syntax in those parameter positions."}, {"n": 212, "s": 12, "lv": "T", "q": "What does DAO stand for?", "code": "", "o": ["Data Access Object", "Database Array Operator", "Data Allocation Output", "Driver Access Option"], "oc": [false, false, false, false], "a": 0, "e": "The DAO pattern separates persistence logic from business/domain logic."}, {"n": 213, "s": 12, "lv": "T", "q": "What is connection pooling?", "code": "", "o": ["Creating a new database for each query", "Reusing a managed set of database connections", "Caching SQL source files", "Storing passwords in ResultSet"], "oc": [false, false, false, false], "a": 1, "e": "Connection pools reuse established connections to reduce the overhead of repeatedly opening and closing physical database connections."}, {"n": 214, "s": 12, "lv": "T", "q": "Which exception type is central to JDBC error reporting?", "code": "", "o": ["IOException", "SQLException", "ArithmeticException", "ClassCastException"], "oc": [false, false, false, false], "a": 1, "e": "SQLException reports database access errors and provides SQL state, vendor code and chained exception information."}, {"n": 215, "s": 12, "lv": "T", "q": "What is the purpose of try-with-resources in JDBC code?", "code": "", "o": ["Keep connections open forever", "Ensure JDBC resources are closed automatically", "Commit every transaction automatically", "Disable exceptions"], "oc": [false, false, false, false], "a": 1, "e": "Using try-with-resources for Connection, Statement and ResultSet helps ensure resources are closed even when exceptions occur."}, {"n": 216, "s": 13, "lv": "M", "q": "What is printed?", "code": "int x = 5;\nSystem.out.println(x++ + ++x);", "o": ["10", "11", "12", "13"], "oc": [false, false, false, false], "a": 2, "e": "Post-increment contributes 5 and then makes x 6; pre-increment makes x 7 and contributes 7. The sum is 12."}, {"n": 217, "s": 13, "lv": "M", "q": "What is printed?", "code": "int a = 10;\nif (a > 5) System.out.print(\"A\");\nelse System.out.print(\"B\");", "o": ["A", "B", "AB", "Compilation error"], "oc": [false, false, false, false], "a": 0, "e": "The condition 10 > 5 is true, so the if branch prints A."}, {"n": 218, "s": 13, "lv": "M", "q": "What is printed?", "code": "int[] a = {2, 4, 6};\nSystem.out.println(a.length);", "o": ["2", "3", "4", "6"], "oc": [false, false, false, false], "a": 1, "e": "The array contains three elements. Arrays expose their element count through the length field."}, {"n": 219, "s": 13, "lv": "M", "q": "What is printed?", "code": "String s = \"Java\";\ns.concat(\"17\");\nSystem.out.println(s);", "o": ["Java17", "17", "Java", "null"], "oc": [false, false, false, false], "a": 2, "e": "String is immutable. concat returns a new String, but the result is not assigned back to s."}, {"n": 220, "s": 13, "lv": "M", "q": "What is printed?", "code": "String a = new String(\"hi\");\nString b = new String(\"hi\");\nSystem.out.println(a == b);", "o": ["true", "false", "hi", "Compilation error"], "oc": [false, false, false, false], "a": 1, "e": "Each new expression creates a distinct String object, so the references are not identical. Their contents are equal."}, {"n": 221, "s": 13, "lv": "M", "q": "What is printed?", "code": "String a = \"cat\";\nString b = \"cat\";\nSystem.out.println(a == b);", "o": ["true", "false", "Compilation error", "null"], "oc": [false, false, false, false], "a": 0, "e": "Identical string literals are interned, so both variables refer to the same pooled String instance."}, {"n": 222, "s": 13, "lv": "M", "q": "What is printed?", "code": "StringBuilder b = new StringBuilder(\"A\");\nb.append(\"B\").append(\"C\");\nSystem.out.println(b);", "o": ["A", "AB", "ABC", "ABCABC"], "oc": [false, false, false, false], "a": 2, "e": "append mutates the StringBuilder and returns the same builder, so the final contents are ABC."}, {"n": 223, "s": 13, "lv": "T", "q": "What is printed?", "code": "Integer x = 100;\nInteger y = 100;\nSystem.out.println(x == y);", "o": ["Always false", "true for this commonly cached value", "Compilation error", "Always true for all integers"], "oc": [false, false, false, false], "a": 1, "e": "Autoboxing uses Integer.valueOf; values in the guaranteed small cache range (including 100) reuse the same wrapper instance."}, {"n": 224, "s": 13, "lv": "T", "q": "What is printed?", "code": "int n = 3;\nswitch(n) { case 1: System.out.print(\"A\");\nbreak;\ncase 3: System.out.print(\"C\");\nbreak;\ndefault: System.out.print(\"D\");\n}", "o": ["A", "C", "D", "CD"], "oc": [false, false, false, false], "a": 1, "e": "The selector value is 3, so case 3 executes and break exits the switch."}, {"n": 225, "s": 13, "lv": "T", "q": "What is printed?", "code": "List<Integer> xs = new ArrayList<>(List.of(1,2,3));\nxs.remove(1);\nSystem.out.println(xs);", "o": ["[1, 3]", "[2, 3]", "[1, 2]", "Compilation error"], "oc": [true, true, true, false], "a": 0, "e": "For List<Integer>, remove(1) selects remove(int index), deleting the element at index 1 (the value 2)."}, {"n": 226, "s": 13, "lv": "T", "q": "What is printed?", "code": "Set<Integer> s = new HashSet<>();\ns.add(2);\ns.add(2);\nSystem.out.println(s.size());", "o": ["0", "1", "2", "Compilation error"], "oc": [false, false, false, false], "a": 1, "e": "A Set does not retain duplicate elements; adding the same value twice leaves one element."}, {"n": 227, "s": 13, "lv": "T", "q": "What is printed?", "code": "Map<String,Integer> m = new HashMap<>();\nm.put(\"x\",1);\nm.put(\"x\",2);\nSystem.out.println(m.get(\"x\"));", "o": ["1", "2", "null", "Compilation error"], "oc": [false, false, false, false], "a": 1, "e": "Map keys are unique. The second put replaces the value associated with key x."}, {"n": 228, "s": 13, "lv": "T", "q": "What is printed?", "code": "Predicate<Integer> p = n -> n % 2 == 0;\nSystem.out.println(p.test(7));", "o": ["true", "false", "7", "Compilation error"], "oc": [false, false, false, false], "a": 1, "e": "7 % 2 is 1, so the even-number predicate returns false."}, {"n": 229, "s": 13, "lv": "T", "q": "What is printed?", "code": "List<Integer> a = List.of(1,2,3);\nlong c = a.stream().filter(n -> n > 1).count();\nSystem.out.println(c);", "o": ["1", "2", "3", "0"], "oc": [false, false, false, false], "a": 1, "e": "The filter retains 2 and 3. count returns the number of remaining elements, which is 2."}, {"n": 230, "s": 13, "lv": "T", "q": "What is printed?", "code": "int sum = IntStream.of(1,2,3).sum();\nSystem.out.println(sum);", "o": ["3", "5", "6", "123"], "oc": [false, false, false, false], "a": 2, "e": "IntStream.of creates a primitive int stream; sum adds 1 + 2 + 3 to produce 6."}, {"n": 231, "s": 13, "lv": "T", "q": "What is printed?", "code": "class A { void show(){ System.out.print(\"A\");\n} } class B extends A { void show(){ System.out.print(\"B\");\n} } A ref = new B();\nref.show();", "o": ["A", "B", "AB", "Compilation error"], "oc": [false, false, false, false], "a": 1, "e": "Overridden instance methods use runtime dispatch. The actual object is B, so B.show() executes."}, {"n": 232, "s": 13, "lv": "T", "q": "What happens?", "code": "try { System.out.print(1);\n} finally { System.out.print(2);\n}", "o": ["Prints 1 only", "Prints 2 only", "Prints 12", "Compilation error"], "oc": [false, false, false, false], "a": 2, "e": "The try body prints 1 and the finally block then prints 2."}, {"n": 233, "s": 13, "lv": "T", "q": "What is printed?", "code": "Thread t = new Thread(() -> System.out.print(\"T\"));\nt.run();\nSystem.out.print(\"M\");", "o": ["TM in that order", "MT in that order", "Only T", "A new thread is guaranteed"], "oc": [false, false, false, false], "a": 0, "e": "Calling run() directly does not start a new thread; it executes synchronously on the current thread, printing T before M."}, {"n": 234, "s": 13, "lv": "T", "q": "What is printed?", "code": "LocalDate d = LocalDate.of(2026, 1, 31).plusMonths(1);\nSystem.out.println(d);", "o": ["2026-02-31", "2026-03-03", "2026-02-28", "Compilation error"], "oc": [false, false, false, false], "a": 2, "e": "LocalDate adjusts an invalid target day to the last valid day of the resulting month, so January 31 plus one month is February 28, 2026."}, {"n": 235, "s": 13, "lv": "T", "q": "Which line correctly binds a String parameter to the first placeholder in PreparedStatement ps?", "code": "", "o": ["ps.setString(0, \"A\");", "ps.setString(1, \"A\");", "ps.putString(1, \"A\");", "ps.bind(1, \"A\");"], "oc": [true, true, true, true], "a": 1, "e": "PreparedStatement parameter indexes are one-based. setString(1, value) binds the first question-mark placeholder."}]}</script>
+<script>
+(function(){
+"use strict";
+const DATA = JSON.parse(document.getElementById('qdata').textContent);
+const Q = DATA.questions;
+const TOTAL_Q = Q.length;
+const byN = {}; Q.forEach(q => { byN[q.n] = q; });
+const LV = {E:'Easy', M:'Medium', T:'Tough'};
+const LVBARS = {E:1, M:2, T:3};
+const SESS = DATA.sessions.map(s => {
+  const i = s.title.indexOf(': ');
+  const qs = Q.filter(q => q.s === s.n).map(q => q.n);
+  return {n:s.n, refs:s.refs, name: i > 0 ? s.title.slice(0, i) : s.title, topics: i > 0 ? s.title.slice(i + 2) : '', qs};
+});
+const sessByN = {}; SESS.forEach(s => { sessByN[s.n] = s; });
+
+/* ---------- helpers ---------- */
+const $ = id => document.getElementById(id);
+function esc(s){ return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function pct(a, b){ return b ? Math.round(100 * a / b) : 0; }
+const SQLKW = /^(SELECT|FROM|WHERE|AND|OR|NOT|IN|IS|NULL|AS|ON|JOIN|LEFT|RIGHT|INNER|OUTER|CROSS|FULL|NATURAL|USING|GROUP|BY|ORDER|HAVING|LIMIT|OFFSET|DISTINCT|UNION|ALL|ANY|EXISTS|INSERT|INTO|VALUES|UPDATE|SET|DELETE|CREATE|TABLE|VIEW|INDEX|ALTER|DROP|TRUNCATE|RENAME|TO|ADD|COLUMN|MODIFY|CHANGE|PRIMARY|FOREIGN|KEY|REFERENCES|UNIQUE|CHECK|DEFAULT|CONSTRAINT|AUTO_INCREMENT|INT|INTEGER|BIGINT|VARCHAR|CHAR|DECIMAL|DATE|TEXT|BEGIN|END|DECLARE|PROCEDURE|FUNCTION|RETURNS|RETURN|CALL|IF|THEN|ELSE|ELSEIF|CASE|WHEN|WHILE|DO|LOOP|LEAVE|ITERATE|REPEAT|UNTIL|CURSOR|FOR|OPEN|FETCH|CLOSE|HANDLER|CONTINUE|EXIT|FOUND|SQLEXCEPTION|SQLSTATE|SIGNAL|RESIGNAL|TRIGGER|BEFORE|AFTER|EACH|ROW|NEW|OLD|DELIMITER|START|TRANSACTION|COMMIT|ROLLBACK|SAVEPOINT|GRANT|REVOKE|WITH|RECURSIVE|OVER|PARTITION|ROWS|BETWEEN|LIKE|DESC|ASC|COUNT|SUM|AVG|MIN|MAX|ROW_NUMBER|RANK|DENSE_RANK|LAG|LEAD|COALESCE|IFNULL|CONCAT|DETERMINISTIC|READS|SQL|DATA|OUT|INOUT|TEMPORARY|ENGINE|SHOW|DESCRIBE|USE|DATABASE|TRUE|FALSE|def|return|if|elif|else|for|while|break|continue|pass|import|from|as|class|try|except|finally|raise|with|yield|lambda|and|or|not|in|is|None|True|False|self|super|async|await|global|nonlocal|del|assert|function|library|require|install|packages|c|list|data|frame|matrix|factor|NA|NaN|NULL|Inf|TRUE|FALSE|print|range|len|set|dict|tuple|int|float|str|bool|sum|min|max|sorted|zip|map|filter|open|ggplot|aes|geom_bar|geom_point|coord_polar|facet_wrap|group_by|summarise|mutate|select|filter|arrange|pivot_longer|pivot_wider|public|private|protected|static|final|void|new|this|extends|implements|interface|abstract|throws|throw|catch|synchronized|volatile|transient|package|boolean|byte|short|long|double|char|switch|case|default|do|instanceof|enum|System|out|println|String|StringBuilder|List|ArrayList|Set|HashSet|Map|HashMap|IntStream|LocalDate|Thread|PreparedStatement)$/;
+function highlight(code){
+  const re = /('(?:[^'\\]|\\.)*'|"(?:[^"\\]|\\.)*"|--[^\n]*|\/\/[^\n]*|#[^\n]*|\b\d+(?:\.\d+)?\b|\b[A-Za-z_]+\b)/g;
+  let out = '', last = 0, m;
+  while ((m = re.exec(code))){
+    out += esc(code.slice(last, m.index));
+    const t = m[0];
+    if (t[0] === "'" || t[0] === '"') out += '<span class="st">' + esc(t) + '</span>';
+    else if (t.startsWith('--') || t.startsWith('//') || t[0] === '#') out += '<span class="cm">' + esc(t) + '</span>';
+    else if (/^\d/.test(t)) out += '<span class="nu">' + esc(t) + '</span>';
+    else if (SQLKW.test(t)) out += '<span class="kw">' + esc(t) + '</span>';
+    else out += esc(t);
+    last = m.index + t.length;
+  }
+  return out + esc(code.slice(last));
+}
+function asciiTable(rows){
+  const w = rows[0].map((_, c) => Math.max(...rows.map(r => String(r[c]).length)));
+  const line = '+' + w.map(x => '-'.repeat(x + 2)).join('+') + '+';
+  const fmt = r => '| ' + r.map((v, c) => { const s = String(v); return /^\d+$/.test(s) ? s.padStart(w[c]) : s.padEnd(w[c]); }).join(' | ') + ' |';
+  return [line, fmt(rows[0]), line, ...rows.slice(1).map(fmt), line].join('\n') + '\n' + (rows.length - 1) + ' rows in set';
+}
+let toastTimer = null;
+function toast(msg){ const t = $('toast'); t.textContent = msg; t.hidden = false; clearTimeout(toastTimer); toastTimer = setTimeout(() => { t.hidden = true; }, 2200); }
+
+/* ---------- progress store ---------- */
+const LS_KEY = 'java235-progress-v1';
+let store = {a:{}, resetAt:0};
+function lsRead(){ try { const s = localStorage.getItem(LS_KEY); if (s){ const o = JSON.parse(s); if (o && typeof o.a === 'object') store = {a:o.a, resetAt:o.resetAt || 0}; } } catch(e){} }
+function lsWrite(){ try { localStorage.setItem(LS_KEY, JSON.stringify(store)); } catch(e){} }
+function ans(n){ const e = store.a[n]; return (e && e.c >= 0) ? e : null; }
+function record(n, choice){
+  const q = byN[n], ok = choice === q.a, e = store.a[n] || {};
+  store.a[n] = {c:choice, ok, t:Date.now(), w:(e.w || 0) + (ok ? 0 : 1), r:(e.r || 0) + (ok ? 1 : 0)};
+  persist();
+}
+function clearAnswers(ns){
+  const t = Date.now();
+  ns.forEach(n => { const e = store.a[n]; if (e && e.c >= 0) store.a[n] = Object.assign({}, e, {c:-1, ok:false, t}); });
+  persist();
+}
+function resetAll(){ store = {a:{}, resetAt:Date.now()}; persist(); }
+function stats(ns){
+  let ok = 0, bad = 0;
+  ns.forEach(n => { const e = ans(n); if (e){ if (e.ok) ok++; else bad++; } });
+  return {ok, bad, done: ok + bad, total: ns.length, todo: ns.length - ok - bad};
+}
+function wrongList(){ return Q.filter(q => { const e = ans(q.n); return e && !e.ok; }).map(q => q.n); }
+
+let ref = null, remoteOn = false, dirty = false, saveTimer = null, writing = Promise.resolve(), retried = false;
+function setSync(s){
+  const el = $('sync'); el.dataset.s = s;
+  $('syncText').textContent = s === 'account' ? 'Saved to your account' : s === 'connecting' ? 'Connecting…' : 'Saved in this browser';
+}
+function persist(){
+  lsWrite();
+  $('mistakesCount').textContent = wrongList().length;
+  if (remoteOn){ dirty = true; clearTimeout(saveTimer); saveTimer = setTimeout(flush, 1200); }
+}
+function flush(){
+  if (!dirty || !ref || !remoteOn) return;
+  dirty = false;
+  const body = JSON.parse(JSON.stringify(store));
+  writing = writing.then(() => ref.set(body)).then(() => { retried = false; setSync('account'); }, err => {
+    if (err && err.code === 'unavailable' && !retried){ retried = true; dirty = true; saveTimer = setTimeout(flush, 2500 + Math.random() * 2500); }
+    else { remoteOn = false; setSync('local'); }
+  });
+}
+
+/* ---------- view state & universal history stack ---------- */
+let view = 'home';
+let sortMode = 'syllabus';
+let resetArmed = false;
+let set = null;          // {title, sub, kind, s, ns}
+let lvFilter = 'all';    // all | E | M | T
+let stFilter = 'all';    // all | todo | wrong
+let list = [];           // question numbers currently in filtered list
+let idx = 0;             // active question index in list
+let showRefs = false;
+
+let navStack = [];
+let navPtr = -1;
+let suppressPush = false;
+
+function captureSnapshot() {
+  return {
+    view,
+    sortMode,
+    set: set ? JSON.parse(JSON.stringify(set)) : null,
+    lvFilter,
+    stFilter,
+    idx,
+    scrollY: window.scrollY
+  };
+}
+
+function pushNavState() {
+  if (suppressPush) return;
+  const snap = captureSnapshot();
+  if (navPtr >= 0) {
+    const cur = navStack[navPtr];
+    if (cur && cur.view === snap.view && cur.lvFilter === snap.lvFilter && cur.stFilter === snap.stFilter &&
+        cur.sortMode === snap.sortMode && ((cur.set && snap.set && cur.set.title === snap.set.title) || (!cur.set && !snap.set))) {
+      navStack[navPtr] = snap;
+      updateNavButtons();
+      return;
+    }
+  }
+  navStack = navStack.slice(0, navPtr + 1);
+  navStack.push(snap);
+  navPtr = navStack.length - 1;
+  try { history.pushState({navPtr}, ''); } catch(e) {}
+  updateNavButtons();
+}
+
+function restoreNavState(targetPtr) {
+  if (targetPtr < 0 || targetPtr >= navStack.length) return;
+  if (navPtr >= 0 && navStack[navPtr]) {
+    navStack[navPtr].scrollY = window.scrollY;
+  }
+  navPtr = targetPtr;
+  const snap = navStack[navPtr];
+  suppressPush = true;
+  view = snap.view;
+  sortMode = snap.sortMode || 'syllabus';
+  set = snap.set ? JSON.parse(JSON.stringify(snap.set)) : null;
+  lvFilter = snap.lvFilter || 'all';
+  stFilter = snap.stFilter || 'all';
+  if (set) buildList();
+  idx = snap.idx || 0;
+  $('vHome').hidden = view !== 'home';
+  $('vQuiz').hidden = view !== 'quiz';
+  $('vResult').hidden = view !== 'result';
+  $('vMistakes').hidden = view !== 'mistakes';
+  refresh();
+  updateNavButtons();
+  setTimeout(() => {
+    window.scrollTo({top: snap.scrollY || 0, behavior: 'auto'});
+    suppressPush = false;
+  }, 10);
+}
+
+function updateNavButtons() {
+  const backBtn = $('navBackBtn');
+  const fwdBtn = $('navFwdBtn');
+  if (backBtn) backBtn.disabled = navPtr <= 0;
+  if (fwdBtn) fwdBtn.disabled = navPtr >= navStack.length - 1;
+}
+
+window.addEventListener('popstate', ev => {
+  if (ev.state && typeof ev.state.navPtr === 'number') {
+    restoreNavState(ev.state.navPtr);
+  }
+});
+
+function show(v, skipScrollTop){
+  if (navPtr >= 0 && navStack[navPtr]) {
+    navStack[navPtr].scrollY = window.scrollY;
+  }
+  view = v;
+  $('vHome').hidden = v !== 'home'; $('vQuiz').hidden = v !== 'quiz'; $('vResult').hidden = v !== 'result'; $('vMistakes').hidden = v !== 'mistakes';
+  refresh();
+  if (!skipScrollTop) window.scrollTo(0, 0);
+  pushNavState();
+}
+
+function refresh(){
+  $('mistakesCount').textContent = wrongList().length;
+  if (view === 'home') renderHome();
+  else if (view === 'quiz') renderQuiz();
+  else if (view === 'result') renderResult();
+  else if (view === 'mistakes') renderMistakes();
+  updateNavButtons();
+}
+
+/* ---------- home ---------- */
+function stackBar(st, cls){
+  const t = st.total || 1;
+  return '<div class="stack ' + (cls || '') + '" role="img" aria-label="' + st.ok + ' right, ' + st.bad + ' wrong, ' + st.todo + ' not answered"><span class="s-ok" style="width:' + (100 * st.ok / t) + '%"></span><span class="s-bad" style="width:' + (100 * st.bad / t) + '%"></span></div>';
+}
+function renderHome(){
+  const all = stats(Q.map(q => q.n));
+  const acc = all.done ? pct(all.ok, all.done) : null;
+  const lvRows = ['E', 'M', 'T'].map(l => {
+    const st = stats(Q.filter(q => q.lv === l).map(q => q.n));
+    return '<div class="lvrow"><span>' + LV[l] + '</span>' + stackBar(st) + '<span class="num">' + st.ok + '/' + st.done + ' · ' + st.total + '</span></div>';
+  }).join('');
+  const weak = SESS.map(s => ({s, st: stats(s.qs)})).filter(x => x.st.bad > 0)
+    .sort((a, b) => (a.st.ok / a.st.done) - (b.st.ok / b.st.done) || b.st.bad - a.st.bad).slice(0, 5);
+  const weakHtml = weak.length
+    ? '<ul class="weaklist">' + weak.map(x => '<li><button type="button" data-review="' + x.s.n + '"><span class="wname">S' + x.s.n + ' · ' + esc(x.s.name) + '</span><span class="wstat">' + x.st.bad + ' wrong · ' + pct(x.st.ok, x.st.done) + '%</span></button></li>').join('') + '</ul>'
+    : '<p class="empty-note">Answer a few questions and your weakest sessions will show up here, worst first.</p>';
+  const wrongN = wrongList().length;
+  const order = SESS.slice();
+  if (sortMode === 'weak') order.sort((a, b) => {
+    const A = stats(a.qs), B = stats(b.qs);
+    const ka = A.done ? A.ok / A.done : 2, kb = B.done ? B.ok / B.done : 2;
+    return ka - kb || a.n - b.n;
+  });
+  const topics = order.map(s => {
+    const st = stats(s.qs);
+    const lv = {E:0, M:0, T:0}; s.qs.forEach(n => lv[byN[n].lv]++);
+    const score = st.done ? '<div class="tscore">' + pct(st.ok, st.done) + '%<small>' + st.done + '/' + st.total + ' done</small></div>' : '<div class="tscore na">—<small>not started</small></div>';
+    return '<li><button class="topic" type="button" data-session="' + s.n + '">' +
+      '<span class="tnum">S<b>' + String(s.n).padStart(2, '0') + '</b></span>' +
+      '<span class="tbody"><span class="tname">' + esc(s.name) + '</span>' +
+      (s.topics ? '<span class="tsub">' + esc(s.topics) + '</span>' : '') +
+      '<span class="tmeta"><span>Q' + s.qs[0] + '–Q' + s.qs[s.qs.length - 1] + '</span><span>' + s.qs.length + ' questions</span><span>E' + lv.E + ' M' + lv.M + ' T' + lv.T + '</span></span>' +
+      stackBar(st, 'tbar') + '</span>' + score + '</button></li>';
+  }).join('');
+  $('vHome').innerHTML =
+  '<div class="home">' +
+    '<aside class="summary panel">' +
+      '<div><div class="eyebrow">Overall</div><div class="bigrow"><div class="big">' + (acc === null ? '—' : acc + '<small>%</small>') + '</div><div class="muted" style="padding-bottom:4px">accuracy on ' + all.done + ' of ' + TOTAL_Q + ' answered</div></div></div>' +
+      stackBar(all) +
+      '<div class="legend"><span><i class="dot ok"></i>Right <b>' + all.ok + '</b></span><span><i class="dot bad"></i>Wrong <b>' + all.bad + '</b></span><span><i class="dot todo"></i>Left <b>' + all.todo + '</b></span></div>' +
+      '<div><div class="eyebrow" style="margin-bottom:8px">By difficulty · right/answered · total</div><div class="lvrows">' + lvRows + '</div></div>' +
+      '<div class="actions">' +
+        '<button class="btn primary" type="button" id="practiseWrong"' + (wrongN ? '' : ' disabled') + '>Practise my mistakes <span class="count">' + wrongN + '</span></button>' +
+        '<button class="btn" type="button" id="random20">Random 20 from all sessions</button>' +
+      '</div>' +
+      '<div class="weak"><h3>Where you lose marks</h3>' + weakHtml + '</div>' +
+      '<div class="reset">' + (resetArmed
+        ? '<div class="confirm"><span>Clear every answer?</span><button class="btn small" type="button" id="resetYes">Yes, clear</button><button class="btn small ghost" type="button" id="resetNo">Cancel</button></div>'
+        : '<button class="btn small ghost" type="button" id="resetBtn"' + (all.done || wrongN ? '' : ' disabled') + '>Reset all progress</button>') + '</div>' +
+    '</aside>' +
+    '<section>' +
+      '<div class="topics-head"><div><div class="eyebrow">Pick a session</div><h2>13 sections · 235 questions</h2></div>' +
+        '<div class="seg" role="group" aria-label="Order sessions"><button type="button" data-sort="syllabus" aria-pressed="' + (sortMode === 'syllabus') + '">Syllabus order</button><button type="button" data-sort="weak" aria-pressed="' + (sortMode === 'weak') + '">Weakest first</button></div></div>' +
+      '<p class="intro">Answer one syllabus section at a time in a continuous vertical list. You see right or wrong as soon as you tap an option, with the official Java 17 explanation from the answer key.</p>' +
+      '<ul class="topiclist">' + topics + '</ul>' +
+    '</section>' +
+  '</div>';
+}
+
+/* ---------- quiz (Continuous Vertical List) ---------- */
+function startSet(s){ set = s; lvFilter = 'all'; stFilter = 'all'; buildList(); idx = firstOpen(); show('quiz'); }
+function startSession(n){
+  const s = sessByN[n];
+  if (!s) return;
+  startSet({kind:'session', s:n, title:'S' + n + ' · ' + s.name, sub:s.topics, ns:s.qs.slice()});
+}
+function firstOpen(){ const i = list.findIndex(n => !ans(n)); return i < 0 ? 0 : i; }
+function buildList(){
+  list = set.ns.filter(n => {
+    const q = byN[n], e = ans(n);
+    if (lvFilter !== 'all' && q.lv !== lvFilter) return false;
+    if (stFilter === 'todo' && e) return false;
+    if (stFilter === 'wrong' && !(e && !e.ok)) return false;
+    return true;
+  });
+}
+
+function renderSessionSwitcherBar() {
+  if (set.kind !== 'session') return '';
+  const curS = set.s;
+  const prevS = curS > 1 ? sessByN[curS - 1] : null;
+  const nextS = curS < SESS.length ? sessByN[curS + 1] : null;
+  const optionsHtml = SESS.map(s => {
+    const st = stats(s.qs);
+    return '<option value="' + s.n + '"' + (s.n === curS ? ' selected' : '') + '>S' + String(s.n).padStart(2, '0') + ' · ' + esc(s.name) + ' (' + st.done + '/' + st.total + ')</option>';
+  }).join('');
+  return '<div class="sessbar">' +
+    '<button type="button" class="btn small" id="prevSessBtn"' + (prevS ? ' data-goto-session="' + prevS.n + '"' : ' disabled') + '>◀ ' + (prevS ? 'S' + prevS.n : 'Prev') + '</button>' +
+    '<select id="sessJumpSelect" aria-label="Jump to session">' + optionsHtml + '</select>' +
+    '<button type="button" class="btn small" id="nextSessBtn"' + (nextS ? ' data-goto-session="' + nextS.n + '"' : ' disabled') + '>' + (nextS ? 'S' + nextS.n : 'Next') + ' ▶</button>' +
+  '</div>';
+}
+
+function renderQuiz(preserveScroll){
+  const prevY = window.scrollY;
+  const st = stats(set.ns);
+  const lvCounts = {E:0, M:0, T:0}; set.ns.forEach(n => lvCounts[byN[n].lv]++);
+  const lvSeg = '<div class="seg" role="group" aria-label="Difficulty">' + [['all', 'All ' + set.ns.length]].concat(['E', 'M', 'T'].filter(l => lvCounts[l]).map(l => [l, LV[l] + ' ' + lvCounts[l]]))
+    .map(([k, label]) => '<button type="button" data-lv="' + k + '" aria-pressed="' + (lvFilter === k) + '">' + label + '</button>').join('') + '</div>';
+  const stSeg = '<div class="seg" role="group" aria-label="Show"><button type="button" data-st="all" aria-pressed="' + (stFilter === 'all') + '">All</button><button type="button" data-st="todo" aria-pressed="' + (stFilter === 'todo') + '">Not answered</button><button type="button" data-st="wrong" aria-pressed="' + (stFilter === 'wrong') + '">Wrong</button></div>';
+  const strip = list.map((n, i) => {
+    const e = ans(n);
+    return '<button type="button" class="sq' + (e ? (e.ok ? ' ok' : ' bad') : '') + (i === idx ? ' cur' : '') + '" data-go="' + i + '" aria-label="Jump to Question ' + n + (e ? (e.ok ? ', right' : ', wrong') : ', not answered') + '">' + n + '</button>';
+  }).join('');
+  
+  let cardsHtml;
+  if (!list.length){
+    cardsHtml = '<div class="qcard nolist">No questions match this filter. <button class="btn small" type="button" data-st="all">Show all</button></div>';
+  } else {
+    if (idx >= list.length) idx = list.length - 1;
+    cardsHtml = '<div class="qfeed">' + list.map(n => renderCard(byN[n])).join('') + '</div>';
+  }
+
+  const nextS = (set.kind === 'session' && set.s < SESS.length) ? sessByN[set.s + 1] : null;
+  const prevS = (set.kind === 'session' && set.s > 1) ? sessByN[set.s - 1] : null;
+
+  $('vQuiz').innerHTML =
+  '<div class="quiz">' +
+    renderSessionSwitcherBar() +
+    '<div class="qhead"><div class="titles"><div class="eyebrow">' + (set.kind === 'session' ? 'Session' : set.kind === 'random' ? 'Mixed practice' : 'Mistake practice') + '</div><h2>' + esc(set.title) + '</h2>' + (set.sub ? '<div class="muted" style="font-size:13px">' + esc(set.sub) + '</div>' : '') + '</div>' +
+      '<button class="btn small" type="button" id="toResult">See result</button></div>' +
+    '<div class="progressline"><span><b>' + st.done + '</b> of ' + st.total + ' answered</span><span><i class="dot ok"></i><b>' + st.ok + '</b> right</span><span><i class="dot bad"></i><b>' + st.bad + '</b> wrong</span>' + (st.done ? '<span><b>' + pct(st.ok, st.done) + '%</b> accuracy</span>' : '') + '</div>' +
+    stackBar(st) +
+    '<div class="qsticky">' +
+      '<div class="filters">' + lvSeg + stSeg + '</div>' +
+      '<div class="strip-wrap"><div class="strip">' + strip + '</div></div>' +
+    '</div>' +
+    cardsHtml +
+    (list.length ? '<div class="qfoot">' +
+      (prevS ? '<button class="btn" type="button" data-goto-session="' + prevS.n + '">◀ Session ' + prevS.n + '</button>' : '<button class="btn" type="button" data-home>← All sessions</button>') +
+      '<button class="btn ghost small" type="button" id="scrollTopBtn">↑ Top</button>' +
+      '<span class="spacer"></span>' +
+      '<button class="btn" type="button" id="finish">See result scorecard</button>' +
+      (nextS ? '<button class="btn primary" type="button" data-goto-session="' + nextS.n + '">Session ' + nextS.n + ' ▶</button>' : '') +
+    '</div>' : '') +
+  '</div>';
+
+  const sel = $('sessJumpSelect');
+  if (sel) sel.addEventListener('change', function() { startSession(+this.value); });
+
+  if (preserveScroll) {
+    window.scrollTo({top: prevY, behavior: 'auto'});
+  }
+}
+
+function lvlBadge(q){ return '<span class="lvl"><span class="bars on' + LVBARS[q.lv] + '"><i></i><i></i><i></i></span>' + LV[q.lv] + '</span>'; }
+function refsBlock(){
+  if (!DATA.tables || !DATA.tables.EMP) return '';
+  return '<div class="refs"><div class="cap mono">mysql&gt; SELECT * FROM emp;</div><div class="grid-wrap"><pre>' + esc(asciiTable(DATA.tables.EMP)) + '</pre></div>' +
+    '<div class="cap mono">mysql&gt; SELECT * FROM dept;</div><div class="grid-wrap"><pre>' + esc(asciiTable(DATA.tables.DEPT)) + '</pre></div></div>';
+}
+function needsRefs(q){ return sessByN[q.s] && sessByN[q.s].refs && /\b(EMP|DEPT)\b/.test(q.q) && /Refer to|on the EMP|views are created/.test(q.q); }
+
+function renderCard(q){
+  const e = ans(q.n);
+  const opts = q.o.map((t, i) => {
+    let cls = 'opt', mark = '';
+    if (e){
+      if (i === q.a){ cls += ' right'; mark = i === e.c ? '✓ Your answer' : '✓ Correct'; }
+      else if (i === e.c){ cls += ' wrong'; mark = '✗ Your answer'; }
+      else cls += ' dim';
+    }
+    return '<li><button type="button" class="' + cls + '" data-q="' + q.n + '" data-opt="' + i + '"' + (e ? ' disabled' : '') + '><span class="key">' + 'ABCD'[i] + '</span><span class="otext' + (q.oc[i] ? ' codey' : '') + '">' + esc(t) + '</span><span class="mark">' + mark + '</span></button></li>';
+  }).join('');
+  const all = store.a[q.n];
+  const missed = all && all.w ? '<span class="missed">missed ' + all.w + '×</span>' : '';
+  const refs = needsRefs(q);
+  let fb = '';
+  if (e){
+    fb = '<div class="feedback ' + (e.ok ? 'yes' : 'no') + '" role="status"><div class="verdict">' + (e.ok ? 'Correct. Answer ' + 'ABCD'[q.a] : 'Wrong. You chose ' + 'ABCD'[e.c] + ', the answer is ' + 'ABCD'[q.a]) + '</div>' +
+      (e.ok ? '' : '<p><b>' + 'ABCD'[q.a] + '.</b> ' + esc(q.o[q.a]) + '</p>') +
+      '<p>' + esc(q.e) + '</p><div class="fbrow"><button class="btn small ghost" type="button" data-retry-q="' + q.n + '">Try this one again</button></div></div>';
+  }
+  return '<article class="qcard" id="qcard-' + q.n + '" data-qno="' + q.n + '">' +
+    '<div class="qmeta"><span class="qno">Q' + q.n + '</span>' + lvlBadge(q) + '<span class="muted" style="font-size:12.5px">S' + q.s + '</span>' + missed +
+      (refs ? '<button class="btn small refbtn" type="button" data-ref-toggle="' + q.n + '" aria-expanded="' + showRefs + '">' + (showRefs ? 'Hide' : 'Show') + ' EMP &amp; DEPT</button>' : '') + '</div>' +
+    '<p class="stem">' + esc(q.q) + '</p>' +
+    (refs && showRefs ? refsBlock() : '') +
+    (q.code ? '<pre class="code">' + highlight(q.code) + '</pre>' : '') +
+    '<ol class="opts">' + opts + '</ol>' + fb +
+  '</article>';
+}
+
+function answerQuestion(qNum, choiceIdx){
+  if (ans(qNum)) return;
+  record(qNum, choiceIdx);
+  const pos = list.indexOf(qNum);
+  if (pos >= 0) idx = pos;
+  renderQuiz(true);
+}
+
+function goQuestion(i){
+  if (i < 0 || i >= list.length) return;
+  idx = i;
+  const qNum = list[i];
+  document.querySelectorAll('.sq').forEach((btn, bIdx) => btn.classList.toggle('cur', bIdx === i));
+  const card = $('qcard-' + qNum);
+  if (card) card.scrollIntoView({behavior: 'smooth', block: 'start'});
+}
+
+/* Update active question pill in sticky strip while scrolling vertically */
+window.addEventListener('scroll', () => {
+  if (view !== 'quiz' || !list.length) return;
+  const cards = document.querySelectorAll('.qcard[data-qno]');
+  let activeQ = list[0];
+  const threshold = 220;
+  for (let i = 0; i < cards.length; i++) {
+    const rect = cards[i].getBoundingClientRect();
+    if (rect.top <= threshold) {
+      activeQ = +cards[i].dataset.qno;
+    } else {
+      break;
+    }
+  }
+  const newIdx = list.indexOf(activeQ);
+  if (newIdx >= 0 && newIdx !== idx) {
+    idx = newIdx;
+    const sqs = document.querySelectorAll('.sq');
+    sqs.forEach((btn, bIdx) => btn.classList.toggle('cur', bIdx === idx));
+    const cur = sqs[idx];
+    if (cur) {
+      const w = cur.parentElement.parentElement;
+      w.scrollLeft = cur.offsetLeft - w.clientWidth / 2 + cur.clientWidth / 2;
+    }
+  }
+}, {passive: true});
+
+/* ---------- results ---------- */
+function ring(ok, total){
+  const r = 54, c = 2 * Math.PI * r, f = total ? ok / total : 0;
+  return '<div class="ring"><svg viewBox="0 0 132 132" aria-hidden="true"><circle cx="66" cy="66" r="' + r + '" fill="none" stroke="var(--sunken)" stroke-width="12"/>' +
+    '<circle cx="66" cy="66" r="' + r + '" fill="none" stroke="var(--ok)" stroke-width="12" stroke-linecap="round" stroke-dasharray="' + (c * f) + ' ' + c + '"/></svg>' +
+    '<div class="lbl"><div><b>' + ok + '/' + total + '</b><small>correct</small></div></div></div>';
+}
+function mistakeCard(n){
+  const q = byN[n], e = ans(n), all = store.a[n];
+  return '<article class="mistake"><div class="qmeta"><span class="qno">Q' + q.n + '</span>' + lvlBadge(q) + '<span class="muted" style="font-size:12.5px">S' + q.s + '</span>' + (all && all.w > 1 ? '<span class="missed">missed ' + all.w + '×</span>' : '') + '</div>' +
+    '<p class="stem">' + esc(q.q) + '</p>' + (q.code ? '<pre class="code">' + highlight(q.code) + '</pre>' : '') +
+    '<div class="answers"><div class="ans yours"><span class="who">You chose ' + 'ABCD'[e.c] + '</span><span class="' + (q.oc[e.c] ? 'mono' : '') + '">' + esc(q.o[e.c]) + '</span></div>' +
+    '<div class="ans correct"><span class="who">Correct: ' + 'ABCD'[q.a] + '</span><span class="' + (q.oc[q.a] ? 'mono' : '') + '">' + esc(q.o[q.a]) + '</span></div></div>' +
+    '<p class="explain"><b>Why:</b> ' + esc(q.e) + '</p></article>';
+}
+function renderResult(){
+  const st = stats(set.ns);
+  const wrong = set.ns.filter(n => { const e = ans(n); return e && !e.ok; });
+  const lvRows = ['E', 'M', 'T'].map(l => {
+    const ns = set.ns.filter(n => byN[n].lv === l); if (!ns.length) return '';
+    const s = stats(ns);
+    return '<div class="lvrow"><span>' + LV[l] + '</span>' + stackBar(s) + '<span class="num">' + s.ok + '/' + s.total + '</span></div>';
+  }).join('');
+  const nextS = (set.kind === 'session' && set.s < SESS.length) ? sessByN[set.s + 1] : null;
+  $('vResult').innerHTML =
+  '<div class="result">' +
+    renderSessionSwitcherBar() +
+    '<div><div class="eyebrow">Result</div><h2 style="font-size:24px">' + esc(set.title) + '</h2></div>' +
+    '<div class="panel scorecard">' + ring(st.ok, st.total) +
+      '<div style="display:flex;flex-direction:column;gap:12px;min-width:0">' +
+        '<div class="legend"><span><i class="dot ok"></i>Right <b>' + st.ok + '</b></span><span><i class="dot bad"></i>Wrong <b>' + st.bad + '</b></span><span><i class="dot todo"></i>Skipped <b>' + st.todo + '</b></span>' + (st.done ? '<span>Accuracy <b>' + pct(st.ok, st.done) + '%</b></span>' : '') + '</div>' +
+        '<div class="lvrows">' + lvRows + '</div>' +
+        '<div class="rowbtns">' + (wrong.length ? '<button class="btn primary" type="button" id="retryWrong">Retry the ' + wrong.length + ' wrong</button>' : '') +
+          (st.todo ? '<button class="btn" type="button" id="backToQuiz">Answer the ' + st.todo + ' skipped</button>' : '') +
+          (nextS ? '<button class="btn primary" type="button" data-goto-session="' + nextS.n + '">Next: Session ' + nextS.n + ' ▶</button>' : '') +
+          '<button class="btn" type="button" id="restartSet">Restart this set</button><button class="btn ghost" type="button" data-home>All sessions</button></div>' +
+      '</div></div>' +
+    (wrong.length ? '<div class="grouphead"><h3>Where you went wrong</h3><span class="muted">' + wrong.length + ' question' + (wrong.length > 1 ? 's' : '') + '</span></div>' + wrong.map(mistakeCard).join('')
+      : (st.done ? '<div class="panel">No wrong answers in this set.' + (st.todo ? ' ' + st.todo + ' still unanswered.' : '') + '</div>' : '<div class="panel">Nothing answered yet in this set.</div>')) +
+  '</div>';
+  const sel = $('sessJumpSelect');
+  if (sel) sel.addEventListener('change', function() { startSession(+this.value); });
+}
+
+/* ---------- all mistakes ---------- */
+function renderMistakes(){
+  const wrong = wrongList();
+  let html = '<div class="result"><div><div class="eyebrow">Review</div><h2 style="font-size:24px">My mistakes</h2><p class="muted" style="margin:4px 0 0">Every question whose latest answer was wrong, grouped by session.</p></div>';
+  if (!wrong.length){
+    html += '<div class="panel">No wrong answers right now. <button class="btn small" type="button" data-home>Pick a session</button></div>';
+  } else {
+    html += '<div class="rowbtns"><button class="btn primary" type="button" id="practiseAllWrong">Practise all ' + wrong.length + '</button><button class="btn ghost" type="button" data-home>All sessions</button></div>';
+    SESS.forEach(s => {
+      const ns = wrong.filter(n => byN[n].s === s.n); if (!ns.length) return;
+      html += '<div class="grouphead"><h3>S' + s.n + ' · ' + esc(s.name) + '</h3><span class="muted">' + ns.length + ' wrong</span><button class="btn small" type="button" data-practise-session="' + s.n + '">Practise these</button></div>' + ns.map(mistakeCard).join('');
+    });
+  }
+  $('vMistakes').innerHTML = html + '</div>';
+}
+function practiseWrong(ns, title){
+  if (!ns.length) return;
+  clearAnswers(ns);
+  startSet({kind:'retry', title, sub:'Your earlier answers on these are cleared so you can try them fresh.', ns});
+}
+function sampleRandom(k){
+  const shuffle = a => { for (let i = a.length - 1; i > 0; i--){ const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+  const todo = shuffle(Q.filter(q => !ans(q.n)).map(q => q.n));
+  let pick = todo.slice(0, k);
+  if (pick.length < k){
+    const extra = shuffle(Q.filter(q => ans(q.n)).map(q => q.n)).slice(0, k - pick.length);
+    clearAnswers(extra); pick = pick.concat(extra);
+  }
+  return pick.sort((a, b) => a - b);
+}
+
+/* ---------- events ---------- */
+document.addEventListener('click', ev => {
+  const t = ev.target.closest('button'); if (!t) return;
+  if (t.id === 'navBackBtn'){ if (navPtr > 0) restoreNavState(navPtr - 1); return; }
+  if (t.id === 'navFwdBtn'){ if (navPtr < navStack.length - 1) restoreNavState(navPtr + 1); return; }
+  if (t.id === 'homeBtn' || t.hasAttribute('data-home')){ resetArmed = false; show('home'); return; }
+  if (t.id === 'mistakesBtn'){ show('mistakes'); return; }
+  if (t.dataset.session){ startSession(+t.dataset.session); return; }
+  if (t.dataset.gotoSession){ startSession(+t.dataset.gotoSession); return; }
+  if (t.dataset.sort){ sortMode = t.dataset.sort; renderHome(); pushNavState(); return; }
+  if (t.dataset.review){ const s = sessByN[+t.dataset.review]; const ns = s.qs.filter(n => { const e = ans(n); return e && !e.ok; }); practiseWrong(ns, 'S' + s.n + ' mistakes · ' + s.name); return; }
+  if (t.dataset.practiseSession){ const s = sessByN[+t.dataset.practiseSession]; practiseWrong(wrongList().filter(n => byN[n].s === s.n), 'S' + s.n + ' mistakes · ' + s.name); return; }
+  if (t.id === 'practiseWrong' || t.id === 'practiseAllWrong'){ practiseWrong(wrongList(), 'All my mistakes'); return; }
+  if (t.id === 'random20'){ startSet({kind:'random', title:'Random 20', sub:'Unanswered questions first, drawn from all 13 sections.', ns:sampleRandom(20)}); return; }
+  if (t.id === 'resetBtn'){ resetArmed = true; renderHome(); return; }
+  if (t.id === 'resetNo'){ resetArmed = false; renderHome(); return; }
+  if (t.id === 'resetYes'){ resetArmed = false; resetAll(); refresh(); toast('All progress cleared'); return; }
+  if (t.dataset.opt !== undefined && !t.disabled){ answerQuestion(+t.dataset.q, +t.dataset.opt); return; }
+  if (t.dataset.go !== undefined){ goQuestion(+t.dataset.go); return; }
+  if (t.dataset.lv){ lvFilter = t.dataset.lv; buildList(); idx = firstOpen(); renderQuiz(); pushNavState(); return; }
+  if (t.dataset.st){ stFilter = t.dataset.st; buildList(); idx = firstOpen(); renderQuiz(); pushNavState(); return; }
+  if (t.id === 'scrollTopBtn'){ window.scrollTo({top:0, behavior:'smooth'}); return; }
+  if (t.id === 'finish' || t.id === 'toResult'){ show('result'); return; }
+  if (t.dataset.refToggle){ showRefs = !showRefs; renderQuiz(true); return; }
+  if (t.dataset.retryQ){ clearAnswers([+t.dataset.retryQ]); renderQuiz(true); return; }
+  if (t.id === 'retryWrong'){ const ns = set.ns.filter(n => { const e = ans(n); return e && !e.ok; }); practiseWrong(ns, set.title.replace(/^(S\d+) · /, '$1 mistakes · ')); return; }
+  if (t.id === 'backToQuiz'){ stFilter = 'todo'; lvFilter = 'all'; buildList(); idx = 0; show('quiz'); return; }
+  if (t.id === 'restartSet'){ clearAnswers(set.ns); lvFilter = 'all'; stFilter = 'all'; buildList(); idx = 0; show('quiz'); return; }
+});
+
+document.addEventListener('keydown', ev => {
+  const tag = (ev.target && ev.target.tagName) || '';
+  if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
+  if (ev.altKey && ev.key === 'ArrowLeft') { ev.preventDefault(); if (navPtr > 0) restoreNavState(navPtr - 1); return; }
+  if (ev.altKey && ev.key === 'ArrowRight') { ev.preventDefault(); if (navPtr < navStack.length - 1) restoreNavState(navPtr + 1); return; }
+  if (view === 'quiz' && set && set.kind === 'session' && ev.shiftKey) {
+    if (ev.key === 'ArrowRight' && set.s < SESS.length) { ev.preventDefault(); startSession(set.s + 1); return; }
+    if (ev.key === 'ArrowLeft' && set.s > 1) { ev.preventDefault(); startSession(set.s - 1); return; }
+  }
+});
+
+/* ---------- boot ---------- */
+function start(){
+  lsRead();
+  show('home');
+}
+start();
+})();
+</script>
+
+</body>
+</html>
