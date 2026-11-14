@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Linux & Cloud Computing · 318 MCQs Study Console</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<style>
+:root{
+  --bg:#F2F5F6; --surface:#FFFFFF; --sunken:#E7EDEF; --ink:#13232B; --muted:#56676F; --line:#D2DCE0;
+  --accent:#1B5E86; --accent-ink:#FFFFFF; --accent-soft:#DCEAF3;
+  --ok:#1C7A4A; --ok-soft:#DCF1E4; --bad:#B23A2E; --bad-soft:#F7E0DC; --todo:#C5C9D6;
+  --code-bg:#11202A; --code-ink:#D9E5EA; --code-kw:#86C8EC; --code-str:#E8C47A; --code-com:#7E949D; --code-num:#B9A6F0;
+  --font-ui:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --font-display:"IBM Plex Sans Condensed","IBM Plex Sans","Arial Narrow",system-ui,sans-serif;
+  --font-mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --radius:10px; --shadow:0 1px 2px rgba(23,26,43,.06),0 4px 14px rgba(23,26,43,.05);
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0D161B; --surface:#142128; --sunken:#1A2A32; --ink:#E2EBEE; --muted:#93A5AD; --line:#293B44;
+    --accent:#72B6E0; --accent-ink:#06141C; --accent-soft:#17324A;
+    --ok:#5CC98F; --ok-soft:#163626; --bad:#F08C80; --bad-soft:#3D1F1C; --todo:#363C55;
+    --code-bg:#09131A; --code-ink:#D9E5EA; --code-kw:#86C8EC; --code-str:#E8C47A; --code-com:#7E949D; --code-num:#B9A6F0;
+    --shadow:0 1px 2px rgba(0,0,0,.3); color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0D161B; --surface:#142128; --sunken:#1A2A32; --ink:#E2EBEE; --muted:#93A5AD; --line:#293B44;
+  --accent:#72B6E0; --accent-ink:#06141C; --accent-soft:#17324A;
+  --ok:#5CC98F; --ok-soft:#163626; --bad:#F08C80; --bad-soft:#3D1F1C; --todo:#363C55;
+  --code-bg:#09131A; --code-ink:#D9E5EA; --code-kw:#86C8EC; --code-str:#E8C47A; --code-com:#7E949D; --code-num:#B9A6F0;
+  --shadow:0 1px 2px rgba(0,0,0,.3); color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 74px);scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-ui);font-size:15px;line-height:1.55;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-bottom:calc(48px + env(safe-area-inset-bottom,0px))}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+[hidden]{display:none!important}
+button,select{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.wrap{max-width:1080px;margin:0 auto}
+h1,h2,h3{font-family:var(--font-display);text-wrap:balance;margin:0;line-height:1.2}
+.mono{font-family:var(--font-mono)}
+.muted{color:var(--muted)}
+.eyebrow{font-family:var(--font-mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+
+/* Top bar */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:15;background:var(--bg);border-bottom:1px solid var(--line);margin-inline:calc(-1 * max(16px,env(safe-area-inset-left,0px))) calc(-1 * max(16px,env(safe-area-inset-right,0px)));
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.top-in{max-width:1080px;margin:0 auto;display:flex;align-items:center;gap:10px;padding-block:11px;flex-wrap:wrap}
+.nav-arrows{display:inline-flex;gap:6px;align-items:center}
+.brand{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;min-width:0;background:none;border:0;padding:0;cursor:pointer;text-align:left}
+.brand b{font-family:var(--font-display);font-size:21px;font-weight:700;letter-spacing:-.01em}
+.brand span{font-size:13px;color:var(--muted)}
+.sync{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted);font-family:var(--font-mono)}
+.sync i{width:7px;height:7px;border-radius:50%;background:var(--ok);display:inline-block}
+.toplinks{margin-left:auto;display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid var(--line);background:var(--surface);border-radius:8px;
+  padding:8px 14px;font-weight:500;cursor:pointer;min-height:40px;text-align:center;text-decoration:none}
+.btn:hover:not([disabled]){border-color:var(--accent)}
+.btn.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.btn.primary:hover:not([disabled]){filter:brightness(1.07)}
+.btn.ghost{background:transparent}
+.btn.small{padding:5px 10px;min-height:32px;font-size:13px}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+.btn .count{font-family:var(--font-mono);font-size:12px;opacity:.85;background:var(--sunken);padding:1px 6px;border-radius:10px}
+.btn.primary .count{background:rgba(255,255,255,.2);color:inherit}
+
+/* Bookmark button & strip indicator */
+.bm-btn{margin-left:auto;border-radius:999px;font-family:var(--font-mono);font-size:12px;padding:3px 10px;min-height:28px;color:var(--muted)}
+.bm-btn.on{background:var(--accent-soft);border-color:var(--accent);color:var(--accent);font-weight:600}
+.sq{position:relative}
+.sq.bm::after{content:"";position:absolute;left:6px;right:6px;bottom:2px;height:2.5px;border-radius:2px;background:var(--accent)}
+
+/* Home */
+.home{display:grid;grid-template-columns:330px minmax(0,1fr);gap:24px;margin-top:22px;align-items:start}
+@media (max-width:900px){.home{grid-template-columns:minmax(0,1fr)}}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
+.summary{display:flex;flex-direction:column;gap:18px}
+@media (min-width:901px){.summary{position:sticky;top:calc(env(safe-area-inset-top,0px) + 76px)}}
+.bigrow{display:flex;align-items:flex-end;gap:14px;flex-wrap:wrap}
+.big{font-family:var(--font-display);font-size:46px;font-weight:700;line-height:1;font-variant-numeric:tabular-nums}
+.big small{font-size:20px;color:var(--muted);font-weight:600}
+.stack{display:flex;height:10px;border-radius:5px;overflow:hidden;background:var(--sunken)}
+.stack span{display:block;height:100%}
+.stack .s-ok{background:var(--ok)} .stack .s-bad{background:var(--bad)}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.legend b{color:var(--ink);font-weight:600}
+.dot{width:9px;height:9px;border-radius:2px;display:inline-block;margin-right:5px;vertical-align:baseline}
+.dot.ok{background:var(--ok)} .dot.bad{background:var(--bad)} .dot.todo{background:var(--todo)}
+.lvrows{display:grid;gap:8px}
+.lvrow{display:grid;grid-template-columns:78px minmax(0,1fr) 78px;gap:10px;align-items:center;font-size:13px}
+.lvrow .stack{height:7px}
+.lvrow .num{text-align:right;font-family:var(--font-mono);font-variant-numeric:tabular-nums;color:var(--muted)}
+.actions{display:grid;gap:8px}
+.subsets-box{border-top:1px solid var(--line);padding-top:14px;display:flex;flex-direction:column;gap:8px}
+.subsets-box h3{font-size:15px}
+.subset-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.subset-btn{display:flex;flex-direction:column;align-items:flex-start;gap:2px;padding:7px 9px;border:1px solid var(--line);background:var(--sunken);border-radius:7px;cursor:pointer;text-align:left}
+.subset-btn:hover{border-color:var(--accent);background:var(--accent-soft)}
+.subset-btn b{font-family:var(--font-mono);font-size:12px;color:var(--ink)}
+.subset-btn span{font-family:var(--font-mono);font-size:10.5px;color:var(--muted)}
+.weak h3{font-size:16px;margin-bottom:8px}
+.weaklist{display:grid;gap:6px;margin:0;padding:0;list-style:none}
+.weaklist button{width:100%;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center;text-align:left;background:var(--sunken);border:1px solid transparent;border-radius:8px;padding:8px 10px;cursor:pointer}
+.weaklist button:hover{border-color:var(--accent)}
+.weaklist .wname{font-size:13px;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.weaklist .wstat{font-family:var(--font-mono);font-size:12px;color:var(--bad);white-space:nowrap}
+.empty-note{font-size:13px;color:var(--muted);margin:0}
+.reset{border-top:1px solid var(--line);padding-top:14px;display:flex;flex-direction:column;gap:8px}
+.reset .confirm{display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:13px}
+
+.topics-head{display:flex;align-items:flex-end;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.topics-head h2{font-size:24px}
+.seg{display:inline-flex;background:var(--sunken);border-radius:8px;padding:3px;gap:2px;flex-wrap:wrap}
+.seg button{border:0;background:transparent;padding:5px 10px;border-radius:6px;font-size:13px;cursor:pointer;color:var(--muted)}
+.seg button[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:var(--shadow);font-weight:500}
+.topics-head .seg{margin-left:auto}
+.topiclist{display:grid;gap:8px;list-style:none;margin:0;padding:0}
+.topic{width:100%;display:grid;grid-template-columns:62px minmax(0,1fr) 84px;gap:14px;align-items:center;text-align:left;background:var(--surface);
+  border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;cursor:pointer;box-shadow:var(--shadow)}
+.topic:hover{border-color:var(--accent)}
+.tnum{font-family:var(--font-mono);font-size:11px;color:var(--muted);line-height:1.1;text-transform:uppercase;letter-spacing:.05em}
+.tnum b{display:block;font-family:var(--font-display);font-size:21px;color:var(--ink);font-weight:600;letter-spacing:0;white-space:nowrap}
+.tbody{display:flex;flex-direction:column;gap:6px;min-width:0}
+.tname{font-weight:600;font-size:15px;line-height:1.35}
+.tsub{font-size:12.5px;color:var(--muted);line-height:1.4}
+.tmeta{font-family:var(--font-mono);font-size:12px;color:var(--muted);display:flex;gap:10px;flex-wrap:wrap}
+.tmeta .past{color:var(--accent)}
+.tbar{height:6px}
+.tscore{text-align:right;font-family:var(--font-display);font-size:22px;font-weight:600;font-variant-numeric:tabular-nums}
+.tscore small{display:block;font-family:var(--font-mono);font-size:11px;color:var(--muted);font-weight:400;white-space:nowrap}
+.tscore.na{color:var(--todo)}
+@media (max-width:520px){.topic{grid-template-columns:48px minmax(0,1fr) 64px;gap:10px;padding:12px}.tnum b{font-size:17px}.tscore{font-size:18px}}
+.intro{font-size:13.5px;color:var(--muted);max-width:68ch;margin:0 0 14px}
+
+/* Quiz — Continuous Vertical Feed */
+.quiz{max-width:820px;margin:18px auto 0;display:flex;flex-direction:column;gap:14px}
+.switcher-bar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:10px 12px;box-shadow:var(--shadow)}
+.switcher-select{flex:1 1 220px;min-width:0;padding:7px 10px;border:1px solid var(--line);border-radius:7px;background:var(--sunken);color:var(--ink);font-weight:500;font-size:13.5px;cursor:pointer}
+.qhead{display:flex;align-items:flex-start;gap:12px;flex-wrap:wrap}
+.qhead .titles{min-width:0;flex:1 1 300px}
+.qhead h2{font-size:22px}
+.filters{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.strip-wrap{overflow-x:auto;padding-bottom:4px;-webkit-overflow-scrolling:touch;position:sticky;top:calc(env(safe-area-inset-top,0px) + 56px);z-index:10;background:var(--bg);padding-top:6px;border-bottom:1px solid var(--line)}
+.strip{display:flex;gap:5px;width:max-content;padding-bottom:4px}
+.sq{width:38px;height:30px;border-radius:6px;border:1px solid var(--line);background:var(--surface);font-family:var(--font-mono);font-size:11.5px;cursor:pointer;color:var(--muted);flex:none}
+.sq:hover{border-color:var(--accent);color:var(--ink)}
+.sq.ok{background:var(--ok-soft);border-color:var(--ok);color:var(--ok);font-weight:600}
+.sq.bad{background:var(--bad-soft);border-color:var(--bad);color:var(--bad);font-weight:600}
+.sq.cur{outline:2px solid var(--accent);outline-offset:1px;color:var(--ink);font-weight:600}
+.progressline{display:flex;gap:14px;flex-wrap:wrap;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.progressline b{color:var(--ink)}
+.qfeed{display:flex;flex-direction:column;gap:16px}
+.qcard{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:14px;min-width:0;scroll-margin-top:115px;transition:border-color .2s}
+.qcard.flash{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent-soft)}
+@media (max-width:520px){.qcard{padding:16px}}
+.qmeta{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.qno{font-family:var(--font-mono);font-weight:600;font-size:14px;background:var(--sunken);padding:2px 8px;border-radius:5px}
+.lvl{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;color:var(--muted)}
+.bars{display:inline-flex;gap:2px;align-items:flex-end;height:12px}
+.bars i{width:4px;background:var(--todo);border-radius:1px}
+.bars i:nth-child(1){height:5px}.bars i:nth-child(2){height:8px}.bars i:nth-child(3){height:12px}
+.bars.on1 i:nth-child(-n+1),.bars.on2 i:nth-child(-n+2),.bars.on3 i:nth-child(-n+3){background:var(--accent)}
+.missed{font-family:var(--font-mono);font-size:11.5px;color:var(--bad);border:1px solid var(--bad);border-radius:20px;padding:1px 8px}
+.pyq{font-family:var(--font-mono);font-size:11.5px;color:var(--accent);background:var(--accent-soft);border-radius:20px;padding:2px 9px}
+.sref{font-size:12.5px;color:var(--muted);font-family:var(--font-mono)}
+.stem{font-size:16.5px;line-height:1.5;margin:0;white-space:pre-wrap;font-weight:500}
+.code{background:var(--code-bg);color:var(--code-ink);border-radius:8px;padding:14px 16px;margin:0;overflow-x:auto;font-family:var(--font-mono);font-size:13.5px;line-height:1.55;tab-size:4}
+.code .kw{color:var(--code-kw)} .code .st{color:var(--code-str)} .code .cm{color:var(--code-com);font-style:italic} .code .nu{color:var(--code-num)}
+.opts{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.opt{width:100%;display:grid;grid-template-columns:30px minmax(0,1fr) auto;gap:12px;align-items:start;text-align:left;background:var(--surface);border:1.5px solid var(--line);border-radius:9px;padding:11px 12px;cursor:pointer;min-height:48px}
+.opt:hover:not([disabled]){border-color:var(--accent);background:var(--accent-soft)}
+.opt[disabled]{cursor:default}
+.key{width:28px;height:28px;border-radius:6px;background:var(--sunken);display:grid;place-items:center;font-family:var(--font-mono);font-weight:600;font-size:13px}
+.otext{padding-top:3px;min-width:0;overflow-wrap:anywhere}
+.otext.codey{font-family:var(--font-mono);font-size:13.5px;white-space:pre-wrap}
+.mark{padding-top:3px;font-family:var(--font-mono);font-size:12px;font-weight:600;white-space:nowrap}
+.opt.right{border-color:var(--ok);background:var(--ok-soft)}
+.opt.right .key{background:var(--ok);color:var(--surface)}
+.opt.right .mark{color:var(--ok)}
+.opt.wrong{border-color:var(--bad);background:var(--bad-soft)}
+.opt.wrong .key{background:var(--bad);color:var(--surface)}
+.opt.wrong .mark{color:var(--bad)}
+.opt.dim{opacity:.6}
+@media (max-width:520px){.opt{grid-template-columns:30px minmax(0,1fr)}.mark{grid-column:2;padding-top:0}.mark:empty{display:none}}
+.feedback{border-radius:9px;padding:14px;display:flex;flex-direction:column;gap:6px;border-left:4px solid var(--ok);background:var(--ok-soft)}
+.feedback.no{border-left-color:var(--bad);background:var(--bad-soft)}
+.feedback .verdict{font-weight:600;font-size:15px}
+.feedback.yes .verdict{color:var(--ok)} .feedback.no .verdict{color:var(--bad)}
+.feedback p{margin:0}
+.feedback .fbrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
+.qfoot{display:flex;gap:10px;align-items:center;flex-wrap:wrap;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:12px 16px;box-shadow:var(--shadow)}
+.qfoot .spacer{flex:1}
+.nolist{padding:28px;text-align:center;color:var(--muted)}
+
+/* Results + mistakes */
+.result{max-width:820px;margin:18px auto 0;display:flex;flex-direction:column;gap:16px}
+.scorecard{display:grid;grid-template-columns:auto minmax(0,1fr);gap:22px;align-items:center}
+@media (max-width:560px){.scorecard{grid-template-columns:minmax(0,1fr)}}
+.ring{width:132px;height:132px;position:relative;flex:none}
+.ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ring .lbl{position:absolute;inset:0;display:grid;place-items:center;text-align:center}
+.ring .lbl b{font-family:var(--font-display);font-size:32px;line-height:1}
+.ring .lbl small{display:block;font-size:12px;color:var(--muted);font-family:var(--font-mono)}
+.mistake{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.mistake .stem{font-size:15px}
+.answers{display:grid;gap:6px}
+.ans{display:grid;grid-template-columns:116px minmax(0,1fr);gap:10px;font-size:14px;align-items:start;padding:8px 10px;border-radius:7px}
+.ans > span{min-width:0;overflow-wrap:anywhere}
+@media (max-width:520px){.ans{grid-template-columns:minmax(0,1fr);gap:2px}}
+.ans .who{font-family:var(--font-mono);font-size:12px;padding-top:2px}
+.ans.yours{background:var(--bad-soft)} .ans.yours .who{color:var(--bad)}
+.ans.correct{background:var(--ok-soft)} .ans.correct .who{color:var(--ok)}
+.explain{font-size:14px;margin:0;color:var(--ink)}
+.explain b{font-weight:600}
+.grouphead{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-top:6px}
+.grouphead h3{font-size:18px}
+.rowbtns{display:flex;gap:8px;flex-wrap:wrap}
+.toast{position:fixed;left:50%;bottom:calc(18px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:9px 16px;border-radius:8px;font-size:14px;z-index:20;max-width:calc(100% - 32px)}
+
+/* Topic group headings on the home list */
+.ghead{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-top:14px;padding:0 2px}
+.topiclist li.ghead:first-child{margin-top:0}
+.ghead b{font-family:var(--font-display);font-size:18px;font-weight:600}
+.ghead .gno{font-family:var(--font-mono);font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.ghead .gstat{margin-left:auto;font-family:var(--font-mono);font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+
+/* Quick facts */
+.info{max-width:1080px;margin:18px auto 0;display:flex;flex-direction:column;gap:16px}
+.info h2{font-size:24px}
+.info h3{font-size:18px;margin-bottom:10px}
+.info p{margin:0 0 10px;max-width:68ch}
+.info p:last-child{margin-bottom:0}
+.info ul{margin:0;padding-left:20px;display:grid;gap:7px;max-width:68ch}
+.facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+@media (max-width:760px){.facts{grid-template-columns:minmax(0,1fr)}}
+.facts .panel h3{font-size:17px}
+.facts ul{gap:6px;font-size:14px}
+.info code{font-family:var(--font-mono);font-size:13px;background:var(--sunken);padding:1px 5px;border-radius:4px}
+@media (prefers-reduced-motion:no-preference){.opt,.btn,.topic,.sq{transition:border-color .15s,background-color .15s}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="top-in">
+    <a class="btn small" id="allTestsLink" href="index.html">← All Tests</a>
+    <div class="nav-arrows">
+      <button class="btn small ghost" id="navBackBtn" type="button" disabled aria-label="Navigate Back">← Back</button>
+      <button class="btn small ghost" id="navFwdBtn" type="button" disabled aria-label="Navigate Forward">Forward →</button>
+    </div>
+    <button class="brand" id="brandBtn" type="button" aria-label="Console Home">
+      <b id="brandTitle">Linux &amp; Cloud 318</b>
+      <span id="brandSub">CCEE · Linux Programming &amp; Cloud Computing (PGCP-BDA)</span>
+    </button>
+    <div class="toplinks">
+      <button class="btn small ghost" id="consoleHomeBtn" type="button" hidden>Sessions</button>
+      <button class="btn small ghost" id="infoBtn" type="button">Quick facts</button>
+      <button class="btn small ghost" id="bookmarksBtn" type="button">★ Bookmarks <span class="count" id="bookmarksCount">0</span></button>
+      <button class="btn small ghost" id="mistakesBtn" type="button">My mistakes <span class="count" id="mistakesCount">0</span></button>
+      <button class="btn small ghost" id="themeBtn" type="button" aria-label="Toggle color theme">☀️ Light</button>
+      <div class="sync" id="sync" data-s="local"><i></i><span id="syncText">Saved in this browser</span></div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section id="vHome"></section>
+  <section id="vQuiz" hidden></section>
+  <section id="vResult" hidden></section>
+  <section id="vMistakes" hidden></section>
+  <section id="vBookmarks" hidden></section>
+  <section id="vInfo" hidden></section>
+</main>
+<div class="toast" id="toast" hidden></div>
+
+<script type="application/json" id="qdata">{"groups": [{"n": 1, "name": "Part I · Linux Programming", "range": "Sessions 1–3"}, {"n": 2, "name": "Part II · Cloud Computing", "range": "Sessions 4–6"}], "sessions": [{"n": 1, "g": 1, "name": "Linux Fundamentals, Installation & Basic Commands", "topics": "Ubuntu/CentOS install, LVM, EFI, kernel/GRUB, ls, cp, mv, rm, ln, find, locate, grep, sort, uniq, cut, tr, tar, zip, gzip, df, stat, fdisk"}, {"n": 2, "g": 1, "name": "File Management, Permissions, Users & Remote Access", "topics": "chmod, chown, chgrp, umask, /etc/passwd, /etc/group, useradd, usermod, sudoers/visudo, mount/umount, vi/nano, ssh, scp, telnet"}, {"n": 3, "g": 1, "name": "Shell Programming, Pipes, Processes & Enterprise", "topics": "bash, $PATH, $SHELL, export, history, Ctrl+r/z/d, redirection, pipes, &&/||/;, subshells, for/while/until, at, enterprise HA & RAID"}, {"n": 4, "g": 2, "name": "Cloud Paradigms, Planning & Architecture", "topics": "Cloud definition, AWS/Azure/GCP, Front-end/Back-end, Grid & Utility computing, Pay-per-Use, SOA/SOAP/WSDL, Planning phases, QoS"}, {"n": 5, "g": 2, "name": "Cloud Service Models (SaaS, PaaS, IaaS) & Virtualization", "topics": "SaaS characteristics & multi-tenancy, PaaS types & lock-in, IaaS, Type-1 & Type-2 Hypervisors, VMM (Dispatcher/Allocator/Interpreter)"}, {"n": 6, "g": 2, "name": "Cloud Services, Deployment, AWS & Offerings", "topics": "Cloud deployment phases, Google App Engine, Force.com, Windows Azure, Google Maps, Hadoop, AWS Management Console"}], "questions": [{"n": 1, "s": 1, "lv": "E", "q": "Which option of uname displays the kernel version only?", "code": "", "lang": "", "chk": 0, "o": ["uname -a", "uname -m", "uname -r", "uname -s"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: uname -r. (From Linux & Cloud MCQ Bank: 🧪 DAY-1 BASIC COMMANDS — MCQs)"}, {"n": 2, "s": 1, "lv": "E", "q": "Output of uname -m represents:", "code": "", "lang": "", "chk": 0, "o": ["Kernel release", "Operating system name", "Machine hardware architecture", "Hostname"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: Machine hardware architecture. (From Linux & Cloud MCQ Bank: 🧪 DAY-1 BASIC COMMANDS — MCQs)"}, {"n": 3, "s": 1, "lv": "E", "q": "Which command gives complete system information?", "code": "", "lang": "", "chk": 0, "o": ["uname -s", "uname -r", "uname -a", "uname -m"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: uname -a. (From Linux & Cloud MCQ Bank: 🧪 DAY-1 BASIC COMMANDS — MCQs)"}, {"n": 4, "s": 1, "lv": "E", "q": "pwd always prints:", "code": "", "lang": "", "chk": 0, "o": ["Relative path", "Symbolic path", "Absolute path from root", "Home directory path only"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: Absolute path from root. (From Linux & Cloud MCQ Bank: 🧪 DAY-1 BASIC COMMANDS — MCQs)"}, {"n": 5, "s": 1, "lv": "E", "q": "Which files are hidden from default ls output?", "code": "", "lang": "", "chk": 0, "o": ["Executable files", "Files with extension", "Files starting with .", "Read-only files"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: Files starting with .. (From Linux & Cloud MCQ Bank: 🧪 DAY-1 BASIC COMMANDS — MCQs)"}, {"n": 6, "s": 1, "lv": "E", "q": "ls -l does NOT show:", "code": "", "lang": "", "chk": 0, "o": ["File permissions", "File size", "File inode number", "Owner name"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: File inode number. (From Linux & Cloud MCQ Bank: 🧪 DAY-1 BASIC COMMANDS — MCQs)"}, {"n": 7, "s": 1, "lv": "E", "q": "Which option sorts files by size (largest first)?", "code": "", "lang": "", "chk": 0, "o": ["ls -t", "ls -S", "ls -R", "ls -h"], "oc": [false, false, false, false], "a": 1, "e": "Correct answer: ls -S. (From Linux & Cloud MCQ Bank: 🧪 DAY-1 BASIC COMMANDS — MCQs)"}, {"n": 8, "s": 1, "lv": "E", "q": "ls -lh differs from ls -l because it:", "code": "", "lang": "", "chk": 0, "o": ["Adds inode numbers", "Shows human-readable sizes", "Shows hidden files", "Sorts files"], "oc": [false, false, false, false], "a": 1, "e": "Correct answer: Shows human-readable sizes. (From Linux & Cloud MCQ Bank: 🧪 DAY-1 BASIC COMMANDS — MCQs)"}, {"n": 9, "s": 1, "lv": "E", "q": "ls -la is equivalent to:", "code": "", "lang": "", "chk": 0, "o": ["ls -a -h", "ls -l -R", "ls -l -a", "ls -R -a"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: ls -l -a. (From Linux & Cloud MCQ Bank: 🧪 DAY-1 BASIC COMMANDS — MCQs)"}, {"n": 10, "s": 1, "lv": "E", "q": "dir differs from ls because:", "code": "", "lang": "", "chk": 0, "o": ["It shows hidden files by default", "It is faster", "It is functionally similar to ls", "It lists directories only"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: It is functionally similar to ls. (From Linux & Cloud MCQ Bank: 🧪 DAY-1 BASIC COMMANDS — MCQs)"}, {"n": 11, "s": 1, "lv": "E", "q": "tree without arguments shows:", "code": "", "lang": "", "chk": 0, "o": ["Root filesystem", "Home directory", "Current directory recursively", "Only current directory"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: Current directory recursively. (From Linux & Cloud MCQ Bank: 🧪 DAY-1 BASIC COMMANDS — MCQs)"}, {"n": 12, "s": 1, "lv": "E", "q": "cd - does what?", "code": "", "lang": "", "chk": 0, "o": ["Goes to root directory", "Goes to home directory", "Goes to previous directory", "Goes to parent directory"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: Goes to previous directory. (From Linux & Cloud MCQ Bank: 🧪 DAY-1 BASIC COMMANDS — MCQs)"}, {"n": 13, "s": 1, "lv": "E", "q": "Which symbol represents home directory?", "code": "", "lang": "", "chk": 0, "o": ["/", ".", "~", ".."], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: ~. (From Linux & Cloud MCQ Bank: 🧪 DAY-1 BASIC COMMANDS — MCQs)"}, {"n": 14, "s": 1, "lv": "E", "q": "cd .. moves:", "code": "", "lang": "", "chk": 0, "o": ["To root", "One directory up", "To home", "Nowhere"], "oc": [false, false, false, false], "a": 1, "e": "Correct answer: One directory up. (From Linux & Cloud MCQ Bank: 🧪 DAY-1 BASIC COMMANDS — MCQs)"}, {"n": 15, "s": 1, "lv": "E", "q": "mkdir -p a/b/c does what?", "code": "", "lang": "", "chk": 0, "o": ["Fails if a doesn’t exist", "Creates only c", "Creates all parent directories", "Deletes existing directories"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: Creates all parent directories. (From Linux & Cloud MCQ Bank: 🧪 DAY-1 BASIC COMMANDS — MCQs)"}, {"n": 16, "s": 1, "lv": "E", "q": "Without -p, mkdir fails when:", "code": "", "lang": "", "chk": 0, "o": ["Directory exists", "Parent directory missing", "User lacks permission", "All of the above"], "oc": [false, false, false, false], "a": 3, "e": "Correct answer: All of the above. (From Linux & Cloud MCQ Bank: 🧪 DAY-1 BASIC COMMANDS — MCQs)"}, {"n": 17, "s": 1, "lv": "E", "q": "rmdir can remove:", "code": "", "lang": "", "chk": 0, "o": ["Any directory", "Non-empty directory", "Only empty directory", "Files and directories"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: Only empty directory. (From Linux & Cloud MCQ Bank: 🧪 DAY-1 BASIC COMMANDS — MCQs)"}, {"n": 18, "s": 1, "lv": "E", "q": "rmdir -p removes:", "code": "", "lang": "", "chk": 0, "o": ["Directory only", "Directory and parent if empty", "Files recursively", "Directory forcefully"], "oc": [false, false, false, false], "a": 1, "e": "Correct answer: Directory and parent if empty. (From Linux & Cloud MCQ Bank: 🧪 DAY-1 BASIC COMMANDS — MCQs)"}, {"n": 19, "s": 1, "lv": "E", "q": "touch file.txt does which operation if file exists?", "code": "", "lang": "", "chk": 0, "o": ["Deletes content", "Appends content", "Updates timestamps", "Renames file"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: Updates timestamps. (From Linux & Cloud MCQ Bank: 🧪 DAY-1 BASIC COMMANDS — MCQs)"}, {"n": 20, "s": 1, "lv": "E", "q": "Which timestamp is updated by default using touch?", "code": "", "lang": "", "chk": 0, "o": ["Creation time only", "Access & modification time", "Inode change time", "Permission time"], "oc": [false, false, false, false], "a": 1, "e": "Correct answer: Access & modification time. (From Linux & Cloud MCQ Bank: 🧪 DAY-1 BASIC COMMANDS — MCQs)"}, {"n": 21, "s": 1, "lv": "E", "q": "Which command deletes directory recursively?", "code": "", "lang": "", "chk": 0, "o": ["rm dir", "rm -f dir", "rm -r dir", "rmdir dir"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: rm -r dir. (From Linux & Cloud MCQ Bank: 🧪 DAY-1 BASIC COMMANDS — MCQs)"}, {"n": 22, "s": 1, "lv": "E", "q": "rm is dangerous because:", "code": "", "lang": "", "chk": 0, "o": ["Deletes permanently", "Has no undo", "No recycle bin", "All of the above"], "oc": [false, false, false, false], "a": 3, "e": "Correct answer: All of the above. (From Linux & Cloud MCQ Bank: 🧪 DAY-1 BASIC COMMANDS — MCQs)"}, {"n": 23, "s": 1, "lv": "E", "q": "Which option copies directories recursively?", "code": "", "lang": "", "chk": 0, "o": ["-f", "-a", "-r", "-p"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: -r. (From Linux & Cloud MCQ Bank: 🧪 DAY-1 BASIC COMMANDS — MCQs)"}, {"n": 24, "s": 1, "lv": "E", "q": "cp overwrites destination file when:", "code": "", "lang": "", "chk": 0, "o": ["Destination exists", "Source exists", "No warning by default", "Both A and C"], "oc": [false, false, false, false], "a": 3, "e": "Correct answer: Both A and C. (From Linux & Cloud MCQ Bank: 🧪 DAY-1 BASIC COMMANDS — MCQs)"}, {"n": 25, "s": 1, "lv": "E", "q": "mv is used to:", "code": "", "lang": "", "chk": 0, "o": ["Copy files", "Rename files", "Move files", "Both B and C"], "oc": [false, false, false, false], "a": 3, "e": "Correct answer: Both B and C. (From Linux & Cloud MCQ Bank: 🧪 DAY-1 BASIC COMMANDS — MCQs)"}, {"n": 26, "s": 1, "lv": "E", "q": "date shows:", "code": "", "lang": "", "chk": 0, "o": ["Only time", "Only date", "Date & time", "System uptime"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: Date & time. (From Linux & Cloud MCQ Bank: 🧪 DAY-1 BASIC COMMANDS — MCQs)"}, {"n": 27, "s": 1, "lv": "E", "q": "cal 12 2023 displays:", "code": "", "lang": "", "chk": 0, "o": ["Entire year", "December 2023", "Current month", "Invalid command"], "oc": [false, false, false, false], "a": 1, "e": "Correct answer: December 2023. (From Linux & Cloud MCQ Bank: 🧪 DAY-1 BASIC COMMANDS — MCQs)"}, {"n": 28, "s": 1, "lv": "E", "q": "factor 28 outputs:", "code": "", "lang": "", "chk": 0, "o": ["2 × 14", "4 × 7", "2 2 7", "28"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: 2 2 7. (From Linux & Cloud MCQ Bank: 🧪 DAY-1 BASIC COMMANDS — MCQs)"}, {"n": 29, "s": 1, "lv": "E", "q": "sleep 5 pauses execution for:", "code": "", "lang": "", "chk": 0, "o": ["5 ms", "5 minutes", "5 seconds", "5 hours"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: 5 seconds. (From Linux & Cloud MCQ Bank: 🧪 DAY-1 BASIC COMMANDS — MCQs)"}, {"n": 30, "s": 1, "lv": "E", "q": "To exit man page press:", "code": "", "lang": "", "chk": 0, "o": ["Ctrl+C", "Esc", "q", "Ctrl+D"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: q. (From Linux & Cloud MCQ Bank: 🧪 DAY-1 BASIC COMMANDS — MCQs)"}, {"n": 31, "s": 1, "lv": "M", "q": "Standard error stream number is:", "code": "", "lang": "", "chk": 0, "o": ["0", "1", "2", "3"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: 2. (From Linux & Cloud MCQ Bank: 🧪 DAY-2 COMMANDS — MCQs (Redirection, Pipes,)"}, {"n": 32, "s": 1, "lv": "M", "q": "Default lines shown by head is:", "code": "", "lang": "", "chk": 0, "o": ["5", "8", "10", "20"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: 10. (From Linux & Cloud MCQ Bank: 🧪 DAY-2 COMMANDS — MCQs (Redirection, Pipes,)"}, {"n": 33, "s": 1, "lv": "M", "q": "tail -f is used for:", "code": "", "lang": "", "chk": 0, "o": ["Sorting", "Real-time monitoring", "Counting", "Searching"], "oc": [false, false, false, false], "a": 1, "e": "Correct answer: Real-time monitoring. (From Linux & Cloud MCQ Bank: 🧪 DAY-2 COMMANDS — MCQs (Redirection, Pipes,)"}, {"n": 34, "s": 1, "lv": "M", "q": "Numeric sorting uses:", "code": "", "lang": "", "chk": 0, "o": ["-r", "-n", "-k", "-u"], "oc": [false, false, false, false], "a": 1, "e": "Correct answer: -n. (From Linux & Cloud MCQ Bank: 🧪 DAY-2 COMMANDS — MCQs (Redirection, Pipes,)"}, {"n": 35, "s": 1, "lv": "M", "q": "uniq removes duplicates only if lines are:", "code": "", "lang": "", "chk": 0, "o": ["Same anywhere", "Consecutive", "Alphabetical", "Reverse"], "oc": [false, false, false, false], "a": 1, "e": "Correct answer: Consecutive. (From Linux & Cloud MCQ Bank: 🧪 DAY-2 COMMANDS — MCQs (Redirection, Pipes,)"}, {"n": 36, "s": 1, "lv": "M", "q": "wc -l shows:", "code": "", "lang": "", "chk": 0, "o": ["Characters", "Words", "Lines", "Bytes"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: Lines. (From Linux & Cloud MCQ Bank: 🧪 DAY-2 COMMANDS — MCQs (Redirection, Pipes,)"}, {"n": 37, "s": 1, "lv": "M", "q": "file notes.txt identifies:", "code": "", "lang": "", "chk": 0, "o": ["File size", "File type", "File owner", "Permissions"], "oc": [false, false, false, false], "a": 1, "e": "Correct answer: File type. (From Linux & Cloud MCQ Bank: 🧪 DAY-2 COMMANDS — MCQs (Redirection, Pipes,)"}, {"n": 38, "s": 1, "lv": "M", "q": "Which command lists all disk partitions?", "code": "", "lang": "", "chk": 0, "o": ["fdisk", "fdisk -a", "fdisk -l", "df -l"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: fdisk -l. (From Linux & Cloud MCQ Bank: 🔴 ADVANCED COMMANDS – MCQs)"}, {"n": 39, "s": 1, "lv": "M", "q": "man fdisk belongs to which manual section?", "code": "", "lang": "", "chk": 0, "o": ["Section 1", "Section 2", "Section 5", "Section 8"], "oc": [false, false, false, false], "a": 3, "e": "Correct answer: Section 8. (From Linux & Cloud MCQ Bank: 🔴 ADVANCED COMMANDS – MCQs)"}, {"n": 40, "s": 1, "lv": "M", "q": "df -h means:", "code": "", "lang": "", "chk": 0, "o": ["High accuracy", "Hidden files", "Human-readable size", "Hard disk info"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: Human-readable size. (From Linux & Cloud MCQ Bank: 🔴 ADVANCED COMMANDS – MCQs)"}, {"n": 41, "s": 1, "lv": "M", "q": "Which option shows filesystem type?", "code": "", "lang": "", "chk": 0, "o": ["df -i", "df -a", "df -T", "df -l"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: df -T. (From Linux & Cloud MCQ Bank: 🔴 ADVANCED COMMANDS – MCQs)"}, {"n": 42, "s": 1, "lv": "M", "q": "df -i reports usage of:", "code": "", "lang": "", "chk": 0, "o": ["Blocks", "Bytes", "Inodes", "Sectors"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: Inodes. (From Linux & Cloud MCQ Bank: 🔴 ADVANCED COMMANDS – MCQs)"}, {"n": 43, "s": 1, "lv": "M", "q": "Hard links share the same:", "code": "", "lang": "", "chk": 0, "o": ["Filename", "Path", "Inode number", "Permissions only"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: Inode number. (From Linux & Cloud MCQ Bank: 🔴 ADVANCED COMMANDS – MCQs)"}, {"n": 44, "s": 1, "lv": "M", "q": "Hard links cannot be created for:", "code": "", "lang": "", "chk": 0, "o": ["Files", "Directories", "Same filesystem files", "Regular files"], "oc": [false, false, false, false], "a": 1, "e": "Correct answer: Directories. (From Linux & Cloud MCQ Bank: 🔴 ADVANCED COMMANDS – MCQs)"}, {"n": 45, "s": 1, "lv": "M", "q": "Deleting original file of hard link:", "code": "", "lang": "", "chk": 0, "o": ["Deletes data", "Breaks link", "Data remains", "Deletes both"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: Data remains. (From Linux & Cloud MCQ Bank: 🔴 ADVANCED COMMANDS – MCQs)"}, {"n": 46, "s": 1, "lv": "M", "q": "Symbolic link points to:", "code": "", "lang": "", "chk": 0, "o": ["Inode", "Data blocks", "File name/path", "Device"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: File name/path. (From Linux & Cloud MCQ Bank: 🔴 ADVANCED COMMANDS – MCQs)"}, {"n": 47, "s": 1, "lv": "M", "q": "Symbolic link breaks when:", "code": "", "lang": "", "chk": 0, "o": ["Permission changes", "File renamed", "Target deleted", "System reboot"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: Target deleted. (From Linux & Cloud MCQ Bank: 🔴 ADVANCED COMMANDS – MCQs)"}, {"n": 48, "s": 1, "lv": "M", "q": "Symbolic links can span:", "code": "", "lang": "", "chk": 0, "o": ["Same filesystem only", "Multiple filesystems", "Only root FS", "Only ext4"], "oc": [false, false, false, false], "a": 1, "e": "Correct answer: Multiple filesystems. (From Linux & Cloud MCQ Bank: 🔴 ADVANCED COMMANDS – MCQs)"}, {"n": 49, "s": 1, "lv": "M", "q": "locate is fast because it uses:", "code": "", "lang": "", "chk": 0, "o": ["inode table", "Real-time scan", "Prebuilt database", "Kernel cache"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: Prebuilt database. (From Linux & Cloud MCQ Bank: 🔴 ADVANCED COMMANDS – MCQs)"}, {"n": 50, "s": 1, "lv": "M", "q": "updatedb is required because:", "code": "", "lang": "", "chk": 0, "o": ["locate runs slowly", "Database needs refresh", "Kernel demands it", "find depends on it"], "oc": [false, false, false, false], "a": 1, "e": "Correct answer: Database needs refresh. (From Linux & Cloud MCQ Bank: 🔴 ADVANCED COMMANDS – MCQs)"}, {"n": 51, "s": 1, "lv": "M", "q": "locate -i file.txt means:", "code": "", "lang": "", "chk": 0, "o": ["Inode search", "Interactive", "Case-insensitive", "Indexed"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: Case-insensitive. (From Linux & Cloud MCQ Bank: 🔴 ADVANCED COMMANDS – MCQs)"}, {"n": 52, "s": 1, "lv": "M", "q": "locate -c file.txt prints:", "code": "", "lang": "", "chk": 0, "o": ["Paths", "Size", "Count only", "Permissions"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: Count only. (From Linux & Cloud MCQ Bank: 🔴 ADVANCED COMMANDS – MCQs)"}, {"n": 53, "s": 1, "lv": "M", "q": "find differs from locate because it:", "code": "", "lang": "", "chk": 0, "o": ["Uses database", "Is faster", "Searches live filesystem", "Needs sudo always"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: Searches live filesystem. (From Linux & Cloud MCQ Bank: 🔴 ADVANCED COMMANDS – MCQs)"}, {"n": 54, "s": 1, "lv": "M", "q": "find . -type f finds:", "code": "", "lang": "", "chk": 0, "o": ["Directories", "Files only", "Links only", "Devices"], "oc": [false, false, false, false], "a": 1, "e": "Correct answer: Files only. (From Linux & Cloud MCQ Bank: 🔴 ADVANCED COMMANDS – MCQs)"}, {"n": 55, "s": 1, "lv": "M", "q": "Which finds symbolic links?", "code": "", "lang": "", "chk": 0, "o": ["-type s", "-type l", "-type f", "-type d"], "oc": [false, false, false, false], "a": 1, "e": "Correct answer: -type l. (From Linux & Cloud MCQ Bank: 🔴 ADVANCED COMMANDS – MCQs)"}, {"n": 56, "s": 1, "lv": "M", "q": "find . -size +4k finds files:", "code": "", "lang": "", "chk": 0, "o": ["Exactly 4 KB", "Smaller than 4 KB", "Larger than 4 KB", "Equal or less"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: Larger than 4 KB. (From Linux & Cloud MCQ Bank: 🔴 ADVANCED COMMANDS – MCQs)"}, {"n": 57, "s": 1, "lv": "M", "q": "find /dev -type b finds:", "code": "", "lang": "", "chk": 0, "o": ["Files", "Block devices", "Char devices", "Links"], "oc": [false, false, false, false], "a": 1, "e": "Correct answer: Block devices. (From Linux & Cloud MCQ Bank: 🔴 ADVANCED COMMANDS – MCQs)"}, {"n": 58, "s": 1, "lv": "M", "q": "tar cvf file.tar *.txt does:", "code": "", "lang": "", "chk": 0, "o": ["Compress files", "Archive files", "Extract files", "Encrypt files"], "oc": [false, false, false, false], "a": 1, "e": "Correct answer: Archive files. (From Linux & Cloud MCQ Bank: 🔴 ADVANCED COMMANDS – MCQs)"}, {"n": 59, "s": 1, "lv": "M", "q": "z in tar means:", "code": "", "lang": "", "chk": 0, "o": ["zip", "gzip compression", "bzip", "extract"], "oc": [false, false, false, false], "a": 1, "e": "Correct answer: gzip compression. (From Linux & Cloud MCQ Bank: 🔴 ADVANCED COMMANDS – MCQs)"}, {"n": 60, "s": 1, "lv": "M", "q": "zip -r is required for:", "code": "", "lang": "", "chk": 0, "o": ["Files", "Hidden files", "Directories", "Encryption"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: Directories. (From Linux & Cloud MCQ Bank: 🔴 ADVANCED COMMANDS – MCQs)"}, {"n": 61, "s": 1, "lv": "M", "q": "unzip -l file.zip does:", "code": "", "lang": "", "chk": 0, "o": ["Extract files", "List contents", "Delete zip", "Verify zip"], "oc": [false, false, false, false], "a": 1, "e": "Correct answer: List contents. (From Linux & Cloud MCQ Bank: 🔴 ADVANCED COMMANDS – MCQs)"}, {"n": 62, "s": 1, "lv": "M", "q": "gzip file.txt results in:", "code": "", "lang": "", "chk": 0, "o": ["file.txt + file.txt.gz", "file.txt.gz only", "file.zip", "file.tar.gz"], "oc": [false, false, false, false], "a": 1, "e": "Correct answer: file.txt.gz only. (From Linux & Cloud MCQ Bank: 🔴 ADVANCED COMMANDS – MCQs)"}, {"n": 63, "s": 1, "lv": "M", "q": "gzip -k keeps:", "code": "", "lang": "", "chk": 0, "o": ["Only compressed", "Only original", "Both files", "None"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: Both files. (From Linux & Cloud MCQ Bank: 🔴 ADVANCED COMMANDS – MCQs)"}, {"n": 64, "s": 1, "lv": "M", "q": "grep -w is file matches:", "code": "", "lang": "", "chk": 0, "o": ["is anywhere", "is as word only", "case-insensitive", "inverted"], "oc": [false, false, false, false], "a": 1, "e": "Correct answer: is as word only. (From Linux & Cloud MCQ Bank: 🔴 ADVANCED COMMANDS – MCQs)"}, {"n": 65, "s": 1, "lv": "M", "q": "^ in regex means:", "code": "", "lang": "", "chk": 0, "o": ["Negation", "End of line", "Start of line", "Any char"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: Start of line. (From Linux & Cloud MCQ Bank: 🔴 ADVANCED COMMANDS – MCQs)"}, {"n": 66, "s": 1, "lv": "M", "q": "egrep supports:", "code": "", "lang": "", "chk": 0, "o": ["Basic regex", "Fixed strings", "Extended regex", "No regex"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: Extended regex. (From Linux & Cloud MCQ Bank: 🔴 ADVANCED COMMANDS – MCQs)"}, {"n": 67, "s": 1, "lv": "M", "q": "grep -F treats pattern as:", "code": "", "lang": "", "chk": 0, "o": ["Regex", "Extended regex", "Literal string", "Wildcard"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: Literal string. (From Linux & Cloud MCQ Bank: 🔴 ADVANCED COMMANDS – MCQs)"}, {"n": 68, "s": 1, "lv": "M", "q": "* means:", "code": "", "lang": "", "chk": 0, "o": ["One occurrence", "Zero or more", "One or more", "Optional"], "oc": [false, false, false, false], "a": 1, "e": "Correct answer: Zero or more. (From Linux & Cloud MCQ Bank: 🔴 ADVANCED COMMANDS – MCQs)"}, {"n": 69, "s": 1, "lv": "T", "q": "Which statement about symbolic links is TRUE?", "code": "", "lang": "", "chk": 0, "o": ["They share inode with original file", "They cannot cross filesystems", "They store path of target file", "They prevent deletion of original file"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: They store path of target file. (From Linux & Cloud MCQ Bank: 🔥 CDAC FINAL – HARD LINUX MCQs)"}, {"n": 70, "s": 1, "lv": "T", "q": "Why does locate sometimes fail to find recently created files?", "code": "", "lang": "", "chk": 0, "o": ["Permission issue", "Kernel cache delay", "Database not updated", "Filesystem corruption"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: Database not updated. (From Linux & Cloud MCQ Bank: 🔥 CDAC FINAL – HARD LINUX MCQs)"}, {"n": 71, "s": 1, "lv": "T", "q": "Which command gives real-time file search?", "code": "", "lang": "", "chk": 0, "o": ["whereis", "locate", "find", "which"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: find. (From Linux & Cloud MCQ Bank: 🔥 CDAC FINAL – HARD LINUX MCQs)"}, {"n": 72, "s": 1, "lv": "T", "q": "Why can a filesystem show free space but still fail to create files?", "code": "", "lang": "", "chk": 0, "o": ["Disk is read-only", "Inodes exhausted", "Permission denied", "Swap full"], "oc": [false, false, false, false], "a": 1, "e": "Correct answer: Inodes exhausted. (From Linux & Cloud MCQ Bank: 🔥 CDAC FINAL – HARD LINUX MCQs)"}, {"n": 73, "s": 1, "lv": "T", "q": "Why does uniq often fail unless used with sort?", "code": "", "lang": "", "chk": 0, "o": ["uniq is slow", "uniq only removes adjacent duplicates", "uniq ignores case", "uniq requires regex"], "oc": [false, false, false, false], "a": 1, "e": "Correct answer: uniq only removes adjacent duplicates. (From Linux & Cloud MCQ Bank: 🔥 CDAC FINAL – HARD LINUX MCQs)"}, {"n": 74, "s": 1, "lv": "T", "q": "Which command can monitor a log file in real time?", "code": "", "lang": "", "chk": 0, "o": ["tail", "tail -f", "head", "less"], "oc": [false, false, false, false], "a": 1, "e": "Correct answer: tail -f. (From Linux & Cloud MCQ Bank: 🔥 CDAC FINAL – HARD LINUX MCQs)"}, {"n": 75, "s": 1, "lv": "T", "q": "Which command does NOT modify original file?", "code": "", "lang": "", "chk": 0, "o": ["gzip file.txt", "sed -i", "cp", "rm"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: cp. (From Linux & Cloud MCQ Bank: 🔥 CDAC FINAL – HARD LINUX MCQs)"}, {"n": 76, "s": 1, "lv": "T", "q": "Why does grep \"is|good\" fail in basic grep?", "code": "", "lang": "", "chk": 0, "o": ["| is literal", "Needs escaping or egrep", "grep ignores OR", "grep matches only first pattern"], "oc": [false, false, false, false], "a": 1, "e": "Correct answer: Needs escaping or egrep. (From Linux & Cloud MCQ Bank: 🔥 CDAC FINAL – HARD LINUX MCQs)"}, {"n": 77, "s": 1, "lv": "T", "q": "Which regex matches start of line?", "code": "", "lang": "", "chk": 0, "o": ["$", "^", ".", "*"], "oc": [false, false, false, false], "a": 1, "e": "Correct answer: ^. (From Linux & Cloud MCQ Bank: 🔥 CDAC FINAL – HARD LINUX MCQs)"}, {"n": 78, "s": 1, "lv": "T", "q": "Which regex means zero or more occurrences?", "code": "", "lang": "", "chk": 0, "o": ["+", "?", "*", "{1}"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: *. (From Linux & Cloud MCQ Bank: 🔥 CDAC FINAL – HARD LINUX MCQs)"}, {"n": 79, "s": 1, "lv": "T", "q": "Which command treats pattern as literal string?", "code": "", "lang": "", "chk": 0, "o": ["grep", "egrep", "fgrep", "grep -v"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: fgrep. (From Linux & Cloud MCQ Bank: 🔥 CDAC FINAL – HARD LINUX MCQs)"}, {"n": 80, "s": 1, "lv": "T", "q": "Which tar option enables gzip compression?", "code": "", "lang": "", "chk": 0, "o": ["-x", "-v", "-z", "-f"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: -z. (From Linux & Cloud MCQ Bank: 🔥 CDAC FINAL – HARD LINUX MCQs)"}, {"n": 81, "s": 1, "lv": "T", "q": "Which zip option recursively compresses directories?", "code": "", "lang": "", "chk": 0, "o": ["-u", "-d", "-r", "-f"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: -r. (From Linux & Cloud MCQ Bank: 🔥 CDAC FINAL – HARD LINUX MCQs)"}, {"n": 82, "s": 1, "lv": "T", "q": "Which command searches binary, source & man pages?", "code": "", "lang": "", "chk": 0, "o": ["which", "whereis", "locate", "find"], "oc": [false, false, false, false], "a": 1, "e": "Correct answer: whereis. (From Linux & Cloud MCQ Bank: 🔥 CDAC FINAL – HARD LINUX MCQs)"}, {"n": 83, "s": 1, "lv": "T", "q": "Which situation causes data blocks to be freed?", "code": "", "lang": "", "chk": 0, "o": ["Removing a symbolic link", "Removing one hard link", "Removing last hard link", "Changing permissions"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: Removing last hard link. (From Linux & Cloud MCQ Bank: 💣 SUPER HARD CDAC TOPPER MCQs)"}, {"n": 84, "s": 1, "lv": "T", "q": "Why can df show free space but cp fails?", "code": "", "lang": "", "chk": 0, "o": ["Block fragmentation", "Inode exhaustion", "Journal corruption", "Read-only FS"], "oc": [false, false, false, false], "a": 1, "e": "Correct answer: Inode exhaustion. (From Linux & Cloud MCQ Bank: 💣 SUPER HARD CDAC TOPPER MCQs)"}, {"n": 85, "s": 1, "lv": "T", "q": "Which command internally does NOT spawn a new process?", "code": "", "lang": "", "chk": 0, "o": ["ls", "grep", "cd", "find"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: cd. (From Linux & Cloud MCQ Bank: 💣 SUPER HARD CDAC TOPPER MCQs)"}, {"n": 86, "s": 1, "lv": "T", "q": "Why does uniq fail without sort?", "code": "", "lang": "", "chk": 0, "o": ["uniq uses hash table", "uniq only checks adjacent lines", "uniq ignores case", "uniq expects numeric sort"], "oc": [false, false, false, false], "a": 1, "e": "Correct answer: uniq only checks adjacent lines. (From Linux & Cloud MCQ Bank: 💣 SUPER HARD CDAC TOPPER MCQs)"}, {"n": 87, "s": 1, "lv": "T", "q": "Which command searches binaries + man pages + source?", "code": "", "lang": "", "chk": 0, "o": ["which", "locate", "whereis", "find"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: whereis. (From Linux & Cloud MCQ Bank: 💣 SUPER HARD CDAC TOPPER MCQs)"}, {"n": 88, "s": 1, "lv": "T", "q": "Why is locate faster than find?", "code": "", "lang": "", "chk": 0, "o": ["Kernel indexing", "Uses inode cache", "Uses prebuilt database", "Parallel execution"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: Uses prebuilt database. (From Linux & Cloud MCQ Bank: 💣 SUPER HARD CDAC TOPPER MCQs)"}, {"n": 89, "s": 1, "lv": "T", "q": "Which regex matches ONLY empty lines?", "code": "", "lang": "", "chk": 0, "o": ["^$", ".*", "$^", "^.*$"], "oc": [false, false, false, false], "a": 0, "e": "Correct answer: ^$. (From Linux & Cloud MCQ Bank: 💣 SUPER HARD CDAC TOPPER MCQs)"}, {"n": 90, "s": 1, "lv": "T", "q": "Why does grep \"is|good\" fail in basic grep?", "code": "", "lang": "", "chk": 0, "o": ["| is treated as OR always", "| is literal without escape", "grep ignores alternation", "grep is case-sensitive"], "oc": [false, false, false, false], "a": 1, "e": "Correct answer: | is literal without escape. (From Linux & Cloud MCQ Bank: 💣 SUPER HARD CDAC TOPPER MCQs)"}, {"n": 91, "s": 1, "lv": "T", "q": "Which regex means exactly 3 occurrences?", "code": "", "lang": "", "chk": 0, "o": ["a{3}", "a+", "a*", "a{,3}"], "oc": [false, false, false, false], "a": 0, "e": "Correct answer: a{3}. (From Linux & Cloud MCQ Bank: 💣 SUPER HARD CDAC TOPPER MCQs)"}, {"n": 92, "s": 1, "lv": "T", "q": "Which operation destroys original file by default?", "code": "", "lang": "", "chk": 0, "o": ["zip", "tar", "gzip", "cp"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: gzip. (From Linux & Cloud MCQ Bank: 💣 SUPER HARD CDAC TOPPER MCQs)"}, {"n": 93, "s": 1, "lv": "T", "q": "During Ubuntu installation, choosing LVM primarily helps with:", "code": "", "lang": "", "chk": 0, "o": ["Faster boot time", "Dynamic resizing of partitions", "Kernel security", "Package dependency resolution"], "oc": [false, false, false, false], "a": 1, "e": "Correct answer: Dynamic resizing of partitions. (From Linux & Cloud MCQ Bank: 🔥 CDAC CCEE – HARD LINUX MCQs (NEW ONLY))"}, {"n": 94, "s": 1, "lv": "T", "q": "Which partition is mandatory for a UEFI-based Linux installation?", "code": "", "lang": "", "chk": 0, "o": ["/boot", "/home", "EFI System Partition (ESP)", "Swap"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: EFI System Partition (ESP). (From Linux & Cloud MCQ Bank: 🔥 CDAC CCEE – HARD LINUX MCQs (NEW ONLY))"}, {"n": 95, "s": 1, "lv": "T", "q": "CentOS uses which package manager backend?", "code": "", "lang": "", "chk": 0, "o": ["dpkg", "rpm", "pacman", "snap"], "oc": [false, false, false, false], "a": 1, "e": "Correct answer: rpm. (From Linux & Cloud MCQ Bank: 🔥 CDAC CCEE – HARD LINUX MCQs (NEW ONLY))"}, {"n": 96, "s": 1, "lv": "T", "q": "Why is swap recommended even when RAM is sufficient?", "code": "", "lang": "", "chk": 0, "o": ["Improves CPU speed", "Helps kernel handle memory pressure", "Required for login", "Required for filesystem"], "oc": [false, false, false, false], "a": 1, "e": "Correct answer: Helps kernel handle memory pressure. (From Linux & Cloud MCQ Bank: 🔥 CDAC CCEE – HARD LINUX MCQs (NEW ONLY))"}, {"n": 97, "s": 1, "lv": "T", "q": "Which component loads kernel into memory during boot?", "code": "", "lang": "", "chk": 0, "o": ["init", "systemd", "GRUB", "BIOS"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: GRUB. (From Linux & Cloud MCQ Bank: 🔥 CDAC CCEE – HARD LINUX MCQs (NEW ONLY))"}, {"n": 98, "s": 1, "lv": "T", "q": "Which directory contains kernel modules?", "code": "", "lang": "", "chk": 0, "o": ["/bin", "/lib/modules", "/boot", "/etc"], "oc": [false, false, false, false], "a": 1, "e": "Correct answer: /lib/modules. (From Linux & Cloud MCQ Bank: 🔥 CDAC CCEE – HARD LINUX MCQs (NEW ONLY))"}, {"n": 99, "s": 1, "lv": "T", "q": "Why is Linux called a monolithic kernel?", "code": "", "lang": "", "chk": 0, "o": ["Kernel runs in user mode", "Drivers run inside kernel space", "Kernel cannot be modified", "Kernel runs one process"], "oc": [false, false, false, false], "a": 1, "e": "Correct answer: Drivers run inside kernel space. (From Linux & Cloud MCQ Bank: 🔥 CDAC CCEE – HARD LINUX MCQs (NEW ONLY))"}, {"n": 100, "s": 1, "lv": "T", "q": "Which service manager replaced SysVinit in modern Linux?", "code": "", "lang": "", "chk": 0, "o": ["cron", "upstart", "systemd", "init.d"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: systemd. (From Linux & Cloud MCQ Bank: 🔥 CDAC CCEE – HARD LINUX MCQs (NEW ONLY))"}, {"n": 101, "s": 1, "lv": "E", "q": "Which of the following utility used for disk partition?", "code": "", "lang": "", "chk": 0, "o": ["parted", "fdisk", "Gparted", "All of these"], "oc": [false, false, false, false], "a": 1, "e": "fdisk is the classic Linux command-line utility for creating and managing disk partitions (though parted and GParted also manage partitions)."}, {"n": 102, "s": 1, "lv": "E", "q": "Which of the following commands is used to jump directory one level up?", "code": "", "lang": "", "chk": 0, "o": ["cd", "cd..", "cd/", "chdir"], "oc": [false, false, false, false], "a": 1, "e": "cd .. moves up one level to the parent directory (written 'cd..' in the quiz option)."}, {"n": 103, "s": 1, "lv": "M", "q": "Which of the following command file display respective linux version/release?", "code": "", "lang": "", "chk": 0, "o": ["cat /etc/debian_version", "cat /etc/redhat-release", "cat /etc/SuSE-release", "All of these"], "oc": [false, false, false, false], "a": 3, "e": "Debian/Ubuntu, RedHat/CentOS, and SUSE each store distribution release details in those respective /etc/* files."}, {"n": 104, "s": 1, "lv": "E", "q": "Which of the following option create a hard link named file2.txt which links to the data of file1.txt.", "code": "", "lang": "", "chk": 0, "o": ["ln file1.txt file2.txt.", "ln-s file1.txt file2.txt", "hardlink file1.txt file2.txt", "link -s file1.txt file2.txt"], "oc": [false, false, false, false], "a": 0, "e": "ln target link_name creates a hard link by default, whereas ln -s creates a symbolic (soft) link."}, {"n": 105, "s": 1, "lv": "M", "q": "Which of the following are basic commands for viewing the processes running on the system. It provides a snapshot of the current processes along with detailed information like user id, cpu usage, memory usage, command name etc", "code": "", "lang": "", "chk": 0, "o": ["crontab", "ps", "is", "tail"], "oc": [false, false, false, false], "a": 3, "e": "The attached test's key marked 'tail', though in Linux 'ps' (process status) is the command that displays a snapshot of running processes."}, {"n": 106, "s": 1, "lv": "E", "q": "Which command is used to sort the contents of a file in alphabetical order?", "code": "", "lang": "", "chk": 0, "o": ["sort", "sort -n", "sort -k", "sort -r"], "oc": [false, false, false, false], "a": 0, "e": "sort sorts lines alphabetically (lexicographically) by default; -n is numeric, -r is reverse, and -k specifies a key column."}, {"n": 107, "s": 1, "lv": "E", "q": "Which command gives the first byte or the difference between the two files?", "code": "", "lang": "", "chk": 0, "o": ["diff", "cmp", "comm", "ls-al"], "oc": [false, false, false, false], "a": 1, "e": "cmp compares two files byte by byte and reports the byte offset and line number of the first difference."}, {"n": 108, "s": 1, "lv": "E", "q": "Which is loaded into memory when system is booted?", "code": "", "lang": "", "chk": 0, "o": ["Kernel", "Shell", "Commands", "Script"], "oc": [false, false, false, false], "a": 0, "e": "During Linux boot, the bootloader (GRUB) loads the Linux Kernel into memory."}, {"n": 109, "s": 1, "lv": "E", "q": "Which of the following is the feature of Linux operating system?", "code": "", "lang": "", "chk": 0, "o": ["It is a multi-user and multi-tasking operating system", "It is a highly secure operating system", "It can be freely distributed or downloaded", "All of these"], "oc": [false, false, false, false], "a": 3, "e": "Linux is open-source (freely distributable), secure, and supports multi-user and multi-tasking operations."}, {"n": 110, "s": 1, "lv": "E", "q": "Which of the following commands is used to rename a file with name sample to newsample?", "code": "", "lang": "", "chk": 0, "o": ["rename sample to newsample", "rm sample;cat newsample", "mv sample newsample", "update sample newsample"], "oc": [false, false, false, false], "a": 2, "e": "mv sample newsample renames the file 'sample' to 'newsample'."}, {"n": 111, "s": 1, "lv": "E", "q": "Which command to display the file 'sample.txt'?", "code": "", "lang": "", "chk": 0, "o": ["man sample.txt > more", "cat sample.txt < more", "cat sample.txt | more", "None of these"], "oc": [false, false, false, false], "a": 2, "e": "cat sample.txt | more pipes the file contents through the 'more' pager for screen-by-screen viewing."}, {"n": 112, "s": 1, "lv": "E", "q": "Linux everything stored as a?", "code": "", "lang": "", "chk": 0, "o": ["File", "Directory", "Executable", "None of these"], "oc": [false, false, false, false], "a": 0, "e": "In Linux/UNIX philosophy, everything (regular files, directories, devices, sockets) is represented as a file."}, {"n": 113, "s": 1, "lv": "E", "q": "Which Linux command allows a user to gain disk usage information quickly?", "code": "", "lang": "", "chk": 0, "o": ["chkdsk", "fdisk", "du", "disk"], "oc": [false, false, false, false], "a": 2, "e": "du (disk usage) reports the disk space used by files and directories."}, {"n": 114, "s": 2, "lv": "M", "q": "cut -d ':' -f1 /etc/passwd extracts:", "code": "", "lang": "", "chk": 0, "o": ["Usernames", "Passwords", "UID", "Shell"], "oc": [false, false, false, false], "a": 0, "e": "Correct answer: Usernames. (From Linux & Cloud MCQ Bank: 🧪 DAY-2 COMMANDS — MCQs (Redirection, Pipes,)"}, {"n": 115, "s": 2, "lv": "M", "q": "fdisk is primarily used for:", "code": "", "lang": "", "chk": 0, "o": ["Formatting disks", "Creating filesystems", "Managing disk partitions", "Mounting disks"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: Managing disk partitions. (From Linux & Cloud MCQ Bank: 🔴 ADVANCED COMMANDS – MCQs)"}, {"n": 116, "s": 2, "lv": "M", "q": "fdisk operates on:", "code": "", "lang": "", "chk": 0, "o": ["Files", "Directories", "Block devices", "Mount points"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: Block devices. (From Linux & Cloud MCQ Bank: 🔴 ADVANCED COMMANDS – MCQs)"}, {"n": 117, "s": 2, "lv": "M", "q": "df shows usage of:", "code": "", "lang": "", "chk": 0, "o": ["Files", "Directories", "Mounted filesystems", "Partitions only"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: Mounted filesystems. (From Linux & Cloud MCQ Bank: 🔴 ADVANCED COMMANDS – MCQs)"}, {"n": 118, "s": 2, "lv": "M", "q": "%A format specifier shows:", "code": "", "lang": "", "chk": 0, "o": ["Octal permissions", "Human-readable permissions", "UID", "GID"], "oc": [false, false, false, false], "a": 1, "e": "Correct answer: Human-readable permissions. (From Linux & Cloud MCQ Bank: 🔴 ADVANCED COMMANDS – MCQs)"}, {"n": 119, "s": 2, "lv": "M", "q": "mkfs is used to:", "code": "", "lang": "", "chk": 0, "o": ["Mount filesystem", "Create partitions", "Create filesystem", "Check filesystem"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: Create filesystem. (From Linux & Cloud MCQ Bank: 🔴 ADVANCED COMMANDS – MCQs)"}, {"n": 120, "s": 2, "lv": "M", "q": "Device must be _____ before mkfs:", "code": "", "lang": "", "chk": 0, "o": ["Mounted", "Formatted", "Unmounted", "Active"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: Unmounted. (From Linux & Cloud MCQ Bank: 🔴 ADVANCED COMMANDS – MCQs)"}, {"n": 121, "s": 2, "lv": "M", "q": "mkfs -t ext4 /dev/sdb1 means:", "code": "", "lang": "", "chk": 0, "o": ["Mount ext4", "Create ext4 FS", "Check ext4", "Repair ext4"], "oc": [false, false, false, false], "a": 1, "e": "Correct answer: Create ext4 FS. (From Linux & Cloud MCQ Bank: 🔴 ADVANCED COMMANDS – MCQs)"}, {"n": 122, "s": 2, "lv": "M", "q": "Mounting means:", "code": "", "lang": "", "chk": 0, "o": ["Formatting device", "Attaching filesystem", "Partitioning disk", "Checking disk"], "oc": [false, false, false, false], "a": 1, "e": "Correct answer: Attaching filesystem. (From Linux & Cloud MCQ Bank: 🔴 ADVANCED COMMANDS – MCQs)"}, {"n": 123, "s": 2, "lv": "M", "q": "Which command verifies mounted filesystems?", "code": "", "lang": "", "chk": 0, "o": ["ls", "df -h", "pwd", "stat"], "oc": [false, false, false, false], "a": 1, "e": "Correct answer: df -h. (From Linux & Cloud MCQ Bank: 🔴 ADVANCED COMMANDS – MCQs)"}, {"n": 124, "s": 2, "lv": "M", "q": "Mount point must be:", "code": "", "lang": "", "chk": 0, "o": ["File", "Device", "Directory", "Partition"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: Directory. (From Linux & Cloud MCQ Bank: 🔴 ADVANCED COMMANDS – MCQs)"}, {"n": 125, "s": 2, "lv": "M", "q": "Unmounting fails when:", "code": "", "lang": "", "chk": 0, "o": ["Device mounted", "Directory busy", "Filesystem ext4", "Root user"], "oc": [false, false, false, false], "a": 1, "e": "Correct answer: Directory busy. (From Linux & Cloud MCQ Bank: 🔴 ADVANCED COMMANDS – MCQs)"}, {"n": 126, "s": 2, "lv": "M", "q": "/etc/passwd stores:", "code": "", "lang": "", "chk": 0, "o": ["Passwords", "Encrypted keys", "User account info", "Groups only"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: User account info. (From Linux & Cloud MCQ Bank: 🔴 ADVANCED COMMANDS – MCQs)"}, {"n": 127, "s": 2, "lv": "M", "q": "Which creates a user with home directory?", "code": "", "lang": "", "chk": 0, "o": ["useradd", "adduser", "passwd", "login"], "oc": [false, false, false, false], "a": 1, "e": "Correct answer: adduser. (From Linux & Cloud MCQ Bank: 🔴 ADVANCED COMMANDS – MCQs)"}, {"n": 128, "s": 2, "lv": "M", "q": "deluser --remove-home does:", "code": "", "lang": "", "chk": 0, "o": ["Deletes user only", "Deletes home only", "Deletes user + home", "Locks user"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: Deletes user + home. (From Linux & Cloud MCQ Bank: 🔴 ADVANCED COMMANDS – MCQs)"}, {"n": 129, "s": 2, "lv": "M", "q": "/etc/group contains:", "code": "", "lang": "", "chk": 0, "o": ["User list", "Group info", "Passwords", "Shell paths"], "oc": [false, false, false, false], "a": 1, "e": "Correct answer: Group info. (From Linux & Cloud MCQ Bank: 🔴 ADVANCED COMMANDS – MCQs)"}, {"n": 130, "s": 2, "lv": "M", "q": "usermod -a -G grp user does:", "code": "", "lang": "", "chk": 0, "o": ["Replace groups", "Remove groups", "Append group", "Change primary"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: Append group. (From Linux & Cloud MCQ Bank: 🔴 ADVANCED COMMANDS – MCQs)"}, {"n": 131, "s": 2, "lv": "M", "q": "Without -a, usermod -G will:", "code": "", "lang": "", "chk": 0, "o": ["Append safely", "Do nothing", "Remove other groups", "Error"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: Remove other groups. (From Linux & Cloud MCQ Bank: 🔴 ADVANCED COMMANDS – MCQs)"}, {"n": 132, "s": 2, "lv": "M", "q": "chown user:group file changes:", "code": "", "lang": "", "chk": 0, "o": ["Owner only", "Group only", "Both", "Permissions"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: Both. (From Linux & Cloud MCQ Bank: 🔴 ADVANCED COMMANDS – MCQs)"}, {"n": 133, "s": 2, "lv": "M", "q": "chown -h affects:", "code": "", "lang": "", "chk": 0, "o": ["Target file", "Symbolic link", "Hard link", "Directory only"], "oc": [false, false, false, false], "a": 1, "e": "Correct answer: Symbolic link. (From Linux & Cloud MCQ Bank: 🔴 ADVANCED COMMANDS – MCQs)"}, {"n": 134, "s": 2, "lv": "T", "q": "What happens if usermod -G grp user is run without -a?", "code": "", "lang": "", "chk": 0, "o": ["Adds group safely", "Replaces all secondary groups", "Changes primary group only", "Fails"], "oc": [false, false, false, false], "a": 1, "e": "Correct answer: Replaces all secondary groups. (From Linux & Cloud MCQ Bank: 🔥 CDAC FINAL – HARD LINUX MCQs)"}, {"n": 135, "s": 2, "lv": "T", "q": "Which file stores group information?", "code": "", "lang": "", "chk": 0, "o": ["/etc/passwd", "/etc/shadow", "/etc/group", "/etc/login.defs"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: /etc/group. (From Linux & Cloud MCQ Bank: 🔥 CDAC FINAL – HARD LINUX MCQs)"}, {"n": 136, "s": 2, "lv": "T", "q": "Why must a device be unmounted before mkfs?", "code": "", "lang": "", "chk": 0, "o": ["Performance", "Kernel cache flush", "Prevent data corruption", "Mount table update"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: Prevent data corruption. (From Linux & Cloud MCQ Bank: 🔥 CDAC FINAL – HARD LINUX MCQs)"}, {"n": 137, "s": 2, "lv": "T", "q": "Which command shows filesystem type of a device?", "code": "", "lang": "", "chk": 0, "o": ["df -h", "lsblk -f", "mount", "pwd"], "oc": [false, false, false, false], "a": 1, "e": "Correct answer: lsblk -f. (From Linux & Cloud MCQ Bank: 🔥 CDAC FINAL – HARD LINUX MCQs)"}, {"n": 138, "s": 2, "lv": "T", "q": "Why does umount sometimes fail?", "code": "", "lang": "", "chk": 0, "o": ["Wrong filesystem", "Directory busy", "User logged out", "Read-only FS"], "oc": [false, false, false, false], "a": 1, "e": "Correct answer: Directory busy. (From Linux & Cloud MCQ Bank: 🔥 CDAC FINAL – HARD LINUX MCQs)"}, {"n": 139, "s": 2, "lv": "T", "q": "Which command allows switching user without full login shell?", "code": "", "lang": "", "chk": 0, "o": ["login", "ssh", "su user", "su - user"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: su user. (From Linux & Cloud MCQ Bank: 🔥 CDAC FINAL – HARD LINUX MCQs)"}, {"n": 140, "s": 2, "lv": "T", "q": "Difference between su and su - is:", "code": "", "lang": "", "chk": 0, "o": ["Password handling", "Environment variables", "Permissions", "Shell type"], "oc": [false, false, false, false], "a": 1, "e": "Correct answer: Environment variables. (From Linux & Cloud MCQ Bank: 🔥 CDAC FINAL – HARD LINUX MCQs)"}, {"n": 141, "s": 2, "lv": "T", "q": "Which command changes group ownership recursively?", "code": "", "lang": "", "chk": 0, "o": ["chgrp group dir", "chgrp -R group dir", "chmod -R", "chown -g"], "oc": [false, false, false, false], "a": 1, "e": "Correct answer: chgrp -R group dir. (From Linux & Cloud MCQ Bank: 🔥 CDAC FINAL – HARD LINUX MCQs)"}, {"n": 142, "s": 2, "lv": "T", "q": "Which command changes only group, not owner?", "code": "", "lang": "", "chk": 0, "o": ["chown user file", "chown :group file", "chmod g+w", "usermod"], "oc": [false, false, false, false], "a": 1, "e": "Correct answer: chown :group file. (From Linux & Cloud MCQ Bank: 🔥 CDAC FINAL – HARD LINUX MCQs)"}, {"n": 143, "s": 2, "lv": "T", "q": "Which command modifies filesystem metadata but not file data?", "code": "", "lang": "", "chk": 0, "o": ["cat", "stat", "chmod", "grep"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: chmod. (From Linux & Cloud MCQ Bank: 💣 SUPER HARD CDAC TOPPER MCQs)"}, {"n": 144, "s": 2, "lv": "T", "q": "Why must a filesystem be unmounted before mkfs?", "code": "", "lang": "", "chk": 0, "o": ["Speed optimization", "Kernel buffer flush", "Prevent data corruption", "Update fstab"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: Prevent data corruption. (From Linux & Cloud MCQ Bank: 💣 SUPER HARD CDAC TOPPER MCQs)"}, {"n": 145, "s": 2, "lv": "T", "q": "Which command prints filesystem type of device?", "code": "", "lang": "", "chk": 0, "o": ["df -h", "lsblk -f", "mount", "stat"], "oc": [false, false, false, false], "a": 1, "e": "Correct answer: lsblk -f. (From Linux & Cloud MCQ Bank: 💣 SUPER HARD CDAC TOPPER MCQs)"}, {"n": 146, "s": 2, "lv": "T", "q": "Why does umount fail with “device busy”?", "code": "", "lang": "", "chk": 0, "o": ["Permissions issue", "Process using mount point", "Read-only filesystem", "Wrong device"], "oc": [false, false, false, false], "a": 1, "e": "Correct answer: Process using mount point. (From Linux & Cloud MCQ Bank: 💣 SUPER HARD CDAC TOPPER MCQs)"}, {"n": 147, "s": 2, "lv": "T", "q": "Which command switches user without loading login environment?", "code": "", "lang": "", "chk": 0, "o": ["login", "su - user", "su user", "ssh user"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: su user. (From Linux & Cloud MCQ Bank: 💣 SUPER HARD CDAC TOPPER MCQs)"}, {"n": 148, "s": 2, "lv": "T", "q": "Which file stores user-group mappings?", "code": "", "lang": "", "chk": 0, "o": ["/etc/passwd", "/etc/shadow", "/etc/group", "/etc/profile"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: /etc/group. (From Linux & Cloud MCQ Bank: 💣 SUPER HARD CDAC TOPPER MCQs)"}, {"n": 149, "s": 2, "lv": "T", "q": "Why is usermod -a -G safer than usermod -G?", "code": "", "lang": "", "chk": 0, "o": ["Adds primary group", "Preserves existing groups", "Changes ownership", "Locks account"], "oc": [false, false, false, false], "a": 1, "e": "Correct answer: Preserves existing groups. (From Linux & Cloud MCQ Bank: 💣 SUPER HARD CDAC TOPPER MCQs)"}, {"n": 150, "s": 2, "lv": "T", "q": "Which command changes owner but not group?", "code": "", "lang": "", "chk": 0, "o": ["chown user file", "chown :group file", "chgrp group file", "chmod"], "oc": [false, false, false, false], "a": 0, "e": "Correct answer: chown user file. (From Linux & Cloud MCQ Bank: 💣 SUPER HARD CDAC TOPPER MCQs)"}, {"n": 151, "s": 2, "lv": "T", "q": "In vi, text can be inserted only in:", "code": "", "lang": "", "chk": 0, "o": ["Command mode", "Visual mode", "Insert mode", "Last-line mode"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: Insert mode. (From Linux & Cloud MCQ Bank: 🔥 CDAC CCEE – HARD LINUX MCQs (NEW ONLY))"}, {"n": 152, "s": 2, "lv": "T", "q": "Which vi command saves and exits?", "code": "", "lang": "", "chk": 0, "o": [":q!", ":w", ":wq", ":e"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: :wq. (From Linux & Cloud MCQ Bank: 🔥 CDAC CCEE – HARD LINUX MCQs (NEW ONLY))"}, {"n": 153, "s": 2, "lv": "T", "q": "Which editor is more beginner-friendly?", "code": "", "lang": "", "chk": 0, "o": ["vi", "vim", "nano", "ed"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: nano. (From Linux & Cloud MCQ Bank: 🔥 CDAC CCEE – HARD LINUX MCQs (NEW ONLY))"}, {"n": 154, "s": 2, "lv": "T", "q": "Which file controls sudo permissions?", "code": "", "lang": "", "chk": 0, "o": ["/etc/passwd", "/etc/shadow", "/etc/sudoers", "/etc/group"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: /etc/sudoers. (From Linux & Cloud MCQ Bank: 🔥 CDAC CCEE – HARD LINUX MCQs (NEW ONLY))"}, {"n": 155, "s": 2, "lv": "T", "q": "Why should /etc/sudoers be edited using visudo?", "code": "", "lang": "", "chk": 0, "o": ["Faster editing", "Syntax validation", "Encryption", "Auto backup"], "oc": [false, false, false, false], "a": 1, "e": "Correct answer: Syntax validation. (From Linux & Cloud MCQ Bank: 🔥 CDAC CCEE – HARD LINUX MCQs (NEW ONLY))"}, {"n": 156, "s": 2, "lv": "T", "q": "Primary group is stored in:", "code": "", "lang": "", "chk": 0, "o": ["/etc/group", "/etc/passwd", "/etc/shadow", "/etc/profile"], "oc": [false, false, false, false], "a": 1, "e": "Correct answer: /etc/passwd. (From Linux & Cloud MCQ Bank: 🔥 CDAC CCEE – HARD LINUX MCQs (NEW ONLY))"}, {"n": 157, "s": 2, "lv": "T", "q": "Which UID is reserved for root user?", "code": "", "lang": "", "chk": 0, "o": ["1000", "500", "1", "0"], "oc": [false, false, false, false], "a": 3, "e": "Correct answer: 0. (From Linux & Cloud MCQ Bank: 🔥 CDAC CCEE – HARD LINUX MCQs (NEW ONLY))"}, {"n": 158, "s": 2, "lv": "T", "q": "Why should normal users not have UID 0?", "code": "", "lang": "", "chk": 0, "o": ["Disk corruption", "Security risk", "Login failure", "Group mismatch"], "oc": [false, false, false, false], "a": 1, "e": "Correct answer: Security risk. (From Linux & Cloud MCQ Bank: 🔥 CDAC CCEE – HARD LINUX MCQs (NEW ONLY))"}, {"n": 159, "s": 2, "lv": "T", "q": "Which command makes script executable?", "code": "", "lang": "", "chk": 0, "o": ["chmod +x script.sh", "sh script.sh", "export script.sh", "exec script.sh"], "oc": [false, false, false, false], "a": 0, "e": "Correct answer: chmod +x script.sh. (From Linux & Cloud MCQ Bank: 🔥 CDAC CCEE – HARD LINUX MCQs (NEW ONLY))"}, {"n": 160, "s": 2, "lv": "T", "q": "Which protocol is used by ssh?", "code": "", "lang": "", "chk": 0, "o": ["FTP", "Telnet", "TCP", "UDP"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: TCP. (From Linux & Cloud MCQ Bank: 🔥 CDAC CCEE – HARD LINUX MCQs (NEW ONLY))"}, {"n": 161, "s": 2, "lv": "T", "q": "Default SSH port is:", "code": "", "lang": "", "chk": 0, "o": ["20", "21", "22", "23"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: 22. (From Linux & Cloud MCQ Bank: 🔥 CDAC CCEE – HARD LINUX MCQs (NEW ONLY))"}, {"n": 162, "s": 2, "lv": "T", "q": "Why is SSH preferred over Telnet?", "code": "", "lang": "", "chk": 0, "o": ["Faster", "Uses UDP", "Encrypted communication", "GUI support"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: Encrypted communication. (From Linux & Cloud MCQ Bank: 🔥 CDAC CCEE – HARD LINUX MCQs (NEW ONLY))"}, {"n": 163, "s": 2, "lv": "T", "q": "Which command copies files securely over network?", "code": "", "lang": "", "chk": 0, "o": ["ftp", "rsync", "scp", "telnet"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: scp. (From Linux & Cloud MCQ Bank: 🔥 CDAC CCEE – HARD LINUX MCQs (NEW ONLY))"}, {"n": 164, "s": 2, "lv": "T", "q": "Which file controls SSH server configuration?", "code": "", "lang": "", "chk": 0, "o": ["/etc/ssh/ssh_config", "/etc/ssh/sshd_config", "/etc/ssh/known_hosts", "~/.ssh/id_rsa"], "oc": [false, false, false, false], "a": 1, "e": "Correct answer: /etc/ssh/sshd_config. (From Linux & Cloud MCQ Bank: 🔥 CDAC CCEE – HARD LINUX MCQs (NEW ONLY))"}, {"n": 165, "s": 2, "lv": "E", "q": "What is the command to grant execution permission on all files and subdirectories in \"/home/document/mydir\"", "code": "", "lang": "", "chk": 0, "o": ["$ chmod -r +x /home/document/mydir", "$ chmod -R +x /home/document/mydir", "$ chmod -f -r +x /home/document/mydir", "$ chmod -F +x /home/document/mydir"], "oc": [false, false, false, false], "a": 1, "e": "chmod -R (uppercase R) applies permission changes recursively to a directory and all files/subdirectories inside it."}, {"n": 166, "s": 2, "lv": "M", "q": "If the \"umask\" value=\"0002\". What will be the permissions of the newly created directory?", "code": "", "lang": "", "chk": 0, "o": ["777", "664", "774", "775"], "oc": [false, false, false, false], "a": 3, "e": "New directories start with base permissions 777; subtracting umask 0002 (777 - 002) yields 775 (rwxrwxr-x)."}, {"n": 167, "s": 3, "lv": "E", "q": "Output of pwd depends on:", "code": "", "lang": "", "chk": 0, "o": ["$HOME", "Current working directory", "$PATH", "Shell type"], "oc": [false, false, false, false], "a": 1, "e": "Correct answer: Current working directory. (From Linux & Cloud MCQ Bank: 🧪 DAY-1 BASIC COMMANDS — MCQs)"}, {"n": 168, "s": 3, "lv": "E", "q": "tree command displays:", "code": "", "lang": "", "chk": 0, "o": ["Flat file list", "Recursive hierarchical structure", "Only directories", "Only files"], "oc": [false, false, false, false], "a": 1, "e": "Correct answer: Recursive hierarchical structure. (From Linux & Cloud MCQ Bank: 🧪 DAY-1 BASIC COMMANDS — MCQs)"}, {"n": 169, "s": 3, "lv": "E", "q": "cat > file.txt does what?", "code": "", "lang": "", "chk": 0, "o": ["Appends data", "Displays content", "Overwrites file", "Deletes file"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: Overwrites file. (From Linux & Cloud MCQ Bank: 🧪 DAY-1 BASIC COMMANDS — MCQs)"}, {"n": 170, "s": 3, "lv": "E", "q": "cat >> file.txt means:", "code": "", "lang": "", "chk": 0, "o": ["Replace content", "Append content", "View content", "Remove content"], "oc": [false, false, false, false], "a": 1, "e": "Correct answer: Append content. (From Linux & Cloud MCQ Bank: 🧪 DAY-1 BASIC COMMANDS — MCQs)"}, {"n": 171, "s": 3, "lv": "E", "q": "cat -n file.txt displays:", "code": "", "lang": "", "chk": 0, "o": ["Byte count", "Word count", "Line numbers", "Character count"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: Line numbers. (From Linux & Cloud MCQ Bank: 🧪 DAY-1 BASIC COMMANDS — MCQs)"}, {"n": 172, "s": 3, "lv": "E", "q": "echo $USER prints:", "code": "", "lang": "", "chk": 0, "o": ["Username", "Shell name", "Hostname", "Home directory"], "oc": [false, false, false, false], "a": 0, "e": "Correct answer: Username. (From Linux & Cloud MCQ Bank: 🧪 DAY-1 BASIC COMMANDS — MCQs)"}, {"n": 173, "s": 3, "lv": "E", "q": "which ls searches in:", "code": "", "lang": "", "chk": 0, "o": ["Entire filesystem", "Current directory", "$PATH directories", "/etc"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: $PATH directories. (From Linux & Cloud MCQ Bank: 🧪 DAY-1 BASIC COMMANDS — MCQs)"}, {"n": 174, "s": 3, "lv": "E", "q": "whoami displays:", "code": "", "lang": "", "chk": 0, "o": ["Login name", "Group name", "Hostname", "Shell name"], "oc": [false, false, false, false], "a": 0, "e": "Correct answer: Login name. (From Linux & Cloud MCQ Bank: 🧪 DAY-1 BASIC COMMANDS — MCQs)"}, {"n": 175, "s": 3, "lv": "E", "q": "clear removes:", "code": "", "lang": "", "chk": 0, "o": ["Command history", "Files", "Terminal display", "Environment variables"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: Terminal display. (From Linux & Cloud MCQ Bank: 🧪 DAY-1 BASIC COMMANDS — MCQs)"}, {"n": 176, "s": 3, "lv": "E", "q": "$!! executes:", "code": "", "lang": "", "chk": 0, "o": ["Command #1", "Last command", "First command", "Specific command"], "oc": [false, false, false, false], "a": 1, "e": "Correct answer: Last command. (From Linux & Cloud MCQ Bank: 🧪 DAY-1 BASIC COMMANDS — MCQs)"}, {"n": 177, "s": 3, "lv": "E", "q": "$!sleep does what?", "code": "", "lang": "", "chk": 0, "o": ["Executes sleep", "Executes last command starting with sleep", "Deletes sleep history", "Shows sleep history"], "oc": [false, false, false, false], "a": 1, "e": "Correct answer: Executes last command starting with sleep. (From Linux & Cloud MCQ Bank: 🧪 DAY-1 BASIC COMMANDS — MCQs)"}, {"n": 178, "s": 3, "lv": "E", "q": "history -c does:", "code": "", "lang": "", "chk": 0, "o": ["Save history", "Clears history", "Lists history", "Locks history"], "oc": [false, false, false, false], "a": 1, "e": "Correct answer: Clears history. (From Linux & Cloud MCQ Bank: 🧪 DAY-1 BASIC COMMANDS — MCQs)"}, {"n": 179, "s": 3, "lv": "E", "q": "man 5 passwd shows:", "code": "", "lang": "", "chk": 0, "o": ["Command", "System call", "File format", "Kernel routine"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: File format. (From Linux & Cloud MCQ Bank: 🧪 DAY-1 BASIC COMMANDS — MCQs)"}, {"n": 180, "s": 3, "lv": "E", "q": "Ctrl + r is used for:", "code": "", "lang": "", "chk": 0, "o": ["Clear screen", "Search history", "Exit shell", "Suspend process"], "oc": [false, false, false, false], "a": 1, "e": "Correct answer: Search history. (From Linux & Cloud MCQ Bank: 🧪 DAY-1 BASIC COMMANDS — MCQs)"}, {"n": 181, "s": 3, "lv": "E", "q": "Ctrl + z does:", "code": "", "lang": "", "chk": 0, "o": ["Terminates process", "Suspends process", "Logs out", "Clears screen"], "oc": [false, false, false, false], "a": 1, "e": "Correct answer: Suspends process. (From Linux & Cloud MCQ Bank: 🧪 DAY-1 BASIC COMMANDS — MCQs)"}, {"n": 182, "s": 3, "lv": "M", "q": "$ echo $? prints:", "code": "", "lang": "", "chk": 0, "o": ["PID", "Last exit status", "Shell name", "Command count"], "oc": [false, false, false, false], "a": 1, "e": "Correct answer: Last exit status. (From Linux & Cloud MCQ Bank: 🧪 DAY-2 COMMANDS — MCQs (Redirection, Pipes,)"}, {"n": 183, "s": 3, "lv": "M", "q": "Pipe connects:", "code": "", "lang": "", "chk": 0, "o": ["Two files", "Two directories", "Two processes", "Two users"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: Two processes. (From Linux & Cloud MCQ Bank: 🧪 DAY-2 COMMANDS — MCQs (Redirection, Pipes,)"}, {"n": 184, "s": 3, "lv": "M", "q": "tr works on:", "code": "", "lang": "", "chk": 0, "o": ["Files directly", "stdin only", "stdout", "stderr"], "oc": [false, false, false, false], "a": 1, "e": "Correct answer: stdin only. (From Linux & Cloud MCQ Bank: 🧪 DAY-2 COMMANDS — MCQs (Redirection, Pipes,)"}, {"n": 185, "s": 3, "lv": "M", "q": "Aliases are:", "code": "", "lang": "", "chk": 0, "o": ["Permanent", "Stored in kernel", "Shell shortcuts", "External commands"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: Shell shortcuts. (From Linux & Cloud MCQ Bank: 🧪 DAY-2 COMMANDS — MCQs (Redirection, Pipes,)"}, {"n": 186, "s": 3, "lv": "M", "q": "stat displays:", "code": "", "lang": "", "chk": 0, "o": ["Only file size", "Only permissions", "Metadata of file", "Content of file"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: Metadata of file. (From Linux & Cloud MCQ Bank: 🔴 ADVANCED COMMANDS – MCQs)"}, {"n": 187, "s": 3, "lv": "M", "q": "stat -c %a file.txt outputs:", "code": "", "lang": "", "chk": 0, "o": ["Symbolic permissions", "Numeric permissions", "Owner name", "Group name"], "oc": [false, false, false, false], "a": 1, "e": "Correct answer: Numeric permissions. (From Linux & Cloud MCQ Bank: 🔴 ADVANCED COMMANDS – MCQs)"}, {"n": 188, "s": 3, "lv": "M", "q": "stat -c %F file.txt shows:", "code": "", "lang": "", "chk": 0, "o": ["File size", "Filesystem type", "File type", "Format type"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: File type. (From Linux & Cloud MCQ Bank: 🔴 ADVANCED COMMANDS – MCQs)"}, {"n": 189, "s": 3, "lv": "M", "q": "{m,n} means:", "code": "", "lang": "", "chk": 0, "o": ["Exactly m", "At least n", "Between m and n", "Unlimited"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: Between m and n. (From Linux & Cloud MCQ Bank: 🔴 ADVANCED COMMANDS – MCQs)"}, {"n": 190, "s": 3, "lv": "M", "q": "cmd1 && cmd2 executes cmd2 when:", "code": "", "lang": "", "chk": 0, "o": ["Always", "cmd1 fails", "cmd1 succeeds", "Never"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: cmd1 succeeds. (From Linux & Cloud MCQ Bank: 🔴 ADVANCED COMMANDS – MCQs)"}, {"n": 191, "s": 3, "lv": "M", "q": "cmd1 || cmd2 executes cmd2 when:", "code": "", "lang": "", "chk": 0, "o": ["cmd1 succeeds", "cmd1 fails", "Always", "Never"], "oc": [false, false, false, false], "a": 1, "e": "Correct answer: cmd1 fails. (From Linux & Cloud MCQ Bank: 🔴 ADVANCED COMMANDS – MCQs)"}, {"n": 192, "s": 3, "lv": "T", "q": "A file has 2 hard links. One hard link is deleted. What happens to the file data?", "code": "", "lang": "", "chk": 0, "o": ["Data is deleted immediately", "Data remains until last hard link is removed", "Data moves to trash", "Data becomes read-only"], "oc": [false, false, false, false], "a": 1, "e": "Correct answer: Data remains until last hard link is removed. (From Linux & Cloud MCQ Bank: 🔥 CDAC FINAL – HARD LINUX MCQs)"}, {"n": 193, "s": 3, "lv": "T", "q": "Which command shows inode usage?", "code": "", "lang": "", "chk": 0, "o": ["df -h", "df -i", "du -i", "stat -i"], "oc": [false, false, false, false], "a": 1, "e": "Correct answer: df -i. (From Linux & Cloud MCQ Bank: 🔥 CDAC FINAL – HARD LINUX MCQs)"}, {"n": 194, "s": 3, "lv": "T", "q": "Which stat format specifier prints octal permissions?", "code": "", "lang": "", "chk": 0, "o": ["%A", "%a", "%F", "%s"], "oc": [false, false, false, false], "a": 1, "e": "Correct answer: %a. (From Linux & Cloud MCQ Bank: 🔥 CDAC FINAL – HARD LINUX MCQs)"}, {"n": 195, "s": 3, "lv": "T", "q": "Which command does NOT depend on $PATH?", "code": "", "lang": "", "chk": 0, "o": ["ls", "cd", "grep", "which"], "oc": [false, false, false, false], "a": 1, "e": "Correct answer: cd. (From Linux & Cloud MCQ Bank: 🔥 CDAC FINAL – HARD LINUX MCQs)"}, {"n": 196, "s": 3, "lv": "T", "q": "Why does which cd return nothing?", "code": "", "lang": "", "chk": 0, "o": ["cd is deprecated", "cd is alias", "cd is internal command", "cd requires sudo"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: cd is internal command. (From Linux & Cloud MCQ Bank: 🔥 CDAC FINAL – HARD LINUX MCQs)"}, {"n": 197, "s": 3, "lv": "T", "q": "Which command always executes both commands, regardless of success?", "code": "", "lang": "", "chk": 0, "o": ["cmd1 && cmd2", "cmd1 || cmd2", "cmd1 | cmd2", "cmd1 ; cmd2"], "oc": [false, false, false, false], "a": 3, "e": "Correct answer: cmd1 ; cmd2. (From Linux & Cloud MCQ Bank: 🔥 CDAC FINAL – HARD LINUX MCQs)"}, {"n": 198, "s": 3, "lv": "T", "q": "What does $? store?", "code": "", "lang": "", "chk": 0, "o": ["PID of last process", "Exit status of last command", "Shell ID", "User ID"], "oc": [false, false, false, false], "a": 1, "e": "Correct answer: Exit status of last command. (From Linux & Cloud MCQ Bank: 🔥 CDAC FINAL – HARD LINUX MCQs)"}, {"n": 199, "s": 3, "lv": "T", "q": "Exit status 0 indicates:", "code": "", "lang": "", "chk": 0, "o": ["Abnormal termination", "Failure", "Success", "Killed process"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: Success. (From Linux & Cloud MCQ Bank: 🔥 CDAC FINAL – HARD LINUX MCQs)"}, {"n": 200, "s": 3, "lv": "T", "q": "Which command replaces stdout with a file?", "code": "", "lang": "", "chk": 0, "o": ["<", ">", "2>", "|"], "oc": [false, false, false, false], "a": 1, "e": "Correct answer: >. (From Linux & Cloud MCQ Bank: 🔥 CDAC FINAL – HARD LINUX MCQs)"}, {"n": 201, "s": 3, "lv": "T", "q": "Which stream number is stderr?", "code": "", "lang": "", "chk": 0, "o": ["0", "1", "2", "3"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: 2. (From Linux & Cloud MCQ Bank: 🔥 CDAC FINAL – HARD LINUX MCQs)"}, {"n": 202, "s": 3, "lv": "T", "q": "What happens when gzip file.txt is run?", "code": "", "lang": "", "chk": 0, "o": ["file.txt remains", "file.txt.gz created and file.txt removed", "Both files remain", "file converted to zip"], "oc": [false, false, false, false], "a": 1, "e": "Correct answer: file.txt.gz created and file.txt removed. (From Linux & Cloud MCQ Bank: 🔥 CDAC FINAL – HARD LINUX MCQs)"}, {"n": 203, "s": 3, "lv": "T", "q": "Which command identifies file type, not extension?", "code": "", "lang": "", "chk": 0, "o": ["ls", "file", "stat", "type"], "oc": [false, false, false, false], "a": 1, "e": "Correct answer: file. (From Linux & Cloud MCQ Bank: 🔥 CDAC FINAL – HARD LINUX MCQs)"}, {"n": 204, "s": 3, "lv": "T", "q": "Which environment variable controls command search path?", "code": "", "lang": "", "chk": 0, "o": ["HOME", "USER", "PATH", "SHELL"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: PATH. (From Linux & Cloud MCQ Bank: 🔥 CDAC FINAL – HARD LINUX MCQs)"}, {"n": 205, "s": 3, "lv": "T", "q": "Why is export required?", "code": "", "lang": "", "chk": 0, "o": ["Make variable local", "Make variable global", "Save variable permanently", "Encrypt variable"], "oc": [false, false, false, false], "a": 1, "e": "Correct answer: Make variable global. (From Linux & Cloud MCQ Bank: 🔥 CDAC FINAL – HARD LINUX MCQs)"}, {"n": 206, "s": 3, "lv": "T", "q": "Which shell is default in most Linux distributions?", "code": "", "lang": "", "chk": 0, "o": ["zsh", "fish", "bash", "csh"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: bash. (From Linux & Cloud MCQ Bank: 🔥 CDAC FINAL – HARD LINUX MCQs)"}, {"n": 207, "s": 3, "lv": "T", "q": "Which command displays one-line manual description?", "code": "", "lang": "", "chk": 0, "o": ["man", "help", "whatis", "whereis"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: whatis. (From Linux & Cloud MCQ Bank: 🔥 CDAC FINAL – HARD LINUX MCQs)"}, {"n": 208, "s": 3, "lv": "T", "q": "Which command does NOT execute in subshell?", "code": "", "lang": "", "chk": 0, "o": ["Pipe", "Command substitution", "&&", "|"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: &&. (From Linux & Cloud MCQ Bank: 🔥 CDAC FINAL – HARD LINUX MCQs)"}, {"n": 209, "s": 3, "lv": "T", "q": "A file has 1 hard link + 1 symbolic link. The original file is deleted. What remains accessible?", "code": "", "lang": "", "chk": 0, "o": ["Both links work", "Only symbolic link works", "Only hard link works", "Both break"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: Only hard link works. (From Linux & Cloud MCQ Bank: 💣 SUPER HARD CDAC TOPPER MCQs)"}, {"n": 210, "s": 3, "lv": "T", "q": "Why does which cd return nothing?", "code": "", "lang": "", "chk": 0, "o": ["cd not installed", "cd is alias", "cd is shell builtin", "PATH missing"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: cd is shell builtin. (From Linux & Cloud MCQ Bank: 💣 SUPER HARD CDAC TOPPER MCQs)"}, {"n": 211, "s": 3, "lv": "T", "q": "Which pipeline creates multiple processes?", "code": "", "lang": "", "chk": 0, "o": ["cmd1 && cmd2", "cmd1 ; cmd2", "cmd1 | cmd2", "cmd1 || cmd2"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: cmd1 | cmd2. (From Linux & Cloud MCQ Bank: 💣 SUPER HARD CDAC TOPPER MCQs)"}, {"n": 212, "s": 3, "lv": "T", "q": "Which command ensures cmd2 runs only if cmd1 fails?", "code": "", "lang": "", "chk": 0, "o": ["cmd1 && cmd2", "cmd1 | cmd2", "cmd1 || cmd2", "cmd1 ; cmd2"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: cmd1 || cmd2. (From Linux & Cloud MCQ Bank: 💣 SUPER HARD CDAC TOPPER MCQs)"}, {"n": 213, "s": 3, "lv": "T", "q": "What exactly does $? capture?", "code": "", "lang": "", "chk": 0, "o": ["Exit code of shell", "Exit code of last foreground process", "PID of last process", "Kernel error number"], "oc": [false, false, false, false], "a": 1, "e": "Correct answer: Exit code of last foreground process. (From Linux & Cloud MCQ Bank: 💣 SUPER HARD CDAC TOPPER MCQs)"}, {"n": 214, "s": 3, "lv": "T", "q": "Which exit status indicates success by UNIX convention?", "code": "", "lang": "", "chk": 0, "o": ["1", "-1", "0", "255"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: 0. (From Linux & Cloud MCQ Bank: 💣 SUPER HARD CDAC TOPPER MCQs)"}, {"n": 215, "s": 3, "lv": "T", "q": "Which command depends on $PATH?", "code": "", "lang": "", "chk": 0, "o": ["cd", "echo", "ls", "pwd"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: ls. (From Linux & Cloud MCQ Bank: 💣 SUPER HARD CDAC TOPPER MCQs)"}, {"n": 216, "s": 3, "lv": "T", "q": "Which command will treat * as literal character?", "code": "", "lang": "", "chk": 0, "o": ["grep", "egrep", "grep -F", "sed"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: grep -F. (From Linux & Cloud MCQ Bank: 💣 SUPER HARD CDAC TOPPER MCQs)"}, {"n": 217, "s": 3, "lv": "T", "q": "What happens after gzip file.txt?", "code": "", "lang": "", "chk": 0, "o": ["file.txt remains", "file.txt.gz created, file.txt removed", "Both exist", "file converted to zip"], "oc": [false, false, false, false], "a": 1, "e": "Correct answer: file.txt.gz created, file.txt removed. (From Linux & Cloud MCQ Bank: 💣 SUPER HARD CDAC TOPPER MCQs)"}, {"n": 218, "s": 3, "lv": "T", "q": "Which command updates shell environment for child processes?", "code": "", "lang": "", "chk": 0, "o": ["set", "alias", "export", "env -i"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: export. (From Linux & Cloud MCQ Bank: 💣 SUPER HARD CDAC TOPPER MCQs)"}, {"n": 219, "s": 3, "lv": "T", "q": "Which command produces output but never reads stdin?", "code": "", "lang": "", "chk": 0, "o": ["cat", "grep", "ls", "tr"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: ls. (From Linux & Cloud MCQ Bank: 💣 SUPER HARD CDAC TOPPER MCQs)"}, {"n": 220, "s": 3, "lv": "T", "q": "Which command chaining guarantees both commands execute?", "code": "", "lang": "", "chk": 0, "o": ["&&", "||", "|", ";"], "oc": [false, false, false, false], "a": 3, "e": "Correct answer: ;. (From Linux & Cloud MCQ Bank: 💣 SUPER HARD CDAC TOPPER MCQs)"}, {"n": 221, "s": 3, "lv": "T", "q": "Which file controls system-wide environment variables?", "code": "", "lang": "", "chk": 0, "o": ["~/.bashrc", "/etc/profile", "/etc/bashrc", "~/.profile"], "oc": [false, false, false, false], "a": 1, "e": "Correct answer: /etc/profile. (From Linux & Cloud MCQ Bank: 🔥 CDAC CCEE – HARD LINUX MCQs (NEW ONLY))"}, {"n": 222, "s": 3, "lv": "T", "q": "Which command permanently sets hostname?", "code": "", "lang": "", "chk": 0, "o": ["hostname", "uname -n", "hostnamectl set-hostname", "export HOSTNAME"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: hostnamectl set-hostname. (From Linux & Cloud MCQ Bank: 🔥 CDAC CCEE – HARD LINUX MCQs (NEW ONLY))"}, {"n": 223, "s": 3, "lv": "T", "q": "Which shell supports advanced scripting + backward compatibility?", "code": "", "lang": "", "chk": 0, "o": ["sh", "csh", "bash", "fish"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: bash. (From Linux & Cloud MCQ Bank: 🔥 CDAC CCEE – HARD LINUX MCQs (NEW ONLY))"}, {"n": 224, "s": 3, "lv": "T", "q": "Which variable defines default shell?", "code": "", "lang": "", "chk": 0, "o": ["$USER", "$SHELL", "$PATH", "$HOME"], "oc": [false, false, false, false], "a": 1, "e": "Correct answer: $SHELL. (From Linux & Cloud MCQ Bank: 🔥 CDAC CCEE – HARD LINUX MCQs (NEW ONLY))"}, {"n": 225, "s": 3, "lv": "T", "q": "Why does cd not work inside shell scripts to change parent shell directory?", "code": "", "lang": "", "chk": 0, "o": ["Permission issue", "Runs in subshell", "cd is external command", "PATH issue"], "oc": [false, false, false, false], "a": 1, "e": "Correct answer: Runs in subshell. (From Linux & Cloud MCQ Bank: 🔥 CDAC CCEE – HARD LINUX MCQs (NEW ONLY))"}, {"n": 226, "s": 3, "lv": "T", "q": "Which command schedules one-time jobs?", "code": "", "lang": "", "chk": 0, "o": ["cron", "anacron", "at", "systemd"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: at. (From Linux & Cloud MCQ Bank: 🔥 CDAC CCEE – HARD LINUX MCQs (NEW ONLY))"}, {"n": 227, "s": 3, "lv": "T", "q": "Which symbol is used to access script arguments?", "code": "", "lang": "", "chk": 0, "o": ["@", "$", "#", "%"], "oc": [false, false, false, false], "a": 1, "e": "Correct answer: $. (From Linux & Cloud MCQ Bank: 🔥 CDAC CCEE – HARD LINUX MCQs (NEW ONLY))"}, {"n": 228, "s": 3, "lv": "T", "q": "What does $# represent in shell scripting?", "code": "", "lang": "", "chk": 0, "o": ["PID", "Exit status", "Number of arguments", "Script name"], "oc": [false, false, false, false], "a": 2, "e": "Correct answer: Number of arguments. (From Linux & Cloud MCQ Bank: 🔥 CDAC CCEE – HARD LINUX MCQs (NEW ONLY))"}, {"n": 229, "s": 3, "lv": "T", "q": "Which loop is entry-controlled?", "code": "", "lang": "", "chk": 0, "o": ["until", "while", "select", "case"], "oc": [false, false, false, false], "a": 1, "e": "Correct answer: while. (From Linux & Cloud MCQ Bank: 🔥 CDAC CCEE – HARD LINUX MCQs (NEW ONLY))"}, {"n": 230, "s": 3, "lv": "T", "q": "Which condition checks command success?", "code": "", "lang": "", "chk": 0, "o": ["[ $? == 0 ]", "[ $? != 0 ]", "[ -e $? ]", "[ $? -gt 0 ]"], "oc": [false, false, false, false], "a": 0, "e": "Correct answer: [ $? == 0 ]. (From Linux & Cloud MCQ Bank: 🔥 CDAC CCEE – HARD LINUX MCQs (NEW ONLY))"}, {"n": 231, "s": 3, "lv": "T", "q": "Enterprise computing focuses mainly on:", "code": "", "lang": "", "chk": 0, "o": ["Single-user systems", "Scalability and availability", "Desktop customization", "Gaming performance"], "oc": [false, false, false, false], "a": 1, "e": "Correct answer: Scalability and availability. (From Linux & Cloud MCQ Bank: 🔥 CDAC CCEE – HARD LINUX MCQs (NEW ONLY))"}, {"n": 232, "s": 3, "lv": "T", "q": "Which feature is critical in enterprise Linux?", "code": "", "lang": "", "chk": 0, "o": ["GUI themes", "High availability", "Wallpapers", "Terminal colors"], "oc": [false, false, false, false], "a": 1, "e": "Correct answer: High availability. (From Linux & Cloud MCQ Bank: 🔥 CDAC CCEE – HARD LINUX MCQs (NEW ONLY))"}, {"n": 233, "s": 3, "lv": "T", "q": "Which Linux concept supports fault tolerance?", "code": "", "lang": "", "chk": 0, "o": ["Swap", "RAID", "Shell alias", "PATH"], "oc": [false, false, false, false], "a": 1, "e": "Correct answer: RAID. (From Linux & Cloud MCQ Bank: 🔥 CDAC CCEE – HARD LINUX MCQs (NEW ONLY))"}, {"n": 234, "s": 3, "lv": "E", "q": "The command to count the number of files in the current directory by using pipes, is", "code": "", "lang": "", "chk": 0, "o": ["ls | count", "ls-l | ws-l", "ls | wc-w", "Both ls-l | ws-l & ls | wc-w"], "oc": [false, false, false, false], "a": 1, "e": "The test key selects 'ls-l | ws-l' (a typo in the original quiz for 'ls -l | wc -l', which pipes directory listing lines to word count -l)."}, {"n": 235, "s": 3, "lv": "E", "q": "Which of the following commands let us perform a set of instructions repeatedly?", "code": "", "lang": "", "chk": 0, "o": ["for", "while", "until", "for, while, until"], "oc": [false, false, false, false], "a": 3, "e": "Bash and POSIX shells support all three looping constructs: for, while, and until."}, {"n": 236, "s": 3, "lv": "E", "q": "Which keyboard combination sends a signal to end a file?", "code": "", "lang": "", "chk": 0, "o": ["ctrl + c", "ctrl + b", "ctrl + d", "ctrl + a"], "oc": [false, false, false, false], "a": 2, "e": "Ctrl + D sends the EOF (End-Of-File) signal to standard input in Linux terminals."}, {"n": 237, "s": 3, "lv": "E", "q": "Which of the following is true for Pass Arguments To A Script In Linux?", "code": "", "lang": "", "chk": 0, "o": ["Sh test.sh -d \"arg1\" \"arg2\"...\"argn\"", "sh test.sh -t \"arg1\" \"arg2\"...\"argn\"", "sh test.sh \"arg1\" \"arg2\"...\"argn\"", "None of these"], "oc": [false, false, false, false], "a": 2, "e": "Positional arguments are passed directly after the script name: sh test.sh \"arg1\" \"arg2\" ... \"argn\"."}, {"n": 238, "s": 4, "lv": "E", "q": "Which one of the following is Cloud Platform by Amazon?", "code": "", "lang": "", "chk": 0, "o": ["Azure", "AWS", "Cloudera", "All of the mentioned"], "oc": [false, false, false, false], "a": 1, "e": "Amazon Web Services (AWS) is Amazon's cloud computing platform; Azure is Microsoft's and Cloudera is a data platform."}, {"n": 239, "s": 4, "lv": "M", "q": "In Grid Computing, which types of computer resources are there?", "code": "", "lang": "", "chk": 0, "o": ["heterogeneous dispersed.", "geographically dispersed.", "Both heterogeneous dispersed and geographically dispersed.", "None of the above"], "oc": [false, false, false, false], "a": 2, "e": "Grid computing pools heterogeneous and geographically dispersed resources across administrative domains to solve large tasks."}, {"n": 240, "s": 4, "lv": "M", "q": "Which one of the following statements is not true?", "code": "", "lang": "", "chk": 0, "o": ["The popularization of the Internet actually enabled most cloud computing systems.", "Cloud computing makes the long-held dream of utility as a payment possible for you, with an infinitely scalable, universally available system, pay what you use.", "Soft computing addresses a real paradigm in the way in which the system is deployed.", "All of the mentioned"], "oc": [false, false, false, false], "a": 2, "e": "Cloud computing—not soft computing—addresses the deployment paradigm of scalable, pay-as-you-go utility computing."}, {"n": 241, "s": 4, "lv": "E", "q": "In how many parts we can broadly divide the architecture of the Cloud?", "code": "", "lang": "", "chk": 0, "o": ["4", "3", "2", "5"], "oc": [false, false, false, false], "a": 2, "e": "Cloud computing architecture is broadly divided into 2 parts: the Front End (client side) and the Back End (cloud provider side)."}, {"n": 242, "s": 4, "lv": "E", "q": "Which one of the following refers to the user's part of the Cloud Computing system?", "code": "", "lang": "", "chk": 0, "o": ["back End", "Management", "Infrastructure", "Front End"], "oc": [false, false, false, false], "a": 3, "e": "The Front End includes the client's device, browser, or application used to access the cloud system."}, {"n": 243, "s": 4, "lv": "M", "q": "In which one of the following phases, IT Architecture Development came?", "code": "", "lang": "", "chk": 0, "o": ["Strategy Phase", "Planning Phase", "Deployment Phase", "Development Phase"], "oc": [false, false, false, false], "a": 1, "e": "In the cloud adoption lifecycle, IT Architecture Development is part of the Planning Phase."}, {"n": 244, "s": 4, "lv": "M", "q": "Managed IT services are based on the concept of which one of the following?", "code": "", "lang": "", "chk": 0, "o": ["Virtualization", "Utility Computing", "Grid Computing", "SOA"], "oc": [false, false, false, false], "a": 1, "e": "Utility computing delivers metered IT services on a pay-per-use basis, forming the basis of managed IT services."}, {"n": 245, "s": 4, "lv": "M", "q": "In which one of the following, a strategy record or Document is created respectively to the events, conditions a user may face while applying cloud computing mode.", "code": "", "lang": "", "chk": 0, "o": ["Cloud Computing Value Proposition", "Cloud Computing Strategy Planning", "Planning Phase", "Business Architecture Development"], "oc": [false, false, false, false], "a": 1, "e": "Cloud Computing Strategy Planning produces the strategy document addressing conditions and events encountered during cloud adoption."}, {"n": 246, "s": 4, "lv": "M", "q": "What is Business Architecture Development?", "code": "", "lang": "", "chk": 0, "o": ["We recognize the risks that might be caused by cloud computing application from a business perspective.", "We identify the applications that support the business processes and the technologies required to support enterprise applications and data systems.", "We formulate all kinds of plans that are required to transform the current business to cloud computing modes.", "None of the above."], "oc": [false, false, false, false], "a": 0, "e": "In the cloud planning model, Business Architecture Development identifies risks posed by cloud applications from a business perspective."}, {"n": 247, "s": 4, "lv": "M", "q": "Which one of the following refers to the non-functional requirements like disaster recovery, security, reliability, etc.", "code": "", "lang": "", "chk": 0, "o": ["Service Development", "Quality of service", "Plan Development", "Technical Service"], "oc": [false, false, false, false], "a": 1, "e": "Quality of Service (QoS) covers non-functional requirements such as security, reliability, availability, and disaster recovery."}, {"n": 248, "s": 4, "lv": "M", "q": "Which of the following forms the basis for almost all web services stacks?", "code": "", "lang": "", "chk": 0, "o": ["WSDL", "SOAP", "UDDI", "VMCC. SOA"], "oc": [false, false, false, false], "a": 1, "e": "SOAP (Simple Object Access Protocol) forms the messaging foundation for traditional XML-based web services stacks."}, {"n": 249, "s": 4, "lv": "M", "q": "Which one of the following statement is true about Grid Computing?", "code": "", "lang": "", "chk": 0, "o": ["Pieces combine small tasks into complex tasks", "The subscription tier plays an important role in grid computing.", "Breaks complex tasks into small operations", "Both A and C"], "oc": [false, false, false, false], "a": 2, "e": "Grid computing breaks complex computational problems into smaller tasks distributed across multiple nodes."}, {"n": 250, "s": 4, "lv": "E", "q": "Through which, the backend and front-end are connected with each other?", "code": "", "lang": "", "chk": 0, "o": ["Browser", "Database", "Network", "Both A and B"], "oc": [false, false, false, false], "a": 2, "e": "The Front End and Back End of a cloud system communicate with each other over a network (typically the Internet)."}, {"n": 251, "s": 4, "lv": "E", "q": "Which of the following has many features of that is now known as cloud computing?", "code": "", "lang": "", "chk": 0, "o": ["Web Service", "Softwares", "All of the mentioned", "Internet"], "oc": [false, false, false, false], "a": 3, "e": "The Internet itself pioneered many distributed, on-demand service features now central to cloud computing."}, {"n": 252, "s": 4, "lv": "M", "q": "Which of the following is the most commonly used model for description and discovery and is also used with SOAP messaging?", "code": "", "lang": "", "chk": 0, "o": ["DHML", "VMC", "WSDL", "SOA"], "oc": [false, false, false, false], "a": 2, "e": "WSDL (Web Services Description Language) describes SOAP web services and their endpoints for discovery and integration."}, {"n": 253, "s": 4, "lv": "E", "q": "Which one of the following can be considered as the example of the Front-end?", "code": "", "lang": "", "chk": 0, "o": ["Web Browser", "Google Compute Engine", "Cisco Metapod", "Amazon Web Services"], "oc": [false, false, false, false], "a": 0, "e": "A Web Browser runs on the user's client machine and acts as the Front-end interface to cloud services."}, {"n": 254, "s": 4, "lv": "M", "q": "Grid Computing Model", "code": "", "lang": "", "chk": 0, "o": ["SOA Model", "virtual isolation Model", "Pay-per-Use model", "Both A and C"], "oc": [false, false, false, false], "a": 2, "e": "The test bank links this prompt to the Pay-per-Use model (also associated with utility/grid resource metering)."}, {"n": 255, "s": 4, "lv": "E", "q": "Which one of the following refers to the Distributed Computing, in which several sets of computers distributed on multiple geographical locations and are connected with each other to achieve a common goal?", "code": "", "lang": "", "chk": 0, "o": ["Virtualization", "SOA", "Grid Computing", "Utility Computing"], "oc": [false, false, false, false], "a": 2, "e": "Grid Computing connects geographically distributed computers to work together toward a common computational goal."}, {"n": 256, "s": 4, "lv": "M", "q": "Which of the following is one of the backend's built-in components of cloud computing?", "code": "", "lang": "", "chk": 0, "o": ["Security", "Application", "Storage", "Service"], "oc": [false, false, false, false], "a": 0, "e": "Security (along with Management) is a built-in back-end component of the cloud computing architecture."}, {"n": 257, "s": 4, "lv": "E", "q": "Which one of the following can be considered as a utility is a dream that dates from the beginning of the computing industry itself?", "code": "", "lang": "", "chk": 0, "o": ["Computing", "Model", "Software", "All of the mentioned"], "oc": [false, false, false, false], "a": 0, "e": "\"Computing as a utility\" (John McCarthy's 1961 vision) dates from the early days of the computing industry."}, {"n": 258, "s": 4, "lv": "M", "q": "How many phases are present in Cloud Computing Planning?", "code": "", "lang": "", "chk": 0, "o": ["2", "3", "4", "5"], "oc": [false, false, false, false], "a": 1, "e": "Cloud Computing Planning consists of 3 phases: Strategy Phase, Planning Phase, and Deployment Phase."}, {"n": 259, "s": 4, "lv": "M", "q": "Cloud computing architecture is a combination of?", "code": "", "lang": "", "chk": 0, "o": ["service-oriented architecture and grid computing", "Utility computing and event-driven architecture.", "Service-oriented architecture and event-driven architecture.", "Virtualization and event-driven architecture"], "oc": [false, false, false, false], "a": 2, "e": "This test bank keys Cloud computing architecture as a combination of Service-oriented architecture (SOA) and event-driven architecture."}, {"n": 260, "s": 4, "lv": "E", "q": "On which one of the following utility computing is based?", "code": "", "lang": "", "chk": 0, "o": ["Grid Computing Model", "SOA Model", "virtual isolation Model", "Pay-per-Use model"], "oc": [false, false, false, false], "a": 3, "e": "Utility computing is based on the Pay-per-Use (metered billing) model."}, {"n": 261, "s": 4, "lv": "M", "q": "Which of the following provides the Graphic User Interface (GUI) for interaction with the cloud?", "code": "", "lang": "", "chk": 0, "o": ["Client", "Client Infrastructure", "Application", "Server"], "oc": [false, false, false, false], "a": 1, "e": "Client Infrastructure (part of the Front End) provides the GUI components needed to interact with the cloud."}, {"n": 262, "s": 4, "lv": "M", "q": "Which of the following is an essential concept related to Cloud?", "code": "", "lang": "", "chk": 0, "o": ["Reliability", "Abstraction", "Productivity", "All of the mentioned"], "oc": [false, false, false, false], "a": 1, "e": "Abstraction (hiding underlying physical infrastructure complexity) is a foundational concept of cloud computing."}, {"n": 263, "s": 4, "lv": "E", "q": "Which one of the following technology works behind the cloud computing platform?", "code": "", "lang": "", "chk": 0, "o": ["Virtualization", "SOA", "Grid Computing", "All of the above"], "oc": [false, false, false, false], "a": 3, "e": "Cloud computing builds on Virtualization, Service-Oriented Architecture (SOA), and Grid Computing."}, {"n": 264, "s": 4, "lv": "E", "q": "Cloud computing is a kind of abstraction which is based on the notion of combining physical resources and represents them as _________ resources to users.", "code": "", "lang": "", "chk": 0, "o": ["Real", "Cloud", "Virtual", "none of the mentioned"], "oc": [false, false, false, false], "a": 2, "e": "Cloud computing pools physical resources and presents them as virtual resources to users."}, {"n": 265, "s": 4, "lv": "E", "q": "What type of computing technology refers to services and applications that typically run on a distributed network through virtualized resources?", "code": "", "lang": "", "chk": 0, "o": ["Distributed Computing", "Cloud Computing", "Soft Computing", "Parallel Computing"], "oc": [false, false, false, false], "a": 1, "e": "Cloud Computing delivers services and applications over a distributed network using virtualized resources."}, {"n": 266, "s": 4, "lv": "M", "q": "In the Planning Phase, Which of the following is the correct step for performing the analysis?", "code": "", "lang": "", "chk": 0, "o": ["Cloud Computing Value Proposition", "Cloud Computing Strategy Planning", "Both Cloud Computing Value Proposition and Cloud Computing Strategy Planning", "Business Architecture Development"], "oc": [false, false, false, false], "a": 2, "e": "Analysis in the Planning Phase includes both Cloud Computing Value Proposition and Cloud Computing Strategy Planning."}, {"n": 267, "s": 4, "lv": "E", "q": "By whom is the backend commonly used?", "code": "", "lang": "", "chk": 0, "o": ["Client", "User", "Stockholders", "service provider"], "oc": [false, false, false, false], "a": 3, "e": "The Back End (servers, storage, security, management) is managed and operated by the cloud service provider."}, {"n": 268, "s": 4, "lv": "M", "q": "Which one of the following is a kind of open standard protocol?", "code": "", "lang": "", "chk": 0, "o": ["SOAP", "WSDL", "DHML", "SIMPLE"], "oc": [false, false, false, false], "a": 3, "e": "SIMPLE (SIP for Instant Messaging and Presence Leveraging Extensions) is keyed here as an open standard protocol."}, {"n": 269, "s": 5, "lv": "E", "q": "On which one of the following hypervisor runs directly on the underlying host system, it is also known as _________?", "code": "", "lang": "", "chk": 0, "o": ["Bare metal hypervisor", "Hosted Hypervisor", "Native Hypervisor", "Both Bare metal hypervisor and Native Hypervisor"], "oc": [false, false, false, false], "a": 3, "e": "A Type-1 hypervisor runs directly on the host hardware without a host OS and is called both a bare-metal hypervisor and a native hypervisor."}, {"n": 270, "s": 5, "lv": "E", "q": "Which one of the following can be considered as the benefit of PaaS?", "code": "", "lang": "", "chk": 0, "o": ["Lower administrative overhead", "Lower total cost of ownership", "More current system software", "All of the above"], "oc": [false, false, false, false], "a": 3, "e": "PaaS reduces administrative overhead and total cost of ownership while keeping the underlying system software current."}, {"n": 271, "s": 5, "lv": "M", "q": "Which type of PaaS does not contains any type of license or technical dependencies on specific SaaS applications?", "code": "", "lang": "", "chk": 0, "o": ["Add-on development facilities", "Application delivery-only environments", "Open Platform as a service", "Stand-alone development environments"], "oc": [false, false, false, false], "a": 3, "e": "Stand-alone development environments provide a complete PaaS development stack without licensing or technical ties to a specific SaaS app."}, {"n": 272, "s": 5, "lv": "E", "q": "In Virtualization, which architecture provides the virtual isolation between the several tenants?", "code": "", "lang": "", "chk": 0, "o": ["IT Architecture", "Multitenant", "Deployment", "Business Architecture"], "oc": [false, false, false, false], "a": 1, "e": "Multitenant architecture logically isolates resources and data among multiple tenants sharing the same physical infrastructure."}, {"n": 273, "s": 5, "lv": "E", "q": "The Infrastructure as a service (IaaS) provides a type of isolated environment to each customer individually by using ______.", "code": "", "lang": "", "chk": 0, "o": ["renting", "virtual machine sprawl", "security vulnerabilities", "hypervisor"], "oc": [false, false, false, false], "a": 3, "e": "IaaS uses a hypervisor to partition physical hardware into isolated virtual machines for each customer."}, {"n": 274, "s": 5, "lv": "E", "q": "Which of the model involves the special types of services that users can access on a Cloud Computing platform?", "code": "", "lang": "", "chk": 0, "o": ["Service", "Planning", "Deployment", "Application"], "oc": [false, false, false, false], "a": 0, "e": "Cloud Service Models (IaaS, PaaS, SaaS) define the specific types of services users access on a cloud platform."}, {"n": 275, "s": 5, "lv": "E", "q": "How many types of services are there those are offered by the Cloud Computing to the users?", "code": "", "lang": "", "chk": 0, "o": ["2", "4", "3", "5"], "oc": [false, false, false, false], "a": 2, "e": "The 3 primary cloud service models are Infrastructure as a Service (IaaS), Platform as a Service (PaaS), and Software as a Service (SaaS)."}, {"n": 276, "s": 5, "lv": "M", "q": "Which one of the following is a type of PaaS that usually allows customizing the existing SaaS platform?", "code": "", "lang": "", "chk": 0, "o": ["Stand-alone development environments", "Add-on development facilities", "Open Platform as a service", "Application delivery-only environments"], "oc": [false, false, false, false], "a": 1, "e": "Add-on development facilities let developers build extensions and customizations on top of an existing SaaS platform."}, {"n": 277, "s": 5, "lv": "M", "q": "How many kinds of virtual private server instances are there partitioned in the IaaS stack?", "code": "", "lang": "", "chk": 0, "o": ["3", "2", "4", "5"], "oc": [false, false, false, false], "a": 0, "e": "In the standard cloud reference model, virtual private server instances in the IaaS stack are categorized into 3 types."}, {"n": 278, "s": 5, "lv": "E", "q": "The terms \"Iaas\" stand for?", "code": "", "lang": "", "chk": 0, "o": ["IT-as-a-Service", "Infrastructure-as-a-Service", "Internet-as-a-Service", "Interoperability-as-a-Service"], "oc": [false, false, false, false], "a": 3, "e": "The attached test's solution key marked 'Interoperability-as-a-Service', though in standard cloud computing terminology IaaS stands for Infrastructure-as-a-Service."}, {"n": 279, "s": 5, "lv": "E", "q": "Which one of the following is a kind of technique that allows sharing the single physical instance of an application or the resources among multiple organizations/customers?", "code": "", "lang": "", "chk": 0, "o": ["Virtualization", "Service-Oriented Architecture", "Grid Computing", "Utility Computing"], "oc": [false, false, false, false], "a": 0, "e": "Virtualization abstracts physical hardware so a single physical instance can be shared securely across multiple tenants."}, {"n": 280, "s": 5, "lv": "E", "q": "Which one of the following can be considered as the benefit of PaaS?", "code": "", "lang": "", "chk": 0, "o": ["Lower administrative overhead", "Lower total cost of ownership", "More current system software", "All of these"], "oc": [false, false, false, false], "a": 3, "e": "PaaS lowers administrative overhead and TCO while providing up-to-date runtime and system software."}, {"n": 281, "s": 5, "lv": "E", "q": "How many kinds of Hypervisor are there?", "code": "", "lang": "", "chk": 0, "o": ["4", "3", "2", "5"], "oc": [false, false, false, false], "a": 2, "e": "There are 2 types of hypervisors: Type 1 (bare-metal/native) and Type 2 (hosted)."}, {"n": 282, "s": 5, "lv": "E", "q": "Which one of the following statements can be considered as the true characteristics of Software as a Service (SaaS) model?", "code": "", "lang": "", "chk": 0, "o": ["Software applications are generally maintained by the service provider (or vendor)", "SaaS provides the best cost-effective applications because they do not need any maintenance at the customer side.", "They can easily scale up or scale down according to the conditions.", "All of the above"], "oc": [false, false, false, false], "a": 3, "e": "SaaS applications are vendor-maintained, cost-effective for customers, and easily scalable."}, {"n": 283, "s": 5, "lv": "T", "q": "Which one of the following statements is not true?", "code": "", "lang": "", "chk": 0, "o": ["Whenever a command begins a process, immediately the process virtual machine gets instantiated.", "Usually, the guest operating systems are mores faster in full virtualization as compared to other virtualization schemes.", "It is necessary for the full virtualization that the host OS (Operating System ) offers a Virtual Machine Interface for the guest operating system by which the guest operating system can access the hardware through the host VM.", "None of the above"], "oc": [false, false, false, false], "a": 2, "e": "In full virtualization, the hypervisor abstracts hardware directly without requiring the guest OS to be modified for a host VM interface (that describes paravirtualization/hosted interfaces)."}, {"n": 284, "s": 5, "lv": "E", "q": "Which one of the following given programs provides the isolation (abstraction) and partitioning?", "code": "", "lang": "", "chk": 0, "o": ["System hypervisor", "Software hypervisor", "Hardware hypervisor", "Virtualization hypervisor"], "oc": [false, false, false, false], "a": 3, "e": "A virtualization hypervisor abstracts physical hardware and partitions it into isolated virtual machines."}, {"n": 285, "s": 5, "lv": "M", "q": "Which one of the following statements is not true about SaaS?", "code": "", "lang": "", "chk": 0, "o": ["SaaS applications are offered in all shapes and sizes.", "All users with a little knowledge or know how to operate a computer also know about the SaaS.", "SaaS software is not customizable.", "None of the above"], "oc": [false, false, false, false], "a": 3, "e": "The test key marks 'None of the above' (treating the listed SaaS statements as true in that source bank)."}, {"n": 286, "s": 5, "lv": "E", "q": "Which of the following is the SaaS's Characteristics?", "code": "", "lang": "", "chk": 0, "o": ["Usually, the license is subscription-based or usage-based and is billed on a recurring basis.", "The software and the service are observed and maintained usually by the vendor.", "Software mostly available over the internet across the world and can be provided according to the demand through the browser.", "All of the above"], "oc": [false, false, false, false], "a": 3, "e": "SaaS features recurring subscription billing, vendor-managed maintenance, and browser-based internet delivery."}, {"n": 287, "s": 5, "lv": "M", "q": "Which one of the following of PaaS type that involves on-demand scaling and application security?", "code": "", "lang": "", "chk": 0, "o": ["Stand-alone development environments", "Open Platform as a service", "Application delivery-only environments", "Add-on development facilities"], "oc": [false, false, false, false], "a": 2, "e": "Application delivery-only environments focus on hosting, on-demand scaling, and application security rather than full IDE tooling."}, {"n": 288, "s": 5, "lv": "M", "q": "Through which one of the following models, SaaS supports multiple users and offers a shared data model?", "code": "", "lang": "", "chk": 0, "o": ["single-tenancy", "multiple-instance", "multi-tenancy", "None of the above"], "oc": [false, false, false, false], "a": 1, "e": "The attached test's key marked 'multiple-instance', though in standard cloud architecture 'multi-tenancy' is the model where multiple users share a single instance and data model."}, {"n": 289, "s": 5, "lv": "E", "q": "Which one of the following is not an example of the Type1-Hypervisor?", "code": "", "lang": "", "chk": 0, "o": ["VMware ESXi", "Citrix XenServer", "Microsoft Hyper-V hypervisor", "VMware Player"], "oc": [false, false, false, false], "a": 3, "e": "VMware Player is a Type-2 (hosted) hypervisor that runs on top of a host OS; ESXi, XenServer, and Hyper-V are Type-1."}, {"n": 290, "s": 5, "lv": "E", "q": "Which one of the following cloud concepts is related to sharing and pooling the resources?", "code": "", "lang": "", "chk": 0, "o": ["Polymorphism", "Virtualization", "Abstraction", "None of the mentioned"], "oc": [false, false, false, false], "a": 1, "e": "Virtualization enables pooling and sharing of physical compute, storage, and network resources."}, {"n": 291, "s": 5, "lv": "M", "q": "Which one of the following is used to call the allocator?", "code": "", "lang": "", "chk": 0, "o": ["INTERPRETER", "TYPE-2 Hypervisor", "Both A and B", "DISPATCHER"], "oc": [false, false, false, false], "a": 3, "e": "In VMM architecture, the Dispatcher intercepts privileged instructions and calls the Allocator to decide how system resources are allocated."}, {"n": 292, "s": 5, "lv": "E", "q": "The Parallels Desktop can be considered as the example of which of the following?", "code": "", "lang": "", "chk": 0, "o": ["TYPE-2 Hypervisor", "DISPATCHER", "TYPE-1 Hypervisor", "INTERPRETER"], "oc": [false, false, false, false], "a": 0, "e": "Parallels Desktop runs on top of macOS as a host OS, making it a Type-2 (hosted) hypervisor."}, {"n": 293, "s": 5, "lv": "M", "q": "How many types of PaaS are there?", "code": "", "lang": "", "chk": 0, "o": ["4", "3", "2", "5"], "oc": [false, false, false, false], "a": 0, "e": "PaaS is commonly divided into 4 types: Stand-alone development environments, Add-on development facilities, Application delivery-only environments, and Open PaaS."}, {"n": 294, "s": 5, "lv": "E", "q": "Which one of the following can be considered as the most complete cloud computing service model?", "code": "", "lang": "", "chk": 0, "o": ["PaaS", "IaaS", "CaaS", "SaaS"], "oc": [false, false, false, false], "a": 3, "e": "SaaS is the most complete service model because the provider manages hardware, runtime, and the entire application."}, {"n": 295, "s": 5, "lv": "E", "q": "Which one of the following statements is correct about the PaaS?", "code": "", "lang": "", "chk": 0, "o": ["The platform as a service (or PaaS) systems usually support standards like JavaScript, HTML, and several other rich media technologies.", "Platform as a service provides the runtime environment for the applications.", "The platform as a service is a completely integrated development environment.", "All of the above"], "oc": [false, false, false, false], "a": 3, "e": "PaaS provides an integrated development and runtime environment supporting standard web and application technologies."}, {"n": 296, "s": 5, "lv": "M", "q": "How many main modules are needed to coordinate in order to emulate the underlying hardware?", "code": "", "lang": "", "chk": 0, "o": ["3", "2", "4", "5"], "oc": [false, false, false, false], "a": 0, "e": "A Virtual Machine Monitor (VMM) coordinates 3 main modules: Dispatcher, Allocator, and Interpreter."}, {"n": 297, "s": 5, "lv": "E", "q": "Which one of the following is also known as a Hypervisor?", "code": "", "lang": "", "chk": 0, "o": ["VMA", "VMM", "VMS", "VMR"], "oc": [false, false, false, false], "a": 1, "e": "A hypervisor is also known as a Virtual Machine Monitor (VMM)."}, {"n": 298, "s": 5, "lv": "M", "q": "Which one of the following statement is true about the Virtualization?", "code": "", "lang": "", "chk": 0, "o": ["It provides a logical name for a physical resource, and on-demand provides an indicator of that physical resource.", "In Virtualization, we analyze the strategy related problems that customers may face.", "In Virtualization, it is necessary to compile the Multitenant properly.", "All of the above"], "oc": [false, false, false, false], "a": 0, "e": "Virtualization assigns logical names to physical resources and dynamically maps/indicates those physical resources on demand."}, {"n": 299, "s": 5, "lv": "E", "q": "Which types of issues are associated with the SaaS?", "code": "", "lang": "", "chk": 0, "o": ["Modest software tools", "Multitenant solutions", "Centralized management and data", "Network dependence"], "oc": [false, false, false, false], "a": 3, "e": "Because SaaS runs over the internet, network dependence (latency and connectivity requirements) is a key issue."}, {"n": 300, "s": 5, "lv": "E", "q": "Which of the following is the correct full form of SaaS?", "code": "", "lang": "", "chk": 0, "o": ["Storage-as-a-Service", "Server-as-a-Software", "Software-as-a-Service", "None of the above"], "oc": [false, false, false, false], "a": 2, "e": "SaaS stands for Software-as-a-Service."}, {"n": 301, "s": 5, "lv": "E", "q": "IaaS usually shares issues with the _______.", "code": "", "lang": "", "chk": 0, "o": ["PaaS", "SaaS", "Both PaaS and SaaS", "None of the above"], "oc": [false, false, false, false], "a": 2, "e": "IaaS shares common cloud concerns—such as security, availability, and vendor trust—with both PaaS and SaaS."}, {"n": 302, "s": 5, "lv": "M", "q": "Which of the following behaves like the monitor's entry point and reroutes the instructions of the virtual machine?", "code": "", "lang": "", "chk": 0, "o": ["Dispatcher", "Allocator", "Interpreter", "Both A and B"], "oc": [false, false, false, false], "a": 0, "e": "The Dispatcher acts as the VMM's entry point, intercepting VM instructions and routing them to the Allocator or Interpreter."}, {"n": 303, "s": 5, "lv": "E", "q": "In the virtual appliance, the content can be _____.", "code": "", "lang": "", "chk": 0, "o": ["structured", "unstructured", "Both structured and unstructured", "None of the above"], "oc": [false, false, false, false], "a": 2, "e": "A virtual appliance can package and handle both structured and unstructured content."}, {"n": 304, "s": 5, "lv": "M", "q": "Which of the following is a characteristic of the SaaS applications?", "code": "", "lang": "", "chk": 0, "o": ["SaaS applications are reliable", "SaaS applications are not customizable", "SaaS applications are customizable", "Non-reliable"], "oc": [false, false, false, false], "a": 2, "e": "Modern SaaS applications are configurable/customizable via settings, themes, and APIs."}, {"n": 305, "s": 5, "lv": "M", "q": "The resources like IP addresses and VLANs are provided to the end-users by which of the following?", "code": "", "lang": "", "chk": 0, "o": ["Server virtualization.", "Client virtualization.", "End-user virtualization.", "IaaS"], "oc": [false, false, false, false], "a": 0, "e": "Server virtualization provisions virtualized network resources such as IP addresses and VLANs to end-users/VMs."}, {"n": 306, "s": 5, "lv": "M", "q": "Which one of the following is not the correct statement?", "code": "", "lang": "", "chk": 0, "o": ["SaaS may be also be described as software deployed on a hosted service.", "The platform can be based on the types of software development languages, frameworks, and several other constructs.", "SaaS is the cloud-based equivalent of shrink-wrapped software", "All of the above"], "oc": [false, false, false, false], "a": 3, "e": "The test bank keys 'All of the above' for this question."}, {"n": 307, "s": 5, "lv": "M", "q": "Which one of the following is associated heavily with vendor lock-in?", "code": "", "lang": "", "chk": 0, "o": ["DaaS", "SaaS", "IaaS", "PaaS"], "oc": [false, false, false, false], "a": 3, "e": "PaaS platforms tie applications to proprietary APIs, runtimes, and services, creating high vendor lock-in."}, {"n": 308, "s": 5, "lv": "E", "q": "Which of the following is an advantage of IaaS (Infrastructure as service)?", "code": "", "lang": "", "chk": 0, "o": ["Efficient and flexible renting of computer hardware.", "Portability, interoperability with legacy applications.", "Complete control of the computing resources through administrative access to VMs.", "All of the above"], "oc": [false, false, false, false], "a": 3, "e": "IaaS provides flexible hardware rental, legacy portability, and full administrative VM control."}, {"n": 309, "s": 5, "lv": "E", "q": "In SaaS, the used open-source software are also known as _____", "code": "", "lang": "", "chk": 0, "o": ["Closed", "Free", "Open", "all of the mentioned"], "oc": [false, false, false, false], "a": 2, "e": "Open-source software used in SaaS is referred to as Open."}, {"n": 310, "s": 6, "lv": "E", "q": "Which one of the following is not the correct statement?", "code": "", "lang": "", "chk": 0, "o": ["The customer assumes no responsibility for maintaining the hardware, software or the development of applications.", "Google's App Engine platform is one of the IaaS offerings.", "The vendor is usually responsible for all operational aspects of the services.", "All of the above"], "oc": [false, false, false, false], "a": 1, "e": "Google App Engine is a PaaS (Platform as a Service) offering, not an IaaS offering."}, {"n": 311, "s": 6, "lv": "M", "q": "Which one of the following is a phase of the Deployment process?", "code": "", "lang": "", "chk": 0, "o": ["Selecting Cloud Computing Provider", "IT Architecture Development", "Business Architecture Development", "Transformation Plan Development"], "oc": [false, false, false, false], "a": 1, "e": "In this cloud deployment question bank, IT Architecture Development is keyed as the phase."}, {"n": 312, "s": 6, "lv": "M", "q": "Which one of the following is related to the services provided by Cloud?", "code": "", "lang": "", "chk": 0, "o": ["Sourcing", "Ownership", "Reliability", "PaaS"], "oc": [false, false, false, false], "a": 0, "e": "Sourcing relates to how cloud services are procured and delivered by external/internal providers."}, {"n": 313, "s": 6, "lv": "E", "q": "The Force.com and Windows Azure are examples of which of the following?", "code": "", "lang": "", "chk": 0, "o": ["IaaS", "PaaS", "SaaS", "Both A and B"], "oc": [false, false, false, false], "a": 1, "e": "Salesforce's Force.com and Windows Azure (App Services) are classic examples of Platform as a Service (PaaS)."}, {"n": 314, "s": 6, "lv": "M", "q": "Which one of the following options can be considered as the Cloud?", "code": "", "lang": "", "chk": 0, "o": ["Hadoop", "Intranet", "Web Applications", "All of the mentioned"], "oc": [false, false, false, false], "a": 0, "e": "In this question bank, Hadoop (distributed cloud-scale processing/storage) is keyed as the cloud option over local intranets or standalone web apps."}, {"n": 315, "s": 6, "lv": "M", "q": "Which of the following statement is not true?", "code": "", "lang": "", "chk": 0, "o": ["Through cloud computing, one can begin with very small and become big in a rapid manner.", "All applications benefit from deployment in the Cloud.", "Cloud computing is revolutionary, even though the technology it is built on is evolutionary.", "None of the mentioned"], "oc": [false, false, false, false], "a": 1, "e": "Not all applications benefit from cloud deployment—for example, legacy apps with strict local hardware or latency constraints may not fit."}, {"n": 316, "s": 6, "lv": "M", "q": "Which one of the following is a phase of the Deployment process?", "code": "", "lang": "", "chk": 0, "o": ["Selecting Cloud Computing Provider", "IT Architecture Development", "Business Architecture Development", "Transformation Plan Development"], "oc": [false, false, false, false], "a": 3, "e": "In the Cloud Deployment process, Transformation Plan Development is keyed as a deployment phase step."}, {"n": 317, "s": 6, "lv": "M", "q": "Which of the following can be considered PaaS offering?", "code": "", "lang": "", "chk": 0, "o": ["Youtube", "Google Earth", "Google Adsense", "Google Maps"], "oc": [false, false, false, false], "a": 3, "e": "Google Maps (via its Maps Platform APIs for developers) is keyed as a PaaS offering in this source bank."}, {"n": 318, "s": 6, "lv": "M", "q": "In AWS, which of the following is the AWS Management Console?", "code": "", "lang": "", "chk": 0, "o": ["CAS", "CDSS", "CCS", "CDA"], "oc": [false, false, false, false], "a": 2, "e": "In this test bank, CCS is the keyed answer for the AWS Management Console abbreviation question."}]}</script>
+<script>
+(function(){
+"use strict";
+const DATA = JSON.parse(document.getElementById('qdata').textContent);
+const Q = DATA.questions;
+const TOTAL = Q.length;
+const byN = {}; Q.forEach(q => { byN[q.n] = q; });
+const LV = {E:'Easy', M:'Medium', T:'Tough'};
+const LVBARS = {E:1, M:2, T:3};
+const GROUPS = DATA.groups;
+const SESS = DATA.sessions.map(s => ({
+  n:s.n, g:s.g, label:'S' + String(s.n).padStart(2, '0'), short:String(s.n), name:s.name, topics:s.topics,
+  qs: Q.filter(q => q.s === s.n).map(q => q.n)
+}));
+const sessByN = {}; SESS.forEach(s => { sessByN[s.n] = s; });
+const CHECKED = Q.filter(q => q.chk).length;
+const MOCK_SIZE = 40;
+
+/* 40-Question Subset Divisions (9 subsets across 330 questions) */
+const SUBSETS = [];
+for (let i = 0; i < TOTAL; i += 40){
+  const start = i + 1;
+  const end = Math.min(i + 40, TOTAL);
+  const tNum = SUBSETS.length + 1;
+  const qs = [];
+  for (let qn = start; qn <= end; qn++) qs.push(qn);
+  const sFirst = byN[start].s, sLast = byN[end].s;
+  SUBSETS.push({
+    t: tNum,
+    label: 'Test ' + tNum,
+    title: 'Test ' + tNum + ' · Q' + start + '–Q' + end,
+    sub: 'Sessions ' + sFirst + '–' + sLast + ' (' + qs.length + ' questions)',
+    qs
+  });
+}
+const subsetByT = {}; SUBSETS.forEach(tb => { subsetByT[tb.t] = tb; });
+
+/* ---------- helpers ---------- */
+const $ = id => document.getElementById(id);
+function esc(s){ return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function pct(a, b){ return b ? Math.round(100 * a / b) : 0; }
+const KW = {
+  java: /^(abstract|boolean|break|byte|case|catch|char|class|continue|default|do|double|else|enum|extends|final|finally|float|for|if|implements|import|instanceof|int|interface|long|new|null|package|private|protected|public|return|short|static|super|switch|this|throw|throws|try|void|while|true|false|var)$/,
+  py: /^(from|import|as|def|return|lambda|for|in|if|elif|else|print|True|False|None|and|or|not|with|try|except|class|while|is)$/,
+  sql: /^(select|from|where|group|by|order|having|join|on|as|over|partition|rows|range|between|and|or|not|null|is|insert|into|overwrite|table|create|external|stored|load|data|local|inpath|limit|lateral|view|distinct|case|when|then|else|end|desc|asc|preceding|following|current|row|unbounded|union|all|with)$/i,
+  sh: /^$/
+};
+const COMMENT = {java: '//', py: '#', sh: '#', sql: '--'};
+function highlight(code, lang){
+  const kw = KW[lang] || KW.java, cm = COMMENT[lang] || '//';
+  const cmRe = cm === '//' ? '\\/\\/[^\\n]*' : cm === '--' ? '--[^\\n]*' : '#[^\\n]*';
+  const re = new RegExp('("(?:[^"\\\\\\n]|\\\\.)*"|\'(?:[^\'\\\\\\n]|\\\\.)*\'|' + cmRe + '|\\b(?:0[xX][0-9a-fA-F]+|\\d+(?:\\.\\d+)?[LlFf]?)\\b|\\b[A-Za-z_]\\w*\\b)', 'g');
+  let out = '', last = 0, m;
+  while ((m = re.exec(code))){
+    out += esc(code.slice(last, m.index));
+    const tk = m[0];
+    if (tk[0] === '"' || tk[0] === "'") out += '<span class="st">' + esc(tk) + '</span>';
+    else if (tk.startsWith(cm)) out += '<span class="cm">' + esc(tk) + '</span>';
+    else if (/^\d/.test(tk)) out += '<span class="nu">' + esc(tk) + '</span>';
+    else if (kw.test(tk)) out += '<span class="kw">' + esc(tk) + '</span>';
+    else out += esc(tk);
+    last = m.index + tk.length;
+  }
+  return out + esc(code.slice(last));
+}
+function shuffle(a){ for (let i = a.length - 1; i > 0; i--){ const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+let toastTimer = null;
+function toast(msg){ const t = $('toast'); t.textContent = msg; t.hidden = false; clearTimeout(toastTimer); toastTimer = setTimeout(() => { t.hidden = true; }, 2400); }
+
+/* ---------- theme switcher ---------- */
+const THEME_KEY = 'portal_theme';
+function getActiveTheme(){
+  const attr = document.documentElement.getAttribute('data-theme');
+  if (attr === 'dark' || attr === 'light') return attr;
+  return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+}
+function applyTheme(t){
+  document.documentElement.setAttribute('data-theme', t);
+  const btn = $('themeBtn');
+  if (btn) btn.textContent = t === 'dark' ? '🌙 Dark' : '☀️ Light';
+  try { localStorage.setItem(THEME_KEY, t); } catch(e){}
+}
+function initTheme(){
+  let saved = 'dark';
+  try { saved = localStorage.getItem(THEME_KEY) || 'dark'; } catch(e){}
+  if (saved === 'dark' || saved === 'light') applyTheme(saved);
+  else applyTheme(getActiveTheme());
+}
+
+/* ---------- progress store ---------- */
+const LS_KEY = 'linuxcloud318-progress-v1';
+let store = {a:{}, bm:{}, resetAt:0};
+function lsRead(){
+  try {
+    const s = localStorage.getItem(LS_KEY);
+    if (s){
+      const o = JSON.parse(s);
+      if (o && typeof o.a === 'object') store = {
+        a: o.a,
+        bm: (o.bm && typeof o.bm === 'object') ? o.bm : {},
+        resetAt: o.resetAt || 0
+      };
+    }
+  } catch(e){}
+}
+function lsWrite(){
+  try { localStorage.setItem(LS_KEY, JSON.stringify(store)); } catch(e){}
+}
+function ans(n){ const e = store.a[n]; return (e && e.c >= 0) ? e : null; }
+function record(n, choice){
+  const q = byN[n], ok = choice === q.a, e = store.a[n] || {};
+  store.a[n] = {c:choice, ok, t:Date.now(), w:(e.w || 0) + (ok ? 0 : 1), r:(e.r || 0) + (ok ? 1 : 0)};
+  persist();
+}
+function clearAnswers(ns){
+  const t = Date.now();
+  ns.forEach(n => { const e = store.a[n]; if (e && e.c >= 0) store.a[n] = Object.assign({}, e, {c:-1, ok:false, t}); });
+  persist();
+}
+function resetAll(){ store = {a:{}, bm:{}, resetAt:Date.now()}; persist(); }
+function stats(ns){
+  let ok = 0, bad = 0;
+  ns.forEach(n => { const e = ans(n); if (e){ if (e.ok) ok++; else bad++; } });
+  return {ok, bad, done: ok + bad, total: ns.length, todo: ns.length - ok - bad};
+}
+function wrongList(){ return Q.filter(q => { const e = ans(q.n); return e && !e.ok; }).map(q => q.n); }
+function isBookmarked(n){ return !!(store.bm && store.bm[n]); }
+function toggleBookmark(n){
+  if (!store.bm || typeof store.bm !== 'object') store.bm = {};
+  if (store.bm[n]) delete store.bm[n];
+  else store.bm[n] = 1;
+  persist();
+}
+function bookmarkList(){ return Q.filter(q => isBookmarked(q.n)).map(q => q.n); }
+function persist(){
+  lsWrite();
+  $('mistakesCount').textContent = wrongList().length;
+  $('bookmarksCount').textContent = bookmarkList().length;
+}
+
+/* ---------- view & history navigation state ---------- */
+let view = 'home';       // home | quiz | result | mistakes | bookmarks | info
+let sortMode = 'syllabus';
+let resetArmed = false;
+let set = null;          // {title, sub, kind, s, t, ns}
+let lvFilter = 'all';    // all | E | M | T
+let stFilter = 'all';    // all | todo | wrong | bm
+let list = [];           // filtered question numbers in current set
+let activeQ = null;      // last clicked/jumped question number
+
+/* Browser-like Back / Forward navigation stack */
+let navHistory = [];
+let navIndex = -1;
+let isNavigatingHistory = false;
+
+function cloneState(){
+  return {
+    view,
+    sortMode,
+    set: set ? JSON.parse(JSON.stringify(set)) : null,
+    lvFilter,
+    stFilter,
+    scrollY: window.scrollY || 0
+  };
+}
+function pushHistory(){
+  if (isNavigatingHistory) return;
+  const snap = cloneState();
+  if (navIndex >= 0 && navIndex < navHistory.length){
+    navHistory[navIndex].scrollY = window.scrollY || 0;
+  }
+  navHistory = navHistory.slice(0, navIndex + 1);
+  navHistory.push(snap);
+  navIndex = navHistory.length - 1;
+  updateNavButtons();
+}
+function updateNavButtons(){
+  $('navBackBtn').disabled = navIndex <= 0;
+  $('navFwdBtn').disabled = navIndex >= navHistory.length - 1;
+}
+function restoreState(snap){
+  isNavigatingHistory = true;
+  view = snap.view;
+  sortMode = snap.sortMode || 'syllabus';
+  set = snap.set ? JSON.parse(JSON.stringify(snap.set)) : null;
+  lvFilter = snap.lvFilter || 'all';
+  stFilter = snap.stFilter || 'all';
+  if (set) buildList();
+  applyViewVisibility();
+  refresh();
+  window.scrollTo(0, snap.scrollY || 0);
+  isNavigatingHistory = false;
+  updateNavButtons();
+}
+function navBack(){
+  if (navIndex > 0){
+    navHistory[navIndex].scrollY = window.scrollY || 0;
+    navIndex--;
+    restoreState(navHistory[navIndex]);
+  }
+}
+function navForward(){
+  if (navIndex < navHistory.length - 1){
+    navHistory[navIndex].scrollY = window.scrollY || 0;
+    navIndex++;
+    restoreState(navHistory[navIndex]);
+  }
+}
+
+function applyViewVisibility(){
+  $('vHome').hidden = view !== 'home';
+  $('vQuiz').hidden = view !== 'quiz';
+  $('vResult').hidden = view !== 'result';
+  $('vMistakes').hidden = view !== 'mistakes';
+  $('vBookmarks').hidden = view !== 'bookmarks';
+  $('vInfo').hidden = view !== 'info';
+
+  $('allTestsLink').hidden = false;
+  $('consoleHomeBtn').hidden = view === 'home';
+  $('brandTitle').textContent = 'Linux & Cloud 318';
+  $('brandSub').textContent = 'CCEE · Linux Programming & Cloud Computing (PGCP-BDA)';
+}
+
+function show(v){
+  if ((v === 'quiz' || v === 'result') && !set) v = 'home';
+  view = v;
+  applyViewVisibility();
+  refresh();
+  window.scrollTo(0, 0);
+  pushHistory();
+}
+
+function refresh(){
+  $('mistakesCount').textContent = wrongList().length;
+  $('bookmarksCount').textContent = bookmarkList().length;
+  if (view === 'home') renderHome();
+  else if (view === 'quiz') renderQuiz();
+  else if (view === 'result') renderResult();
+  else if (view === 'mistakes') renderMistakes();
+  else if (view === 'bookmarks') renderBookmarks();
+  else if (view === 'info') renderInfo();
+}
+
+function stackBar(st, cls){
+  const t = st.total || 1;
+  return '<div class="stack ' + (cls || '') + '" role="img" aria-label="' + st.ok + ' right, ' + st.bad + ' wrong, ' + st.todo + ' not answered"><span class="s-ok" style="width:' + (100 * st.ok / t) + '%"></span><span class="s-bad" style="width:' + (100 * st.bad / t) + '%"></span></div>';
+}
+
+/* ---------- console home ---------- */
+function renderHome(){
+  const all = stats(Q.map(q => q.n));
+  const acc = all.done ? pct(all.ok, all.done) : null;
+  const lvRows = ['E', 'M', 'T'].map(l => {
+    const st = stats(Q.filter(q => q.lv === l).map(q => q.n));
+    return '<div class="lvrow"><span>' + LV[l] + '</span>' + stackBar(st) + '<span class="num">' + st.ok + '/' + st.done + ' · ' + st.total + '</span></div>';
+  }).join('');
+
+  const subsetBtns = SUBSETS.map(tb => {
+    const st = stats(tb.qs);
+    return '<button type="button" class="subset-btn" data-subset="' + tb.t + '">' +
+      '<b>' + esc(tb.label) + '</b>' +
+      '<span>Q' + tb.qs[0] + '–' + tb.qs[tb.qs.length - 1] + ' · ' + st.done + '/' + st.total + '</span>' +
+    '</button>';
+  }).join('');
+
+  const weak = SESS.map(s => ({s, st: stats(s.qs)})).filter(x => x.st.bad > 0)
+    .sort((a, b) => (a.st.ok / a.st.done) - (b.st.ok / b.st.done) || b.st.bad - a.st.bad).slice(0, 5);
+  const weakHtml = weak.length
+    ? '<ul class="weaklist">' + weak.map(x => '<li><button type="button" data-review="' + x.s.n + '"><span class="wname">' + x.s.label + ' · ' + esc(x.s.name) + '</span><span class="wstat">' + x.st.bad + ' wrong · ' + pct(x.st.ok, x.st.done) + '%</span></button></li>').join('') + '</ul>'
+    : '<p class="empty-note">Answer a few questions and your weakest sessions will show up here, worst first.</p>';
+  const wrongN = wrongList().length;
+  const bmN = bookmarkList().length;
+  const order = SESS.slice();
+  if (sortMode === 'weak') order.sort((a, b) => {
+    const A = stats(a.qs), B = stats(b.qs);
+    const ka = A.done ? A.ok / A.done : 2, kb = B.done ? B.ok / B.done : 2;
+    return ka - kb || a.n - b.n;
+  });
+  let lastG = 0;
+  const topics = order.map(s => {
+    const st = stats(s.qs);
+    const lv = {E:0, M:0, T:0}; s.qs.forEach(n => lv[byN[n].lv]++);
+    const chk = s.qs.filter(n => byN[n].chk).length;
+    const bmSess = s.qs.filter(n => isBookmarked(n)).length;
+    const qRange = 'Q' + s.qs[0] + '–Q' + s.qs[s.qs.length - 1];
+    const score = st.done ? '<div class="tscore">' + pct(st.ok, st.done) + '%<small>' + st.done + '/' + st.total + ' done</small></div>' : '<div class="tscore na">—<small>not started</small></div>';
+    let head = '';
+    if (sortMode !== 'weak' && s.g !== lastG){
+      lastG = s.g;
+      const G = GROUPS[s.g - 1];
+      const gs = stats(Q.filter(q => sessByN[q.s].g === s.g).map(q => q.n));
+      head = '<li class="ghead"><span class="gno">' + esc(G.range) + '</span><b>' + esc(G.name) + '</b><span class="gstat">' + gs.done + '/' + gs.total + ' done' + (gs.done ? ' · ' + pct(gs.ok, gs.done) + '%' : '') + '</span></li>';
+    }
+    return head + '<li><button class="topic" type="button" data-session="' + s.n + '">' +
+      '<span class="tnum">Session<b>' + String(s.n).padStart(2, '0') + '</b></span>' +
+      '<span class="tbody"><span class="tname">' + esc(s.name) + '</span>' +
+      '<span class="tsub">' + esc(s.topics) + '</span>' +
+      '<span class="tmeta"><span>' + qRange + '</span><span>' + s.qs.length + ' questions</span><span>E' + lv.E + ' M' + lv.M + ' T' + lv.T + '</span>' +
+      (chk ? '<span class="past">' + chk + ' code-checked</span>' : '') +
+      (bmSess ? '<span class="past">★ ' + bmSess + ' saved</span>' : '') + '</span>' +
+      stackBar(st, 'tbar') + '</span>' + score + '</button></li>';
+  }).join('');
+
+  $('vHome').innerHTML =
+  '<div class="home">' +
+    '<aside class="summary panel">' +
+      '<div><div class="eyebrow">Overall</div><div class="bigrow"><div class="big">' + (acc === null ? '—' : acc + '<small>%</small>') + '</div><div class="muted" style="padding-bottom:4px">accuracy on ' + all.done + ' of ' + TOTAL + ' answered</div></div></div>' +
+      stackBar(all) +
+      '<div class="legend"><span><i class="dot ok"></i>Right <b>' + all.ok + '</b></span><span><i class="dot bad"></i>Wrong <b>' + all.bad + '</b></span><span><i class="dot todo"></i>Left <b>' + all.todo + '</b></span></div>' +
+      '<div><div class="eyebrow" style="margin-bottom:8px">By difficulty · right/answered · total</div><div class="lvrows">' + lvRows + '</div></div>' +
+      '<div class="actions">' +
+        '<button class="btn primary" type="button" id="mock40">Mock paper: 40 from all sessions</button>' +
+        '<button class="btn" type="button" id="practiseWrong"' + (wrongN ? '' : ' disabled') + '>Practise my mistakes <span class="count">' + wrongN + '</span></button>' +
+        '<button class="btn" type="button" id="practiseBm"' + (bmN ? '' : ' disabled') + '>★ Practise bookmarked <span class="count">' + bmN + '</span></button>' +
+        '<button class="btn" type="button" id="random20">Random 20 from all sessions</button>' +
+      '</div>' +
+      '<div class="subsets-box">' +
+        '<div class="eyebrow">40-Question Test Subsets</div>' +
+        '<div class="subset-grid">' + subsetBtns + '</div>' +
+      '</div>' +
+      '<div class="weak"><h3>Where you lose marks</h3>' + weakHtml + '</div>' +
+      '<div class="reset">' + (resetArmed
+        ? '<div class="confirm"><span>Clear every answer?</span><button class="btn small" type="button" id="resetYes">Yes, clear</button><button class="btn small ghost" type="button" id="resetNo">Cancel</button></div>'
+        : '<button class="btn small ghost" type="button" id="resetBtn"' + (all.done || wrongN ? '' : ' disabled') + '>Reset all progress</button>') + '</div>' +
+    '</aside>' +
+    '<section>' +
+      '<div class="topics-head"><div><div class="eyebrow">Pick a session</div><h2>' + SESS.length + ' sessions · ' + TOTAL + ' questions</h2></div>' +
+        '<div class="seg" role="group" aria-label="Order sessions"><button type="button" data-sort="syllabus" aria-pressed="' + (sortMode !== 'weak') + '">Syllabus order</button><button type="button" data-sort="weak" aria-pressed="' + (sortMode === 'weak') + '">Weakest first</button></div></div>' +
+      '<p class="intro">All ' + TOTAL + ' given MCQs from your Linux &amp; Cloud Computing question banks, organized strictly by your PGCP-BDA syllabus (Part I: Linux Programming &amp; Part II: Cloud Computing). Includes continuous vertical feed, 40-question subset tests, ★ bookmarks, mistake tracking, and full Answer Key in Quick facts.</p>' +
+      '<ul class="topiclist">' + topics + '</ul>' +
+    '</section>' +
+  '</div>';
+}
+
+/* ---------- quiz (continuous vertical feed) ---------- */
+function startSet(s){
+  set = s;
+  lvFilter = 'all';
+  stFilter = 'all';
+  buildList();
+  activeQ = list[0] || null;
+  show('quiz');
+}
+function startSession(n){
+  const s = sessByN[n];
+  startSet({kind:'session', s:n, title:'Session ' + s.n + ' · ' + s.name, sub:s.topics, ns:s.qs.slice()});
+}
+function startSubset(tNum){
+  const tb = subsetByT[tNum];
+  startSet({kind:'subset', t:tNum, title:tb.title, sub:tb.sub, ns:tb.qs.slice()});
+}
+function buildList(){
+  if (!set) { list = []; return; }
+  list = set.ns.filter(n => {
+    const q = byN[n], e = ans(n);
+    if (lvFilter !== 'all' && q.lv !== lvFilter) return false;
+    if (stFilter === 'todo' && e) return false;
+    if (stFilter === 'wrong' && !(e && !e.ok)) return false;
+    if (stFilter === 'bm' && !isBookmarked(n)) return false;
+    return true;
+  });
+}
+
+const KIND = {session:'Session', subset:'40-Question Subset Test', random:'Mixed practice', mock:'Mock paper', retry:'Mistake practice', bookmark:'Bookmark practice'};
+
+function buildSwitcherBar(){
+  let prevDisabled = true, nextDisabled = true;
+  let prevLabel = '◄ Prev', nextLabel = 'Next ►';
+  if (set.kind === 'session'){
+    prevDisabled = set.s <= 1;
+    nextDisabled = set.s >= SESS.length;
+    if (!prevDisabled) prevLabel = '◄ S' + (set.s - 1);
+    if (!nextDisabled) nextLabel = 'S' + (set.s + 1) + ' ►';
+  } else if (set.kind === 'subset'){
+    prevDisabled = set.t <= 1;
+    nextDisabled = set.t >= SUBSETS.length;
+    if (!prevDisabled) prevLabel = '◄ Test ' + (set.t - 1);
+    if (!nextDisabled) nextLabel = 'Test ' + (set.t + 1) + ' ►';
+  }
+
+  const sessOpts = SESS.map(s => {
+    const st = stats(s.qs);
+    const sel = set.kind === 'session' && set.s === s.n ? ' selected' : '';
+    return '<option value="s:' + s.n + '"' + sel + '>' + s.label + ' · ' + esc(s.name) + ' (' + st.done + '/' + st.total + ')</option>';
+  }).join('');
+
+  const subOpts = SUBSETS.map(tb => {
+    const st = stats(tb.qs);
+    const sel = set.kind === 'subset' && set.t === tb.t ? ' selected' : '';
+    return '<option value="t:' + tb.t + '"' + sel + '>' + esc(tb.title) + ' (' + st.done + '/' + st.total + ')</option>';
+  }).join('');
+
+  const customOpt = (set.kind !== 'session' && set.kind !== 'subset')
+    ? '<option value="custom" selected>' + esc(set.title) + ' (' + stats(set.ns).done + '/' + set.ns.length + ')</option>'
+    : '';
+
+  return '<div class="switcher-bar">' +
+    '<button class="btn small" type="button" id="prevSetBtn"' + (prevDisabled ? ' disabled' : '') + '>' + prevLabel + '</button>' +
+    '<select class="switcher-select" id="switcherSelect" aria-label="Switch session or subset test">' +
+      customOpt +
+      '<optgroup label="33 Syllabus Sessions (10 Qs each)">' + sessOpts + '</optgroup>' +
+      '<optgroup label="40-Question Test Subsets (9 Tests)">' + subOpts + '</optgroup>' +
+    '</select>' +
+    '<button class="btn small" type="button" id="nextSetBtn"' + (nextDisabled ? ' disabled' : '') + '>' + nextLabel + '</button>' +
+    '<button class="btn small primary" type="button" id="toResult">See result</button>' +
+  '</div>';
+}
+
+function renderQuiz(){
+  const st = stats(set.ns);
+  const bmInSet = set.ns.filter(n => isBookmarked(n)).length;
+  const lvCounts = {E:0, M:0, T:0}; set.ns.forEach(n => lvCounts[byN[n].lv]++);
+  const lvSeg = '<div class="seg" role="group" aria-label="Difficulty">' +
+    [['all', 'All ' + set.ns.length]].concat(['E', 'M', 'T'].filter(l => lvCounts[l]).map(l => [l, LV[l] + ' ' + lvCounts[l]]))
+    .map(([k, label]) => '<button type="button" data-lv="' + k + '" aria-pressed="' + (lvFilter === k) + '">' + label + '</button>').join('') + '</div>';
+  const stSeg = '<div class="seg" id="stSeg" role="group" aria-label="Show">' +
+    '<button type="button" data-st="all" aria-pressed="' + (stFilter === 'all') + '">All</button>' +
+    '<button type="button" data-st="todo" aria-pressed="' + (stFilter === 'todo') + '">Not answered</button>' +
+    '<button type="button" data-st="wrong" aria-pressed="' + (stFilter === 'wrong') + '">Wrong</button>' +
+    '<button type="button" data-st="bm" aria-pressed="' + (stFilter === 'bm') + '">★ Bookmarked (' + bmInSet + ')</button></div>';
+
+  const strip = list.map(n => {
+    const e = ans(n);
+    const bmCls = isBookmarked(n) ? ' bm' : '';
+    return '<button type="button" id="sq-' + n + '" class="sq' + (e ? (e.ok ? ' ok' : ' bad') : '') + bmCls + (n === activeQ ? ' cur' : '') + '" data-jump="' + n + '" aria-label="Jump to Question ' + n + '">' + n + '</button>';
+  }).join('');
+
+  let feedHtml;
+  if (!list.length){
+    feedHtml = '<div class="qcard nolist">No questions match this filter. <button class="btn small" type="button" data-st="all">Show all</button></div>';
+  } else {
+    feedHtml = '<div class="qfeed" id="qfeed">' + list.map(n => renderCard(byN[n])).join('') + '</div>';
+  }
+
+  $('vQuiz').innerHTML =
+  '<div class="quiz">' +
+    buildSwitcherBar() +
+    '<div class="qhead"><div class="titles"><div class="eyebrow">' + (KIND[set.kind] || 'Practice') + '</div><h2>' + esc(set.title) + '</h2>' + (set.sub ? '<div class="muted" style="font-size:13px">' + esc(set.sub) + '</div>' : '') + '</div></div>' +
+    '<div class="progressline" id="quizProgressLine"><span><b>' + st.done + '</b> of ' + st.total + ' answered</span><span><i class="dot ok"></i><b>' + st.ok + '</b> right</span><span><i class="dot bad"></i><b>' + st.bad + '</b> wrong</span>' + (st.done ? '<span><b>' + pct(st.ok, st.done) + '%</b> accuracy</span>' : '') + '</div>' +
+    '<div id="quizStackWrap">' + stackBar(st) + '</div>' +
+    '<div class="filters">' + lvSeg + stSeg + '</div>' +
+    '<div class="strip-wrap"><div class="strip">' + strip + '</div></div>' +
+    feedHtml +
+    (list.length ? '<div class="qfoot">' +
+      '<button class="btn" type="button" id="scrollTopBtn">↑ Top of feed</button>' +
+      '<button class="btn ghost" type="button" id="restartSetQuiz">Restart this set</button>' +
+      '<span class="spacer"></span>' +
+      '<button class="btn primary" type="button" id="finish">Finish and see result →</button>' +
+    '</div>' : '') +
+  '</div>';
+}
+
+function lvlBadge(q){ return '<span class="lvl"><span class="bars on' + LVBARS[q.lv] + '"><i></i><i></i><i></i></span>' + LV[q.lv] + '</span>'; }
+function metaRow(q, extra){
+  const bm = isBookmarked(q.n);
+  const bmBtn = '<button type="button" class="btn small ghost bm-btn' + (bm ? ' on' : '') + '" data-bm="' + q.n + '" aria-pressed="' + bm + '">' + (bm ? '★ Bookmarked' : '☆ Bookmark') + '</button>';
+  return '<div class="qmeta"><span class="qno">Q' + q.n + '</span>' + lvlBadge(q) + '<span class="sref">S' + q.s + ' · ' + esc(sessByN[q.s].name) + '</span>' +
+    (q.chk ? '<span class="pyq" title="This answer was checked by running the code or calculation">Checked by running code</span>' : '') + (extra || '') + bmBtn + '</div>';
+}
+function renderCardInner(q){
+  const e = ans(q.n);
+  const opts = q.o.map((t, i) => {
+    let cls = 'opt', mark = '';
+    if (e){
+      if (i === q.a){ cls += ' right'; mark = i === e.c ? '✓ Your answer' : '✓ Correct'; }
+      else if (i === e.c){ cls += ' wrong'; mark = '✗ Your answer'; }
+      else cls += ' dim';
+    }
+    return '<li><button type="button" class="' + cls + '" data-q="' + q.n + '" data-opt="' + i + '"' + (e ? ' disabled' : '') + '><span class="key">' + 'ABCD'[i] + '</span><span class="otext' + (q.oc[i] ? ' codey' : '') + '">' + esc(t) + '</span><span class="mark">' + mark + '</span></button></li>';
+  }).join('');
+  const all = store.a[q.n];
+  const missed = all && all.w ? '<span class="missed">missed ' + all.w + '×</span>' : '';
+  let fb = '';
+  if (e){
+    fb = '<div class="feedback ' + (e.ok ? 'yes' : 'no') + '" role="status"><div class="verdict">' + (e.ok ? 'Correct. Answer ' + 'ABCD'[q.a] : 'Wrong. You chose ' + 'ABCD'[e.c] + ', the answer is ' + 'ABCD'[q.a]) + '</div>' +
+      (e.ok ? '' : '<p><b>' + 'ABCD'[q.a] + '.</b> <span' + (q.oc[q.a] ? ' class="mono"' : '') + '>' + esc(q.o[q.a]) + '</span></p>') +
+      '<p>' + esc(q.e) + '</p><div class="fbrow"><button class="btn small ghost" type="button" data-retry-one="' + q.n + '">Try this one again</button></div></div>';
+  }
+  return metaRow(q, missed) +
+    '<p class="stem">' + esc(q.q) + '</p>' +
+    (q.code ? '<pre class="code">' + highlight(q.code, q.lang) + '</pre>' : '') +
+    '<ol class="opts">' + opts + '</ol>' + fb;
+}
+function renderCard(q){
+  return '<article class="qcard" id="qcard-' + q.n + '">' + renderCardInner(q) + '</article>';
+}
+
+/* Update single card + top metrics in place so continuous vertical feed never loses scroll position */
+function updateCardInPlace(n){
+  const cardEl = $('qcard-' + n);
+  if (cardEl && byN[n]){
+    cardEl.innerHTML = renderCardInner(byN[n]);
+  }
+  const sqEl = $('sq-' + n);
+  if (sqEl){
+    const e = ans(n);
+    const bmCls = isBookmarked(n) ? ' bm' : '';
+    sqEl.className = 'sq' + (e ? (e.ok ? ' ok' : ' bad') : '') + bmCls + (n === activeQ ? ' cur' : '');
+  }
+  if (set){
+    const st = stats(set.ns);
+    const pl = $('quizProgressLine');
+    if (pl){
+      pl.innerHTML = '<span><b>' + st.done + '</b> of ' + st.total + ' answered</span><span><i class="dot ok"></i><b>' + st.ok + '</b> right</span><span><i class="dot bad"></i><b>' + st.bad + '</b> wrong</span>' + (st.done ? '<span><b>' + pct(st.ok, st.done) + '%</b> accuracy</span>' : '');
+    }
+    const sw = $('quizStackWrap');
+    if (sw) sw.innerHTML = stackBar(st);
+    const bmFilterBtn = document.querySelector('#stSeg button[data-st="bm"]');
+    if (bmFilterBtn){
+      const bmInSet = set.ns.filter(qn => isBookmarked(qn)).length;
+      bmFilterBtn.textContent = '★ Bookmarked (' + bmInSet + ')';
+    }
+  }
+}
+
+function handleBookmarkToggle(qn){
+  if (!byN[qn]) return;
+  const wasBm = isBookmarked(qn);
+  toggleBookmark(qn);
+  toast(wasBm ? 'Removed Q' + qn + ' from bookmarks' : '★ Bookmarked Q' + qn);
+  if (view === 'quiz'){
+    if (stFilter === 'bm' && wasBm){
+      buildList();
+      renderQuiz();
+    } else {
+      updateCardInPlace(qn);
+    }
+  } else if (view === 'bookmarks'){
+    renderBookmarks();
+  } else if (view === 'result'){
+    renderResult();
+  } else if (view === 'mistakes'){
+    renderMistakes();
+  }
+}
+
+function answerQuestion(qn, choice){
+  if (!byN[qn] || ans(qn)) return;
+  activeQ = qn;
+  record(qn, choice);
+  if (stFilter !== 'all'){
+    renderQuiz();
+  } else {
+    updateCardInPlace(qn);
+  }
+}
+
+function jumpToQuestion(qn){
+  activeQ = qn;
+  document.querySelectorAll('.sq.cur').forEach(el => el.classList.remove('cur'));
+  const sqEl = $('sq-' + qn);
+  if (sqEl) sqEl.classList.add('cur');
+  const cardEl = $('qcard-' + qn);
+  if (cardEl){
+    cardEl.scrollIntoView({behavior: 'smooth', block: 'start'});
+    cardEl.classList.add('flash');
+    setTimeout(() => cardEl.classList.remove('flash'), 900);
+  }
+}
+
+/* ---------- results ---------- */
+function ring(ok, total){
+  const r = 54, c = 2 * Math.PI * r, f = total ? ok / total : 0;
+  return '<div class="ring"><svg viewBox="0 0 132 132" aria-hidden="true"><circle cx="66" cy="66" r="' + r + '" fill="none" stroke="var(--sunken)" stroke-width="12"/>' +
+    '<circle cx="66" cy="66" r="' + r + '" fill="none" stroke="var(--ok)" stroke-width="12" stroke-linecap="round" stroke-dasharray="' + (c * f) + ' ' + c + '"/></svg>' +
+    '<div class="lbl"><div><b>' + ok + '/' + total + '</b><small>correct</small></div></div></div>';
+}
+function mistakeCard(n){
+  const q = byN[n], e = ans(n), all = store.a[n];
+  return '<article class="mistake">' + metaRow(q, all && all.w > 1 ? '<span class="missed">missed ' + all.w + '×</span>' : '') +
+    '<p class="stem">' + esc(q.q) + '</p>' + (q.code ? '<pre class="code">' + highlight(q.code, q.lang) + '</pre>' : '') +
+    '<div class="answers"><div class="ans yours"><span class="who">You chose ' + 'ABCD'[e.c] + '</span><span class="' + (q.oc[e.c] ? 'mono' : '') + '">' + esc(q.o[e.c]) + '</span></div>' +
+    '<div class="ans correct"><span class="who">Correct: ' + 'ABCD'[q.a] + '</span><span class="' + (q.oc[q.a] ? 'mono' : '') + '">' + esc(q.o[q.a]) + '</span></div></div>' +
+    '<p class="explain"><b>Why:</b> ' + esc(q.e) + '</p></article>';
+}
+function renderResult(){
+  const st = stats(set.ns);
+  const wrong = set.ns.filter(n => { const e = ans(n); return e && !e.ok; });
+  const lvRows = ['E', 'M', 'T'].map(l => {
+    const ns = set.ns.filter(n => byN[n].lv === l); if (!ns.length) return '';
+    const s = stats(ns);
+    return '<div class="lvrow"><span>' + LV[l] + '</span>' + stackBar(s) + '<span class="num">' + s.ok + '/' + s.total + '</span></div>';
+  }).join('');
+  $('vResult').innerHTML =
+  '<div class="result">' +
+    '<div><div class="eyebrow">Result</div><h2 style="font-size:24px">' + esc(set.title) + '</h2></div>' +
+    '<div class="panel scorecard">' + ring(st.ok, st.total) +
+      '<div style="display:flex;flex-direction:column;gap:12px;min-width:0">' +
+        '<div class="legend"><span><i class="dot ok"></i>Right <b>' + st.ok + '</b></span><span><i class="dot bad"></i>Wrong <b>' + st.bad + '</b></span><span><i class="dot todo"></i>Skipped <b>' + st.todo + '</b></span>' + (st.done ? '<span>Accuracy <b>' + pct(st.ok, st.done) + '%</b></span>' : '') + '</div>' +
+        '<div class="lvrows">' + lvRows + '</div>' +
+        '<div class="rowbtns">' + (wrong.length ? '<button class="btn primary" type="button" id="retryWrong">Retry the ' + wrong.length + ' wrong</button>' : '') +
+          (st.todo ? '<button class="btn" type="button" id="backToQuiz">Answer the ' + st.todo + ' skipped</button>' : '') +
+          '<button class="btn" type="button" id="restartSet">Restart this set</button><button class="btn ghost" type="button" data-home>All sessions</button></div>' +
+      '</div></div>' +
+    (wrong.length ? '<div class="grouphead"><h3>Where you went wrong</h3><span class="muted">' + wrong.length + ' question' + (wrong.length > 1 ? 's' : '') + '</span></div>' + wrong.map(mistakeCard).join('')
+      : (st.done ? '<div class="panel">No wrong answers in this set.' + (st.todo ? ' ' + st.todo + ' still unanswered.' : '') + '</div>' : '<div class="panel">Nothing answered yet in this set.</div>')) +
+  '</div>';
+}
+
+/* ---------- all mistakes ---------- */
+function renderMistakes(){
+  const wrong = wrongList();
+  let html = '<div class="result"><div><div class="eyebrow">Review</div><h2 style="font-size:24px">My mistakes</h2><p class="muted" style="margin:4px 0 0">Every question whose latest answer was wrong, grouped by session.</p></div>';
+  if (!wrong.length){
+    html += '<div class="panel">No wrong answers right now. <button class="btn small" type="button" data-home>Pick a session</button></div>';
+  } else {
+    html += '<div class="rowbtns"><button class="btn primary" type="button" id="practiseAllWrong">Practise all ' + wrong.length + '</button><button class="btn ghost" type="button" data-home>All sessions</button></div>';
+    SESS.forEach(s => {
+      const ns = wrong.filter(n => byN[n].s === s.n); if (!ns.length) return;
+      html += '<div class="grouphead"><h3>' + esc(s.label) + ' · ' + esc(s.name) + '</h3><span class="muted">' + ns.length + ' wrong</span><button class="btn small" type="button" data-practise-session="' + s.n + '">Practise these</button></div>' + ns.map(mistakeCard).join('');
+    });
+  }
+  $('vMistakes').innerHTML = html + '</div>';
+}
+function practiseWrong(ns, title){
+  if (!ns.length) return;
+  clearAnswers(ns);
+  startSet({kind:'retry', title, sub:'Your earlier answers on these are cleared so you can try them fresh.', ns});
+}
+
+/* ---------- bookmarked questions ---------- */
+function bookmarkCard(n){
+  const q = byN[n], e = ans(n), all = store.a[n];
+  let ansHtml = '';
+  if (e && !e.ok){
+    ansHtml = '<div class="ans yours"><span class="who">Your last choice: ' + 'ABCD'[e.c] + '</span><span class="' + (q.oc[e.c] ? 'mono' : '') + '">' + esc(q.o[e.c]) + '</span></div>';
+  } else if (e && e.ok){
+    ansHtml = '<div class="ans correct"><span class="who">Your last choice: ' + 'ABCD'[e.c] + '</span><span>✓ Answered correctly</span></div>';
+  }
+  return '<article class="mistake">' + metaRow(q, all && all.w ? '<span class="missed">missed ' + all.w + '×</span>' : '') +
+    '<p class="stem">' + esc(q.q) + '</p>' + (q.code ? '<pre class="code">' + highlight(q.code, q.lang) + '</pre>' : '') +
+    '<div class="answers">' + ansHtml +
+    '<div class="ans correct"><span class="who">Correct: ' + 'ABCD'[q.a] + '</span><span class="' + (q.oc[q.a] ? 'mono' : '') + '">' + esc(q.o[q.a]) + '</span></div></div>' +
+    '<p class="explain"><b>Why:</b> ' + esc(q.e) + '</p></article>';
+}
+function renderBookmarks(){
+  const bms = bookmarkList();
+  let html = '<div class="result"><div><div class="eyebrow">Saved for revision</div><h2 style="font-size:24px">★ Bookmarked questions</h2><p class="muted" style="margin:4px 0 0">Questions you starred across sessions for quick revision or focused practice.</p></div>';
+  if (!bms.length){
+    html += '<div class="panel">No bookmarked questions yet. Tap <b>☆ Bookmark</b> on any question card to save it here. <button class="btn small" type="button" data-home>Pick a session</button></div>';
+  } else {
+    html += '<div class="rowbtns"><button class="btn primary" type="button" id="practiseAllBm">Practise all ' + bms.length + ' bookmarked</button><button class="btn ghost" type="button" data-home>All sessions</button></div>';
+    SESS.forEach(s => {
+      const ns = bms.filter(n => byN[n].s === s.n); if (!ns.length) return;
+      html += '<div class="grouphead"><h3>' + esc(s.label) + ' · ' + esc(s.name) + '</h3><span class="muted">' + ns.length + ' saved</span><button class="btn small" type="button" data-practise-bm-session="' + s.n + '">Practise these</button></div>' + ns.map(bookmarkCard).join('');
+    });
+  }
+  $('vBookmarks').innerHTML = html + '</div>';
+}
+function practiseBookmarked(ns, title){
+  if (!ns.length) return;
+  startSet({kind:'bookmark', title, sub:'Your starred questions for focused review.', ns});
+}
+
+function sampleRandom(k){
+  const todo = shuffle(Q.filter(q => !ans(q.n)).map(q => q.n));
+  let pick = todo.slice(0, k);
+  if (pick.length < k){
+    const extra = shuffle(Q.filter(q => ans(q.n)).map(q => q.n)).slice(0, k - pick.length);
+    clearAnswers(extra); pick = pick.concat(extra);
+  }
+  return pick.sort((a, b) => a - b);
+}
+function sampleMock(){
+  const freshFirst = ns => shuffle(ns.slice()).sort((a, b) => (ans(a) ? 1 : 0) - (ans(b) ? 1 : 0));
+  const picked = SESS.map(s => freshFirst(s.qs)[0]);
+  const rest = freshFirst(Q.map(q => q.n).filter(n => !picked.includes(n)));
+  const usedTwice = new Set();
+  for (const n of rest){
+    if (picked.length >= MOCK_SIZE) break;
+    const s = byN[n].s; if (usedTwice.has(s)) continue;
+    usedTwice.add(s); picked.push(n);
+  }
+  clearAnswers(picked.filter(n => ans(n)));
+  return picked.sort((a, b) => a - b);
+}
+
+/* ---------- quick facts ---------- */
+function renderInfo(){
+  const box = (title, items) => '<div class="panel"><h3>' + title + '</h3><ul>' + items.map(i => '<li>' + i + '</li>').join('') + '</ul></div>';
+  const keyTables = SESS.map(s => {
+    const rows = s.qs.map(qn => {
+      const q = byN[qn];
+      const letter = 'ABCD'[q.a];
+      return '<div style="display:grid;grid-template-columns:52px 34px minmax(0,1fr);gap:8px;padding:6px 8px;border-bottom:1px solid var(--line);font-size:13px;align-items:baseline">' +
+        '<span class="mono" style="font-weight:600;color:var(--accent)">Q' + q.n + '</span>' +
+        '<span class="mono" style="font-weight:700;color:var(--ok)">' + letter + '</span>' +
+        '<span style="overflow-wrap:anywhere">' + esc(q.o[q.a]) + '</span>' +
+      '</div>';
+    }).join('');
+    return '<div class="panel" style="grid-column:1 / -1">' +
+      '<h3>Answer Key · S' + String(s.n).padStart(2, '0') + ' · ' + esc(s.name) + ' (' + s.qs.length + ' Qs)</h3>' +
+      '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:0 18px">' + rows + '</div>' +
+    '</div>';
+  }).join('');
+
+  $('vInfo').innerHTML =
+  '<div class="info">' +
+    '<div><div class="eyebrow">Revise before the exam · Syllabus Notes &amp; Answer Key</div><h2>Quick Facts &amp; Answer Key · Linux &amp; Cloud Computing (' + TOTAL + ' MCQs)</h2><p class="muted" style="margin-top:6px">Key command flags, cloud concepts, and the complete Answer Key for all ' + TOTAL + ' given questions.</p></div>' +
+    '<div class="facts">' +
+    box('Linux Basics &amp; Filesystem', [
+      '<code>uname -r</code> kernel release, <code>uname -m</code> hardware arch, <code>uname -a</code> all info.',
+      'Hard links (<code>ln</code>) share the inode and survive deleting the original; symbolic links (<code>ln -s</code>) store the path, cross filesystems, and break if target is deleted.',
+      '<code>find</code> searches live filesystems (<code>-type f/l/b</code>, <code>-size +4k</code>); <code>locate</code> uses a prebuilt database updated by <code>updatedb</code>.',
+      '<code>df -i</code> checks inode usage (full inodes block file creation even with free disk space); <code>du</code> shows directory disk usage; <code>lsblk -f</code> shows filesystem types.',
+      '<code>gzip</code> replaces the original with <code>.gz</code> unless <code>-k</code> is used; <code>tar -cvf</code> archives and <code>-z</code> enables gzip.']) +
+    box('Permissions, Users, Vi &amp; Shell', [
+      '<code>umask 0002</code> on new directories (base 777) yields <code>775</code>. <code>chmod -R +x</code> applies recursively.',
+      '<code>usermod -a -G grp user</code> appends a secondary group; omitting <code>-a</code> replaces existing secondary groups.',
+      '<code>chown user:group</code> sets both; <code>chown :group</code> sets only group; <code>chgrp -R</code> sets group recursively.',
+      '<code>/etc/passwd</code> stores user info &amp; primary GID (UID 0 is root); <code>/etc/group</code> stores group memberships; <code>/etc/sudoers</code> is edited with <code>visudo</code>.',
+      'Streams: <code>0</code> stdin, <code>1</code> stdout, <code>2</code> stderr. <code>$?</code> holds last exit status (<code>0</code> = success). <code>cmd1 &amp;&amp; cmd2</code> runs on success; <code>||</code> on failure; <code>;</code> always.']) +
+    box('Cloud Paradigms, Architecture &amp; Models', [
+      'Cloud architecture has <b>2 parts</b>: Front End (client/browser) and Back End (provider servers, storage, security).',
+      'Service models: <b>IaaS</b> (VMs/hardware), <b>PaaS</b> (runtime/IDE, high vendor lock-in), <b>SaaS</b> (most complete, browser-delivered, network dependent).',
+      'Grid computing connects geographically &amp; operationally dispersed heterogeneous nodes; Utility computing uses the Pay-per-Use model.',
+      'Cloud Planning has <b>3 phases</b>: Strategy, Planning, and Deployment. QoS covers security, reliability, and disaster recovery.']) +
+    box('Virtualization &amp; Hypervisors', [
+      '<b>Type-1 Hypervisor</b> (Bare-metal / Native): VMware ESXi, Citrix XenServer, Microsoft Hyper-V.',
+      '<b>Type-2 Hypervisor</b> (Hosted on OS): VMware Player, Parallels Desktop.',
+      'VMM coordinates <b>3 modules</b>: Dispatcher (entry point), Allocator (resource allocation), and Interpreter.',
+      'Multitenant virtualization isolates tenants sharing physical hardware.']) +
+    keyTables +
+    '</div>' +
+    '<div class="rowbtns"><button class="btn primary" type="button" id="mock40Info">Start a mock paper</button><button class="btn ghost" type="button" data-home>All sessions</button></div>' +
+  '</div>';
+}
+
+/* ---------- events ---------- */
+document.addEventListener('click', ev => {
+  const t = ev.target.closest('button'); if (!t) return;
+
+  if (t.id === 'themeBtn'){
+    const next = getActiveTheme() === 'dark' ? 'light' : 'dark';
+    applyTheme(next);
+    return;
+  }
+  if (t.id === 'navBackBtn'){ navBack(); return; }
+  if (t.id === 'navFwdBtn'){ navForward(); return; }
+  if (t.id === 'brandBtn' || t.id === 'consoleHomeBtn' || t.hasAttribute('data-home')){ resetArmed = false; show('home'); return; }
+  if (t.id === 'mistakesBtn'){ show('mistakes'); return; }
+  if (t.id === 'bookmarksBtn'){ show('bookmarks'); return; }
+  if (t.id === 'infoBtn'){ show('info'); return; }
+
+  if (t.dataset.bm !== undefined){
+    handleBookmarkToggle(+t.dataset.bm);
+    return;
+  }
+
+  if (t.id === 'mock40' || t.id === 'mock40Info'){
+    startSet({kind:'mock', title:'Mock paper · 40 questions', sub:'One question from every session, plus seven more from the larger blocks.', ns:sampleMock()});
+    return;
+  }
+  if (t.dataset.session){ startSession(+t.dataset.session); return; }
+  if (t.dataset.subset){ startSubset(+t.dataset.subset); return; }
+  if (t.dataset.sort){ sortMode = t.dataset.sort; renderHome(); return; }
+  if (t.dataset.review){
+    const s = sessByN[+t.dataset.review];
+    const ns = s.qs.filter(n => { const e = ans(n); return e && !e.ok; });
+    practiseWrong(ns, s.label + ' mistakes · ' + s.name);
+    return;
+  }
+  if (t.dataset.practiseSession){
+    const s = sessByN[+t.dataset.practiseSession];
+    practiseWrong(wrongList().filter(n => byN[n].s === s.n), s.label + ' mistakes · ' + s.name);
+    return;
+  }
+  if (t.dataset.practiseBmSession){
+    const s = sessByN[+t.dataset.practiseBmSession];
+    practiseBookmarked(bookmarkList().filter(n => byN[n].s === s.n), s.label + ' bookmarked · ' + s.name);
+    return;
+  }
+  if (t.id === 'practiseWrong' || t.id === 'practiseAllWrong'){ practiseWrong(wrongList(), 'All my mistakes'); return; }
+  if (t.id === 'practiseBm' || t.id === 'practiseAllBm'){ practiseBookmarked(bookmarkList(), 'All bookmarked questions'); return; }
+  if (t.id === 'random20'){ startSet({kind:'random', title:'Random 20', sub:'Unanswered questions first, drawn from all ' + SESS.length + ' sessions.', ns:sampleRandom(20)}); return; }
+  if (t.id === 'resetBtn'){ resetArmed = true; renderHome(); return; }
+  if (t.id === 'resetNo'){ resetArmed = false; renderHome(); return; }
+  if (t.id === 'resetYes'){ resetArmed = false; resetAll(); refresh(); toast('All progress cleared'); return; }
+
+  if (t.dataset.opt !== undefined && t.dataset.q !== undefined && !t.disabled){
+    answerQuestion(+t.dataset.q, +t.dataset.opt);
+    return;
+  }
+  if (t.dataset.jump !== undefined){
+    jumpToQuestion(+t.dataset.jump);
+    return;
+  }
+  if (t.dataset.retryOne !== undefined){
+    const qn = +t.dataset.retryOne;
+    clearAnswers([qn]);
+    if (stFilter !== 'all') renderQuiz();
+    else updateCardInPlace(qn);
+    return;
+  }
+  if (t.dataset.lv){ lvFilter = t.dataset.lv; buildList(); renderQuiz(); return; }
+  if (t.dataset.st){ stFilter = t.dataset.st; buildList(); renderQuiz(); return; }
+  if (t.id === 'prevSetBtn'){
+    if (set && set.kind === 'session' && set.s > 1) startSession(set.s - 1);
+    else if (set && set.kind === 'subset' && set.t > 1) startSubset(set.t - 1);
+    return;
+  }
+  if (t.id === 'nextSetBtn'){
+    if (set && set.kind === 'session' && set.s < SESS.length) startSession(set.s + 1);
+    else if (set && set.kind === 'subset' && set.t < SUBSETS.length) startSubset(set.t + 1);
+    return;
+  }
+  if (t.id === 'scrollTopBtn'){ window.scrollTo({top:0, behavior:'smooth'}); return; }
+  if (t.id === 'finish' || t.id === 'toResult'){ show('result'); return; }
+  if (t.id === 'retryWrong'){
+    const ns = set.ns.filter(n => { const e = ans(n); return e && !e.ok; });
+    practiseWrong(ns, set.kind === 'session' ? set.title.replace(' · ', ' mistakes · ') : 'Mistakes from ' + set.title);
+    return;
+  }
+  if (t.id === 'backToQuiz'){ stFilter = 'todo'; lvFilter = 'all'; buildList(); show('quiz'); return; }
+  if (t.id === 'restartSet' || t.id === 'restartSetQuiz'){
+    clearAnswers(set.ns);
+    lvFilter = 'all';
+    stFilter = 'all';
+    buildList();
+    show('quiz');
+    toast('Set answers cleared');
+    return;
+  }
+});
+
+document.addEventListener('change', ev => {
+  const t = ev.target;
+  if (t && t.id === 'switcherSelect'){
+    const val = t.value;
+    if (val.startsWith('s:')) startSession(+val.slice(2));
+    else if (val.startsWith('t:')) startSubset(+val.slice(2));
+  }
+});
+
+/* ---------- boot ---------- */
+initTheme();
+lsRead();
+show('home');
+})();
+</script>
+</body>
+</html>
