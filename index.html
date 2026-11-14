@@ -94,4 +94,93 @@ h1,h2,h3{font-family:var(--font-display);margin:0;line-height:1.2}
         <h2 style="font-size:22px;margin-top:4px">DBMS — MySQL &amp; MongoDB</h2>
         <p style="color:var(--muted);font-size:14px;margin:8px 0 12px">17 syllabus sessions covering ER Diagrams, DDL, Normalization, DML, Constraints, Joins, Window Functions, CTEs, Subqueries, Views, Indexes, ACID, Stored Procedures, Triggers, Cursors &amp; MongoDB Aggregation.</p>
         <div class="meta"><span>17 sessions</span><span>E / M / T tiers</span><span>Vertical Feed</span></div>
-        <div class="stack"><span class="s-ok" id="dbmsOkBar" style="width:0%"></span><span class="s-bad" id="dbmsBadBar
+        <div class="stack"><span class="s-ok" id="dbmsOkBar" style="width:0%"></span><span class="s-bad" id="dbmsBadBar" style="width:0%"></span></div>
+        <div class="legend" id="dbmsLegend"><span><i class="dot ok"></i>Right <b>0</b></span><span><i class="dot bad"></i>Wrong <b>0</b></span><span><i class="dot todo"></i>Left <b>200</b></span></div>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;padding-top:10px;border-top:1px solid var(--line)">
+        <span class="eyebrow" id="dbmsScoreLbl">0 / 200 answered</span>
+        <a class="btn primary" href="DBMS_200_MCQs_Quiz.html">Open Console →</a>
+      </div>
+    </article>
+
+    <!-- Module 3: Java 17 -->
+    <article class="card">
+      <div>
+        <div class="eyebrow">Module 3 · 235 Questions</div>
+        <h2 style="font-size:22px;margin-top:4px">Java 17 CMC Preparation</h2>
+        <p style="color:var(--muted);font-size:14px;margin:8px 0 12px">13 syllabus sections covering JVM, Data Types, Arrays, OOP, Inheritance, Exceptions, Strings &amp; Regex, Generics &amp; Collections, Enums, Wrappers, Lambdas, Streams, Date-Time API, Multithreading, Serialization, JDBC &amp; Code Output.</p>
+        <div class="meta"><span>13 sections</span><span>E / M / T tiers</span><span>Vertical Feed</span></div>
+        <div class="stack"><span class="s-ok" id="javaOkBar" style="width:0%"></span><span class="s-bad" id="javaBadBar" style="width:0%"></span></div>
+        <div class="legend" id="javaLegend"><span><i class="dot ok"></i>Right <b>0</b></span><span><i class="dot bad"></i>Wrong <b>0</b></span><span><i class="dot todo"></i>Left <b>235</b></span></div>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;padding-top:10px;border-top:1px solid var(--line)">
+        <span class="eyebrow" id="javaScoreLbl">0 / 235 answered</span>
+        <a class="btn primary" href="Java_17_235_MCQs_Quiz.html">Open Console →</a>
+      </div>
+    </article>
+
+    <!-- Module 4: Big Data Technologies -->
+    <article class="card">
+      <div>
+        <div class="eyebrow">Module 4 · 330 Questions</div>
+        <h2 style="font-size:22px;margin-top:4px">Big Data Technologies</h2>
+        <p style="color:var(--muted);font-size:14px;margin:8px 0 12px">33 syllabus sessions covering Big Data Vs, Data Curation, Hadoop 3 &amp; HDFS, YARN, MapReduce, HBase, Hive &amp; HiveQL, Data Warehousing, ETL &amp; Airflow, Apache Spark, RDDs, DataFrames, Spark SQL, MLlib, Kafka &amp; Cloud.</p>
+        <div class="meta"><span>33 sessions</span><span>E / M / T tiers</span><span>Vertical Feed</span></div>
+        <div class="stack"><span class="s-ok" id="bdOkBar" style="width:0%"></span><span class="s-bad" id="bdBadBar" style="width:0%"></span></div>
+        <div class="legend" id="bdLegend"><span><i class="dot ok"></i>Right <b>0</b></span><span><i class="dot bad"></i>Wrong <b>0</b></span><span><i class="dot todo"></i>Left <b>330</b></span></div>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;padding-top:10px;border-top:1px solid var(--line)">
+        <span class="eyebrow" id="bdScoreLbl">0 / 330 answered</span>
+        <a class="btn primary" href="big_data_330_mcqs_ccee_unified_study_console_pgcp_bda.html">Open Console →</a>
+      </div>
+    </article>
+  </div>
+</main>
+<script>
+  (function() {
+    const saved = localStorage.getItem('portal_theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', saved);
+    const btn = document.getElementById('themeBtn');
+    if (btn) btn.textContent = saved === 'dark' ? '🌙 Dark' : '☀️ Light';
+
+    function loadProgress(key, totalCount, okBarId, badBarId, lblId, legendId) {
+      try {
+        const raw = localStorage.getItem(key);
+        if (!raw) return;
+        const data = JSON.parse(raw);
+        if (!data) return;
+        let ok = 0, bad = 0;
+        if (data.a) {
+          Object.values(data.a).forEach(e => {
+            if (e && e.c >= 0) { if (e.ok) ok++; else bad++; }
+          });
+        }
+        const bmCount = (data.bm && typeof data.bm === 'object') ? Object.keys(data.bm).filter(k => data.bm[k]).length : 0;
+        const done = ok + bad;
+        const left = Math.max(0, totalCount - done);
+        document.getElementById(okBarId).style.width = (100 * ok / totalCount) + '%';
+        document.getElementById(badBarId).style.width = (100 * bad / totalCount) + '%';
+        const acc = done ? Math.round(100 * ok / done) + '% accuracy · ' : '';
+        document.getElementById(lblId).textContent = acc + done + ' / ' + totalCount + ' answered';
+        document.getElementById(legendId).innerHTML =
+          '<span><i class="dot ok"></i>Right <b>' + ok + '</b></span>' +
+          '<span><i class="dot bad"></i>Wrong <b>' + bad + '</b></span>' +
+          '<span><i class="dot todo"></i>Left <b>' + left + '</b></span>' +
+          (bmCount > 0 ? '<span>★ <b>' + bmCount + '</b> saved</span>' : '');
+      } catch(e) {}
+    }
+    loadProgress('pyr200-progress-v1', 200, 'pyrOkBar', 'pyrBadBar', 'pyrScoreLbl', 'pyrLegend');
+    loadProgress('dbms200-progress-v1', 200, 'dbmsOkBar', 'dbmsBadBar', 'dbmsScoreLbl', 'dbmsLegend');
+    loadProgress('java235-progress-v1', 235, 'javaOkBar', 'javaBadBar', 'javaScoreLbl', 'javaLegend');
+    loadProgress('bigdata330-progress-v1', 330, 'bdOkBar', 'bdBadBar', 'bdScoreLbl', 'bdLegend');
+  })();
+  function togglePortalTheme() {
+    const cur = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', cur);
+    localStorage.setItem('portal_theme', cur);
+    const btn = document.getElementById('themeBtn');
+    if (btn) btn.textContent = cur === 'dark' ? '🌙 Dark' : '☀️ Light';
+  }
+</script>
+</body>
+</html>
